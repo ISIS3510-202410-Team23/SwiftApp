@@ -94,6 +94,10 @@
 		6CC929012B84FB0700EDDE78 /* FoodBookApp */ = {
 			isa = PBXGroup;
 			children = (
+				6CC929322B8502CE00EDDE78 /* UI */,
+				6CC929312B85029E00EDDE78 /* Repositories */,
+				6CC9292F2B85028900EDDE78 /* Persitence */,
+				6CC9292E2B85023500EDDE78 /* Models */,
 				6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */,
 				6CC929042B84FB0700EDDE78 /* ContentView.swift */,
 				6CC929062B84FB0900EDDE78 /* Assets.xcassets */,
@@ -125,6 +129,50 @@
 				6CC9291F2B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift */,
 			);
 			path = FoodBookAppUITests;
+			sourceTree = "<group>";
+		};
+		6CC9292E2B85023500EDDE78 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		6CC9292F2B85028900EDDE78 /* Persitence */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Persitence;
+			sourceTree = "<group>";
+		};
+		6CC929312B85029E00EDDE78 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		6CC929322B8502CE00EDDE78 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				6CC929342B8502D800EDDE78 /* Views */,
+				6CC929332B8502D300EDDE78 /* Components */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		6CC929332B8502D300EDDE78 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		6CC929342B8502D800EDDE78 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
