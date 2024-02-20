@@ -14,6 +14,7 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Hola, mundo!")
+            Circle().stroke(Color.blue)
         }
         .padding()
     }
