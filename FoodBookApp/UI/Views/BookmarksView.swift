@@ -11,7 +11,7 @@ struct BookmarksView: View {
     var body: some View {
         
         ZStack {
-            
+            // FIXME: the following content is temporary
             Image(systemName: "book")
                 .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
                 .font(.system(size: 100))
