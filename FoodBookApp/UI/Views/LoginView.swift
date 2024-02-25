@@ -39,7 +39,7 @@ struct LoginView: View {
             
             // Button to log in
             Button(action: {
-                    print("Login in...")
+                    print("Login in...") // FIXME: Should connect to microsoft API
                 }, label: {
                     Image("uniandes-logo")
                         .resizable()
