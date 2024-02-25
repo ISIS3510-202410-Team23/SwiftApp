@@ -12,7 +12,7 @@ struct ForYouView: View {
         ZStack {
 // FIXME: the following content is temporary
             Image(systemName: "star")
-                .foregroundColor(   )
+                .foregroundColor(.blue)
                 .font(.system(size: 100))
         }
     }
