@@ -17,6 +17,9 @@
 		6C5ED6D32B8ADB1000AF115C /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6C5ED6D22B8ADB1000AF115C /* FirebaseAnalyticsSwift */; };
 		6C5ED6D52B8ADB1000AF115C /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 6C5ED6D42B8ADB1000AF115C /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		6C5ED6D72B8ADB1000AF115C /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 6C5ED6D62B8ADB1000AF115C /* FirebaseAppCheck */; };
+		6C1811D52B8AC15C0066F3D0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1811D42B8AC15C0066F3D0 /* LoginView.swift */; };
+		6C1811E12B8ACA090066F3D0 /* ArchivoBlack-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C1811E02B8ACA090066F3D0 /* ArchivoBlack-Regular.ttf */; };
+		6C1811E22B8ACA090066F3D0 /* ArchivoBlack-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C1811E02B8ACA090066F3D0 /* ArchivoBlack-Regular.ttf */; };
 		6CC929052B84FB0700EDDE78 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC929042B84FB0700EDDE78 /* ContentView.swift */; };
 		6CC929072B84FB0900EDDE78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CC929062B84FB0900EDDE78 /* Assets.xcassets */; };
 		6CC9290A2B84FB0900EDDE78 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CC929092B84FB0900EDDE78 /* Preview Assets.xcassets */; };
@@ -48,6 +51,9 @@
 		0DCB7BD62B86F0290088C333 /* ForYouView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForYouView.swift; sourceTree = "<group>"; };
 		0DCB7BD72B86F0290088C333 /* BookmarksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksView.swift; sourceTree = "<group>"; };
 		6C5ED6CB2B8AD9C400AF115C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6C1811D42B8AC15C0066F3D0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		6C1811DA2B8AC62B0066F3D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6C1811E02B8ACA090066F3D0 /* ArchivoBlack-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ArchivoBlack-Regular.ttf"; sourceTree = "<group>"; };
 		6CC928FF2B84FB0700EDDE78 /* FoodBookApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodBookApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CC929042B84FB0700EDDE78 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6CC929062B84FB0900EDDE78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -89,9 +95,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C1811DE2B8AC9320066F3D0 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				6C1811E02B8ACA090066F3D0 /* ArchivoBlack-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		6CC928F62B84FB0700EDDE78 = {
 			isa = PBXGroup;
 			children = (
+				6C1811DE2B8AC9320066F3D0 /* Fonts */,
 				6CC929012B84FB0700EDDE78 /* FoodBookApp */,
 				6CC929122B84FB0900EDDE78 /* FoodBookAppTests */,
 				6CC9291C2B84FB0900EDDE78 /* FoodBookAppUITests */,
@@ -113,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				6C5ED6CB2B8AD9C400AF115C /* GoogleService-Info.plist */,
+				6C1811DA2B8AC62B0066F3D0 /* Info.plist */,
 				6CC929322B8502CE00EDDE78 /* UI */,
 				6CC929312B85029E00EDDE78 /* Repositories */,
 				6CC9292F2B85028900EDDE78 /* Persitence */,
@@ -193,6 +209,7 @@
 				0DCB7BD72B86F0290088C333 /* BookmarksView.swift */,
 				0DCB7BD52B86F0290088C333 /* BrowseView.swift */,
 				0DCB7BD62B86F0290088C333 /* ForYouView.swift */,
+				6C1811D42B8AC15C0066F3D0 /* LoginView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -311,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CC9290A2B84FB0900EDDE78 /* Preview Assets.xcassets in Resources */,
+				6C1811E12B8ACA090066F3D0 /* ArchivoBlack-Regular.ttf in Resources */,
 				6CC929072B84FB0900EDDE78 /* Assets.xcassets in Resources */,
 				6C5ED6CC2B8AD9C400AF115C /* GoogleService-Info.plist in Resources */,
 			);
@@ -329,6 +347,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C5ED6CE2B8AD9C400AF115C /* GoogleService-Info.plist in Resources */,
+				6C1811E22B8ACA090066F3D0 /* ArchivoBlack-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +358,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C1811D52B8AC15C0066F3D0 /* LoginView.swift in Sources */,
 				6CC929052B84FB0700EDDE78 /* ContentView.swift in Sources */,
 				0DCB7BD92B86F0290088C333 /* ForYouView.swift in Sources */,
 				0DCB7BDA2B86F0290088C333 /* BookmarksView.swift in Sources */,
@@ -509,6 +529,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"FoodBookApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FoodBookApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -537,6 +558,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"FoodBookApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FoodBookApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
