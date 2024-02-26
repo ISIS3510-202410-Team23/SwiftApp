@@ -3,6 +3,7 @@
 
 ## Xcode workspace
 *.xcworkspace
+xcuserdata/
 
 ## Build generated
 build/
