@@ -31,6 +31,7 @@
 		6CC9291E2B84FB0900EDDE78 /* FoodBookAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9291D2B84FB0900EDDE78 /* FoodBookAppUITests.swift */; };
 		6CC929202B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9291F2B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift */; };
 		6CC9292D2B84FFEE00EDDE78 /* FoodBookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */; };
+		6CF821752B8D7DB1008E7057 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CF821742B8D7DB0008E7057 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		6CC9291D2B84FB0900EDDE78 /* FoodBookAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBookAppUITests.swift; sourceTree = "<group>"; };
 		6CC9291F2B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBookAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodBookApp.swift; sourceTree = "<group>"; };
+		6CF821742B8D7DB0008E7057 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "../../../../../../../System/Volumes/Data/Users/mci/Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,17 +172,18 @@
 		6CC929012B84FB0700EDDE78 /* FoodBookApp */ = {
 			isa = PBXGroup;
 			children = (
-				6C0C82EB2B8D3DA9004EAE3F /* Services */,
-				6C0C82DE2B8D2EC2004EAE3F /* DAO */,
+				6CF821742B8D7DB0008E7057 /* GoogleService-Info.plist */,
 				6C1811DA2B8AC62B0066F3D0 /* Info.plist */,
-				6CC929322B8502CE00EDDE78 /* UI */,
-				6CC929312B85029E00EDDE78 /* Repositories */,
-				6CC9292F2B85028900EDDE78 /* Persitence */,
-				6CC9292E2B85023500EDDE78 /* Models */,
-				6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */,
 				6CC929042B84FB0700EDDE78 /* ContentView.swift */,
+				6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */,
 				6CC929062B84FB0900EDDE78 /* Assets.xcassets */,
+				6C0C82DE2B8D2EC2004EAE3F /* DAO */,
+				6CC9292E2B85023500EDDE78 /* Models */,
+				6CC9292F2B85028900EDDE78 /* Persitence */,
 				6CC929082B84FB0900EDDE78 /* Preview Content */,
+				6CC929312B85029E00EDDE78 /* Repositories */,
+				6C0C82EB2B8D3DA9004EAE3F /* Services */,
+				6CC929322B8502CE00EDDE78 /* UI */,
 			);
 			path = FoodBookApp;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CC9290A2B84FB0900EDDE78 /* Preview Assets.xcassets in Resources */,
+				6CF821752B8D7DB1008E7057 /* GoogleService-Info.plist in Resources */,
 				6C1811E12B8ACA090066F3D0 /* ArchivoBlack-Regular.ttf in Resources */,
 				6CC929072B84FB0900EDDE78 /* Assets.xcassets in Resources */,
 			);
