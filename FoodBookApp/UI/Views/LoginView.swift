@@ -7,8 +7,14 @@
 
 import Foundation
 import SwiftUI
+import GoogleSignIn
+import GoogleSignInSwift
 
+@MainActor
 struct LoginView: View {
+    
+    @State private var viewModel = LoginViewModel()
+    
     var body: some View {
         VStack {
             
@@ -27,29 +33,45 @@ struct LoginView: View {
                 .scaledToFit()
                 .padding()
             
-           // Application Tagline
-           HStack{
+            // Application Tagline
+            HStack{
                 Text("Where good people find good food.") // TODO: i18n string
-                   .font(.system(size: 30, weight: .regular, design: .default))
+                    .font(.system(size: 30, weight: .regular, design: .default))
                     .frame(alignment: .leading) // Aligns the text to the leading edge (left side)
                     .padding(.leading) // Adds padding to the leading edge (left side)
                 Spacer()
             }
-           .padding(.bottom, 30)
+            .padding(.bottom, 30)
             
             // Button to log in
-            Button(action: {
-                    print("Login in...") // FIXME: Should connect to microsoft API
-                }, label: {
-                    Image("uniandes-logo")
-                        .resizable()
-                       .frame(width: 25, height: 25)
-                    Text("Continue with Uniandes")
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 5)
-                })
-            .buttonStyle(.borderedProminent)
+            GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .wide, state: .normal)) {
+                
+                Task {
+                    do {
+                        try await viewModel.signInGoogle()
+                        print("Successfully signed in.") //FIXME: navigate to browse view
+                    } catch {
+                        print(error)
+                    }
+                }
+                
+            }
             .padding()
+            
+            // Keeping old Button code for reference
+            
+            //            Button(action: {
+            //                    print("Login in...")
+            //                }, label: {
+            //                    Image("uniandes-logo")
+            //                        .resizable()
+            //                       .frame(width: 25, height: 25)
+            //                    Text("Continue with Uniandes")
+            //                        .frame(maxWidth: .infinity)
+            //                        .padding(.vertical, 5)
+            //                })
+            //            .buttonStyle(.borderedProminent)
+            //            .padding()
         }
         .padding()
     }
