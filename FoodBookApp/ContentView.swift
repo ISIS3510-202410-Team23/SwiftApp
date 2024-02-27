@@ -23,6 +23,11 @@ enum Tabs:String {
 
 struct ContentView: View {
     @State var selectedTab: Tabs = .browse
+    let bs: BackendService =  BackendService()
+    
+    init () {
+        bs.fetchAllSpots()
+    }
     
     var body: some View {
         NavigationView{
