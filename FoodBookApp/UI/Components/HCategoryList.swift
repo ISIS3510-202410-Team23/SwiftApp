@@ -1,5 +1,5 @@
 //
-//  HorCategoryList.swift
+//  HCategoryList.swift
 //  FoodBookApp
 //
 //  Created by Juan Diego Yepes Parra on 25/02/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HorCategoryList: View {
+struct HCategoryList: View {
     let categories : [String]
     let color : Color
     
@@ -27,7 +27,7 @@ struct HorCategoryList: View {
 
 
 #Preview {
-    HorCategoryList(
+    HCategoryList(
         categories: ["Vegan", "Sandwich", "Bowl", "Healthy", "..."],
         color: Color.gray
     )

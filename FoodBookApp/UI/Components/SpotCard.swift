@@ -33,7 +33,7 @@ struct SpotCard: View {
                 .font(.title)
                 .bold()
             Text("\(Image(systemName: "clock")) \(minTime)-\(maxTime) min.   \(Image(systemName: "location")) \(distance.formatted()) km")
-            HorCategoryList(categories: categories, color: Color.gray)
+            HCategoryList(categories: categories, color: Color.gray)
         }
         .padding(.all)
         .cornerRadius(12)
