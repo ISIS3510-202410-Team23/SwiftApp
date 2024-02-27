@@ -14,7 +14,5 @@ import Foundation
         let helper = SignInGoogleHelper()
         let tokens = try await helper.signIn()
         let authDataResult = try await AuthService.shared.signInWithGoogle(tokens: tokens)
-        print("id", authDataResult.uid) // FIXME: save to local storage
-        print("email", authDataResult.email!) // FIXME: save to local storage
     }
 }

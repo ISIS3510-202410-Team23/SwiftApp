@@ -14,6 +14,7 @@ import GoogleSignInSwift
 struct LoginView: View {
     
     @State private var viewModel = LoginViewModel()
+    @Binding var showSignInView: Bool
     
     var body: some View {
         VStack {
@@ -49,7 +50,8 @@ struct LoginView: View {
                 Task {
                     do {
                         try await viewModel.signInGoogle()
-                        print("Successfully signed in.") //FIXME: navigate to browse view
+                        print("Successfully signed in.") 
+                        showSignInView = false
                     } catch {
                         print(error)
                     }
@@ -57,6 +59,7 @@ struct LoginView: View {
                 
             }
             .padding()
+            
             
             // Keeping old Button code for reference
             
@@ -78,5 +81,5 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView()
+    LoginView(showSignInView: .constant(true))
 }
