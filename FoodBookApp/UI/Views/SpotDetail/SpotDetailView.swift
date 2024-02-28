@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import GoogleMaps
 
 
 struct SpotDetailView: View {
@@ -15,7 +14,7 @@ struct SpotDetailView: View {
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     let ratings: [String: Double] = ["Cleanliness": 0.81, "Waiting time": 0.99, "Service": 0.36, "Food quality": 0.73] // FIXME: should calculate or retrieve stats
         
-    var body: some View
+    var body: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading, spacing: 0) {
                 // < Browse

@@ -23,10 +23,10 @@
 		6CC9292D2B84FFEE00EDDE78 /* FoodBookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */; };
 		D319C47B2B8D5FB90030ED34 /* SpotDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D319C47A2B8D5FB90030ED34 /* SpotDetailView.swift */; };
 		D321E4962B8E971500F93974 /* ReviewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321E4952B8E971500F93974 /* ReviewsView.swift */; };
-		D321E4982B8F823B00F93974 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321E4972B8F823B00F93974 /* Review.swift */; };
 		D321E49C2B8F846400F93974 /* ReviewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321E49B2B8F846400F93974 /* ReviewsViewModel.swift */; };
-		D321E49E2B8F87FB00F93974 /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321E49D2B8F87FB00F93974 /* Spot.swift */; };
 		D321E4A02B8F883A00F93974 /* SpotDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321E49F2B8F883A00F93974 /* SpotDetailViewModel.swift */; };
+		D321E4A42B8F929200F93974 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321E4A32B8F929200F93974 /* Review.swift */; };
+		D321E4A62B8F929D00F93974 /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321E4A52B8F929D00F93974 /* Spot.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,10 +66,10 @@
 		D2DA3F9929CC8F7382272886 /* Pods_FoodBookApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoodBookApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D319C47A2B8D5FB90030ED34 /* SpotDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotDetailView.swift; sourceTree = "<group>"; };
 		D321E4952B8E971500F93974 /* ReviewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsView.swift; sourceTree = "<group>"; };
-		D321E4972B8F823B00F93974 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Review.swift; path = FoodBookApp/UI/Views/Review.swift; sourceTree = SOURCE_ROOT; };
 		D321E49B2B8F846400F93974 /* ReviewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewModel.swift; sourceTree = "<group>"; };
-		D321E49D2B8F87FB00F93974 /* Spot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Spot.swift; path = FoodBookApp/UI/Views/SpotDetail/Spot.swift; sourceTree = SOURCE_ROOT; };
 		D321E49F2B8F883A00F93974 /* SpotDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotDetailViewModel.swift; sourceTree = "<group>"; };
+		D321E4A32B8F929200F93974 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		D321E4A52B8F929D00F93974 /* Spot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
 		D33E833B247A32F79E97959F /* Pods-FoodBookApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodBookApp.debug.xcconfig"; path = "Target Support Files/Pods-FoodBookApp/Pods-FoodBookApp.debug.xcconfig"; sourceTree = "<group>"; };
 		FC2D280D3F579D2F5A1BE2DF /* Pods-FoodBookApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodBookApp.release.xcconfig"; path = "Target Support Files/Pods-FoodBookApp/Pods-FoodBookApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -183,8 +183,8 @@
 		6CC9292E2B85023500EDDE78 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D321E4972B8F823B00F93974 /* Review.swift */,
-				D321E49D2B8F87FB00F93974 /* Spot.swift */,
+				D321E4A32B8F929200F93974 /* Review.swift */,
+				D321E4A52B8F929D00F93974 /* Spot.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -431,12 +431,12 @@
 				6C1811D52B8AC15C0066F3D0 /* LoginView.swift in Sources */,
 				6CC929052B84FB0700EDDE78 /* ContentView.swift in Sources */,
 				D321E49C2B8F846400F93974 /* ReviewsViewModel.swift in Sources */,
-				D321E4982B8F823B00F93974 /* Review.swift in Sources */,
 				0DCB7BD92B86F0290088C333 /* ForYouView.swift in Sources */,
 				0DCB7BDA2B86F0290088C333 /* BookmarksView.swift in Sources */,
+				D321E4A42B8F929200F93974 /* Review.swift in Sources */,
+				D321E4A62B8F929D00F93974 /* Spot.swift in Sources */,
 				D321E4962B8E971500F93974 /* ReviewsView.swift in Sources */,
 				D319C47B2B8D5FB90030ED34 /* SpotDetailView.swift in Sources */,
-				D321E49E2B8F87FB00F93974 /* Spot.swift in Sources */,
 				0DCB7BD82B86F0290088C333 /* BrowseView.swift in Sources */,
 				6CC9292D2B84FFEE00EDDE78 /* FoodBookApp.swift in Sources */,
 			);
