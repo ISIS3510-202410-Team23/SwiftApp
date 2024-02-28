@@ -11,40 +11,39 @@ import GoogleMaps
 
 
 struct SpotDetailView: View {
+    @State private var model = SpotDetailViewModel()
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
-    let tags = ["Vegan", "Homemade", "Fast", "Colombian", "Dessert"] // FIXME: Should be fetched tags
-    let ratings: [String: Double] = ["Cleanliness": 0.81, "Waiting time": 0.99, "Service": 0.36, "Food quality": 0.73]
+    let ratings: [String: Double] = ["Cleanliness": 0.81, "Waiting time": 0.99, "Service": 0.36, "Food quality": 0.73] // FIXME: should calculate or retrieve stats
         
-    var body: some View {
+    var body: some View
         VStack(alignment: .leading) {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
                 // < Browse
                HStack {
                    backButton
                }.padding(.vertical, 1)
                    
                 // Spot name
-               HStack {
-                   Text("MiCaserito") //FIXME: should be spot's name
+                HStack() {
+                    Text(model.spot.name)
                        .font(.system(size: 40))
                        .bold()
                }
             }.padding(.horizontal, 20)
             
-            ScrollView(.vertical) {
-                ZStack {
-                    customGray
+            ZStack {
+                customGray
+                ScrollView(.vertical) {
                     VStack {
-                        // Tags
+                        // Categories
                         ScrollView(.horizontal) {
                             HStack {
-                                ForEach(tags, id: \.self) { tag in
-                                    Text(tag)
+                                ForEach(model.spot.categories, id: \.self) { cat in
+                                    Text(cat)
                                         .font(.system(size: 16))
                                         .bold()
                                         .foregroundColor(.black)
-                                        .padding(.horizontal, 10)
-                                        .padding(.vertical, 10)
+                                        .padding(10)
                                         .background(Color.white)
                                         .cornerRadius(8)
                                 }
@@ -103,18 +102,19 @@ struct SpotDetailView: View {
                                     .padding(.vertical, 10)
                                 }
                             }
-  
+
                         }
                         .padding(.horizontal, 20)
                         .cornerRadius(12)
-                        
-                        // Leave a review
-                        HStack {
-                            leaveReviewButton
-                        }
                     }
                 }
             }
+            // Leave a review
+            HStack {
+                leaveReviewButton
+            }
+        }.task {
+            _ = try? await model.fetchSpot()
         }
     }
         
