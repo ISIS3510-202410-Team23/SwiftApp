@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-
+import MapKit
 
 struct SpotDetailView: View {
     @State private var model = SpotDetailViewModel()
@@ -25,21 +25,26 @@ struct SpotDetailView: View {
                 // Spot name
                 HStack() {
                     Text(model.spot.name)
-                       .font(.system(size: 40))
+                       .font(.system(size: 30))
                        .bold()
                }
             }.padding(.horizontal, 20)
             
             ZStack {
-                customGray
+                customGray.edgesIgnoringSafeArea(.all)
                 ScrollView(.vertical) {
                     VStack {
+                        
+                        Map() {
+                            Marker(model.spot.name, coordinate: CLLocationCoordinate2D(latitude: model.spot.latitude, longitude: model.spot.longitude))
+                        }.frame(width: 350, height: 200).padding()
+                        
                         // Categories
                         ScrollView(.horizontal) {
                             HStack {
                                 ForEach(model.spot.categories, id: \.self) { cat in
                                     Text(cat)
-                                        .font(.system(size: 16))
+                                        .font(.system(size: 14))
                                         .bold()
                                         .foregroundColor(.black)
                                         .padding(10)
@@ -47,20 +52,20 @@ struct SpotDetailView: View {
                                         .cornerRadius(8)
                                 }
                             }
-                            .padding()
+                            .padding(.horizontal)
                         }
                         
                         // Reviews - See more
                         HStack {
                             Text("Reviews")
-                                .font(.system(size: 30))
+                                .font(.system(size: 24))
                                 .bold()
                                 .frame(alignment: .leading)
                             Spacer()
                             seeMoreButton
-                        }.padding(.horizontal, 20)
+                        }.padding(.horizontal, 20).padding(.vertical, 5)
                         
-                        // Quality attributes
+                        // Categories
                         ZStack {
                             Rectangle()
                                 .fill(Color.white)
@@ -70,12 +75,12 @@ struct SpotDetailView: View {
                                     let rating = ratings[key] ?? 0
                                     HStack(spacing: 0) {
                                         VStack(alignment: .leading) {
-                                            Text(key).font(.system(size: 22))
+                                            Text(key).font(.system(size: 18))
                                             HStack {
                                                 Image(systemName: rating >= 0.5 ? "hand.thumbsup" : "hand.thumbsdown")
-                                                    .font(.system(size: 17))
+                                                    .font(.system(size: 15))
                                                     .foregroundColor(.gray)
-                                                Text(String(format: "%.0f%%", rating * 100)).bold().foregroundColor(.gray)
+                                                Text(String(format: "%.0f%%", rating * 100)).bold().foregroundColor(.gray).font(.system(size: 15))
                                             
                                             }
                                         }.frame(maxWidth: 200, alignment: .leading)
@@ -98,20 +103,22 @@ struct SpotDetailView: View {
                                             }
                                         }.padding()
                                     }
-                                    .padding(.vertical, 10)
+                                    .padding(.vertical, 5)
                                 }
                             }
-
                         }
                         .padding(.horizontal, 20)
                         .cornerRadius(12)
+ 
+                        // Leave a review
+                        HStack {
+                            leaveReviewButton
+                        }
+                        .padding(.vertical, 20)
                     }
                 }
             }
-            // Leave a review
-            HStack {
-                leaveReviewButton
-            }
+            
         }.task {
             _ = try? await model.fetchSpot()
         }
@@ -123,10 +130,10 @@ struct SpotDetailView: View {
         }) {
             Image(systemName: "chevron.left")
                 .foregroundColor(.blue)
-                .font(.system(size: 24))
+                .font(.system(size: 20))
             Text("Browse")
                 .foregroundColor(.blue)
-                .font(.system(size: 24))
+                .font(.system(size: 20))
         }
     }
     
@@ -136,7 +143,8 @@ struct SpotDetailView: View {
         }) {
             Text("See more")
                 .foregroundColor(.blue)
-                .font(.system(size: 20))
+                .font(.system(size: 17))
+                .padding(.horizontal, 5)
         }
     }
     

@@ -17,8 +17,8 @@ class SpotDetailViewModel {
         minTime: 0,
         maxTime: 0,
         distance: 0,
-        latitude: "",
-        longitude: "",
+        latitude: 0,
+        longitude: 0,
         categories: [""]
     )
     
@@ -30,8 +30,8 @@ class SpotDetailViewModel {
                 minTime: 5,
                 maxTime: 10,
                 distance: 0.5,
-                latitude: "",
-                longitude: "",
+                latitude: 4.663883085700034,
+                longitude: -74.08049675792543,
                 categories: ["Vegan", "Homemade", "Fast", "Colombian", "Dessert"])
         return spot
     }

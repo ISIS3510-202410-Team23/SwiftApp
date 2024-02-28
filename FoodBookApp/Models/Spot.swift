@@ -13,7 +13,7 @@ struct Spot: Codable, Equatable, Hashable {
     let minTime: Int
     let maxTime: Int
     let distance: Double
-    let latitude: String
-    let longitude: String
+    let latitude: Double
+    let longitude: Double
     let categories: [String]
 }
