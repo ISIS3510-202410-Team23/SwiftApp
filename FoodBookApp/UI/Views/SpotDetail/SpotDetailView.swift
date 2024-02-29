@@ -19,7 +19,7 @@ struct SpotDetailView: View {
             VStack(alignment: .leading, spacing: 0) {
                 // < Browse
                HStack {
-                   backButton
+                   BackChevron(text: "Browse")
                }.padding(.vertical, 1)
                    
                 // Spot name
@@ -62,10 +62,10 @@ struct SpotDetailView: View {
                                 .bold()
                                 .frame(alignment: .leading)
                             Spacer()
-                            seeMoreButton
+                            TextButton(text: "See more", txtSize: 17, hPadding: 5)
                         }.padding(.horizontal, 20).padding(.vertical, 5)
                         
-                        // Categories
+                        // Quality attributes
                         ZStack {
                             Rectangle()
                                 .fill(Color.white)
@@ -112,7 +112,7 @@ struct SpotDetailView: View {
  
                         // Leave a review
                         HStack {
-                            leaveReviewButton
+                            LargeButton(text: "Leave a review", bgColor: Color.blue, txtColor: Color.white, txtSize: 20)
                         }
                         .padding(.vertical, 20)
                     }
@@ -123,44 +123,7 @@ struct SpotDetailView: View {
             _ = try? await model.fetchSpot()
         }
     }
-        
-    var backButton: some View {
-        Button(action: {
-            print("Redirecting to browse...") // FIXME: Should actually redirect 
-        }) {
-            Image(systemName: "chevron.left")
-                .foregroundColor(.blue)
-                .font(.system(size: 20))
-            Text("Browse")
-                .foregroundColor(.blue)
-                .font(.system(size: 20))
-        }
-    }
-    
-    var seeMoreButton: some View {
-        Button(action: {
-            print("Redirecting to reviews...") // FIXME: Should actually redirect
-        }) {
-            Text("See more")
-                .foregroundColor(.blue)
-                .font(.system(size: 17))
-                .padding(.horizontal, 5)
-        }
-    }
-    
-    var leaveReviewButton: some View {
-        Button(action: {
-                print("Redirecting to new review...") // FIXME: Should actually redirect
-            }, label: {
-                Text("Leave a review")
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(12)
-                    .font(.system(size: 20))
-            }).padding()
-    }
+
 }
 
 #Preview {

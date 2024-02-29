@@ -11,19 +11,21 @@ import SwiftUI
 struct TextButton: View {
     
     let text: String
+    let txtSize: CGFloat
+    let hPadding: CGFloat
     
     var body: some View {
         Button(action: {
-            print("Redirecting to reviews...") // FIXME: Should actually redirect
+            print("TextButton action...") // FIXME: Should do action
         }) {
-            Text("See more")
+            Text(text)
                 .foregroundColor(.blue)
-                .font(.system(size: 17))
-                .padding(.horizontal, 5)
+                .font(.system(size: txtSize))
+                .padding(.horizontal, hPadding)
         }
     }
 }
 
 #Preview {
-    TextButton(text: "See more")
+    TextButton(text: "See more", txtSize: 17, hPadding: 5)
 }

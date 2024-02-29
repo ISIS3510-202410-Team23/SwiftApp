@@ -19,7 +19,7 @@ struct ReviewsView: View {
         // Header
         VStack(spacing: 0){
             ZStack(alignment: .leading) {
-                cancelButton
+                TextButton(text: "Cancel", txtSize: 20, hPadding: 0)
                 Text(spotModel.spot.name)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .center)
@@ -47,6 +47,8 @@ struct ReviewsView: View {
                                         .foregroundColor(.gray)
                                 }.padding(.horizontal, 10)
                                 
+                                
+                                // Quality attributes
                                 ZStack(alignment: .leading){
                                     Rectangle()
                                         .fill(Color.white)
@@ -82,11 +84,13 @@ struct ReviewsView: View {
                                         }
                                     }.padding()
                                 }.padding()
+                                
+                                // Categories
                                 ScrollView(.horizontal) {
                                     HStack {
                                         ForEach(review.tags, id: \.self) { tag in
                                             Text(tag)
-                                                .font(.system(size: 16))
+                                                .font(.system(size: 14))
                                                 .bold()
                                                 .foregroundColor(.black)
                                                 .padding(10)
@@ -123,18 +127,6 @@ struct ReviewsView: View {
         }
         
     }
-    var cancelButton: some View {
-        Button(action: {
-            print("Redirecting to spot's detail...") // FIXME: Should actually redirect
-        }) {
-            Text("Cancel")
-                .foregroundColor(.blue)
-                .font(.system(size: 20))
-        }
-    }
-    
-    
-    
 }
 
 #Preview {

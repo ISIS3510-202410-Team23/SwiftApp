@@ -10,14 +10,16 @@ import SwiftUI
 
 struct BackChevron: View {
     
+    let text: String
+    
     var body: some View {
         Button(action: {
-            print("Redirecting to browse...") // FIXME: Should actually redirect
+            print("BackChevron action...") // FIXME: Should do action
         }) {
             Image(systemName: "chevron.left")
                 .foregroundColor(.blue)
                 .font(.system(size: 20))
-            Text("Browse")
+            Text(text)
                 .foregroundColor(.blue)
                 .font(.system(size: 20))
         }
@@ -25,6 +27,6 @@ struct BackChevron: View {
 }
 
 #Preview {
-    BackChevron()
+    BackChevron(text: "Browse")
 }
 
