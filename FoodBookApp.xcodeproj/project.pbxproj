@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0D16DDD32B8BB65A001D7BAB /* SpotCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16DDD22B8BB65A001D7BAB /* SpotCard.swift */; };
 		0D16DDD52B8C1799001D7BAB /* HCategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16DDD42B8C1799001D7BAB /* HCategoryList.swift */; };
-		0DA610BD2B8D2A5500DFDFF4 /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA610BC2B8D2A5500DFDFF4 /* Spot.swift */; };
 		0DA610BF2B8D602A00DFDFF4 /* BrowseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA610BE2B8D602A00DFDFF4 /* BrowseViewModel.swift */; };
 		0DCB7BD82B86F0290088C333 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB7BD52B86F0290088C333 /* BrowseView.swift */; };
 		0DCB7BD92B86F0290088C333 /* ForYouView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB7BD62B86F0290088C333 /* ForYouView.swift */; };
@@ -137,6 +136,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0DA610B92B8D26B300DFDFF4 /* Browse */ = {
+			isa = PBXGroup;
+			children = (
+				0DCB7BD52B86F0290088C333 /* BrowseView.swift */,
+				0DA610BE2B8D602A00DFDFF4 /* BrowseViewModel.swift */,
+			);
+			path = Browse;
+			sourceTree = "<group>";
+		};
 		6C0C82DB2B8D2E49004EAE3F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,13 +177,12 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		0DA610B92B8D26B300DFDFF4 /* Browse */ = {
+		6C1374412B91236900B5ED89 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				0DCB7BD52B86F0290088C333 /* BrowseView.swift */,
-				0DA610BE2B8D602A00DFDFF4 /* BrowseViewModel.swift */,
+				0DA610BC2B8D2A5500DFDFF4 /* Spot.swift */,
 			);
-			path = Browse;
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		6C1811DE2B8AC9320066F3D0 /* Fonts */ = {
@@ -195,6 +202,7 @@
 				6CC9291C2B84FB0900EDDE78 /* FoodBookAppUITests */,
 				6CC929002B84FB0700EDDE78 /* Products */,
 				6C0C82DB2B8D2E49004EAE3F /* Frameworks */,
+				6C1374412B91236900B5ED89 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -491,7 +499,6 @@
 				D30C88212B9108C20052C01E /* Separator.swift in Sources */,
 				D30C881D2B90ED330052C01E /* LargeButton.swift in Sources */,
 				0DCB7BD82B86F0290088C333 /* BrowseView.swift in Sources */,
-				0DA610BD2B8D2A5500DFDFF4 /* Spot.swift in Sources */,
 				D30C881B2B90EB560052C01E /* TextButton.swift in Sources */,
 				6CC9292D2B84FFEE00EDDE78 /* FoodBookApp.swift in Sources */,
 			);
