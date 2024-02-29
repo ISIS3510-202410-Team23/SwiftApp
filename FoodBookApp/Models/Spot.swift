@@ -8,9 +8,12 @@
 import Foundation
 
 struct Spot: Codable, Equatable, Hashable {
+    let id: String
     let name: String
     let minTime: Int
     let maxTime: Int
     let distance: Double
+    let latitude: Double
+    let longitude: Double
     let categories: [String]
 }
