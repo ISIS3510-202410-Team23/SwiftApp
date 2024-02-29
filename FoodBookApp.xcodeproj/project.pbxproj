@@ -34,6 +34,9 @@
 		6CC9291E2B84FB0900EDDE78 /* FoodBookAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9291D2B84FB0900EDDE78 /* FoodBookAppUITests.swift */; };
 		6CC929202B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9291F2B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift */; };
 		6CC9292D2B84FFEE00EDDE78 /* FoodBookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */; };
+		D30C88132B8FB5B50052C01E /* CreateReview2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30C88122B8FB5B50052C01E /* CreateReview2View.swift */; };
+		D34B697A2B8FA2BA0043937B /* CreateReview1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34B69792B8FA2BA0043937B /* CreateReview1View.swift */; };
+		D34B697C2B8FAD7F0043937B /* CreateReview1ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34B697B2B8FAD7F0043937B /* CreateReview1ViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +80,9 @@
 		6CC9291D2B84FB0900EDDE78 /* FoodBookAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBookAppUITests.swift; sourceTree = "<group>"; };
 		6CC9291F2B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBookAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodBookApp.swift; sourceTree = "<group>"; };
+		D30C88122B8FB5B50052C01E /* CreateReview2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReview2View.swift; sourceTree = "<group>"; };
+		D34B69792B8FA2BA0043937B /* CreateReview1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReview1View.swift; sourceTree = "<group>"; };
+		D34B697B2B8FAD7F0043937B /* CreateReview1ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReview1ViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,12 +264,23 @@
 		6CC929342B8502D800EDDE78 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D34B69782B8FA2500043937B /* CreateReview */,
 				0DCB7BD72B86F0290088C333 /* BookmarksView.swift */,
 				0DCB7BD52B86F0290088C333 /* BrowseView.swift */,
 				0DCB7BD62B86F0290088C333 /* ForYouView.swift */,
 				6C1811D42B8AC15C0066F3D0 /* LoginView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		D34B69782B8FA2500043937B /* CreateReview */ = {
+			isa = PBXGroup;
+			children = (
+				D34B69792B8FA2BA0043937B /* CreateReview1View.swift */,
+				D34B697B2B8FAD7F0043937B /* CreateReview1ViewModel.swift */,
+				D30C88122B8FB5B50052C01E /* CreateReview2View.swift */,
+			);
+			path = CreateReview;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -421,7 +438,10 @@
 				0DCB7BDA2B86F0290088C333 /* BookmarksView.swift in Sources */,
 				6C0C82E82B8D30FF004EAE3F /* ExampleRepository.swift in Sources */,
 				6C0C82E62B8D2F08004EAE3F /* ExampleDAOFirebase.swift in Sources */,
+				D34B697A2B8FA2BA0043937B /* CreateReview1View.swift in Sources */,
+				D30C88132B8FB5B50052C01E /* CreateReview2View.swift in Sources */,
 				0DCB7BD82B86F0290088C333 /* BrowseView.swift in Sources */,
+				D34B697C2B8FAD7F0043937B /* CreateReview1ViewModel.swift in Sources */,
 				6CC9292D2B84FFEE00EDDE78 /* FoodBookApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
