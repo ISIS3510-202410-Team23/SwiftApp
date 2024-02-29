@@ -23,7 +23,7 @@ class ReviewsViewModel {
                           tags: ["Homemade", "Dessert"],
                           description: "Lo digo y lo insisto, mi caserito es el restaurante más completo de los andes.",
                           title: "Me fascina!!",
-                          photo: "homemade-lunch",
+                          photo: "https://i.ytimg.com/vi/1n6bq4wfoSU/hq720.jpg?sqp=-oaymwEXCK4FEIIDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLCCW-rqYpxNt3xW3Ag43ns--EwGLw",
                           user: "Juan Pedro Gonzalez",
                           date: Date()),
                    Review(cleanliness: 2,

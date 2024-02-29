@@ -11,8 +11,8 @@ import SwiftUI
 
 struct ReviewsView: View {
     @State private var model = ReviewsViewModel()
-    @State private var spotModel = SpotDetailViewModel()
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
+    let spotName : String
     
     var body: some View {
             
@@ -20,11 +20,13 @@ struct ReviewsView: View {
         VStack(spacing: 0){
             ZStack(alignment: .leading) {
                 TextButton(text: "Cancel", txtSize: 20, hPadding: 0)
-                Text(spotModel.spot.name)
+                Text(spotName)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .center)
                     .font(.system(size: 20))
             }.padding()
+            
+            Separator()
             
             ScrollView(.vertical) {
                 
@@ -100,15 +102,20 @@ struct ReviewsView: View {
                                     }
                                     .padding(.horizontal)
                                 }
+                                
+                                // Review body and image
                                 HStack {
                                     Text(review.description)
                                     if !review.photo.isEmpty {
                                         Spacer()
-                                        Image(review.photo)
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .frame(width: 70, height: 70)
-                                            .cornerRadius(10)
+                                        AsyncImage(url: URL(string: review.photo)) { image in
+                                            image.resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                          } placeholder: {
+                                              ProgressView()
+                                          }
+                                          .frame(width: 70, height: 70)
+                                          .cornerRadius(10)
                                     }
                                     
                                 }.padding()
@@ -120,9 +127,6 @@ struct ReviewsView: View {
                 .task {
                     _ = try? await model.fetchReviews()
                 }
-                .task {
-                    _ = try? await spotModel.fetchSpot()
-                }
             }
         }
         
@@ -130,5 +134,5 @@ struct ReviewsView: View {
 }
 
 #Preview {
-    ReviewsView()
+    ReviewsView(spotName: "MiCaserito")
 }

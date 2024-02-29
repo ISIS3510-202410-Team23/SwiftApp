@@ -1,5 +1,5 @@
 //
-//  SpotDetailViewModelpo.swift
+//  SpotDetailViewModel.swift
 //  FoodBookApp
 //
 //  Created by Laura Restrepo on 28/02/24.

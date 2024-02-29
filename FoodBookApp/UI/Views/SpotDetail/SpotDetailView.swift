@@ -15,6 +15,7 @@ struct SpotDetailView: View {
     let ratings: [String: Double] = ["Cleanliness": 0.81, "Waiting time": 0.99, "Service": 0.36, "Food quality": 0.73] // FIXME: should calculate or retrieve stats
         
     var body: some View {
+        
         VStack(alignment: .leading) {
             VStack(alignment: .leading, spacing: 0) {
                 // < Browse
@@ -117,6 +118,8 @@ struct SpotDetailView: View {
                         .padding(.vertical, 20)
                     }
                 }
+                
+                
             }
             
         }.task {
