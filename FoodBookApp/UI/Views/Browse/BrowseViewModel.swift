@@ -21,18 +21,24 @@ class BrowseViewModel {
         
         spots = [
             Spot(
+                id: "id-1",
                 name: "Mi Caserito",
                 minTime: 10,
                 maxTime: 20,
                 distance: 0.3,
+                latitude: 0.0,
+                longitude: 0.0,
                 categories: ["Fast", "Homemade", "Colombian", "..."]
             ),
             
             Spot(
+                id: "id-2",
                 name: "Divino Pecado",
                 minTime: 25,
                 maxTime: 30,
                 distance: 0.5,
+                latitude: 0.0,
+                longitude: 0.0,
                 categories: ["Vegan", "Sandwich", "Bowl", "Healthy", "..."]
             )
         ]
