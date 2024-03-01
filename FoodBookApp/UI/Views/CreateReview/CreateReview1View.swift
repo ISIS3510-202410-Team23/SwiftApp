@@ -34,7 +34,7 @@ struct CreateReview1View: View {
                     Text("What did you order?")
                         .font(.system(size: 24))
                         .bold()
-                    Text("Select at leat one and up to three categories").foregroundColor(.gray).padding(.top, 5)
+                    Text("Select at least one and up to three categories").foregroundColor(.gray).padding(.top, 5)
                     
                     // Search bar
                     TextField("Search", text: $searchText)
