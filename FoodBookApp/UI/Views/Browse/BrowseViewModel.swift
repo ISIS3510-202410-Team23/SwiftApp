@@ -6,12 +6,13 @@
 //
 import Observation
 import Foundation
+import CoreLocation
 
 @Observable
 class BrowseViewModel {
     var spots: [Spot] = []
     
-    func fetchSpots() async throws -> [Spot] { // FIXME: needs to work async throws
+    func fetchSpots() async throws -> [Spot] {
 //        TODO: This should read from API and append every spot to spots
 //        let url = URL(string: "")!
 //        let (data, _) = try await URLSession.shared.data(from: url)
@@ -43,5 +44,6 @@ class BrowseViewModel {
             )
         ]
         return spots
-        }
     }
+    
+}
