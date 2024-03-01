@@ -23,6 +23,7 @@ enum Tabs:String {
 
 struct ContentView: View {
     @State var selectedTab: Tabs = .browse
+    @State private var searchText = ""
     let bs: BackendService =  BackendService()
     
     init () {
@@ -32,7 +33,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             TabView(selection: $selectedTab){
-                BrowseView()
+                CreateReview1View()
                     .tabItem { Label("Browse", systemImage: "magnifyingglass.circle") }
                     .tag(Tabs.browse)
                 
