@@ -20,7 +20,9 @@ struct CreateReview2View: View {
     @State private var service: Int = 0
     @State private var foodQuality: Int = 0
     @State private var reviewTitle: String = ""
+    @FocusState private var reviewTitleIsFocused: Bool
     @State private var reviewBody: String = ""
+    @FocusState private var reviewBodyIsFocused: Bool
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     let customGray2 = Color(red: 242/255, green: 242/255, blue: 247/255)
     
@@ -36,7 +38,7 @@ struct CreateReview2View: View {
                 Spacer()
                 BoldTextButton(text: "Done", txtSize: 20) { print("Done") } // FIXME: should verify inputs and send them to DB
                 
-            }.padding()
+            }.padding(.horizontal).padding(.top)
             
             Separator()
             
@@ -127,7 +129,15 @@ struct CreateReview2View: View {
                     // Review title
                     HStack {
                         Text("Title").font(.system(size: 20))
-                        TextField("Optional", text: $reviewTitle).padding(.leading)
+                        TextField("Optional", text: $reviewTitle)
+                            .focused($reviewTitleIsFocused)
+                            .padding(.leading)
+                        Spacer()
+                        if reviewTitleIsFocused {
+                            ClearButton(){
+                                reviewTitle = ""
+                                reviewTitleIsFocused = false}
+                        }
                     }.padding(.horizontal)
                     
                     Separator().padding(.horizontal)
@@ -135,10 +145,18 @@ struct CreateReview2View: View {
                     // Review body
                     HStack {
                         Text("Body").font(.system(size: 20))
-                        TextField("Value", text: $reviewBody).padding(.leading)
+                        TextField("Value", text: $reviewBody)
+                            .focused($reviewBodyIsFocused)
+                            .padding(.leading)
+                        Spacer()
+                        if reviewBodyIsFocused {
+                            ClearButton(){
+                                reviewBody = ""
+                                reviewBodyIsFocused = false}
+                        }
                     }.padding(.horizontal)
                 }.padding(.horizontal, 15)
-
+                
                 Spacer()
             }
         }

@@ -11,6 +11,7 @@ import SwiftUI
 struct CreateReview1View: View {
     @State private var model = CreateReview1ViewModel()
     @State private var searchText: String = ""
+    @FocusState private var searchTextIsFocused: Bool
     @State private var selectedCats: [String] = []
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     let customGray2 = Color(red: 242/255, green: 242/255, blue: 247/255)
@@ -20,13 +21,16 @@ struct CreateReview1View: View {
             VStack(alignment: .leading){
                 
                 // Header
-                ZStack(alignment: .leading) {
+                HStack{
                     TextButton(text: "Cancel", txtSize: 20, hPadding: 0) // FIXME: should redirect
+                    Spacer()
                     Text("Review")
                         .bold()
-                        .frame(maxWidth: .infinity, alignment: .center)
                         .font(.system(size: 20))
-                }.padding()
+                    Spacer()
+                    BoldTextButton(text: "Next", txtSize: 20) { print("Next") } // FIXME: should verify inputs and send them to DB
+                    
+                }.padding(.horizontal).padding(.top)
                 
                 Separator()
                 
@@ -37,12 +41,29 @@ struct CreateReview1View: View {
                     Text("Select at least one and up to three categories").foregroundColor(.gray).padding(.top, 5)
                     
                     // Search bar
-                    TextField("Search", text: $searchText)
-                                        .padding(10)
-                                        .background(customGray)
-                                        .cornerRadius(8)
-                                        .padding(.top, 20)
-                    
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(customGray)
+                            .frame(height: 40)
+                            .padding(.top, 20)
+                        HStack {
+                            Image(systemName: "magnifyingglass")
+                                .foregroundColor(.gray)
+                                .padding(.top, 20)
+                                .padding(.leading, 10)
+                            TextField("Search", text: $searchText)
+                                .padding(.vertical, 10)
+                                .cornerRadius(8)
+                                .focused($searchTextIsFocused)
+                                .padding(.top, 20)
+                            if searchTextIsFocused {
+                                ClearButton(){
+                                    searchText = ""
+                                    searchTextIsFocused = false
+                                }.padding(.top, 20).padding(.trailing, 10)
+                            }
+                        }
+                    }
                 }.padding(.horizontal, 20).padding(.top)
                 
                 // Categories
@@ -71,17 +92,12 @@ struct CreateReview1View: View {
                     }.padding(.horizontal, 20)
 
                     Spacer()
-
                 }
-                
-                Separator()
                 
             }.task {
                 _ = try? await model.fetchCategories()
             }
         }
-        // Next button
-        BoldTextButton(text: "Next", txtSize: 24){ print("Next") }.padding() // FIXME: should redirect and verify that at least one has been selected
     }
     
     var searchResults: [String] {
