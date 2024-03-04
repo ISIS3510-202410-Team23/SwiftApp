@@ -13,9 +13,10 @@ import FirebaseFirestore
 
 class FirebaseClient {
     var db: Firestore
-    // TODO: add variable for auth service
     
-    init() {
+    static var shared = FirebaseClient()
+    
+    private init() {
         self.db = Firestore.firestore()
     }
     
