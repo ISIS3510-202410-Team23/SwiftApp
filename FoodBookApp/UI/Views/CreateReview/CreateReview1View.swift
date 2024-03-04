@@ -28,7 +28,7 @@ struct CreateReview1View: View {
                         .bold()
                         .font(.system(size: 20))
                     Spacer()
-                    BoldTextButton(text: "Next", txtSize: 20) { print("Next") } // FIXME: should verify inputs and send them to DB
+                    BoldTextButton(text: "Next", txtSize: 20) { print("Next") } // FIXME: should redirect and verify that at least one has been selected
                     
                 }.padding(.horizontal).padding(.top)
                 
