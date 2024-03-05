@@ -36,6 +36,15 @@
 		6CC9291E2B84FB0900EDDE78 /* FoodBookAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9291D2B84FB0900EDDE78 /* FoodBookAppUITests.swift */; };
 		6CC929202B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9291F2B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift */; };
 		6CC9292D2B84FFEE00EDDE78 /* FoodBookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */; };
+		D30C88132B8FB5B50052C01E /* CreateReview2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30C88122B8FB5B50052C01E /* CreateReview2View.swift */; };
+		D32FC9A32B9624A8008D66BA /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32FC9A22B9624A8008D66BA /* ClearButton.swift */; };
+		D342009D2B91404A00B8817C /* TextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D342009C2B91404A00B8817C /* TextButton.swift */; };
+		D342009F2B91414800B8817C /* BoldTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D342009E2B91414800B8817C /* BoldTextButton.swift */; };
+		D34200A32B925A5D00B8817C /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34200A22B925A5D00B8817C /* Separator.swift */; };
+		D34B697A2B8FA2BA0043937B /* CreateReview1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34B69792B8FA2BA0043937B /* CreateReview1View.swift */; };
+		D34B697C2B8FAD7F0043937B /* CreateReview1ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34B697B2B8FAD7F0043937B /* CreateReview1ViewModel.swift */; };
+		D3DA08072B96EB3B00475AC9 /* LargeButtont.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DA08062B96EB3A00475AC9 /* LargeButtont.swift */; };
+		D3DC76242B96988100AC9CAB /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DC76232B96988100AC9CAB /* ImagePicker.swift */; };
 		6CE6C5D12B8E1576008C7349 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE6C5D02B8E1576008C7349 /* RootView.swift */; };
 		6CF821772B8D7E15008E7057 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF821762B8D7E15008E7057 /* AuthService.swift */; };
 		6CF821792B8D7FF8008E7057 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6CF821782B8D7FF8008E7057 /* FirebaseAuth */; };
@@ -103,6 +112,15 @@
 		6CC9291D2B84FB0900EDDE78 /* FoodBookAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBookAppUITests.swift; sourceTree = "<group>"; };
 		6CC9291F2B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBookAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodBookApp.swift; sourceTree = "<group>"; };
+		D30C88122B8FB5B50052C01E /* CreateReview2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReview2View.swift; sourceTree = "<group>"; };
+		D32FC9A22B9624A8008D66BA /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
+		D342009C2B91404A00B8817C /* TextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButton.swift; sourceTree = "<group>"; };
+		D342009E2B91414800B8817C /* BoldTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldTextButton.swift; sourceTree = "<group>"; };
+		D34200A22B925A5D00B8817C /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
+		D34B69792B8FA2BA0043937B /* CreateReview1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReview1View.swift; sourceTree = "<group>"; };
+		D34B697B2B8FAD7F0043937B /* CreateReview1ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReview1ViewModel.swift; sourceTree = "<group>"; };
+		D3DA08062B96EB3A00475AC9 /* LargeButtont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButtont.swift; sourceTree = "<group>"; };
+		D3DC76232B96988100AC9CAB /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		6CE6C5D02B8E1576008C7349 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		6CF821762B8D7E15008E7057 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		6CF8217A2B8D877B008E7057 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -329,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				0D8BBB622B91402C00739448 /* ForYou */,
+				D34B69782B8FA2500043937B /* CreateReview */,
 				D321E49A2B8F83F800F93974 /* SpotDetail */,
 				0DA610B92B8D26B300DFDFF4 /* Browse */,
 				0DCB7BD72B86F0290088C333 /* BookmarksView.swift */,
@@ -337,6 +356,16 @@
 				6CE6C5D02B8E1576008C7349 /* RootView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		D34B69782B8FA2500043937B /* CreateReview */ = {
+			isa = PBXGroup;
+			children = (
+				D34B69792B8FA2BA0043937B /* CreateReview1View.swift */,
+				D34B697B2B8FAD7F0043937B /* CreateReview1ViewModel.swift */,
+				D30C88122B8FB5B50052C01E /* CreateReview2View.swift */,
+			);
+			path = CreateReview;
 			sourceTree = "<group>";
 		};
 		6CF821832B8D89FA008E7057 /* Utils */ = {
@@ -357,6 +386,12 @@
 				D30C881A2B90EB560052C01E /* TextButton.swift */,
 				D30C881C2B90ED320052C01E /* LargeButton.swift */,
 				D30C88202B9108C20052C01E /* Separator.swift */,
+				D342009E2B91414800B8817C /* BoldTextButton.swift */,
+				D342009C2B91404A00B8817C /* TextButton.swift */,
+				D34200A22B925A5D00B8817C /* Separator.swift */,
+				D32FC9A22B9624A8008D66BA /* ClearButton.swift */,
+				D3DC76232B96988100AC9CAB /* ImagePicker.swift */,
+				D3DA08062B96EB3A00475AC9 /* LargeButtont.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -525,6 +560,7 @@
 				D321E4A02B8F883A00F93974 /* SpotDetailViewModel.swift in Sources */,
 				6C1811D52B8AC15C0066F3D0 /* LoginView.swift in Sources */,
 				6CC929052B84FB0700EDDE78 /* ContentView.swift in Sources */,
+				D3DC76242B96988100AC9CAB /* ImagePicker.swift in Sources */,
 				6CE6C5D12B8E1576008C7349 /* RootView.swift in Sources */,
 				6C0C82EA2B8D3151004EAE3F /* ExampleRepositoryImpl.swift in Sources */,
 				6C0C82ED2B8D4127004EAE3F /* BackendService.swift in Sources */,
@@ -541,6 +577,13 @@
 				0DCB7BDA2B86F0290088C333 /* BookmarksView.swift in Sources */,
 				6C0C82E82B8D30FF004EAE3F /* ExampleRepository.swift in Sources */,
 				6C0C82E62B8D2F08004EAE3F /* ExampleDAOFirebase.swift in Sources */,
+				D34B697A2B8FA2BA0043937B /* CreateReview1View.swift in Sources */,
+				D30C88132B8FB5B50052C01E /* CreateReview2View.swift in Sources */,
+				D342009D2B91404A00B8817C /* TextButton.swift in Sources */,
+				0DCB7BD82B86F0290088C333 /* BrowseView.swift in Sources */,
+				D32FC9A32B9624A8008D66BA /* ClearButton.swift in Sources */,
+				D34B697C2B8FAD7F0043937B /* CreateReview1ViewModel.swift in Sources */,
+				D3DA08072B96EB3B00475AC9 /* LargeButtont.swift in Sources */,
 				D321E4A42B8F929200F93974 /* Review.swift in Sources */,
 				D321E4A62B8F929D00F93974 /* Spot.swift in Sources */,
 				D321E4962B8E971500F93974 /* ReviewsView.swift in Sources */,
@@ -552,6 +595,8 @@
 				0DCB7BD82B86F0290088C333 /* BrowseView.swift in Sources */,
 				D30C881B2B90EB560052C01E /* TextButton.swift in Sources */,
 				6CC9292D2B84FFEE00EDDE78 /* FoodBookApp.swift in Sources */,
+				D342009F2B91414800B8817C /* BoldTextButton.swift in Sources */,
+				D34200A32B925A5D00B8817C /* Separator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

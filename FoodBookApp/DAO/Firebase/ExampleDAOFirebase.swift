@@ -10,7 +10,7 @@ import Foundation
 class ExampleDAOFirebase: ExampleDAO {
     static var shared: ExampleDAO = ExampleDAOFirebase()
     
-    private var client: FirebaseClient = FirebaseClient()
+    private var client: FirebaseClient = FirebaseClient.shared
     
     func getSpots() async throws {
         do {
