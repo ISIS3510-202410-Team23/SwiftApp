@@ -15,7 +15,7 @@ struct CreateReview2View: View {
     @State private var showSheet: Bool = false
     @State private var showImagePicker: Bool = false
     @State private var sourceType: UIImagePickerController.SourceType = .camera
-    @State private var addPhotoText: String = "Add a photo..."
+    @State private var imageIsSelected: Bool = false
     @State private var cleanliness: Int = 0
     @State private var waitingTime: Int = 0
     @State private var service: Int = 0
@@ -112,20 +112,27 @@ struct CreateReview2View: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 150)
-                        .padding()
+                        .padding(.top)
                         .cornerRadius(10)
                 } else {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(customGray)
                         .frame(height: 150)
-                        .padding()
+                        .padding(.horizontal).padding(.top)
                 }
                 
-                // Add photo button
-                addPhotoButton
+                // Add or remove photo button
+                if !imageIsSelected {
+                    addPhotoButton.padding()
+                }
+                else { // FIXME: confirm message (?)
+                    LargeButtont(text: "Remove photo", bgColor: customGray, txtColor: Color.red, txtSize: 20){ selectedImage = nil }
+                }
                 
+                // Leave a comment
                 VStack(alignment: .leading) {
-                    Text("Leave a comment").bold().font(.system(size: 25)).padding()
+                    Text("Leave a comment").bold().font(.system(size: 25))
+                        .padding(.horizontal).padding(.bottom)
                     
                     // Review title
                     HStack {
@@ -164,7 +171,12 @@ struct CreateReview2View: View {
             ImagePicker(image: self.$selectedImage, isShown: self.$showImagePicker, sourceType: self.sourceType)
         }.onChange(of: selectedImage) {
             Task {
-                addPhotoText = "Change photo"
+                if imageIsSelected {
+                    imageIsSelected = false
+                }
+                else {
+                    imageIsSelected = true
+                }
             }
         }
     }
@@ -174,12 +186,11 @@ struct CreateReview2View: View {
         Button(action : {
             self.showSheet = true
         }) {
-            Text(addPhotoText)
+            Text("Add a photo..")
                 .frame(maxWidth: .infinity)
                 .padding()
                 .background(customGray)
                 .cornerRadius(12)
-                .padding(.horizontal, 20)
                 .font(.system(size: 20))
         }.actionSheet(isPresented: $showSheet) {
             ActionSheet(title: Text("Select an option"), buttons: [
@@ -194,9 +205,7 @@ struct CreateReview2View: View {
                 .cancel()
             ])
         }
-        
     }
-    
 }
 
 #Preview {
