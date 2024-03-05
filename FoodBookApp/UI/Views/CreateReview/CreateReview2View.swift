@@ -12,9 +12,13 @@ import PhotosUI
 struct CreateReview2View: View {
     let categories: [String]
     @State private var pickerItem: PhotosPickerItem?
-    @State private var selectedImage: Image?
+    @State private var selectedImage: UIImage?
+    
+    @State private var showSheet: Bool = false
+    @State private var showImagePicker: Bool = false
+    @State private var sourceType: UIImagePickerController.SourceType = .camera
+    
     @State private var addPhotoText: String = "Add a photo..."
-    @State private var showPhotoPicker = false
     @State private var cleanliness: Int = 0
     @State private var waitingTime: Int = 0
     @State private var service: Int = 0
@@ -107,17 +111,17 @@ struct CreateReview2View: View {
                 
                 // Photo
                 if let image = selectedImage {
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: .infinity, height: 150)
-                                    .padding()
-                                    .cornerRadius(10)
-                            } else {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(customGray)
-                                    .frame(width: .infinity, height: 150)
-                                    .padding()
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 150)
+                        .padding()
+                        .cornerRadius(10)
+                } else {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(customGray)
+                        .frame(height: 150)
+                        .padding()
                 }
                 
                 // Add photo button
@@ -159,26 +163,57 @@ struct CreateReview2View: View {
                 
                 Spacer()
             }
+        }.sheet(isPresented: $showImagePicker) {
+            ImagePicker(image: self.$selectedImage, isShown: self.$showImagePicker, sourceType: self.sourceType)
+        }.onChange(of: selectedImage) {
+            Task {
+                addPhotoText = "Change photo"
+            }
         }
     }
     
     var addPhotoButton: some View { // FIXME: should be component (?)
-        VStack {
-            PhotosPicker(selection: $pickerItem, matching: .images){
-                Text(addPhotoText)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(customGray)
-                    .foregroundColor(.blue)
-                    .cornerRadius(12)
-                    .font(.system(size: 20))
+        
+        Button(action : {
+            self.showSheet = true
+        }) {
+            Text(addPhotoText)
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(customGray)
+                .cornerRadius(12)
+                .padding(.horizontal, 20)
+        }.actionSheet(isPresented: $showSheet) {
+                ActionSheet(title: Text("Select an option"), buttons: [
+                    .default(Text("Photo Library")) {
+                        self.showImagePicker = true
+                        self.sourceType = .photoLibrary
+                    },
+                    .default(Text("Camera")) {
+                        self.showImagePicker = true
+                        self.sourceType = .camera
+                    },
+                    .cancel()
+                ])
             }
-        }.onChange(of: pickerItem) {
-            Task {
-                selectedImage = try await pickerItem?.loadTransferable(type: Image.self)
-                addPhotoText = "Change photo"
-            }
-        }.padding(.horizontal, 20)
+        
+//        VStack {
+//            PhotosPicker(selection: $pickerItem, matching: .images){
+//                Text(addPhotoText)
+//                    .frame(maxWidth: .infinity)
+//
+//
+//                    .foregroundColor(.blue)
+//
+//                    .font(.system(size: 20))
+//            }
+//        }.onChange(of: pickerItem) {
+//            Task {
+//                selectedImage = try await pickerItem?.loadTransferable(type: Image.self)
+//                addPhotoText = "Change photo"
+//            }
+//        }
+        
     }
     
 }
@@ -186,4 +221,3 @@ struct CreateReview2View: View {
 #Preview {
     CreateReview2View(categories: ["Homemade", "Colombian"])
 }
-
