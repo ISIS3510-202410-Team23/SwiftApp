@@ -8,7 +8,9 @@
 import Foundation
 import CoreLocation
 
-final class LocationService: NSObject { //TODO: check how this is working
+final class LocationService: NSObject { 
+    // TODO: check how this is working
+    // FIXME: this is not working properly (probably because of the info.plist file)
     static let shared: LocationService = LocationService()
     private let manager = CLLocationManager()
 
