@@ -6,9 +6,6 @@
 //
 //  Copyright © 2020 Mohammad Azam. All rights reserved.
 
-import SwiftUI
-import UIKit
-
 import Foundation
 import SwiftUI
 

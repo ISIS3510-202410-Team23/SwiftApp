@@ -1,5 +1,5 @@
 //
-//  CreateReviewView.swift
+//  CreateReview1View.swift
 //  FoodBookApp
 //
 //  Created by Laura Restrepo on 28/02/24.
@@ -86,11 +86,11 @@ struct CreateReview1View: View {
                                         .foregroundColor(selectedCats.contains(cat) ? Color.white : Color.black)
                                         .padding(10)
                                         .background(selectedCats.contains(cat) ? Color.black : customGray)
-                                        .cornerRadius(8)})
+                                    .cornerRadius(8)})
                             }.padding(.bottom, 5)
                         }.padding(.top, 20)
                     }.padding(.horizontal, 20)
-
+                    
                     Spacer()
                 }
                 
@@ -101,14 +101,14 @@ struct CreateReview1View: View {
     }
     
     var searchResults: [String] {
-            if searchText.isEmpty {
-                return model.categories
-            } else {
-                return model.categories.filter { cat in
-                    cat.localizedCaseInsensitiveContains(searchText)
-                }
+        if searchText.isEmpty {
+            return model.categories
+        } else {
+            return model.categories.filter { cat in
+                cat.localizedCaseInsensitiveContains(searchText)
             }
         }
+    }
 }
 
 #Preview {

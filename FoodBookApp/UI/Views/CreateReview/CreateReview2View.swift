@@ -11,13 +11,10 @@ import PhotosUI
 
 struct CreateReview2View: View {
     let categories: [String]
-    @State private var pickerItem: PhotosPickerItem?
     @State private var selectedImage: UIImage?
-    
     @State private var showSheet: Bool = false
     @State private var showImagePicker: Bool = false
     @State private var sourceType: UIImagePickerController.SourceType = .camera
-    
     @State private var addPhotoText: String = "Add a photo..."
     @State private var cleanliness: Int = 0
     @State private var waitingTime: Int = 0

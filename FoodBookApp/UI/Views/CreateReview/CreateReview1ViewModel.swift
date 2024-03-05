@@ -17,10 +17,10 @@ class CreateReview1ViewModel {
         try await Task.sleep(nanoseconds: 20000)
         
         categories = ["Vegan", "Italian", "Fast", "Healthy", "Homemade", "Poultry", "Meat", "Dessert",
-        "Vegetarian", "Gluten-free", "Low-carb", "Salad", "Fruit", "Organic", "Coffee", "Dairy-free",
-        "Thailandese", "Asian", "Colombian", "Kosher", "Chocolate", "Traditional", "Beef", "Group-portion",
-        "Spicy", "Japanese", "Sushi", "Poke", "Chinese", "Rice", "Noodles", "Burger", "Fries", "Sandwich",
-        "Bowl", "Candy", "Pizza"]
+                      "Vegetarian", "Gluten-free", "Low-carb", "Salad", "Fruit", "Organic", "Coffee", "Dairy-free",
+                      "Thailandese", "Asian", "Colombian", "Kosher", "Chocolate", "Traditional", "Beef", "Group-portion",
+                      "Spicy", "Japanese", "Sushi", "Poke", "Chinese", "Rice", "Noodles", "Burger", "Fries", "Sandwich",
+                      "Bowl", "Candy", "Pizza"]
         
         return categories
         

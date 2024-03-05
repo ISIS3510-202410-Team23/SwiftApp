@@ -18,7 +18,6 @@ struct ClearButton: View {
                 .foregroundStyle(.gray)
         }
     }
-
 }
 
 #Preview {
