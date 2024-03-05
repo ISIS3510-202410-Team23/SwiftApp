@@ -113,7 +113,6 @@ struct CreateReview2View: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 150)
                         .padding(.top)
-                        .cornerRadius(10)
                 } else {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(customGray)
