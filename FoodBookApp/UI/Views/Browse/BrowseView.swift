@@ -7,33 +7,49 @@
 
 import SwiftUI
 
+
+
 struct BrowseView: View {
     @State private var model = BrowseViewModel()
+    let locationService = LocationService.shared
+    @Binding var searchText: String
     
     var body: some View {
-        // TODO: Missing searchbar for spots
-        // TODO: Missing filter for categories
-        ScrollView(content: {
-            ForEach(model.spots, id: \.self) { spot in
-                SpotCard(
-                    title: spot.name,
-                    minTime: spot.minTime,
-                    maxTime: spot.maxTime,
-                    distance: Float(spot.distance),
-                    categories: spot.categories
-                )
-                .fixedSize(horizontal: false, vertical: true)
-            }
-        })
+        ScrollView {
+            LazyVStack {
+                ForEach(searchResults, id: \.self) { spot in
+                    SpotCard(
+                        title: spot.name,
+                        minTime: spot.minTime,
+                        maxTime: spot.maxTime,
+                        distance: Float(spot.distance),
+                        categories: spot.categories,
+                        colors: [.cyan, .indigo, .teal, .pink, .mint, .purple]
+                    )
+                    .fixedSize(horizontal: false, vertical: true)
+                }
+            }.searchable(text: $searchText)
+        }
         .padding(8)
         .task {
             _ = try? await model.fetchSpots()
         }
-
+        
+    }
+    
+    var searchResults: [Spot] {
+        if searchText.isEmpty {
+            return model.spots
+        } else {
+            return model.spots.filter { spot in
+                spot.name.localizedCaseInsensitiveContains(searchText)
+            }
+        }
     }
 }
 
-
-#Preview {
-    BrowseView()
+struct BrowseView_Previews: PreviewProvider {
+    static var previews: some View {
+        BrowseView(searchText: .constant(""))
+    }
 }

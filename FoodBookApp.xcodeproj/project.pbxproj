@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0D16DDD32B8BB65A001D7BAB /* SpotCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16DDD22B8BB65A001D7BAB /* SpotCard.swift */; };
 		0D16DDD52B8C1799001D7BAB /* HCategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16DDD42B8C1799001D7BAB /* HCategoryList.swift */; };
+		0D8BBB642B9142D600739448 /* ForYouViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8BBB632B9142D600739448 /* ForYouViewModel.swift */; };
+		0D8BBB662B91462800739448 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8BBB652B91462800739448 /* LocationService.swift */; };
 		0DA610BF2B8D602A00DFDFF4 /* BrowseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA610BE2B8D602A00DFDFF4 /* BrowseViewModel.swift */; };
 		0DCB7BD82B86F0290088C333 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB7BD52B86F0290088C333 /* BrowseView.swift */; };
 		0DCB7BD92B86F0290088C333 /* ForYouView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB7BD62B86F0290088C333 /* ForYouView.swift */; };
@@ -84,6 +86,8 @@
 /* Begin PBXFileReference section */
 		0D16DDD22B8BB65A001D7BAB /* SpotCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotCard.swift; sourceTree = "<group>"; };
 		0D16DDD42B8C1799001D7BAB /* HCategoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCategoryList.swift; sourceTree = "<group>"; };
+		0D8BBB632B9142D600739448 /* ForYouViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForYouViewModel.swift; sourceTree = "<group>"; };
+		0D8BBB652B91462800739448 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		0DA610BC2B8D2A5500DFDFF4 /* Spot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
 		0DA610BE2B8D602A00DFDFF4 /* BrowseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViewModel.swift; sourceTree = "<group>"; };
 		0DCB7BD52B86F0290088C333 /* BrowseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseView.swift; sourceTree = "<group>"; };
@@ -168,6 +172,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D8BBB622B91402C00739448 /* ForYou */ = {
+			isa = PBXGroup;
+			children = (
+				0DCB7BD62B86F0290088C333 /* ForYouView.swift */,
+				0D8BBB632B9142D600739448 /* ForYouViewModel.swift */,
+			);
+			path = ForYou;
+			sourceTree = "<group>";
+		};
 		0DA610B92B8D26B300DFDFF4 /* Browse */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +219,7 @@
 			children = (
 				6C0C82EC2B8D4127004EAE3F /* BackendService.swift */,
 				6CF821762B8D7E15008E7057 /* AuthService.swift */,
+				0D8BBB652B91462800739448 /* LocationService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -332,11 +346,11 @@
 		6CC929342B8502D800EDDE78 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0D8BBB622B91402C00739448 /* ForYou */,
 				D34B69782B8FA2500043937B /* CreateReview */,
 				D321E49A2B8F83F800F93974 /* SpotDetail */,
 				0DA610B92B8D26B300DFDFF4 /* Browse */,
 				0DCB7BD72B86F0290088C333 /* BookmarksView.swift */,
-				0DCB7BD62B86F0290088C333 /* ForYouView.swift */,
 				6C1811D42B8AC15C0066F3D0 /* LoginView.swift */,
 				6CF821812B8D891D008E7057 /* LoginViewModel.swift */,
 				6CE6C5D02B8E1576008C7349 /* RootView.swift */,
@@ -540,6 +554,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D8BBB642B9142D600739448 /* ForYouViewModel.swift in Sources */,
 				6C0C82DA2B8D2D99004EAE3F /* Firebase.swift in Sources */,
 				0DA610BF2B8D602A00DFDFF4 /* BrowseViewModel.swift in Sources */,
 				D321E4A02B8F883A00F93974 /* SpotDetailViewModel.swift in Sources */,
@@ -575,6 +590,7 @@
 				D30C88192B90E97D0052C01E /* BackChevron.swift in Sources */,
 				D319C47B2B8D5FB90030ED34 /* SpotDetailView.swift in Sources */,
 				D30C88212B9108C20052C01E /* Separator.swift in Sources */,
+				0D8BBB662B91462800739448 /* LocationService.swift in Sources */,
 				D30C881D2B90ED330052C01E /* LargeButton.swift in Sources */,
 				0DCB7BD82B86F0290088C333 /* BrowseView.swift in Sources */,
 				D30C881B2B90EB560052C01E /* TextButton.swift in Sources */,
@@ -748,6 +764,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FoodBookApp/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -778,6 +796,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FoodBookApp/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
