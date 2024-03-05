@@ -4,6 +4,21 @@
 <dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Please allow camera access</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>Google Sign In</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.168193050245-rjfigcrplom7lkmts7i5nonn2t90pb46</string>
+			</array>
+		</dict>
+	</array>
+	<key>GIDClientID</key>
+	<string>168193050245-rjfigcrplom7lkmts7i5nonn2t90pb46.apps.googleusercontent.com</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>ArchivoBlack-Regular.ttf</string>

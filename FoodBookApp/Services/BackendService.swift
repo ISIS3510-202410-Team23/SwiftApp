@@ -18,7 +18,7 @@ class BackendService {
             
             do {
                 let spots = try await exampleRepo.getSpots()
-                print(spots)
+                print(spots) // FIXME: return spots as [Spots]
                 
             } catch {
                 // FIXME: Error management

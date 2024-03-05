@@ -23,14 +23,37 @@ enum Tabs:String {
 
 struct ContentView: View {
     @State var selectedTab: Tabs = .browse
+    @Binding var showSignInView: Bool
+    
+    // FIXME: testing only
     let bs: BackendService =  BackendService()
     
-    init () {
-        bs.fetchAllSpots()
-    }
+//    init () {
+//        bs.fetchAllSpots()
+//    }
+    
     
     var body: some View {
-        NavigationView{
+        
+        // FIXME: sign out button for testing only
+//        Button(action: {
+//            Task {
+//                do {
+//                    print("signing out...")
+//                    try AuthService.shared.signOut()
+//                    showSignInView = true
+//                    
+//                } catch {
+//                    print("Failed to sign out...")
+//                }
+//            }
+//        }, label: {
+//            Text("Sign out")
+//        })
+//        .buttonStyle(.borderedProminent)
+//        .padding()
+        
+        NavigationView {
             TabView(selection: $selectedTab){
                 BrowseView()
                     .tabItem { Label("Browse", systemImage: "magnifyingglass.circle") }
@@ -43,6 +66,7 @@ struct ContentView: View {
                 BookmarksView()
                     .tabItem { Label("Bookmarks", systemImage: "book") }
                     .tag(Tabs.bookmarks)
+                
             }.navigationTitle(selectedTab.formattedTitle)
             
         }
@@ -50,5 +74,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(showSignInView: .constant(false))
 }

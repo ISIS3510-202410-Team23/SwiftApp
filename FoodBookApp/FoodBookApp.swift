@@ -24,7 +24,7 @@ struct FoodBookApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
         }
     }
 }
