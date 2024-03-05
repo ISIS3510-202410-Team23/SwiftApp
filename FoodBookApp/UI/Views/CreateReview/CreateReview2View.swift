@@ -183,6 +183,7 @@ struct CreateReview2View: View {
                 .background(customGray)
                 .cornerRadius(12)
                 .padding(.horizontal, 20)
+                .font(.system(size: 20))
         }.actionSheet(isPresented: $showSheet) {
             ActionSheet(title: Text("Select an option"), buttons: [
                 .default(Text("Photo Library")) {
@@ -196,6 +197,7 @@ struct CreateReview2View: View {
                 .cancel()
             ])
         }
+        
     }
     
 }

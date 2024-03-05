@@ -4,7 +4,7 @@
 //
 //  Created by Laura Restrepo on 4/03/24.
 //
-// Code written with the help of Mohammad Azam
+//  Copyright © 2020 Mohammad Azam. All rights reserved.
 
 import SwiftUI
 import UIKit
