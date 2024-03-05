@@ -184,36 +184,18 @@ struct CreateReview2View: View {
                 .cornerRadius(12)
                 .padding(.horizontal, 20)
         }.actionSheet(isPresented: $showSheet) {
-                ActionSheet(title: Text("Select an option"), buttons: [
-                    .default(Text("Photo Library")) {
-                        self.showImagePicker = true
-                        self.sourceType = .photoLibrary
-                    },
-                    .default(Text("Camera")) {
-                        self.showImagePicker = true
-                        self.sourceType = .camera
-                    },
-                    .cancel()
-                ])
-            }
-        
-//        VStack {
-//            PhotosPicker(selection: $pickerItem, matching: .images){
-//                Text(addPhotoText)
-//                    .frame(maxWidth: .infinity)
-//
-//
-//                    .foregroundColor(.blue)
-//
-//                    .font(.system(size: 20))
-//            }
-//        }.onChange(of: pickerItem) {
-//            Task {
-//                selectedImage = try await pickerItem?.loadTransferable(type: Image.self)
-//                addPhotoText = "Change photo"
-//            }
-//        }
-        
+            ActionSheet(title: Text("Select an option"), buttons: [
+                .default(Text("Photo Library")) {
+                    self.showImagePicker = true
+                    self.sourceType = .photoLibrary
+                },
+                .default(Text("Camera")) {
+                    self.showImagePicker = true
+                    self.sourceType = .camera
+                },
+                .cancel()
+            ])
+        }
     }
     
 }
