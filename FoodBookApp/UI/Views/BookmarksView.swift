@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct BookmarksView: View {
+    
+    let bs: BackendService = BackendService()
+    
     var body: some View {
         
         ZStack {
@@ -16,6 +19,14 @@ struct BookmarksView: View {
                 .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
                 .font(.system(size: 100))
         }
+        .task {
+            do {
+                try await bs.spotRepo.getSpotById(docId: "ms1hTTxzVkiJElZiYHAT")
+            } catch {
+                print("ERROR")
+            }
+        }
+
     }
 }
 
