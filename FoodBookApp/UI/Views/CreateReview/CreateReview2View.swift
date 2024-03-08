@@ -24,6 +24,8 @@ struct CreateReview2View: View {
     @FocusState private var reviewTitleIsFocused: Bool
     @State private var reviewBody: String = ""
     @FocusState private var reviewBodyIsFocused: Bool
+    @Binding var isNewReviewSheetPresented: Bool
+    
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     let customGray2 = Color(red: 242/255, green: 242/255, blue: 247/255)
     
@@ -108,7 +110,13 @@ struct CreateReview2View: View {
                 .navigationTitle("Review")
                 .toolbar{
                     Button(action: {
+                        // Step 1: Uplad review
                         print("Uploads this review!")
+                        // Very Nice To Have, but that the "Done" turns into the loading indicator while the review is uploaded, idk how complex it could be though.
+                        
+                        // Step 2: Close sheet
+                        isNewReviewSheetPresented.toggle()
+                        
                     }, label: {
                         Text("Done")
                             .frame(maxWidth: .infinity)
@@ -220,5 +228,5 @@ struct CreateReview2View: View {
 }
 
 #Preview {
-    CreateReview2View(categories: ["Homemade", "Colombian"])
+    CreateReview2View(categories: ["Homemade", "Colombian"], isNewReviewSheetPresented: .constant(true))
 }

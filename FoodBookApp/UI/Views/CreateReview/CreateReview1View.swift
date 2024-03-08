@@ -13,6 +13,8 @@ struct CreateReview1View: View {
     @State private var searchText: String = ""
     @FocusState private var searchTextIsFocused: Bool
     @State private var selectedCats: [String] = []
+    @Binding var isNewReviewSheetPresented: Bool
+    
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     let customGray2 = Color(red: 242/255, green: 242/255, blue: 247/255)
     
@@ -22,13 +24,15 @@ struct CreateReview1View: View {
                 VStack(alignment: .leading){
                     // Header
                     HStack{
-                        TextButton(text: "Cancel", txtSize: 17, hPadding: 0) // FIXME: should redirect
+                        TextButton(text: "Cancel", txtSize: 17, hPadding: 0, action: {
+                            isNewReviewSheetPresented.toggle()
+                        }) // FIXME: should redirect
                         Spacer()
                         Text("Review")
                             .bold()
                         Spacer()
                         NavigationLink {
-                            CreateReview2View(categories: self.selectedCats)
+                            CreateReview2View(categories: self.selectedCats, isNewReviewSheetPresented: $isNewReviewSheetPresented)
                         } label: {
                             Text("Next")
                         }
@@ -117,5 +121,5 @@ struct CreateReview1View: View {
 }
 
 #Preview {
-    CreateReview1View()
+    CreateReview1View(isNewReviewSheetPresented: .constant(true))
 }

@@ -13,11 +13,10 @@ struct TextButton: View {
     let text: String
     let txtSize: CGFloat
     let hPadding: CGFloat
+    var action: () -> Void = { print("pressing TextButton")}
     
     var body: some View {
-        Button(action: {
-            print("TextButton action...") // FIXME: Should do action
-        }) {
+        Button(action: action) {
             Text(text)
                 .foregroundColor(.blue)
                 .font(.system(size: txtSize))
@@ -27,5 +26,5 @@ struct TextButton: View {
 }
 
 #Preview {
-    TextButton(text: "See more", txtSize: 17, hPadding: 5)
+    TextButton(text: "See more", txtSize: 17, hPadding: 5, action: { print("pressing TextButton")})
 }
