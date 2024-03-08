@@ -30,18 +30,18 @@ struct CreateReview2View: View {
     var body: some View {
         VStack(alignment: .leading) {
             // Header
-            HStack{
-                TextButton(text: "Cancel", txtSize: 20, hPadding: 0) // FIXME: should redirect
-                Spacer()
-                Text("Review")
-                    .bold()
-                    .font(.system(size: 20))
-                Spacer()
-                BoldTextButton(text: "Done", txtSize: 20) { print("Done") } // FIXME: should verify inputs and send them to DB
-                
-            }.padding(.horizontal).padding(.top)
-            
-            Separator()
+//            HStack{
+//                TextButton(text: "Cancel", txtSize: 20, hPadding: 0) // FIXME: should redirect
+//                Spacer()
+//                Text("Review")
+//                    .bold()
+//                    .font(.system(size: 20))
+//                Spacer()
+//                BoldTextButton(text: "Done", txtSize: 20) { print("Done") } // FIXME: should verify inputs and send them to DB
+//                
+//            }.padding(.horizontal).padding(.top)
+//            
+//            Separator()
             
             ScrollView(.vertical) {
                 // Quality attributes
@@ -105,6 +105,18 @@ struct CreateReview2View: View {
                         }
                     }.padding().background(customGray2).cornerRadius(10)
                 }.padding(.horizontal).padding(.top)
+                .navigationTitle("Review")
+                .toolbar{
+                    Button(action: {
+                        print("Uploads this review!")
+                    }, label: {
+                        Text("Done")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                    })
+                           
+                }
+                
                 
                 // Photo
                 if let image = selectedImage {
@@ -180,7 +192,7 @@ struct CreateReview2View: View {
         }
     }
     
-    var addPhotoButton: some View { // FIXME: should be component (?)
+    var addPhotoButton: some View { // FIXME: should be component (yes!)
         
         Button(action : {
             self.showSheet = true

@@ -20,6 +20,8 @@ struct HCategoryList: View {
                     .padding(8)
                     .background(color.opacity(0.2))
                     .cornerRadius(8)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
             }
         }
     }

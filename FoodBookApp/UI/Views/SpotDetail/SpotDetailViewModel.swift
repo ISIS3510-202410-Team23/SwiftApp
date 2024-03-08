@@ -19,7 +19,8 @@ class SpotDetailViewModel {
         distance: 0,
         latitude: 0,
         longitude: 0,
-        categories: [""]
+        categories: [""],
+        imageLinks: [""]
     )
     
     func fetchSpot() async throws -> Spot { // FIXME: should receive spot's ID
@@ -32,7 +33,10 @@ class SpotDetailViewModel {
                 distance: 0.5,
                 latitude: 4.663883085700034,
                 longitude: -74.08049675792543,
-                categories: ["Vegan", "Homemade", "Fast", "Colombian", "Dessert"])
+                categories: ["Vegan", "Homemade", "Fast", "Colombian", "Dessert"],
+                imageLinks: [""]
+        )
+
         return spot
     }
 }

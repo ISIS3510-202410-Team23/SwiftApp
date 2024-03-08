@@ -16,4 +16,5 @@ struct Spot: Codable, Equatable, Hashable {
     let latitude: Double
     let longitude: Double
     let categories: [String]
+    let imageLinks: [String]
 }

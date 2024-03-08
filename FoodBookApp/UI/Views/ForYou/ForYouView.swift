@@ -18,7 +18,7 @@ struct ForYouView: View {
                     maxTime: spot.maxTime,
                     distance: Float(spot.distance),
                     categories: spot.categories,
-                    colors: [.pink, .red, .orange, .yellow, .green, .blue]
+                    imageLinks: spot.imageLinks
                 )
                 .fixedSize(horizontal: false, vertical: true)
             }
