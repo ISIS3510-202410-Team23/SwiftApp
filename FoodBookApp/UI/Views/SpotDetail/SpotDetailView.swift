@@ -1,0 +1,153 @@
+//
+//  SpotDetailView.swift
+//  FoodBookApp
+//
+//  Created by Laura Restrepo on 26/02/24.
+//
+
+import Foundation
+import SwiftUI
+import MapKit
+
+struct SpotDetailView: View {
+    @State private var model = SpotDetailViewModel()
+    @State private var isReviewsSheetPresented : Bool = false
+    @State private var isNewReviewSheetPresented : Bool = false
+    
+    let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
+    let ratings: [String: Double] = ["Cleanliness": 0.81, "Waiting time": 0.99, "Service": 0.36, "Food quality": 0.73] // FIXME: should calculate or retrieve stats
+        
+    var body: some View {
+        
+        VStack(alignment: .leading) {
+            ZStack {
+                customGray.edgesIgnoringSafeArea(.all)
+                ScrollView(.vertical) {
+                    VStack {
+                        
+                        Map() {
+                            Marker(model.spot.name, coordinate: CLLocationCoordinate2D(latitude: model.spot.latitude, longitude: model.spot.longitude))
+                        }
+                        .frame(width: 350, height: 200)
+                        .padding()
+                        .cornerRadius(15)
+                        
+                        // Categories
+                        ScrollView(.horizontal) {
+                            HStack {
+                                ForEach(model.spot.categories, id: \.self) { cat in
+                                    Text(cat)
+                                        .font(.system(size: 14))
+                                        .bold()
+                                        .foregroundColor(.black)
+                                        .padding(10)
+                                        .background(Color.white)
+                                        .cornerRadius(8)
+                                }
+                            }
+                            .padding(.horizontal)
+                        }
+                        
+                        // Reviews - See more
+                        HStack {
+                            Text("Reviews")
+                                .font(.system(size: 24))
+                                .bold()
+                                .frame(alignment: .leading)
+                            Spacer()
+                            Button(action: {
+                                isReviewsSheetPresented.toggle()
+                            }) {
+                                Text("See more")
+                                    .font(.system(size: 17))
+                                    .foregroundColor(.blue)
+                            }
+                        }.padding(.horizontal, 20).padding(.vertical, 5)
+                        
+                        // Quality attributes
+                        ZStack {
+                            Rectangle()
+                                .fill(Color.white)
+                                .cornerRadius(20)
+                            VStack(spacing: 0) {
+                                ForEach(ratings.keys.sorted(), id: \.self) { key in
+                                    let rating = ratings[key] ?? 0
+                                    HStack(spacing: 0) {
+                                        VStack(alignment: .leading) {
+                                            Text(key).font(.system(size: 18))
+                                            HStack {
+                                                Image(systemName: rating >= 0.5 ? "hand.thumbsup" : "hand.thumbsdown")
+                                                    .font(.system(size: 15))
+                                                    .foregroundColor(.gray)
+                                                Text(String(format: "%.0f%%", rating * 100)).bold().foregroundColor(.gray).font(.system(size: 15))
+                                                
+                                            }
+                                        }.frame(maxWidth: 200, alignment: .leading)
+                                            .padding(.horizontal, 15)
+                                        
+                                        
+                                        ZStack {
+                                            GeometryReader { geometry in
+                                                Rectangle()
+                                                    .fill(customGray)
+                                                    .frame(width: geometry.size.width, height: 5)
+                                                    .cornerRadius(5)
+                                            }
+                                            
+                                            GeometryReader { geometry in
+                                                Rectangle()
+                                                    .fill(Color.blue)
+                                                    .frame(width: CGFloat(rating) * geometry.size.width, height: 5)
+                                                    .cornerRadius(5)
+                                            }
+                                        }.padding()
+                                    }
+                                    .padding(.vertical, 5)
+                                }
+                            }
+                        }
+                        .padding(.horizontal, 20)
+                        .cornerRadius(12)
+                        
+                        // Leave a review
+                        HStack {
+                            
+                            Button(action: {
+                                isNewReviewSheetPresented.toggle()
+                                }, label: {
+                                    Text("Leave a review")
+                                        .frame(maxWidth: .infinity)
+                                        .padding()
+                                        .background(.blue)
+                                        .foregroundColor(.white)
+                                        .cornerRadius(12)
+                                        .font(.system(size: 20))
+                            }).padding()
+                        }
+                        .padding(.vertical, 20)
+                    }
+                }
+                
+                
+            }
+            
+        }.task {
+            _ = try? await model.fetchSpot()
+        }
+        .navigationTitle(model.spot.name)
+        .sheet(
+            isPresented: $isReviewsSheetPresented,
+            content: {
+                ReviewsView(spotName: "MiCaserito")
+            })
+        .sheet(
+            isPresented: $isNewReviewSheetPresented,
+            content: {
+                CreateReview1View(isNewReviewSheetPresented: $isNewReviewSheetPresented)
+            })
+    }
+}
+
+#Preview {
+    SpotDetailView()
+}
