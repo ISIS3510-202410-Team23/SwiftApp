@@ -24,24 +24,26 @@ struct CreateReview2View: View {
     @FocusState private var reviewTitleIsFocused: Bool
     @State private var reviewBody: String = ""
     @FocusState private var reviewBodyIsFocused: Bool
+    @Binding var isNewReviewSheetPresented: Bool
+    
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     let customGray2 = Color(red: 242/255, green: 242/255, blue: 247/255)
     
     var body: some View {
         VStack(alignment: .leading) {
             // Header
-            HStack{
-                TextButton(text: "Cancel", txtSize: 20, hPadding: 0) // FIXME: should redirect
-                Spacer()
-                Text("Review")
-                    .bold()
-                    .font(.system(size: 20))
-                Spacer()
-                BoldTextButton(text: "Done", txtSize: 20) { print("Done") } // FIXME: should verify inputs and send them to DB
-                
-            }.padding(.horizontal).padding(.top)
-            
-            Separator()
+//            HStack{
+//                TextButton(text: "Cancel", txtSize: 20, hPadding: 0) // FIXME: should redirect
+//                Spacer()
+//                Text("Review")
+//                    .bold()
+//                    .font(.system(size: 20))
+//                Spacer()
+//                BoldTextButton(text: "Done", txtSize: 20) { print("Done") } // FIXME: should verify inputs and send them to DB
+//                
+//            }.padding(.horizontal).padding(.top)
+//            
+//            Separator()
             
             ScrollView(.vertical) {
                 // Quality attributes
@@ -105,6 +107,24 @@ struct CreateReview2View: View {
                         }
                     }.padding().background(customGray2).cornerRadius(10)
                 }.padding(.horizontal).padding(.top)
+                .navigationTitle("Review")
+                .toolbar{
+                    Button(action: {
+                        // Step 1: Uplad review
+                        print("Uploads this review!")
+                        // Very Nice To Have, but that the "Done" turns into the loading indicator while the review is uploaded, idk how complex it could be though.
+                        
+                        // Step 2: Close sheet
+                        isNewReviewSheetPresented.toggle()
+                        
+                    }, label: {
+                        Text("Done")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                    })
+                           
+                }
+                
                 
                 // Photo
                 if let image = selectedImage {
@@ -180,7 +200,7 @@ struct CreateReview2View: View {
         }
     }
     
-    var addPhotoButton: some View { // FIXME: should be component (?)
+    var addPhotoButton: some View { // FIXME: should be component (yes!)
         
         Button(action : {
             self.showSheet = true
@@ -208,5 +228,5 @@ struct CreateReview2View: View {
 }
 
 #Preview {
-    CreateReview2View(categories: ["Homemade", "Colombian"])
+    CreateReview2View(categories: ["Homemade", "Colombian"], isNewReviewSheetPresented: .constant(true))
 }

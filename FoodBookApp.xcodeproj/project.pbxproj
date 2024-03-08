@@ -36,15 +36,6 @@
 		6CC9291E2B84FB0900EDDE78 /* FoodBookAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9291D2B84FB0900EDDE78 /* FoodBookAppUITests.swift */; };
 		6CC929202B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9291F2B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift */; };
 		6CC9292D2B84FFEE00EDDE78 /* FoodBookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */; };
-		D30C88132B8FB5B50052C01E /* CreateReview2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30C88122B8FB5B50052C01E /* CreateReview2View.swift */; };
-		D32FC9A32B9624A8008D66BA /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32FC9A22B9624A8008D66BA /* ClearButton.swift */; };
-		D342009D2B91404A00B8817C /* TextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D342009C2B91404A00B8817C /* TextButton.swift */; };
-		D342009F2B91414800B8817C /* BoldTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D342009E2B91414800B8817C /* BoldTextButton.swift */; };
-		D34200A32B925A5D00B8817C /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34200A22B925A5D00B8817C /* Separator.swift */; };
-		D34B697A2B8FA2BA0043937B /* CreateReview1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34B69792B8FA2BA0043937B /* CreateReview1View.swift */; };
-		D34B697C2B8FAD7F0043937B /* CreateReview1ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34B697B2B8FAD7F0043937B /* CreateReview1ViewModel.swift */; };
-		D3DA08072B96EB3B00475AC9 /* LargeButtont.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DA08062B96EB3A00475AC9 /* LargeButtont.swift */; };
-		D3DC76242B96988100AC9CAB /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DC76232B96988100AC9CAB /* ImagePicker.swift */; };
 		6CE6C5D12B8E1576008C7349 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE6C5D02B8E1576008C7349 /* RootView.swift */; };
 		6CF821772B8D7E15008E7057 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF821762B8D7E15008E7057 /* AuthService.swift */; };
 		6CF821792B8D7FF8008E7057 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6CF821782B8D7FF8008E7057 /* FirebaseAuth */; };
@@ -54,6 +45,7 @@
 		6CF821822B8D891D008E7057 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF821812B8D891D008E7057 /* LoginViewModel.swift */; };
 		6CF821852B8D8A0D008E7057 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF821842B8D8A0C008E7057 /* Utils.swift */; };
 		6CF821892B8D92FB008E7057 /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF821882B8D92FB008E7057 /* SignInGoogleHelper.swift */; };
+		D30C88132B8FB5B50052C01E /* CreateReview2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30C88122B8FB5B50052C01E /* CreateReview2View.swift */; };
 		D30C88192B90E97D0052C01E /* BackChevron.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30C88182B90E97D0052C01E /* BackChevron.swift */; };
 		D30C881B2B90EB560052C01E /* TextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30C881A2B90EB560052C01E /* TextButton.swift */; };
 		D30C881D2B90ED330052C01E /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30C881C2B90ED320052C01E /* LargeButton.swift */; };
@@ -64,6 +56,14 @@
 		D321E4A02B8F883A00F93974 /* SpotDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321E49F2B8F883A00F93974 /* SpotDetailViewModel.swift */; };
 		D321E4A42B8F929200F93974 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321E4A32B8F929200F93974 /* Review.swift */; };
 		D321E4A62B8F929D00F93974 /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321E4A52B8F929D00F93974 /* Spot.swift */; };
+		D32FC9A32B9624A8008D66BA /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32FC9A22B9624A8008D66BA /* ClearButton.swift */; };
+		D342009D2B91404A00B8817C /* TextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D342009C2B91404A00B8817C /* TextButton.swift */; };
+		D342009F2B91414800B8817C /* BoldTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D342009E2B91414800B8817C /* BoldTextButton.swift */; };
+		D34200A32B925A5D00B8817C /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34200A22B925A5D00B8817C /* Separator.swift */; };
+		D34B697A2B8FA2BA0043937B /* CreateReview1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34B69792B8FA2BA0043937B /* CreateReview1View.swift */; };
+		D34B697C2B8FAD7F0043937B /* CreateReview1ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34B697B2B8FAD7F0043937B /* CreateReview1ViewModel.swift */; };
+		D3DA08072B96EB3B00475AC9 /* LargeButtont.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DA08062B96EB3A00475AC9 /* LargeButtont.swift */; };
+		D3DC76242B96988100AC9CAB /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DC76232B96988100AC9CAB /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,21 +112,13 @@
 		6CC9291D2B84FB0900EDDE78 /* FoodBookAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBookAppUITests.swift; sourceTree = "<group>"; };
 		6CC9291F2B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBookAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodBookApp.swift; sourceTree = "<group>"; };
-		D30C88122B8FB5B50052C01E /* CreateReview2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReview2View.swift; sourceTree = "<group>"; };
-		D32FC9A22B9624A8008D66BA /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
-		D342009C2B91404A00B8817C /* TextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButton.swift; sourceTree = "<group>"; };
-		D342009E2B91414800B8817C /* BoldTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldTextButton.swift; sourceTree = "<group>"; };
-		D34200A22B925A5D00B8817C /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
-		D34B69792B8FA2BA0043937B /* CreateReview1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReview1View.swift; sourceTree = "<group>"; };
-		D34B697B2B8FAD7F0043937B /* CreateReview1ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReview1ViewModel.swift; sourceTree = "<group>"; };
-		D3DA08062B96EB3A00475AC9 /* LargeButtont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButtont.swift; sourceTree = "<group>"; };
-		D3DC76232B96988100AC9CAB /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		6CE6C5D02B8E1576008C7349 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		6CF821762B8D7E15008E7057 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		6CF8217A2B8D877B008E7057 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6CF821812B8D891D008E7057 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		6CF821842B8D8A0C008E7057 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		6CF821882B8D92FB008E7057 /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
+		D30C88122B8FB5B50052C01E /* CreateReview2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReview2View.swift; sourceTree = "<group>"; };
 		D30C88182B90E97D0052C01E /* BackChevron.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackChevron.swift; sourceTree = "<group>"; };
 		D30C881A2B90EB560052C01E /* TextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButton.swift; sourceTree = "<group>"; };
 		D30C881C2B90ED320052C01E /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
@@ -137,6 +129,14 @@
 		D321E49F2B8F883A00F93974 /* SpotDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotDetailViewModel.swift; sourceTree = "<group>"; };
 		D321E4A32B8F929200F93974 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		D321E4A52B8F929D00F93974 /* Spot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
+		D32FC9A22B9624A8008D66BA /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
+		D342009C2B91404A00B8817C /* TextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButton.swift; sourceTree = "<group>"; };
+		D342009E2B91414800B8817C /* BoldTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldTextButton.swift; sourceTree = "<group>"; };
+		D34200A22B925A5D00B8817C /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
+		D34B69792B8FA2BA0043937B /* CreateReview1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReview1View.swift; sourceTree = "<group>"; };
+		D34B697B2B8FAD7F0043937B /* CreateReview1ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReview1ViewModel.swift; sourceTree = "<group>"; };
+		D3DA08062B96EB3A00475AC9 /* LargeButtont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButtont.swift; sourceTree = "<group>"; };
+		D3DC76232B96988100AC9CAB /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -358,16 +358,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		D34B69782B8FA2500043937B /* CreateReview */ = {
-			isa = PBXGroup;
-			children = (
-				D34B69792B8FA2BA0043937B /* CreateReview1View.swift */,
-				D34B697B2B8FAD7F0043937B /* CreateReview1ViewModel.swift */,
-				D30C88122B8FB5B50052C01E /* CreateReview2View.swift */,
-			);
-			path = CreateReview;
-			sourceTree = "<group>";
-		};
 		6CF821832B8D89FA008E7057 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -405,6 +395,16 @@
 				D321E49F2B8F883A00F93974 /* SpotDetailViewModel.swift */,
 			);
 			path = SpotDetail;
+			sourceTree = "<group>";
+		};
+		D34B69782B8FA2500043937B /* CreateReview */ = {
+			isa = PBXGroup;
+			children = (
+				D34B69792B8FA2BA0043937B /* CreateReview1View.swift */,
+				D34B697B2B8FAD7F0043937B /* CreateReview1ViewModel.swift */,
+				D30C88122B8FB5B50052C01E /* CreateReview2View.swift */,
+			);
+			path = CreateReview;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -764,13 +764,13 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FoodBookApp/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow camera access";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -796,13 +796,13 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FoodBookApp/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow camera access";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

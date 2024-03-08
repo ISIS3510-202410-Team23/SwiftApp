@@ -33,28 +33,10 @@ struct ContentView: View {
 //        bs.fetchAllSpots()
 //    }
     
-    
+
     var body: some View {
         
-        // FIXME: sign out button for testing only
-//        Button(action: {
-//            Task {
-//                do {
-//                    print("signing out...")
-//                    try AuthService.shared.signOut()
-//                    showSignInView = true
-//                    
-//                } catch {
-//                    print("Failed to sign out...")
-//                }
-//            }
-//        }, label: {
-//            Text("Sign out")
-//        })
-//        .buttonStyle(.borderedProminent)
-//        .padding()
-        
-        NavigationView {
+        NavigationStack {
             TabView(selection: $selectedTab){
                 BrowseView(searchText: $searchText)
                     .tabItem { Label("Browse", systemImage: "magnifyingglass.circle") }
@@ -64,19 +46,17 @@ struct ContentView: View {
                     .tabItem { Label("For you", systemImage: "star") }
                     .tag(Tabs.foryou)
                 
-                BookmarksView()
+                BookmarksView(showSignInView: $showSignInView)
                     .tabItem { Label("Bookmarks", systemImage: "book") }
                     .tag(Tabs.bookmarks)
-                
             }
             .navigationTitle(selectedTab.formattedTitle)
             .modifier(SearchableModifier(isSearchable: selectedTab == .browse, text: $searchText))
-            
         }
     }
 }
 
-struct SearchableModifier: ViewModifier { // FIXME: Refactor, where should I have this modifier?
+struct SearchableModifier: ViewModifier {
     let isSearchable: Bool
     @Binding var text: String
 

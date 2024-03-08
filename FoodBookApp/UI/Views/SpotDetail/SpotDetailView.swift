@@ -11,26 +11,15 @@ import MapKit
 
 struct SpotDetailView: View {
     @State private var model = SpotDetailViewModel()
+    @State private var isReviewsSheetPresented : Bool = false
+    @State private var isNewReviewSheetPresented : Bool = false
+    
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     let ratings: [String: Double] = ["Cleanliness": 0.81, "Waiting time": 0.99, "Service": 0.36, "Food quality": 0.73] // FIXME: should calculate or retrieve stats
         
     var body: some View {
         
         VStack(alignment: .leading) {
-            VStack(alignment: .leading, spacing: 0) {
-                // < Browse
-               HStack {
-                   BackChevron(text: "Browse")
-               }.padding(.vertical, 1)
-                   
-                // Spot name
-                HStack() {
-                    Text(model.spot.name)
-                       .font(.system(size: 30))
-                       .bold()
-               }
-            }.padding(.horizontal, 20)
-            
             ZStack {
                 customGray.edgesIgnoringSafeArea(.all)
                 ScrollView(.vertical) {
@@ -38,7 +27,10 @@ struct SpotDetailView: View {
                         
                         Map() {
                             Marker(model.spot.name, coordinate: CLLocationCoordinate2D(latitude: model.spot.latitude, longitude: model.spot.longitude))
-                        }.frame(width: 350, height: 200).padding()
+                        }
+                        .frame(width: 350, height: 200)
+                        .padding()
+                        .cornerRadius(15)
                         
                         // Categories
                         ScrollView(.horizontal) {
@@ -63,7 +55,13 @@ struct SpotDetailView: View {
                                 .bold()
                                 .frame(alignment: .leading)
                             Spacer()
-                            TextButton(text: "See more", txtSize: 17, hPadding: 5)
+                            Button(action: {
+                                isReviewsSheetPresented.toggle()
+                            }) {
+                                Text("See more")
+                                    .font(.system(size: 17))
+                                    .foregroundColor(.blue)
+                            }
                         }.padding(.horizontal, 20).padding(.vertical, 5)
                         
                         // Quality attributes
@@ -82,12 +80,12 @@ struct SpotDetailView: View {
                                                     .font(.system(size: 15))
                                                     .foregroundColor(.gray)
                                                 Text(String(format: "%.0f%%", rating * 100)).bold().foregroundColor(.gray).font(.system(size: 15))
-                                            
+                                                
                                             }
                                         }.frame(maxWidth: 200, alignment: .leading)
                                             .padding(.horizontal, 15)
                                         
-                    
+                                        
                                         ZStack {
                                             GeometryReader { geometry in
                                                 Rectangle()
@@ -110,10 +108,21 @@ struct SpotDetailView: View {
                         }
                         .padding(.horizontal, 20)
                         .cornerRadius(12)
- 
+                        
                         // Leave a review
                         HStack {
-                            LargeButton(text: "Leave a review", bgColor: Color.blue, txtColor: Color.white, txtSize: 20)
+                            
+                            Button(action: {
+                                isNewReviewSheetPresented.toggle()
+                                }, label: {
+                                    Text("Leave a review")
+                                        .frame(maxWidth: .infinity)
+                                        .padding()
+                                        .background(.blue)
+                                        .foregroundColor(.white)
+                                        .cornerRadius(12)
+                                        .font(.system(size: 20))
+                            }).padding()
                         }
                         .padding(.vertical, 20)
                     }
@@ -125,8 +134,18 @@ struct SpotDetailView: View {
         }.task {
             _ = try? await model.fetchSpot()
         }
+        .navigationTitle(model.spot.name)
+        .sheet(
+            isPresented: $isReviewsSheetPresented,
+            content: {
+                ReviewsView(spotName: "MiCaserito")
+            })
+        .sheet(
+            isPresented: $isNewReviewSheetPresented,
+            content: {
+                CreateReview1View(isNewReviewSheetPresented: $isNewReviewSheetPresented)
+            })
     }
-
 }
 
 #Preview {

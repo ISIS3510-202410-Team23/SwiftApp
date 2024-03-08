@@ -10,31 +10,38 @@ import SwiftUI
 
 
 struct BrowseView: View {
-    @State private var model = BrowseViewModel()
     let locationService = LocationService.shared
+    
+    @State private var model = BrowseViewModel()
+    
     @Binding var searchText: String
     
     var body: some View {
         ScrollView {
-            LazyVStack {
+            Group {
                 ForEach(searchResults, id: \.self) { spot in
-                    SpotCard(
-                        title: spot.name,
-                        minTime: spot.minTime,
-                        maxTime: spot.maxTime,
-                        distance: Float(spot.distance),
-                        categories: spot.categories,
-                        colors: [.cyan, .indigo, .teal, .pink, .mint, .purple]
-                    )
-                    .fixedSize(horizontal: false, vertical: true)
+                    NavigationLink(destination: SpotDetailView()){ // TODO: In the future this should have the SpotId as param
+                        SpotCard(
+                            title: spot.name,
+                            minTime: spot.minTime,
+                            maxTime: spot.maxTime,
+                            distance: Float(spot.distance),
+                            categories: spot.categories,
+                            imageLinks: spot.imageLinks
+                        )
+                        .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .accentColor(.black)
                 }
-            }.searchable(text: $searchText)
+            }
+            .searchable(text: $searchText)
+
+
         }
         .padding(8)
         .task {
             _ = try? await model.fetchSpots()
         }
-        
     }
     
     var searchResults: [Spot] {

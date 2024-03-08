@@ -15,19 +15,24 @@ struct ReviewsView: View {
     let spotName : String
     
     var body: some View {
-            
+        
         // Header
         VStack(spacing: 0){
-            ZStack(alignment: .leading) {
-                TextButton(text: "Cancel", txtSize: 20, hPadding: 0)
-                Text(spotName)
-                    .bold()
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .font(.system(size: 20))
-            }.padding()
+            //            ZStack(alignment: .leading) {
+            //                TextButton(text: "Cancel", txtSize: 20, hPadding: 0)
+            //                Text(spotName)
+            //                    .bold()
+            //                    .frame(maxWidth: .infinity, alignment: .center)
+            //                    .font(.system(size: 20))
+            //            }.padding()
             
-            Separator()
-            
+            //            Separator()
+            Rectangle()
+                .fill(Color.gray)
+                .frame(width: 40, height: 5)
+                .cornerRadius(3)
+                .padding(.top, 10)
+                .frame(maxWidth: .infinity, alignment: .center)
             ScrollView(.vertical) {
                 
                 // Reviews
@@ -111,11 +116,11 @@ struct ReviewsView: View {
                                         AsyncImage(url: URL(string: review.photo)) { image in
                                             image.resizable()
                                                 .aspectRatio(contentMode: .fill)
-                                          } placeholder: {
-                                              ProgressView()
-                                          }
-                                          .frame(width: 70, height: 70)
-                                          .cornerRadius(10)
+                                        } placeholder: {
+                                            ProgressView()
+                                        }
+                                        .frame(width: 70, height: 70)
+                                        .cornerRadius(10)
                                     }
                                     
                                 }.padding()
