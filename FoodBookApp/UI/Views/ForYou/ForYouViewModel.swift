@@ -8,6 +8,7 @@
 import Observation
 import Foundation
 import CoreLocation
+import FirebaseFirestore //FIXME: delete later
 
 @Observable
 class ForYouViewModel {
@@ -20,13 +21,12 @@ class ForYouViewModel {
         spots = [
             Spot(
                 id: "id-3",
-                name: "Gratto",
-                minTime: 5,
-                maxTime: 10,
-                distance: 0.3,
-                latitude: 0.0,
-                longitude: 0.0,
                 categories: ["Coffee", "Pastry", "Snack", "..."],
+                location: GeoPoint(latitude: 0, longitude: 0),
+                name: "Gratto",
+                price: "$$",
+                waitTime:   WaitTime(min: 5, max: 10),
+                reviewData: nil,
                 imageLinks: [
                     "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=2380&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                     "https://images.unsplash.com/photo-1493770348161-369560ae357d?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -39,13 +39,12 @@ class ForYouViewModel {
             
             Spot(
                 id: "id-4",
-                name: "Happy Snacks",
-                minTime: 25,
-                maxTime: 30,
-                distance: 0.5,
-                latitude: 0.0,
-                longitude: 0.0,
                 categories: ["Vegan", "Salad", "Bowl", "Healthy", "..."],
+                location: GeoPoint(latitude: 0, longitude: 0),
+                name: "Happy Snacks",
+                price: "$$$",
+                waitTime:   WaitTime(min: 25, max: 30),
+                reviewData: nil,
                 imageLinks: [
                     "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=2380&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                     "https://images.unsplash.com/photo-1493770348161-369560ae357d?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",

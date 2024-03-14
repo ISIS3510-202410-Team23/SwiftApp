@@ -26,7 +26,7 @@ struct SpotDetailView: View {
                     VStack {
                         
                         Map() {
-                            Marker(model.spot.name, coordinate: CLLocationCoordinate2D(latitude: model.spot.latitude, longitude: model.spot.longitude))
+                            Marker(model.spot.name, coordinate: CLLocationCoordinate2D(latitude: model.spot.location.latitude, longitude: model.spot.location.longitude))
                         }
                         .frame(width: 350, height: 200)
                         .padding()

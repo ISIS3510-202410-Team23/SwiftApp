@@ -6,15 +6,32 @@
 //
 
 import Foundation
+import FirebaseFirestore
+
+struct WaitTime: Codable, Equatable, Hashable {
+    let min: Int
+    let max: Int
+}
+
+struct SpotStats: Codable, Equatable, Hashable {
+    let cleanliness: Double
+    let foodQuality: Double
+    let service: Double
+    let waitTime: Double
+}
+
+struct ReviewData: Codable, Equatable, Hashable {
+    let stasts: SpotStats
+    let userReviews: [Review]
+}
 
 struct Spot: Codable, Equatable, Hashable {
-    let id: String
-    let name: String
-    let minTime: Int
-    let maxTime: Int
-    let distance: Double
-    let latitude: Double
-    let longitude: Double
+    @DocumentID var id: String?
     let categories: [String]
-    let imageLinks: [String]
+    let location: GeoPoint
+    let name: String
+    let price: String
+    let waitTime: WaitTime
+    let reviewData: ReviewData?
+    let imageLinks: [String]?
 }

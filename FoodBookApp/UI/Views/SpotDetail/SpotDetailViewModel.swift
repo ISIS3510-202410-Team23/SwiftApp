@@ -7,35 +7,36 @@
 
 import Foundation
 import Observation
+import FirebaseFirestore //FIXME: delete later
 
 @Observable
 class SpotDetailViewModel {
     
-    var spot = Spot(
-        id: "",
-        name: "",
-        minTime: 0,
-        maxTime: 0,
-        distance: 0,
-        latitude: 0,
-        longitude: 0,
-        categories: [""],
-        imageLinks: [""]
-    )
+    var spot = Spot (
+           id: "",
+           categories: [""],
+           location: GeoPoint(latitude: 0, longitude: 0),
+           name: "",
+           price: "",
+           waitTime: WaitTime(min: 0, max: 0),
+           reviewData: nil,
+           imageLinks: nil
+       )
+
     
     func fetchSpot() async throws -> Spot { // FIXME: should receive spot's ID
         // TODO: actual fetch
         try await Task.sleep(nanoseconds: 20000)
-        spot = Spot(id:"1",
-                name: "MiCaserito",
-                minTime: 5,
-                maxTime: 10,
-                distance: 0.5,
-                latitude: 4.663883085700034,
-                longitude: -74.08049675792543,
-                categories: ["Vegan", "Homemade", "Fast", "Colombian", "Dessert"],
-                imageLinks: [""]
-        )
+        spot = Spot(
+                        id:"1",
+                        categories: ["Vegan", "Homemade", "Fast", "Colombian", "Dessert"],
+                        location: GeoPoint(latitude: 0, longitude: 0),
+                        name: "MiCaserito",
+                        price: "$",
+                        waitTime:   WaitTime(min: 5, max: 10),
+                        reviewData: nil,
+                        imageLinks: nil
+                )
 
         return spot
     }
