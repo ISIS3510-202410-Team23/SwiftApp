@@ -6,16 +6,22 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
-struct Review: Hashable {
+struct ReviewStats: Codable, Equatable, Hashable {
     let cleanliness: Int
-    let waitingTime: Int
-    let service: Int
     let foodQuality: Int
-    let tags: [String]
-    let description: String
-    let title: String
-    let photo: String
-    let user: String
+    let service: Int
+    let waitTime: Int
+}
+
+struct Review: Codable, Equatable, Hashable, Identifiable {
+    @DocumentID var id: String?
+    let content: String!
     let date: Date
+    let imageUrl: String!
+    let ratings: ReviewStats
+    let selectedCategories: [String]
+    let title: String!
+    let user: String // AuthoUserModel.uid from Authentication (getAuthenticatedUser)
 }

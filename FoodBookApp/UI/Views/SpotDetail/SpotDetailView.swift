@@ -138,7 +138,7 @@ struct SpotDetailView: View {
         .sheet(
             isPresented: $isReviewsSheetPresented,
             content: {
-                ReviewsView(spotName: "MiCaserito")
+                ReviewsView(spotName: "MiCaserito", reviews: model.spot.reviewData?.userReviews ?? []) // FIXME: @Laura not sure what should happend if there are no reviews
             })
         .sheet(
             isPresented: $isNewReviewSheetPresented,
