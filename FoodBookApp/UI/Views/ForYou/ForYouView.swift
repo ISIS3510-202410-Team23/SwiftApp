@@ -14,11 +14,11 @@ struct ForYouView: View {
             ForEach(model.spots, id: \.self) { spot in
                 SpotCard(
                     title: spot.name,
-                    minTime: spot.minTime,
-                    maxTime: spot.maxTime,
-                    distance: Float(spot.distance),
+                    minTime: spot.waitTime.min,
+                    maxTime: spot.waitTime.max,
+                    distance: 0.0, // FIXME: Calculate
                     categories: spot.categories,
-                    imageLinks: spot.imageLinks
+                    imageLinks: spot.imageLinks ?? []
                 )
                 .fixedSize(horizontal: false, vertical: true)
             }

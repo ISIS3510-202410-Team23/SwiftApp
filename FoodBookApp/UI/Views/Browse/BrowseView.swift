@@ -23,11 +23,11 @@ struct BrowseView: View {
                     NavigationLink(destination: SpotDetailView()){ // TODO: In the future this should have the SpotId as param
                         SpotCard(
                             title: spot.name,
-                            minTime: spot.minTime,
-                            maxTime: spot.maxTime,
-                            distance: Float(spot.distance),
+                            minTime: spot.waitTime.min,
+                            maxTime: spot.waitTime.max,
+                            distance: 0.0, //FIXME: calculate
                             categories: spot.categories,
-                            imageLinks: spot.imageLinks
+                            imageLinks: spot.imageLinks ?? []
                         )
                         .fixedSize(horizontal: false, vertical: true)
                     }

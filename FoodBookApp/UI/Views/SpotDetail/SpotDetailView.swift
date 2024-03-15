@@ -26,7 +26,7 @@ struct SpotDetailView: View {
                     VStack {
                         
                         Map() {
-                            Marker(model.spot.name, coordinate: CLLocationCoordinate2D(latitude: model.spot.latitude, longitude: model.spot.longitude))
+                            Marker(model.spot.name, coordinate: CLLocationCoordinate2D(latitude: model.spot.location.latitude, longitude: model.spot.location.longitude))
                         }
                         .frame(width: 350, height: 200)
                         .padding()
@@ -138,7 +138,7 @@ struct SpotDetailView: View {
         .sheet(
             isPresented: $isReviewsSheetPresented,
             content: {
-                ReviewsView(spotName: "MiCaserito")
+                ReviewsView(spotName: "MiCaserito", reviews: model.spot.reviewData?.userReviews ?? []) // FIXME: @Laura not sure what should happend if there are no reviews
             })
         .sheet(
             isPresented: $isNewReviewSheetPresented,
