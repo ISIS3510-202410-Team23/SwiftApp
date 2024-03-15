@@ -8,28 +8,35 @@
 import SwiftUI
 
 struct SpotCard: View {
-    // FIXME: maybe all of these parameters should come from the API?
+    // TODO: Missing bookmarking feature
+    
     let title : String
     let minTime : Int
     let maxTime : Int
     let distance : Float
     let categories : [String]
+    let imageLinks : [String]
     
     let rowLayout = Array(repeating: GridItem(), count: 2)
-    let colors: [Color] = [.pink, .red, .orange, .yellow, .green, .blue] // TODO: temporary
+    
     
     var body: some View {
         VStack(alignment: .leading) {
             LazyHGrid(rows: rowLayout, alignment: .top, spacing: 8, content: {
-                ForEach(colors.indices, id: \.self){
-                    index in 
-                    RoundedRectangle(cornerRadius: 8)
-//                        .aspectRatio(1.3, contentMode: .fit)
-                        .frame(width: 110, height: 80)
-                        .foregroundColor(colors[index]) // TODO: should be images not colours
+                ForEach(imageLinks, id: \.self){
+                    image in
+                    AsyncImage(url: URL(string: image)) { image in
+                        image.resizable()
+                            .aspectRatio(contentMode: .fill)
+                      } placeholder: {
+                          ProgressView()
+                      }
+                      .frame(width: 110, height: 80)
+                      .cornerRadius(10)
+                        
                 }
             })
-            Text(title) // TODO: should be parameters
+            Text(title)
                 .font(.title)
                 .bold()
             Text("\(Image(systemName: "clock")) \(minTime)-\(maxTime) min.   \(Image(systemName: "location")) \(distance.formatted()) km")
@@ -52,6 +59,15 @@ struct SpotCard: View {
         minTime: 25,
         maxTime: 30,
         distance: 0.5,
-        categories: ["Vegan", "Sandwich", "Bowl", "Healthy", "..."]
+        categories: ["Vegan", "Sandwich", "Bowl", "Healthy", "..."],
+        imageLinks: [
+            "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=2380&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "https://images.unsplash.com/photo-1493770348161-369560ae357d?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "https://images.unsplash.com/photo-1529042410759-befb1204b468?q=80&w=2486&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        ]
+        
     )
 }

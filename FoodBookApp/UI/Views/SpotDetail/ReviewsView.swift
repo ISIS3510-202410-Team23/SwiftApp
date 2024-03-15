@@ -10,36 +10,56 @@ import SwiftUI
 
 
 struct ReviewsView: View {
-    @State private var model = ReviewsViewModel()
+//    @State private var model = ReviewsViewModel()
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     let spotName : String
+    let reviews: [Review]
     
     var body: some View {
-            
+        
         // Header
         VStack(spacing: 0){
-            ZStack(alignment: .leading) {
-                TextButton(text: "Cancel", txtSize: 20, hPadding: 0)
-                Text(spotName)
-                    .bold()
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .font(.system(size: 20))
-            }.padding()
+            //            ZStack(alignment: .leading) {
+            //                TextButton(text: "Cancel", txtSize: 20, hPadding: 0)
+            //                Text(spotName)
+            //                    .bold()
+            //                    .frame(maxWidth: .infinity, alignment: .center)
+            //                    .font(.system(size: 20))
+            //            }.padding()
             
-            Separator()
-            
+            //            Separator()
+            Rectangle()
+                .fill(Color.gray)
+                .frame(width: 40, height: 5)
+                .cornerRadius(3)
+                .padding(.top, 10)
+                .frame(maxWidth: .infinity, alignment: .center)
             ScrollView(.vertical) {
                 
                 // Reviews
+//                VStack {
+//                    ForEach(reviews, id: \.self) { review in
+//                        VStack {
+//                            Text(review.date.formatted())
+//                            Text(review.selectedCategories.joined(separator: ", "))
+//                            if review.title != nil {
+//                                Text(review.title)
+//                            }
+//                        }
+//                        
+//                    }
+//                }
                 VStack {
-                    ForEach(model.reviews, id: \.self) { review in
+                    ForEach(reviews, id: \.self) { review in
                         ZStack {
                             Rectangle()
                                 .fill(customGray)
                                 .cornerRadius(15)
                             VStack(spacing: 0) {
                                 HStack {
-                                    Text(review.title).bold()
+                                    if review.title != nil {
+                                        Text(review.title).bold()
+                                    }
                                     Spacer()
                                     Text("25s ago").foregroundColor(.gray) // FIXME: should calculate time
                                 }.padding()
@@ -60,28 +80,28 @@ struct ReviewsView: View {
                                             Text("Cleanliness")
                                             Spacer()
                                             HStack(spacing: 0) {
-                                                ForEach(1..<6) { index in Image(systemName: "star.fill").foregroundColor(review.cleanliness >= index ? .yellow : .gray)}
+                                                ForEach(1..<6) { index in Image(systemName: "star.fill").foregroundColor(review.ratings.cleanliness >= index ? .yellow : .gray)}
                                             }
                                         }
                                         HStack {
                                             Text("Waiting time")
                                             Spacer()
                                             HStack(spacing: 0) {
-                                                ForEach(1..<6) { index in Image(systemName: "star.fill").foregroundColor(review.waitingTime >= index ? .yellow : .gray)}
+                                                ForEach(1..<6) { index in Image(systemName: "star.fill").foregroundColor(review.ratings.waitTime >= index ? .yellow : .gray)}
                                             }
                                         }
                                         HStack {
                                             Text("Service")
                                             Spacer()
                                             HStack(spacing: 0) {
-                                                ForEach(1..<6) { index in Image(systemName: "star.fill").foregroundColor(review.service >= index ? .yellow : .gray)}
+                                                ForEach(1..<6) { index in Image(systemName: "star.fill").foregroundColor(review.ratings.service >= index ? .yellow : .gray)}
                                             }
                                         }
                                         HStack {
                                             Text("Food quality")
                                             Spacer()
                                             HStack(spacing: 0) {
-                                                ForEach(1..<6) { index in Image(systemName: "star.fill").foregroundColor(review.foodQuality >= index ? .yellow : .gray)}
+                                                ForEach(1..<6) { index in Image(systemName: "star.fill").foregroundColor(review.ratings.foodQuality >= index ? .yellow : .gray)}
                                             }
                                         }
                                     }.padding()
@@ -90,7 +110,7 @@ struct ReviewsView: View {
                                 // Categories
                                 ScrollView(.horizontal) {
                                     HStack {
-                                        ForEach(review.tags, id: \.self) { tag in
+                                        ForEach(review.selectedCategories, id: \.self) { tag in
                                             Text(tag)
                                                 .font(.system(size: 14))
                                                 .bold()
@@ -105,17 +125,19 @@ struct ReviewsView: View {
                                 
                                 // Review body and image
                                 HStack {
-                                    Text(review.description)
-                                    if !review.photo.isEmpty {
+                                    if review.content != nil {
+                                        Text(review.content)
+                                    }
+                                    if review.imageUrl != nil {
                                         Spacer()
-                                        AsyncImage(url: URL(string: review.photo)) { image in
+                                        AsyncImage(url: URL(string: review.imageUrl)) { image in
                                             image.resizable()
                                                 .aspectRatio(contentMode: .fill)
-                                          } placeholder: {
-                                              ProgressView()
-                                          }
-                                          .frame(width: 70, height: 70)
-                                          .cornerRadius(10)
+                                        } placeholder: {
+                                            ProgressView()
+                                        }
+                                        .frame(width: 70, height: 70)
+                                        .cornerRadius(10)
                                     }
                                     
                                 }.padding()
@@ -124,9 +146,6 @@ struct ReviewsView: View {
                     }.padding(.vertical, 5)
                 }
                 .padding()
-                .task {
-                    _ = try? await model.fetchReviews()
-                }
             }
         }
         
@@ -134,5 +153,30 @@ struct ReviewsView: View {
 }
 
 #Preview {
-    ReviewsView(spotName: "MiCaserito")
+    ReviewsView(spotName: "MiCaserito", reviews: [
+            Review(
+                content: "Lo digo y lo insisto, mi caserito es el restaurante más completo de los andes.",
+                date: Date(),
+                imageUrl: "https://i.ytimg.com/vi/1n6bq4wfoSU/hq720.jpg?sqp=-oaymwEXCK4FEIIDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLCCW-rqYpxNt3xW3Ag43ns--EwGLw",
+                ratings: ReviewStats(cleanliness: 5, foodQuality: 5, service: 5, waitTime: 4),
+                selectedCategories: ["Homemade", "Dessert"],
+                title: "Me fascina!!",
+                user: "Juan Pedro Gonzalez" // TODO: will be user uid, might need to add antoher field for email
+            ),
+            Review(
+                content: "La comida me gustó pero la atención fue pésima, se demoró muchísimo, lástima.",
+                date: Date(),
+                imageUrl: nil,
+                ratings: ReviewStats(cleanliness: 2,
+                                   foodQuality: 3,
+                                   service: 1,
+                                   waitTime: 1),
+                
+                    selectedCategories: ["Poultry", "Rice", "Soup"],
+                    title: "No lo recomiendo.",
+                    user: "Mariana Martínez"
+            )
+            
+        ])
+
 }

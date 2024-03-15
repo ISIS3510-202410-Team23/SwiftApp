@@ -24,6 +24,7 @@ enum Tabs:String {
 struct ContentView: View {
     @State var selectedTab: Tabs = .browse
     @Binding var showSignInView: Bool
+    @State private var searchText = ""
     
     // FIXME: testing only
     let bs: BackendService =  BackendService()
@@ -32,30 +33,12 @@ struct ContentView: View {
 //        bs.fetchAllSpots()
 //    }
     
-    
+
     var body: some View {
         
-        // FIXME: sign out button for testing only
-//        Button(action: {
-//            Task {
-//                do {
-//                    print("signing out...")
-//                    try AuthService.shared.signOut()
-//                    showSignInView = true
-//                    
-//                } catch {
-//                    print("Failed to sign out...")
-//                }
-//            }
-//        }, label: {
-//            Text("Sign out")
-//        })
-//        .buttonStyle(.borderedProminent)
-//        .padding()
-        
-        NavigationView {
+        NavigationStack {
             TabView(selection: $selectedTab){
-                BrowseView()
+                BrowseView(searchText: $searchText)
                     .tabItem { Label("Browse", systemImage: "magnifyingglass.circle") }
                     .tag(Tabs.browse)
                 
@@ -63,13 +46,34 @@ struct ContentView: View {
                     .tabItem { Label("For you", systemImage: "star") }
                     .tag(Tabs.foryou)
                 
-                BookmarksView()
+                BookmarksView(showSignInView: $showSignInView)
                     .tabItem { Label("Bookmarks", systemImage: "book") }
                     .tag(Tabs.bookmarks)
-                
-            }.navigationTitle(selectedTab.formattedTitle)
-            
+            }
+            .navigationTitle(selectedTab.formattedTitle)
+            .modifier(SearchableModifier(isSearchable: selectedTab == .browse, text: $searchText))
         }
+    }
+}
+
+struct SearchableModifier: ViewModifier {
+    let isSearchable: Bool
+    @Binding var text: String
+
+    func body(content: Content) -> some View {
+        if isSearchable {
+            return content
+                .searchable(text: $text)
+                .eraseToAnyView()
+        } else {
+            return content.eraseToAnyView()
+        }
+    }
+}
+
+extension View {
+    func eraseToAnyView() -> AnyView {
+        return AnyView(self)
     }
 }
 

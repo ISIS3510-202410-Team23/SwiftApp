@@ -8,23 +8,22 @@
 import Foundation
 import SwiftUI
 
-struct TextButton: View {
+struct BoldTextButton: View {
     
     let text: String
     let txtSize: CGFloat
-    let hPadding: CGFloat
-    var action: () -> Void = { print("pressing TextButton")}
+    let action: () -> Void
     
     var body: some View {
         Button(action: action) {
             Text(text)
                 .foregroundColor(.blue)
                 .font(.system(size: txtSize))
-                .padding(.horizontal, hPadding)
+                .bold()
         }
     }
 }
 
 #Preview {
-    TextButton(text: "See more", txtSize: 17, hPadding: 5, action: { print("pressing TextButton")})
+    BoldTextButton(text: "Done", txtSize: 20){ print("Done") }
 }

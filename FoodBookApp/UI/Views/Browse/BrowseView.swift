@@ -7,33 +7,56 @@
 
 import SwiftUI
 
+
+
 struct BrowseView: View {
+    let locationService = LocationService.shared
+    
     @State private var model = BrowseViewModel()
     
+    @Binding var searchText: String
+    
     var body: some View {
-        // TODO: Missing searchbar for spots
-        // TODO: Missing filter for categories
-        ScrollView(content: {
-            ForEach(model.spots, id: \.self) { spot in
-                SpotCard(
-                    title: spot.name,
-                    minTime: spot.minTime,
-                    maxTime: spot.maxTime,
-                    distance: Float(spot.distance),
-                    categories: spot.categories
-                )
-                .fixedSize(horizontal: false, vertical: true)
+        ScrollView {
+            Group {
+                ForEach(searchResults, id: \.self) { spot in
+                    NavigationLink(destination: SpotDetailView()){ // TODO: In the future this should have the SpotId as param
+                        SpotCard(
+                            title: spot.name,
+                            minTime: spot.waitTime.min,
+                            maxTime: spot.waitTime.max,
+                            distance: 0.0, //FIXME: calculate
+                            categories: spot.categories,
+                            imageLinks: spot.imageLinks ?? []
+                        )
+                        .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .accentColor(.black)
+                }
             }
-        })
+            .searchable(text: $searchText)
+
+
+        }
         .padding(8)
         .task {
             _ = try? await model.fetchSpots()
         }
-
+    }
+    
+    var searchResults: [Spot] {
+        if searchText.isEmpty {
+            return model.spots
+        } else {
+            return model.spots.filter { spot in
+                spot.name.localizedCaseInsensitiveContains(searchText)
+            }
+        }
     }
 }
 
-
-#Preview {
-    BrowseView()
+struct BrowseView_Previews: PreviewProvider {
+    static var previews: some View {
+        BrowseView(searchText: .constant(""))
+    }
 }
