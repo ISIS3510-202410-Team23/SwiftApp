@@ -9,8 +9,7 @@ import Foundation
 
 protocol SpotRepository {
     static var spotDao: SpotDAO { get }
-    
-//    func getSpots() async throws
-    
-    func getSpotById(docId: String) async throws
+
+    func getSpotById(docId: String) async throws -> Spot
+//    func getSpots() async throws -> [Spot] TODO: @JuanDiego
 }

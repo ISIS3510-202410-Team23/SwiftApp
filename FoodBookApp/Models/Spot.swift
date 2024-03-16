@@ -21,8 +21,24 @@ struct SpotStats: Codable, Equatable, Hashable {
 }
 
 struct ReviewData: Codable, Equatable, Hashable {
-    let stasts: SpotStats
+    let stats: SpotStats
     let userReviews: [Review]
+}
+
+struct ReviewDataDTO: Codable, Equatable, Hashable {
+    let stats: SpotStats
+    let userReviews: [DocumentReference]
+}
+
+struct SpotDTO: Codable, Equatable, Hashable {
+    @DocumentID var id: String?
+    let categories: [String]
+    let location: GeoPoint
+    let name: String
+    let price: String
+    let waitTime: WaitTime
+    let reviewData: ReviewDataDTO
+    let imageLinks: [String]?
 }
 
 struct Spot: Codable, Equatable, Hashable {
@@ -32,6 +48,7 @@ struct Spot: Codable, Equatable, Hashable {
     let name: String
     let price: String
     let waitTime: WaitTime
-    let reviewData: ReviewData?
+    let reviewData: ReviewData
     let imageLinks: [String]?
+
 }
