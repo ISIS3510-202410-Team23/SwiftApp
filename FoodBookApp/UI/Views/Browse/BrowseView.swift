@@ -20,7 +20,7 @@ struct BrowseView: View {
         ScrollView {
             Group {
                 ForEach(searchResults, id: \.self) { spot in
-                    NavigationLink(destination: SpotDetailView()){ // TODO: In the future this should have the SpotId as param
+                    NavigationLink(destination: SpotDetailView(spotId: "ms1hTTxzVkiJElZiYHAT")){ // TODO: @JuanDiego
                         SpotCard(
                             title: spot.name,
                             minTime: spot.waitTime.min,

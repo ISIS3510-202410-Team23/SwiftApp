@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct BookmarksView: View {
-    
-    let bs: BackendService = BackendService()
     @Binding var showSignInView: Bool
     
     
@@ -39,13 +37,6 @@ struct BookmarksView: View {
             .buttonStyle(.borderedProminent)
             .padding()
             
-        }
-        .task {
-            do {
-                try await bs.spotRepo.getSpotById(docId: "ms1hTTxzVkiJElZiYHAT")
-            } catch {
-                print("ERROR")
-            }
         }
 
     }
