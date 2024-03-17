@@ -26,14 +26,6 @@ struct ContentView: View {
     @Binding var showSignInView: Bool
     @State private var searchText = ""
     
-    // FIXME: testing only
-    let bs: BackendService =  BackendService()
-    
-//    init () {
-//        bs.fetchAllSpots()
-//    }
-    
-
     var body: some View {
         
         NavigationStack {

@@ -38,6 +38,7 @@ struct BookmarksView: View {
             .padding()
             
         }
+
     }
 }
 
