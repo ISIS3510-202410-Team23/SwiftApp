@@ -30,7 +30,7 @@ class NotificationHandler {
 
         cancelNotification(identifier: notificationIdentifier)
                     
-        let triggerDate = Calendar.current.date(byAdding: .second, value: 5, to: date)!
+        let triggerDate = Calendar.current.date(byAdding: .day, value: 4, to: date)!
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: triggerDate), repeats: false)
                 
