@@ -14,6 +14,7 @@ struct CreateReview1View: View {
     @FocusState private var searchTextIsFocused: Bool
     @State private var selectedCats: [String] = []
     @Binding var isNewReviewSheetPresented: Bool
+    @State private var showAlert = false
     
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     let customGray2 = Color(red: 242/255, green: 242/255, blue: 247/255)
@@ -31,10 +32,17 @@ struct CreateReview1View: View {
                         Text("Review")
                             .bold()
                         Spacer()
-                        NavigationLink {
-                            CreateReview2View(categories: self.selectedCats, isNewReviewSheetPresented: $isNewReviewSheetPresented)
-                        } label: {
-                            Text("Next")
+                        if selectedCats.isEmpty {
+                            Button("Next") {
+                                showAlert.toggle()
+                            }
+                            .alert(isPresented: $showAlert) {
+                                Alert(title: Text("Try again"), message: Text("Please select at least one category"), dismissButton: .default(Text("OK")))
+                            }
+                        } else {
+                            NavigationLink(destination: CreateReview2View(categories: self.selectedCats, isNewReviewSheetPresented: $isNewReviewSheetPresented)) {
+                                Text("Next")
+                            }
                         }
                         // FIXME: This could be layed out with the Navigation things
                         

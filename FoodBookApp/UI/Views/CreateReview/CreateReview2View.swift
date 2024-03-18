@@ -120,7 +120,6 @@ struct CreateReview2View: View {
                     }, label: {
                         Text("Done")
                             .frame(maxWidth: .infinity)
-                            .padding(.vertical)
                     })
                 }
                 
