@@ -13,5 +13,9 @@ class SpotRepositoryImpl: SpotRepository {
     
     func getSpotById(docId: String) async throws -> Spot {
         return try await SpotRepositoryImpl.spotDao.getSpotById(documentId: docId)
-    }    
+    }
+    
+    func getSpots() async throws -> [Spot] {
+        return try await SpotRepositoryImpl.spotDao.getSpots()
+    }
 }

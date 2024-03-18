@@ -18,7 +18,8 @@ struct ForYouView: View {
                     maxTime: spot.waitTime.max,
                     distance: 0.0, // FIXME: Calculate
                     categories: spot.categories,
-                    imageLinks: spot.imageLinks ?? []
+                    imageLinks: spot.imageLinks ?? [],
+                    price: spot.price
                 )
                 .fixedSize(horizontal: false, vertical: true)
             }

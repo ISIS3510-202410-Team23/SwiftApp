@@ -16,6 +16,7 @@ struct SpotCard: View {
     let distance : Float
     let categories : [String]
     let imageLinks : [String]
+    let price : String
     
     let rowLayout = Array(repeating: GridItem(), count: 2)
     
@@ -36,7 +37,7 @@ struct SpotCard: View {
                         
                 }
             })
-            Text(title)
+            Text("\(title) · \(price) ")
                 .font(.title)
                 .bold()
             Text("\(Image(systemName: "clock")) \(minTime)-\(maxTime) min.   \(Image(systemName: "location")) \(distance.formatted()) km")
@@ -67,7 +68,8 @@ struct SpotCard: View {
             "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             "https://images.unsplash.com/photo-1529042410759-befb1204b468?q=80&w=2486&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        ]
+        ],
+        price: "$"
         
     )
 }
