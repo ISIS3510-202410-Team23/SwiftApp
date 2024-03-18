@@ -16,6 +16,8 @@ struct LoginView: View {
     @State private var viewModel = LoginViewModel()
     @Binding var showSignInView: Bool
     
+    let notify = NotificationHandler()
+    
     var body: some View {
         VStack {
             
@@ -52,6 +54,8 @@ struct LoginView: View {
                         try await viewModel.signInGoogle()
                         print("Successfully signed in.") 
                         showSignInView = false
+                        notify.askPermission() // This will only be done once, not every time a user signs in
+                        notify.sendLastReviewNotification(date: Date())
                     } catch {
                         print(error)
                     }

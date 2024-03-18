@@ -25,6 +25,9 @@ struct CreateReview2View: View {
     @State private var reviewBody: String = ""
     @FocusState private var reviewBodyIsFocused: Bool
     @Binding var isNewReviewSheetPresented: Bool
+    @State private var showAlert = false
+    
+    let notify = NotificationHandler()
     
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     let customGray2 = Color(red: 242/255, green: 242/255, blue: 247/255)
@@ -32,18 +35,6 @@ struct CreateReview2View: View {
     var body: some View {
         VStack(alignment: .leading) {
             // Header
-//            HStack{
-//                TextButton(text: "Cancel", txtSize: 20, hPadding: 0) // FIXME: should redirect
-//                Spacer()
-//                Text("Review")
-//                    .bold()
-//                    .font(.system(size: 20))
-//                Spacer()
-//                BoldTextButton(text: "Done", txtSize: 20) { print("Done") } // FIXME: should verify inputs and send them to DB
-//                
-//            }.padding(.horizontal).padding(.top)
-//            
-//            Separator()
             
             ScrollView(.vertical) {
                 // Quality attributes
@@ -110,21 +101,28 @@ struct CreateReview2View: View {
                 .navigationTitle("Review")
                 .toolbar{
                     Button(action: {
-                        // Step 1: Uplad review
-                        print("Uploads this review!")
-                        // Very Nice To Have, but that the "Done" turns into the loading indicator while the review is uploaded, idk how complex it could be though.
                         
-                        // Step 2: Close sheet
-                        isNewReviewSheetPresented.toggle()
-                        
+                        if cleanliness == 0 || waitingTime == 0 || service == 0 || foodQuality == 0 {
+                            showAlert.toggle()
+                        }
+                        else {
+                            // TODO: Step 1: Upload review
+                            print("Uploads this review!")
+                            // Very Nice To Have, but that the "Done" turns into the loading indicator while the review is uploaded, idk how complex it could be though.
+                            
+                            // Step 1.5: Trigger notification
+                            notify.sendLastReviewNotification(date: Date())
+                                                        
+                            // Step 2: Close sheet
+                            isNewReviewSheetPresented.toggle()
+                        }
+  
                     }, label: {
                         Text("Done")
                             .frame(maxWidth: .infinity)
-                            .padding()
+                            .padding(.vertical)
                     })
-                           
                 }
-                
                 
                 // Photo
                 if let image = selectedImage {
@@ -197,6 +195,10 @@ struct CreateReview2View: View {
                     imageIsSelected = true
                 }
             }
+        }.alert("Try again", isPresented: $showAlert) {
+            
+        } message: {
+            Text("Please make sure to at least fill out all the star ratings")
         }
     }
     

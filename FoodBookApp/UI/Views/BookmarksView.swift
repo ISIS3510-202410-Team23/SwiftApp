@@ -10,6 +10,8 @@ import SwiftUI
 struct BookmarksView: View {
     @Binding var showSignInView: Bool
     
+    //TODO: move this to sign out view if created
+    let notify = NotificationHandler()
     
     var body: some View {
         
@@ -26,6 +28,9 @@ struct BookmarksView: View {
                         print("signing out...")
                         try AuthService.shared.signOut()
                         showSignInView = true
+                        
+                        // This should remain in the sign out
+                        notify.cancelNotification(identifier: "lastReviewNotification")
                         
                     } catch {
                         print("Failed to sign out...")
