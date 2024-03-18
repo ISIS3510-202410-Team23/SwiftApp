@@ -25,7 +25,7 @@ struct BrowseView: View {
                             title: spot.name,
                             minTime: spot.waitTime.min,
                             maxTime: spot.waitTime.max,
-                            distance: 0.0, //FIXME: calculate
+                            distance: 0,
                             categories: spot.categories,
                             imageLinks: spot.imageLinks ?? []
                         )
@@ -40,6 +40,8 @@ struct BrowseView: View {
         }
         .padding(8)
         .task {
+            let location = locationService.userLocation
+            print(location as Any)
             _ = try? await model.fetchSpots()
         }
     }
