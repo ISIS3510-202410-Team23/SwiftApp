@@ -29,7 +29,7 @@ struct BookmarksView: View {
                         try AuthService.shared.signOut()
                         showSignInView = true
                         
-                        // This should remain in the sign out
+                        //TODO: move this to sign out view if created
                         notify.cancelNotification(identifier: "lastReviewNotification")
                         
                     } catch {
