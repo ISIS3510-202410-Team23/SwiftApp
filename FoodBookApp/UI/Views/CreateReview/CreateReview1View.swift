@@ -40,8 +40,6 @@ struct CreateReview1View: View {
                         
                     }.padding(.horizontal).padding(.top)
                     
-                    Separator()
-                    
                     VStack(alignment: .leading, spacing: 0) {
                         Text("What did you order?")
                             .font(.system(size: 24))
