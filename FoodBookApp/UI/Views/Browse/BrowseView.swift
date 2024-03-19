@@ -18,7 +18,7 @@ struct BrowseView: View {
         ScrollView {
             Group {
                 ForEach(searchResults, id: \.self) { spot in
-                    NavigationLink(destination: SpotDetailView(spotId: "ms1hTTxzVkiJElZiYHAT")){ // TODO: Should redirect based on id
+                    NavigationLink(destination: SpotDetailView(spotId: spot.id ?? "")){ // TODO: Should redirect based on id
                         SpotCard(
                             title: spot.name,
                             minTime: spot.waitTime.min,
@@ -40,6 +40,7 @@ struct BrowseView: View {
         .padding(8)
         .task {
             _ = try? await model.fetchSpots()
+            print(model.spots)
             
         }
     }

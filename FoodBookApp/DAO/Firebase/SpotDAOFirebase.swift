@@ -45,6 +45,7 @@ class SpotDAOFirebase: SpotDAO {
             let spotDTO = try document.data(as: SpotDTO.self)
 
             let spot = Spot(
+                id: spotDTO.id,
                 categories: spotDTO.categories,
                 location: spotDTO.location,
                 name: spotDTO.name,
