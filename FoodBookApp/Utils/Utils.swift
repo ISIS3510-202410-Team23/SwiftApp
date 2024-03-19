@@ -38,7 +38,7 @@ final class Utils {
         let calendar = Calendar.current
         let now = Date()
         let startTime = calendar.date(bySettingHour: 12, minute: 0, second: 0, of: now)!
-        let endTime = calendar.date(bySettingHour: 20, minute: 0, second: 0, of: now)! //FIXME: correct time range
+        let endTime = calendar.date(bySettingHour: 15, minute: 0, second: 0, of: now)!
         return now >= startTime && now <= endTime
     }
 }
