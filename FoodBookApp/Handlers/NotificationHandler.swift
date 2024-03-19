@@ -9,6 +9,7 @@ import Foundation
 import UserNotifications
 
 class NotificationHandler {
+    
     func askPermission() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound])
         { success, error in
@@ -43,4 +44,76 @@ class NotificationHandler {
         
         UNUserNotificationCenter.current().add(request)
     }
+    
+    func sendLunchTimeReminder(identifier: String) {
+        
+        if hasDayPassedSinceLastNotification() {
+            print("Sending daily notification...")
+            let notificationIdentifier = "lunchTimeNotification"
+            
+            // i18n
+            let title = "Time for lunch!"
+            let body = "Looks like you're on campus, find your spot or rate the one you've been at!"
+            
+            let content = UNMutableNotificationContent()
+            content.title = title
+            content.body = body
+            content.sound = UNNotificationSound.default
+            
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(5), repeats: false) // Send notif almost immedtiately
+            
+            let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger)
+            
+            saveLastNotificationTime(Date())
+            UNUserNotificationCenter.current().add(request)
+        }
+        
+    }
+    
+    private func saveLastNotificationTime(_ time: Date) {
+        UserDefaults.standard.set(time, forKey: "lastNotificationTime")
+    }
+
+    // Function to retrieve the time of the last notification from local storage
+    private func getLastNotificationTime() -> Date? {
+        return UserDefaults.standard.object(forKey: "lastNotificationTime") as? Date
+    }
+    
+    func hasDayPassedSinceLastNotification() -> Bool {
+        guard let lastNotificationTime = getLastNotificationTime() else {
+            // If no last notification time is stored, assume a day has passed
+            return true
+        }
+        
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        // Compare the dates to see if a day has passed
+        if let lastNotificationDay = calendar.ordinality(of: .day, in: .era, for: lastNotificationTime),
+           let currentDay = calendar.ordinality(of: .day, in: .era, for: currentDate) {
+            return currentDay > lastNotificationDay
+        }
+        
+        return false
+    }
+    
+    // FIXME: Testing only
+//    func hasMinutePassedSinceLastNotification() -> Bool {
+//        guard let lastNotificationTime = getLastNotificationTime() else {
+//            // If no last notification time is stored, assume a minute has passed
+//            return true
+//        }
+//        
+//        let currentDate = Date()
+//        let calendar = Calendar.current
+//        
+//        // Compare the dates to see if a minute has passed
+//        if let lastNotificationMinute = calendar.ordinality(of: .minute, in: .era, for: lastNotificationTime),
+//           let currentMinute = calendar.ordinality(of: .minute, in: .era, for: currentDate) {
+//            return currentMinute > lastNotificationMinute
+//        }
+//        
+//        return false
+//    }
+
 }
