@@ -11,6 +11,7 @@ import PhotosUI
 
 struct CreateReview2View: View {
     let categories: [String]
+    let spotId: String
     @State private var selectedImage: UIImage?
     @State private var showSheet: Bool = false
     @State private var showImagePicker: Bool = false
@@ -110,10 +111,9 @@ struct CreateReview2View: View {
                             else {
                                 // Step 1: Upload review
                                 let reviewDate = Date()
+                                //let trimmedTitle =
                                 
-                                // Asynchronously fetch the authenticated user's email
                                 Task {
-                                    // Create the review using the authenticated user's email
                                     let newReview = Review(content: reviewBody, // FIXME: trim
                                                            date: reviewDate,
                                                            imageUrl: nil, // FIXME: handle photo
@@ -125,14 +125,12 @@ struct CreateReview2View: View {
                                                            selectedCategories: categories,
                                                            title: reviewTitle, // FIXME: trim
                                                            user: model.username)
-                                    
-                                    // Add the review to the model
                                     do {
-                                        let reviewID = try await model.addReview(review: newReview)
-                                        print("The review uploaded has this ID:", reviewID)
-                                        // Handle the reviewID
+                                        let reviewId = try await model.addReview(review: newReview)
+                                        try await model.addReviewToSpot(spotId: spotId, reviewId: reviewId)
+                                        print("The review uploaded has this ID:", reviewId)
+                                        
                                     } catch {
-                                        // Handle the error
                                         print("Error adding review: \(error)")
                                     }
                                 }
@@ -260,5 +258,5 @@ struct CreateReview2View: View {
 }
 
 #Preview {
-    CreateReview2View(categories: ["Homemade", "Colombian"], isNewReviewSheetPresented: .constant(true))
+    CreateReview2View(categories: ["Homemade", "Colombian"], spotId: "ms1hTTxzVkiJElZiYHAT", isNewReviewSheetPresented: .constant(true))
 }

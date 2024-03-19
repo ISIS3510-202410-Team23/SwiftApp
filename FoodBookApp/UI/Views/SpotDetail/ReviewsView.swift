@@ -61,7 +61,7 @@ struct ReviewsView: View {
                                         Text(review.title).bold()
                                     }
                                     Spacer()
-                                    Text("25s ago").foregroundColor(.gray) // FIXME: should calculate time
+                                    Text(DateFormatter.localizedString(from: review.date, dateStyle: .short, timeStyle: .none)).foregroundColor(.gray) // FIXME: should calculate time (?)
                                 }.padding()
                                 HStack {
                                     Spacer()

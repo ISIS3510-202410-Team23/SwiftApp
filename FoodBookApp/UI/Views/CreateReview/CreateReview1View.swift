@@ -40,7 +40,8 @@ struct CreateReview1View: View {
                                 Alert(title: Text("Try again"), message: Text("Please select at least one category"), dismissButton: .default(Text("OK")))
                             }
                         } else {
-                            NavigationLink(destination: CreateReview2View(categories: self.selectedCats, isNewReviewSheetPresented: $isNewReviewSheetPresented)) {
+                            // FIXME: spotId should be spot's
+                            NavigationLink(destination: CreateReview2View(categories: self.selectedCats, spotId: "ms1hTTxzVkiJElZiYHAT", isNewReviewSheetPresented: $isNewReviewSheetPresented)) {
                                 Text("Next")
                             }
                         }
