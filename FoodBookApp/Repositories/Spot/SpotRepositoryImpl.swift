@@ -21,5 +21,9 @@ class SpotRepositoryImpl: SpotRepository {
     
     func getSpotsWithIDList(list: [String]) async throws -> [Spot] {
         return try await SpotRepositoryImpl.spotDao.getSpotsWithIDList(docIDs: list)
+    }   
+    
+    func updateSpot(docId: String, revId: String) async throws {
+        return try await SpotRepositoryImpl.spotDao.updateSpot(documentId: docId, reviewId: revId)
     }
 }

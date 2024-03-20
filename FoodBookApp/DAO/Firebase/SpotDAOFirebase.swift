@@ -36,6 +36,7 @@ class SpotDAOFirebase: SpotDAO {
         return try snapshot.data(as: Review.self)
     }
     
+
     func getSpots() async throws -> [Spot] {
         let snapshot = try await collection.getDocuments()
         var spots = [Spot]()
@@ -60,6 +61,12 @@ class SpotDAOFirebase: SpotDAO {
             spots.append(spot)
         }
         return spots
+    }
+  
+    func updateSpot(documentId: String, reviewId: String) async throws {
+        let spotRef = collection.document(documentId)
+        let reviewRef = client.db.collection("reviews").document(reviewId)
+        try await spotRef.updateData(["reviewData.userReviews": FieldValue.arrayUnion([reviewRef])])
     }
     
     func getSpotsWithIDList(docIDs: [String]) async throws -> [Spot] {

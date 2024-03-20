@@ -13,4 +13,5 @@ protocol SpotDAO {
     func getSpotById(documentId: String) async throws -> Spot
     func getSpots() async throws -> [Spot]
     func getSpotsWithIDList(docIDs: [String]) async throws -> [Spot]
+    func updateSpot(documentId: String, reviewId: String) async throws
 }
