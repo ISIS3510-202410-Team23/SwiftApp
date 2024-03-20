@@ -20,7 +20,7 @@ class ForYouViewModel {
     private let repository: SpotRepository = SpotRepositoryImpl.shared
     private let locationService = LocationService.shared
     private let locationUtils = LocationUtils()
-    private let userUtils = UserUtils()
+    private let utils = Utils.shared
     
     func fetchRecommendedSpots() async throws {
         try await getUsername()
@@ -63,7 +63,7 @@ class ForYouViewModel {
     
     func getUsername() async throws {
         do {
-            self.uid = try await userUtils.getUsername()
+            self.uid = try await utils.getUsername()
         } catch {
             self.uid = "userID"
         }

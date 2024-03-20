@@ -13,7 +13,7 @@ import SwiftUI
 class CreateReview2ViewModel {
     private let reviewRepository: ReviewRepository = ReviewRepositoryImpl.shared
     private let spotRepository: SpotRepository = SpotRepositoryImpl.shared
-    private let userUtils = UserUtils()
+    private let utils = Utils.shared
     var username: String = ""
     
     init() {}
@@ -49,7 +49,7 @@ class CreateReview2ViewModel {
     }
     
     func getUsername() async throws {
-        self.username = try await userUtils.getUsername()
+        self.username = try await utils.getUsername()
     }
     
 }

@@ -41,4 +41,22 @@ final class Utils {
         let endTime = calendar.date(bySettingHour: 15, minute: 0, second: 0, of: now)!
         return now >= startTime && now <= endTime
     }
+    
+    func getUsername() async throws -> String {
+        do {
+            let email = try AuthService.shared.getAuthenticatedUser().email
+            if let email = email {
+                let usernameComponents = email.split(separator: "@")
+                if let username = usernameComponents.first {
+                    return String(username)
+                } else {
+                    throw NSError(domain: "Google", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid email format"])
+                }
+            } else {
+                throw NSError(domain: "Google", code: 0, userInfo: [NSLocalizedDescriptionKey: "Email not found"])
+            }
+        } catch {
+            throw error
+        }
+    }
 }
