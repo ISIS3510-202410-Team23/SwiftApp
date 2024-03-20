@@ -117,24 +117,5 @@ class NotificationHandler {
         
         return false
     }
-    
-    // FIXME: Testing only
-//    func hasMinutePassedSinceLastNotification() -> Bool {
-//        guard let lastNotificationTime = getLastNotificationTime() else {
-//            // If no last notification time is stored, assume a minute has passed
-//            return true
-//        }
-//        
-//        let currentDate = Date()
-//        let calendar = Calendar.current
-//        
-//        // Compare the dates to see if a minute has passed
-//        if let lastNotificationMinute = calendar.ordinality(of: .minute, in: .era, for: lastNotificationTime),
-//           let currentMinute = calendar.ordinality(of: .minute, in: .era, for: currentDate) {
-//            return currentMinute > lastNotificationMinute
-//        }
-//        
-//        return false
-//    }
 
 }

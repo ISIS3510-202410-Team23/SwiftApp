@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct CreateReview1View: View {
-    let spotId: String
+    var spotId: String
     @State private var model = CreateReview1ViewModel()
     @State private var searchText: String = ""
     @FocusState private var searchTextIsFocused: Bool
@@ -28,7 +28,7 @@ struct CreateReview1View: View {
                     HStack{
                         TextButton(text: "Cancel", txtSize: 17, hPadding: 0, action: {
                             isNewReviewSheetPresented.toggle()
-                        }) // FIXME: should redirect
+                        })
                         Spacer()
                         Text("Review")
                             .bold()
@@ -41,12 +41,10 @@ struct CreateReview1View: View {
                                 Alert(title: Text("Try again"), message: Text("Please select at least one category"), dismissButton: .default(Text("OK")))
                             }
                         } else {
-                            // FIXME: spotId should be spot's
                             NavigationLink(destination: CreateReview2View(categories: self.selectedCats, spotId: spotId, isNewReviewSheetPresented: $isNewReviewSheetPresented)) {
                                 Text("Next")
                             }
                         }
-                        // FIXME: This could be layed out with the Navigation things
                         
                     }.padding(.horizontal).padding(.top)
                     
@@ -93,10 +91,10 @@ struct CreateReview1View: View {
                                         }
                                         else {
                                             if selectedCats.count < 3 {
-                                                selectedCats.append(cat.lowercased())
+                                                selectedCats.append(cat)
                                             }
                                         }
-                                    }, label: {Text(cat)
+                                    }, label: {Text(cat.capitalized)
                                             .font(.system(size: 14))
                                             .bold()
                                             .foregroundColor(selectedCats.contains(cat) ? Color.white : Color.black)

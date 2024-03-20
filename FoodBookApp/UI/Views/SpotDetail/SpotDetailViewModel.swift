@@ -7,7 +7,7 @@
 
 import Foundation
 import Observation
-import FirebaseFirestore //FIXME: delete later
+import FirebaseFirestore
 
 @Observable
 class SpotDetailViewModel {

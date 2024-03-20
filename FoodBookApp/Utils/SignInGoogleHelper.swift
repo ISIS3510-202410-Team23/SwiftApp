@@ -26,7 +26,7 @@ final class SignInGoogleHelper {
         let gidSignInResult = try await GIDSignIn.sharedInstance.signIn(withPresenting: topVC)
         
         guard let idToken = gidSignInResult.user.idToken?.tokenString else {
-            throw URLError(.badServerResponse) //FIXME: Telling error message
+            throw URLError(.badServerResponse)
         }
         
         let accessToken = gidSignInResult.user.accessToken.tokenString

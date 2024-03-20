@@ -24,7 +24,7 @@ final class LocationService: NSObject, ObservableObject {
     }
 
     func requestLocationAuthorization() {
-        setupGeofence(for: uniandesLocation, regionRadius: 240, identifier: "uniandes") // FIXME: actual region + radius
+        setupGeofence(for: uniandesLocation, regionRadius: 240, identifier: "uniandes")
         self.manager.requestWhenInUseAuthorization()
     }
     
