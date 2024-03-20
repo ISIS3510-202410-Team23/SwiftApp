@@ -861,7 +861,8 @@
 				INFOPLIST_FILE = FoodBookApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FoodBook;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow camera access";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Please allow location usage.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Please allow location usage.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow for location usage";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -873,7 +874,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Team23.FoodBookApp.laura;
+				PRODUCT_BUNDLE_IDENTIFIER = Team23.FoodBookApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -895,7 +896,8 @@
 				INFOPLIST_FILE = FoodBookApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FoodBook;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow camera access";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Please allow location usage.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Please allow location usage.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow for location usage";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -907,7 +909,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Team23.FoodBookApp.laura;
+				PRODUCT_BUNDLE_IDENTIFIER = Team23.FoodBookApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -33,4 +33,12 @@ final class Utils {
         }
         return controller
     }
+    
+    func isWithinLunchWindow() -> Bool {
+        let calendar = Calendar.current
+        let now = Date()
+        let startTime = calendar.date(bySettingHour: 12, minute: 0, second: 0, of: now)!
+        let endTime = calendar.date(bySettingHour: 15, minute: 0, second: 0, of: now)!
+        return now >= startTime && now <= endTime
+    }
 }
