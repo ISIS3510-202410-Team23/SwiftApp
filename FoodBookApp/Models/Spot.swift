@@ -50,5 +50,6 @@ struct Spot: Codable, Equatable, Hashable {
     let waitTime: WaitTime
     let reviewData: ReviewData
     let imageLinks: [String]?
-
+    var distance: String?
 }
+
