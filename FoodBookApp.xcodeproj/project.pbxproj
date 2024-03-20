@@ -204,6 +204,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D347C3D2BAB8784003990A0 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				6C1811D42B8AC15C0066F3D0 /* LoginView.swift */,
+				6CF821812B8D891D008E7057 /* LoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		0D347C3E2BAB8797003990A0 /* Bookmarks */ = {
+			isa = PBXGroup;
+			children = (
+				0DCB7BD72B86F0290088C333 /* BookmarksView.swift */,
+			);
+			path = Bookmarks;
+			sourceTree = "<group>";
+		};
 		0D8BBB622B91402C00739448 /* ForYou */ = {
 			isa = PBXGroup;
 			children = (
@@ -323,14 +340,13 @@
 			isa = PBXGroup;
 			children = (
 				6CC929062B84FB0900EDDE78 /* Assets.xcassets */,
-				6CC929042B84FB0700EDDE78 /* ContentView.swift */,
-				6C0C82DE2B8D2EC2004EAE3F /* DAO */,
 				6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */,
 				6CF8217A2B8D877B008E7057 /* GoogleService-Info.plist */,
-				D31966A12BA7A51100E1DD53 /* Handlers */,
 				6C1811DA2B8AC62B0066F3D0 /* Info.plist */,
+				6C0C82DE2B8D2EC2004EAE3F /* DAO */,
+				D31966A12BA7A51100E1DD53 /* Handlers */,
 				6CC9292E2B85023500EDDE78 /* Models */,
-				6CC9292F2B85028900EDDE78 /* Persitence */,
+				6CC9292F2B85028900EDDE78 /* Persistence */,
 				6CC929082B84FB0900EDDE78 /* Preview Content */,
 				6CC929312B85029E00EDDE78 /* Repositories */,
 				6C0C82EB2B8D3DA9004EAE3F /* Services */,
@@ -374,12 +390,12 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		6CC9292F2B85028900EDDE78 /* Persitence */ = {
+		6CC9292F2B85028900EDDE78 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
 				6C0C82D92B8D2D99004EAE3F /* Firebase.swift */,
 			);
-			path = Persitence;
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 		6CC929312B85029E00EDDE78 /* Repositories */ = {
@@ -410,10 +426,10 @@
 				D34B69782B8FA2500043937B /* CreateReview */,
 				D321E49A2B8F83F800F93974 /* SpotDetail */,
 				0DA610B92B8D26B300DFDFF4 /* Browse */,
-				0DCB7BD72B86F0290088C333 /* BookmarksView.swift */,
-				6C1811D42B8AC15C0066F3D0 /* LoginView.swift */,
-				6CF821812B8D891D008E7057 /* LoginViewModel.swift */,
+				0D347C3D2BAB8784003990A0 /* Login */,
+				0D347C3E2BAB8797003990A0 /* Bookmarks */,
 				6CE6C5D02B8E1576008C7349 /* RootView.swift */,
+				6CC929042B84FB0700EDDE78 /* ContentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
