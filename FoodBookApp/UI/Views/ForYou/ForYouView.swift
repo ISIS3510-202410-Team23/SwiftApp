@@ -36,7 +36,6 @@ struct ForYouView: View {
         .padding(8)
         .task {
             _ = try? await model.fetchRecommendedSpots()
-            print(model.spots)
         }
     }
 }

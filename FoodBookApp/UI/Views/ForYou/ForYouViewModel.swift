@@ -13,20 +13,37 @@ import FirebaseFirestore
 @Observable
 class ForYouViewModel {
     var spots: [Spot] = []
-    let uid: String = "m.castroi" // FIXME: this should take the UID from user
+    var uid: String = ""
+    var documentIds: [String] = []
+    
     private let backendService = BackendService()
     private let repository: SpotRepository = SpotRepositoryImpl.shared
-    let locationService = LocationService.shared
-    let locationUtils = LocationUtils()
+    private let locationService = LocationService.shared
+    private let locationUtils = LocationUtils()
+    private let userUtils = UserUtils()
     
     func fetchRecommendedSpots() async throws {
-        if let document_ids = try? await backendService.performAPICall(uid: uid){
-            spots = try await repository.getSpotsWithIDList(list: document_ids)
-            calculateDistance()
-        } else {
-            print("API call did not work")
+        try await getUsername()
+        while true {
+            do {
+                let dids = try await backendService.performAPICall(uid: uid)
+                if !dids.isEmpty {
+                    self.documentIds = dids
+                    break
+                }
+                if dids.isEmpty {
+                    self.uid = "AAAAAAA"
+                }
+            } catch {
+                print("Error fetching recommended spots: \(error)")
+                throw error
+            }
         }
+        
+        spots = try await repository.getSpotsWithIDList(list: documentIds)
+        calculateDistance()
     }
+
     
     private func fetchSpotsWithIDList(li: [String]) async throws -> [Spot] {
         return try await repository.getSpotsWithIDList(list: li)
@@ -43,4 +60,13 @@ class ForYouViewModel {
             }
         }
     }
+    
+    func getUsername() async throws {
+        do {
+            self.uid = try await userUtils.getUsername()
+        } catch {
+            self.uid = "userID"
+        }
+    }
+
 }

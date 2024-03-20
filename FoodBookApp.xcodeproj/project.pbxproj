@@ -11,6 +11,7 @@
 		0D16DDD52B8C1799001D7BAB /* HCategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16DDD42B8C1799001D7BAB /* HCategoryList.swift */; };
 		0D347C362BAB2589003990A0 /* LocationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D347C352BAB2589003990A0 /* LocationUtils.swift */; };
 		0D347C382BAB4FA4003990A0 /* BackendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D347C372BAB4FA4003990A0 /* BackendService.swift */; };
+		0D347C3C2BAB7E41003990A0 /* UserUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D347C3B2BAB7E41003990A0 /* UserUtils.swift */; };
 		0D8BBB642B9142D600739448 /* ForYouViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8BBB632B9142D600739448 /* ForYouViewModel.swift */; };
 		0D8BBB662B91462800739448 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8BBB652B91462800739448 /* LocationService.swift */; };
 		0DA610BF2B8D602A00DFDFF4 /* BrowseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA610BE2B8D602A00DFDFF4 /* BrowseViewModel.swift */; };
@@ -104,6 +105,7 @@
 		0D16DDD42B8C1799001D7BAB /* HCategoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCategoryList.swift; sourceTree = "<group>"; };
 		0D347C352BAB2589003990A0 /* LocationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUtils.swift; sourceTree = "<group>"; };
 		0D347C372BAB4FA4003990A0 /* BackendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendService.swift; sourceTree = "<group>"; };
+		0D347C3B2BAB7E41003990A0 /* UserUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUtils.swift; sourceTree = "<group>"; };
 		0D8BBB632B9142D600739448 /* ForYouViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForYouViewModel.swift; sourceTree = "<group>"; };
 		0D8BBB652B91462800739448 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		0DA610BC2B8D2A5500DFDFF4 /* Spot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
@@ -204,6 +206,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D347C3D2BAB8784003990A0 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				6C1811D42B8AC15C0066F3D0 /* LoginView.swift */,
+				6CF821812B8D891D008E7057 /* LoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		0D347C3E2BAB8797003990A0 /* Bookmarks */ = {
+			isa = PBXGroup;
+			children = (
+				0DCB7BD72B86F0290088C333 /* BookmarksView.swift */,
+			);
+			path = Bookmarks;
+			sourceTree = "<group>";
+		};
 		0D8BBB622B91402C00739448 /* ForYou */ = {
 			isa = PBXGroup;
 			children = (
@@ -323,12 +342,11 @@
 			isa = PBXGroup;
 			children = (
 				6CC929062B84FB0900EDDE78 /* Assets.xcassets */,
-				6CC929042B84FB0700EDDE78 /* ContentView.swift */,
-				6C0C82DE2B8D2EC2004EAE3F /* DAO */,
 				6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */,
 				6CF8217A2B8D877B008E7057 /* GoogleService-Info.plist */,
-				D31966A12BA7A51100E1DD53 /* Handlers */,
 				6C1811DA2B8AC62B0066F3D0 /* Info.plist */,
+				6C0C82DE2B8D2EC2004EAE3F /* DAO */,
+				D31966A12BA7A51100E1DD53 /* Handlers */,
 				6CC9292E2B85023500EDDE78 /* Models */,
 				6CC9292F2B85028900EDDE78 /* Persitence */,
 				6CC929082B84FB0900EDDE78 /* Preview Content */,
@@ -410,10 +428,10 @@
 				D34B69782B8FA2500043937B /* CreateReview */,
 				D321E49A2B8F83F800F93974 /* SpotDetail */,
 				0DA610B92B8D26B300DFDFF4 /* Browse */,
-				0DCB7BD72B86F0290088C333 /* BookmarksView.swift */,
-				6C1811D42B8AC15C0066F3D0 /* LoginView.swift */,
-				6CF821812B8D891D008E7057 /* LoginViewModel.swift */,
+				0D347C3D2BAB8784003990A0 /* Login */,
+				0D347C3E2BAB8797003990A0 /* Bookmarks */,
 				6CE6C5D02B8E1576008C7349 /* RootView.swift */,
+				6CC929042B84FB0700EDDE78 /* ContentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -425,6 +443,7 @@
 				6CF821882B8D92FB008E7057 /* SignInGoogleHelper.swift */,
 				6C10219B2B96AB87007DCEEF /* Error.swift */,
 				0D347C352BAB2589003990A0 /* LocationUtils.swift */,
+				0D347C3B2BAB7E41003990A0 /* UserUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -657,6 +676,7 @@
 				0D16DDD52B8C1799001D7BAB /* HCategoryList.swift in Sources */,
 				D31D67102BA906E600B22A79 /* ReviewRepositoryImpl.swift in Sources */,
 				0D16DDD32B8BB65A001D7BAB /* SpotCard.swift in Sources */,
+				0D347C3C2BAB7E41003990A0 /* UserUtils.swift in Sources */,
 				0DCB7BDA2B86F0290088C333 /* BookmarksView.swift in Sources */,
 				6C0C82E82B8D30FF004EAE3F /* ExampleRepository.swift in Sources */,
 				6C0C82E62B8D2F08004EAE3F /* ExampleDAOFirebase.swift in Sources */,
