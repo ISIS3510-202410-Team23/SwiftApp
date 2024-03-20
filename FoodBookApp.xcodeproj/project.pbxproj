@@ -61,6 +61,7 @@
 		D31D670E2BA906D500B22A79 /* ReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31D670D2BA906D500B22A79 /* ReviewRepository.swift */; };
 		D31D67102BA906E600B22A79 /* ReviewRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31D670F2BA906E600B22A79 /* ReviewRepositoryImpl.swift */; };
 		D31D67162BA9119700B22A79 /* CreateReview2ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31D67152BA9119700B22A79 /* CreateReview2ViewModel.swift */; };
+		D31D67182BAA763B00B22A79 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = D31D67172BAA763B00B22A79 /* FirebaseStorage */; };
 		D321E4962B8E971500F93974 /* ReviewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321E4952B8E971500F93974 /* ReviewsView.swift */; };
 		D321E4A02B8F883A00F93974 /* SpotDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321E49F2B8F883A00F93974 /* SpotDetailViewModel.swift */; };
 		D321E4A42B8F929200F93974 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321E4A32B8F929200F93974 /* Review.swift */; };
@@ -164,6 +165,7 @@
 			files = (
 				6C5ED6D72B8ADB1000AF115C /* FirebaseAppCheck in Frameworks */,
 				6CF821792B8D7FF8008E7057 /* FirebaseAuth in Frameworks */,
+				D31D67182BAA763B00B22A79 /* FirebaseStorage in Frameworks */,
 				6C5ED6D32B8ADB1000AF115C /* FirebaseAnalyticsSwift in Frameworks */,
 				6CF821802B8D8837008E7057 /* GoogleSignInSwift in Frameworks */,
 				6C5ED6D52B8ADB1000AF115C /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
@@ -483,6 +485,7 @@
 				6CF821782B8D7FF8008E7057 /* FirebaseAuth */,
 				6CF8217D2B8D8837008E7057 /* GoogleSignIn */,
 				6CF8217F2B8D8837008E7057 /* GoogleSignInSwift */,
+				D31D67172BAA763B00B22A79 /* FirebaseStorage */,
 			);
 			productName = FoodBookApp;
 			productReference = 6CC928FF2B84FB0700EDDE78 /* FoodBookApp.app */;
@@ -1052,6 +1055,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6CF8217C2B8D8837008E7057 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		D31D67172BAA763B00B22A79 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6C5ED6CF2B8ADB1000AF115C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

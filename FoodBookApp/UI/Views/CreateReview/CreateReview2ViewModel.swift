@@ -7,6 +7,7 @@
 
 import Foundation
 import Observation
+import SwiftUI
 
 @Observable
 class CreateReview2ViewModel {
@@ -18,12 +19,24 @@ class CreateReview2ViewModel {
     
     @MainActor
     func addReview(review: Review) async throws -> String {
-            do {
-                let id = try await reviewRepository.createReview(review: review)
-                return id
-            } catch {
-                throw error
+        do {
+            let id = try await reviewRepository.createReview(review: review)
+            return id
+        } catch {
+            throw error
+        }
+    }
+    
+    func uploadPhoto(image: UIImage?) async throws -> String? {
+        guard let image = image else {
+                return nil
             }
+        do {
+            let url = try await reviewRepository.uploadPhoto(image: image)
+            return url
+        } catch {
+            throw error
+        }
     }
     
     func addReviewToSpot(spotId: String, reviewId: String) async throws {

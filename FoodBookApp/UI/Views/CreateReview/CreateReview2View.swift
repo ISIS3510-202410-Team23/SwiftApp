@@ -27,7 +27,6 @@ struct CreateReview2View: View {
     @FocusState private var reviewBodyIsFocused: Bool
     @Binding var isNewReviewSheetPresented: Bool
     @State private var showAlert = false
-    @State private var reviewID: String = ""
     
     let notify = NotificationHandler()
     @State private var model = CreateReview2ViewModel()
@@ -111,28 +110,34 @@ struct CreateReview2View: View {
                             else {
                                 // Step 1: Upload review
                                 let reviewDate = Date()
-                                //let trimmedTitle =
-                                
+
                                 Task {
-                                    let newReview = Review(content: reviewBody, // FIXME: trim
-                                                           date: reviewDate,
-                                                           imageUrl: nil, // FIXME: handle photo
-                                                           ratings: ReviewStats(
-                                                            cleanliness: cleanliness,
-                                                            foodQuality: foodQuality,
-                                                            service: service,
-                                                            waitTime: waitingTime),
-                                                           selectedCategories: categories,
-                                                           title: reviewTitle, // FIXME: trim
-                                                           user: model.username)
                                     do {
-                                        let reviewId = try await model.addReview(review: newReview)
-                                        try await model.addReviewToSpot(spotId: spotId, reviewId: reviewId)
-                                        print("The review uploaded has this ID:", reviewId)
-                                        
-                                    } catch {
-                                        print("Error adding review: \(error)")
+                                        let reviewImage = try await model.uploadPhoto(image: selectedImage)
+                                        let newReview = Review(content: reviewBody, // FIXME: trim
+                                                               date: reviewDate,
+                                                               imageUrl: reviewImage, // FIXME: handle photo
+                                                               ratings: ReviewStats(
+                                                                cleanliness: cleanliness,
+                                                                foodQuality: foodQuality,
+                                                                service: service,
+                                                                waitTime: waitingTime),
+                                                               selectedCategories: categories,
+                                                               title: reviewTitle, // FIXME: trim
+                                                               user: model.username)
+                                        do {
+                                            let reviewId = try await model.addReview(review: newReview)
+                                            try await model.addReviewToSpot(spotId: spotId, reviewId: reviewId)
+                                            print("The review uploaded has this ID:", reviewId)
+                                            
+                                        } catch {
+                                            print("Error adding review: \(error)")
+                                        }
                                     }
+                                    catch {
+                                        print(error)
+                                    }
+ 
                                 }
                                 
                                 // Very Nice To Have, but that the "Done" turns into the loading indicator while the review is uploaded, idk how complex it could be though.

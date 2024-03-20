@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import SwiftUI
 
 protocol ReviewDAO {
     static var shared: ReviewDAO { get }
     func createReview(review: Review) async throws -> String
+    func uploadPhoto(image: UIImage) async throws -> String
 }

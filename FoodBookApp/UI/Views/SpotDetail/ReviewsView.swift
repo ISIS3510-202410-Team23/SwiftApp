@@ -50,7 +50,7 @@ struct ReviewsView: View {
 //                    }
 //                }
                 VStack {
-                    ForEach(reviews, id: \.self) { review in
+                    ForEach(reviews.reversed(), id: \.self) { review in
                         ZStack {
                             Rectangle()
                                 .fill(customGray)
