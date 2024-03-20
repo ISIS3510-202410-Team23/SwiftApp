@@ -93,7 +93,7 @@ struct CreateReview1View: View {
                                         }
                                         else {
                                             if selectedCats.count < 3 {
-                                                selectedCats.append(cat)
+                                                selectedCats.append(cat.lowercased())
                                             }
                                         }
                                     }, label: {Text(cat)

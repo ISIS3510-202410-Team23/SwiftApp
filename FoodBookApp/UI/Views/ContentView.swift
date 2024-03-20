@@ -26,8 +26,7 @@ struct ContentView: View {
     @State var selectedTab: Tabs = .browse
     @Binding var showSignInView: Bool
     @State private var searchText = ""
-    
-    
+   
     
     var body: some View {
         NavigationStack {
