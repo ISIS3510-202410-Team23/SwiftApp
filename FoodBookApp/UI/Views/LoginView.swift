@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import GoogleSignIn
 import GoogleSignInSwift
+import BackgroundTasks
 
 @MainActor
 struct LoginView: View {
@@ -61,6 +62,7 @@ struct LoginView: View {
                         
                         if locationService.userLocation == nil{
                             locationService.requestLocationAuthorization()
+                            schedule()
                         }
                         
                     } catch {
@@ -88,6 +90,32 @@ struct LoginView: View {
             //            .padding()
         }
         .padding()
+    }
+}
+
+private func schedule () {
+    let taskId = "Team23.FoodBookApp.contextTask"
+    
+    // Manual Test: e -l objc -- (void)[[BGTaskScheduler sharedScheduler] _simulateLaunchForTaskWithIdentifier:@"Team23.FoodBookApp.contextTask"]
+    BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: taskId)
+    BGTaskScheduler.shared.getPendingTaskRequests { request in
+        print("\(request.count) tasks pending...")
+        
+        // Don't schedule repeated tasks
+        guard request.isEmpty else {
+            return
+        }
+        
+        // Submit a task to be scheduled
+        do {
+            let newTask = BGAppRefreshTaskRequest(identifier: taskId)
+//            newTask.earliestBeginDate = Calendar.current.date(bySettingHour: 12, minute: 10 , second: 0, of: Date())! // Wont execute before said hour.
+            newTask.earliestBeginDate =  Date().addingTimeInterval(120) // Testing - in theory every 2 minutes
+            try BGTaskScheduler.shared.submit(newTask)
+            print("Submitted task...")
+        } catch {
+            print("Could not submit task to be scheduled. \(error.localizedDescription)")
+        }
     }
 }
 
