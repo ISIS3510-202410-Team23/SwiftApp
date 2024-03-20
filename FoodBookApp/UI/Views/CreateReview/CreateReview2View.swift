@@ -11,6 +11,7 @@ import PhotosUI
 
 struct CreateReview2View: View {
     let categories: [String]
+    let spotId: String
     @State private var selectedImage: UIImage?
     @State private var showSheet: Bool = false
     @State private var showImagePicker: Bool = false
@@ -28,6 +29,7 @@ struct CreateReview2View: View {
     @State private var showAlert = false
     
     let notify = NotificationHandler()
+    @State private var model = CreateReview2ViewModel()
     
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     let customGray2 = Color(red: 242/255, green: 242/255, blue: 247/255)
@@ -98,31 +100,60 @@ struct CreateReview2View: View {
                         }
                     }.padding().background(customGray2).cornerRadius(10)
                 }.padding(.horizontal).padding(.top)
-                .navigationTitle("Review")
-                .toolbar{
-                    Button(action: {
-                        
-                        if cleanliness == 0 || waitingTime == 0 || service == 0 || foodQuality == 0 {
-                            showAlert.toggle()
-                        }
-                        else {
-                            // TODO: Step 1: Upload review
-                            print("Uploads this review!")
-                            // Very Nice To Have, but that the "Done" turns into the loading indicator while the review is uploaded, idk how complex it could be though.
+                    .navigationTitle("Review")
+                    .toolbar{
+                        Button(action: {
                             
-                            // Step 1.5: Trigger notification
-                            notify.sendLastReviewNotification(date: Date())
-                                                        
-                            // Step 2: Close sheet
-                            isNewReviewSheetPresented.toggle()
-                        }
-  
-                    }, label: {
-                        Text("Done")
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical)
-                    })
-                }
+                            if cleanliness == 0 || waitingTime == 0 || service == 0 || foodQuality == 0 {
+                                showAlert.toggle()
+                            }
+                            else {
+                                // Step 1: Upload review
+                                let reviewDate = Date()
+
+                                Task {
+                                    do {
+                                        let reviewImage = try await model.uploadPhoto(image: selectedImage)
+                                        let newReview = Review(content: reviewBody, // FIXME: trim
+                                                               date: reviewDate,
+                                                               imageUrl: reviewImage, // FIXME: handle photo
+                                                               ratings: ReviewStats(
+                                                                cleanliness: cleanliness,
+                                                                foodQuality: foodQuality,
+                                                                service: service,
+                                                                waitTime: waitingTime),
+                                                               selectedCategories: categories,
+                                                               title: reviewTitle, // FIXME: trim
+                                                               user: model.username)
+                                        do {
+                                            let reviewId = try await model.addReview(review: newReview)
+                                            try await model.addReviewToSpot(spotId: spotId, reviewId: reviewId)
+                                            print("The review uploaded has this ID:", reviewId)
+                                            
+                                        } catch {
+                                            print("Error adding review: \(error)")
+                                        }
+                                    }
+                                    catch {
+                                        print(error)
+                                    }
+ 
+                                }
+                                
+                                // Very Nice To Have, but that the "Done" turns into the loading indicator while the review is uploaded, idk how complex it could be though.
+                                
+                                // Step 1.5: Trigger notification
+                                notify.sendLastReviewNotification(date: reviewDate)
+                                
+                                // Step 2: Close sheet
+                                isNewReviewSheetPresented.toggle()
+                            }
+                            
+                        }, label: {
+                            Text("Done")
+                                .frame(maxWidth: .infinity)
+                        })
+                    }
                 
                 // Photo
                 if let image = selectedImage {
@@ -199,6 +230,8 @@ struct CreateReview2View: View {
             
         } message: {
             Text("Please make sure to at least fill out all the star ratings")
+        }.task {
+            _ = try? await model.getUsername()
         }
     }
     
@@ -230,5 +263,5 @@ struct CreateReview2View: View {
 }
 
 #Preview {
-    CreateReview2View(categories: ["Homemade", "Colombian"], isNewReviewSheetPresented: .constant(true))
+    CreateReview2View(categories: ["Homemade", "Colombian"], spotId: "ms1hTTxzVkiJElZiYHAT", isNewReviewSheetPresented: .constant(true))
 }
