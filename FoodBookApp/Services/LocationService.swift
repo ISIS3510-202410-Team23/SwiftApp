@@ -9,7 +9,6 @@ import Foundation
 import CoreLocation
 
 let uniandesLocation = CLLocation(latitude: 4.60136, longitude: -74.06564)
-let altLocation = CLLocation(latitude: 4.688578, longitude: -74.031543) // Set to my curr location to test
 
 final class LocationService: NSObject, ObservableObject {
     static let shared: LocationService = LocationService()
@@ -25,7 +24,7 @@ final class LocationService: NSObject, ObservableObject {
     }
 
     func requestLocationAuthorization() {
-        setupGeofence(for: altLocation, regionRadius: 20, identifier: "uniandes") // FIXME: actual region + radius
+        setupGeofence(for: uniandesLocation, regionRadius: 240, identifier: "uniandes") // FIXME: actual region + radius
         self.manager.requestWhenInUseAuthorization()
     }
     
@@ -76,6 +75,8 @@ extension LocationService: CLLocationManagerDelegate {
         
         if Utils.shared.isWithinLunchWindow() && self.userInRegion(regionId: "uniandes") {
             NotificationHandler().sendLunchTimeReminder(identifier: "lunchUniandes")
+        } else {
+            print("Notif criteria not met")
         }
     }
 }

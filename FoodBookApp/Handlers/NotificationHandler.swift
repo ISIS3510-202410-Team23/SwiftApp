@@ -66,6 +66,8 @@ class NotificationHandler {
             
             saveLastNotificationTime(Date())
             UNUserNotificationCenter.current().add(request)
+        } else {
+            print("Notif already sent")
         }
         
     }
@@ -88,10 +90,29 @@ class NotificationHandler {
         let currentDate = Date()
         let calendar = Calendar.current
         
-        // Compare the dates to see if a day has passed
-        if let lastNotificationDay = calendar.ordinality(of: .day, in: .era, for: lastNotificationTime),
-           let currentDay = calendar.ordinality(of: .day, in: .era, for: currentDate) {
-            return currentDay > lastNotificationDay
+        // Compare the date components of the current date and the last saved date
+        let currentDay = calendar.ordinality(of: .day, in: .era, for: currentDate)
+        let lastDay = calendar.ordinality(of: .day, in: .era, for: lastNotificationTime)
+        
+        // Check if a day has passed by comparing the day components
+        if let currentDay = currentDay, let lastDay = lastDay {
+            if currentDay > lastDay {
+                // If the current day is greater than the last saved day, return true
+                return true
+            } else if currentDay < lastDay {
+                // If the current day is less than the last saved day, return false
+                return false
+            } else {
+                // If the days are the same, compare the time difference
+                let components = calendar.dateComponents([.hour, .minute, .second], from: lastNotificationTime, to: currentDate)
+                if let hours = components.hour, let minutes = components.minute, let seconds = components.second {
+                    let timePassedInSeconds = hours * 3600 + minutes * 60 + seconds
+                    // Check if more than 24 hours have passed
+                    if timePassedInSeconds >= 24 * 3600 {
+                        return true
+                    }
+                }
+            }
         }
         
         return false
