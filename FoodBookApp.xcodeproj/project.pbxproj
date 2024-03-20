@@ -348,7 +348,7 @@
 				6C0C82DE2B8D2EC2004EAE3F /* DAO */,
 				D31966A12BA7A51100E1DD53 /* Handlers */,
 				6CC9292E2B85023500EDDE78 /* Models */,
-				6CC9292F2B85028900EDDE78 /* Persitence */,
+				6CC9292F2B85028900EDDE78 /* Persistence */,
 				6CC929082B84FB0900EDDE78 /* Preview Content */,
 				6CC929312B85029E00EDDE78 /* Repositories */,
 				6C0C82EB2B8D3DA9004EAE3F /* Services */,
@@ -392,12 +392,12 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		6CC9292F2B85028900EDDE78 /* Persitence */ = {
+		6CC9292F2B85028900EDDE78 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
 				6C0C82D92B8D2D99004EAE3F /* Firebase.swift */,
 			);
-			path = Persitence;
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 		6CC929312B85029E00EDDE78 /* Repositories */ = {
