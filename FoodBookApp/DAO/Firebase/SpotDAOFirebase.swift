@@ -70,6 +70,7 @@ class SpotDAOFirebase: SpotDAO {
             print("FIREBASE: Completed spot fetch \(doc)")
             spots.append(
                 Spot(
+                    id: spot.id,
                     categories: spot.categories,
                     location: spot.location,
                     name: spot.name,

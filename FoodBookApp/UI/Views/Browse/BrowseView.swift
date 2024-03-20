@@ -9,7 +9,6 @@ import SwiftUI
 
 struct BrowseView: View {    
     @State private var model = BrowseViewModel()
-    
     @Binding var searchText: String
     
     var body: some View {
@@ -32,8 +31,6 @@ struct BrowseView: View {
                 }
             }
             .searchable(text: $searchText)
-
-
         }
         .padding(8)
         .task {

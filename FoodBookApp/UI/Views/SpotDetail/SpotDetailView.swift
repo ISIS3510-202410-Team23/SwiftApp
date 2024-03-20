@@ -152,5 +152,5 @@ struct SpotDetailView: View {
 }
 
 #Preview {
-    SpotDetailView(spotId: "ms1hTTxzVkiJElZiYHAT")
+    SpotDetailView(spotId: "7kzd8gmyG842rx2Ad98b")
 }

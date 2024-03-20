@@ -25,7 +25,7 @@ struct ContentView: View {
     @State var selectedTab: Tabs = .browse
     @Binding var showSignInView: Bool
     @State private var searchText = ""
-    @ObservedObject var locationService = LocationService.shared
+    
     
     
     var body: some View {
@@ -34,11 +34,6 @@ struct ContentView: View {
                 BrowseView(searchText: $searchText)
                     .tabItem { Label("Browse", systemImage: "magnifyingglass.circle") }
                     .tag(Tabs.browse)
-                    .onAppear{
-                        if locationService.userLocation == nil{
-                            locationService.requestLocationAuthorization()
-                        }
-                    }
                 
                 ForYouView()
                     .tabItem { Label("For you", systemImage: "star") }
