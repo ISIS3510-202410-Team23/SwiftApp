@@ -26,7 +26,7 @@ struct ContentView: View {
     @State var selectedTab: Tabs = .browse
     @Binding var showSignInView: Bool
     @State private var searchText = ""
-    @ObservedObject var locationService = LocationService.shared
+    
     
     
     var body: some View {
@@ -41,7 +41,6 @@ struct ContentView: View {
                             schedule()
                         }
                     }
-                
                 ForYouView()
                     .tabItem { Label("For you", systemImage: "star") }
                     .tag(Tabs.foryou)
