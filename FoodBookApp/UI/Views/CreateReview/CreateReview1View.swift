@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct CreateReview1View: View {
+    let spotId: String
     @State private var model = CreateReview1ViewModel()
     @State private var searchText: String = ""
     @FocusState private var searchTextIsFocused: Bool
@@ -41,7 +42,7 @@ struct CreateReview1View: View {
                             }
                         } else {
                             // FIXME: spotId should be spot's
-                            NavigationLink(destination: CreateReview2View(categories: self.selectedCats, spotId: "ms1hTTxzVkiJElZiYHAT", isNewReviewSheetPresented: $isNewReviewSheetPresented)) {
+                            NavigationLink(destination: CreateReview2View(categories: self.selectedCats, spotId: spotId, isNewReviewSheetPresented: $isNewReviewSheetPresented)) {
                                 Text("Next")
                             }
                         }
@@ -128,5 +129,5 @@ struct CreateReview1View: View {
 }
 
 #Preview {
-    CreateReview1View(isNewReviewSheetPresented: .constant(true))
+    CreateReview1View(spotId: "ms1hTTxzVkiJElZiYHAT", isNewReviewSheetPresented: .constant(true))
 }

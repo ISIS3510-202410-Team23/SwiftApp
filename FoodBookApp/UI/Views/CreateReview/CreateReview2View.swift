@@ -110,6 +110,7 @@ struct CreateReview2View: View {
                             else {
                                 // Step 1: Upload review
                                 let reviewDate = Date()
+                                let lowercasedCategories = categories.map { $0.lowercased() }
 
                                 Task {
                                     do {
@@ -122,7 +123,7 @@ struct CreateReview2View: View {
                                                                 foodQuality: foodQuality,
                                                                 service: service,
                                                                 waitTime: waitingTime),
-                                                               selectedCategories: categories,
+                                                               selectedCategories: lowercasedCategories,
                                                                title: reviewTitle, // FIXME: trim
                                                                user: model.username)
                                         do {

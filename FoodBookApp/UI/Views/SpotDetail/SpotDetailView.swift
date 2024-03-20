@@ -146,7 +146,7 @@ struct SpotDetailView: View {
         .sheet(
             isPresented: $isNewReviewSheetPresented,
             content: {
-                CreateReview1View(isNewReviewSheetPresented: $isNewReviewSheetPresented)
+                CreateReview1View(spotId: spotId, isNewReviewSheetPresented: $isNewReviewSheetPresented)
             })
     }
 }
