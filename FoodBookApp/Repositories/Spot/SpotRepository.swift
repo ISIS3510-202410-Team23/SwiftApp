@@ -12,4 +12,5 @@ protocol SpotRepository {
 
     func getSpotById(docId: String) async throws -> Spot
     func getSpots() async throws -> [Spot]
+    func getSpotsWithIDList(list: [String]) async throws -> [Spot]
 }

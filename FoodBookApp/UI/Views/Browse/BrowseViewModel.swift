@@ -12,12 +12,30 @@ import FirebaseFirestore //FIXME: delete later
 @Observable
 class BrowseViewModel {
     var spots: [Spot] = []
+    let locationService = LocationService.shared
+    let locationUtils = LocationUtils()
     
     private let repository: SpotRepository = SpotRepositoryImpl.shared
     
-    func fetchSpots() async throws -> [Spot] {
-        spots = try await repository.getSpots()
-        return spots
+    func fetchSpotsAndCalculateDistance() async throws {
+        spots = try await fetchSpots()
+        calculateDistance()
     }
     
+    private func fetchSpots() async throws -> [Spot] {
+        return try await repository.getSpots()
+    }
+    
+    private func calculateDistance() {
+        Task {
+            for index in spots.indices {
+                spots[index].distance = locationUtils.calculateDistance(
+                    fromLatitude: spots[index].location.latitude,
+                    fromLongitude: spots[index].location.longitude,
+                    toLatitude: locationService.userLocation?.coordinate.latitude ?? 0,
+                    toLongitude: locationService.userLocation?.coordinate.longitude ?? 0)
+            }
+        }
+    }
 }
+

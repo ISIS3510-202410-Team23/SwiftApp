@@ -13,7 +13,7 @@ struct SpotCard: View {
     let title : String
     let minTime : Int
     let maxTime : Int
-    let distance : Float
+    let distance : String
     let categories : [String]
     let imageLinks : [String]
     let price : String
@@ -40,7 +40,7 @@ struct SpotCard: View {
             Text("\(title) · \(price) ")
                 .font(.title)
                 .bold()
-            Text("\(Image(systemName: "clock")) \(minTime)-\(maxTime) min.   \(Image(systemName: "location")) \(distance.formatted()) km")
+            Text("\(Image(systemName: "clock")) \(minTime)-\(maxTime) min.   \(Image(systemName: "location")) \(distance) km")
             HCategoryList(categories: categories, color: Color.gray)
         }
         .padding(.all)
@@ -59,7 +59,7 @@ struct SpotCard: View {
         title: "Divino Pecado",
         minTime: 25,
         maxTime: 30,
-        distance: 0.5,
+        distance: "99+",
         categories: ["Vegan", "Sandwich", "Bowl", "Healthy", "..."],
         imageLinks: [
             "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=2380&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",

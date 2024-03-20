@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-struct BrowseView: View {
-    let locationService = LocationService.shared
-    
+struct BrowseView: View {    
     @State private var model = BrowseViewModel()
     
     @Binding var searchText: String
@@ -18,12 +16,12 @@ struct BrowseView: View {
         ScrollView {
             Group {
                 ForEach(searchResults, id: \.self) { spot in
-                    NavigationLink(destination: SpotDetailView(spotId: spot.id ?? "")){ // TODO: Should redirect based on id
+                    NavigationLink(destination: SpotDetailView(spotId: spot.id ?? "")){ 
                         SpotCard(
                             title: spot.name,
                             minTime: spot.waitTime.min,
                             maxTime: spot.waitTime.max,
-                            distance: 0,
+                            distance: spot.distance ?? "-",
                             categories: spot.categories,
                             imageLinks: spot.imageLinks ?? [],
                             price: spot.price
@@ -39,9 +37,7 @@ struct BrowseView: View {
         }
         .padding(8)
         .task {
-            _ = try? await model.fetchSpots()
-            print(model.spots)
-            
+            _ = try? await model.fetchSpotsAndCalculateDistance()
         }
     }
     

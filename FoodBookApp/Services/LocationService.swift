@@ -48,6 +48,4 @@ extension LocationService: CLLocationManagerDelegate {
         guard let location = locations.last else {return}
         self.userLocation = location
     }
-    
-    
 }

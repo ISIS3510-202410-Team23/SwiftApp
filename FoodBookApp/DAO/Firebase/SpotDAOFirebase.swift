@@ -61,4 +61,26 @@ class SpotDAOFirebase: SpotDAO {
         }
         return spots
     }
+    
+    func getSpotsWithIDList(docIDs: [String]) async throws -> [Spot] {
+        var spots: [Spot] = []
+        for doc in docIDs {
+            let snapshot = try await collection.document(doc).getDocument()
+            let spot = try snapshot.data(as: SpotDTO.self)
+            print("FIREBASE: Completed spot fetch \(doc)")
+            spots.append(
+                Spot(
+                    categories: spot.categories,
+                    location: spot.location,
+                    name: spot.name,
+                    price: spot.price,
+                    waitTime: spot.waitTime,
+                    reviewData: ReviewData(
+                        stats: spot.reviewData.stats,
+                        userReviews: []),
+                    imageLinks: spot.imageLinks)
+            )
+        }
+        return spots
+    }
 }

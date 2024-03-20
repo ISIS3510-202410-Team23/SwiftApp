@@ -7,8 +7,12 @@
 
 import SwiftUI
 
+//TODO: delete
+
+
 struct ForYouView: View {
     @State private var model = ForYouViewModel()
+    
     var body: some View {
         ScrollView(content: {
             ForEach(model.spots, id: \.self) { spot in
@@ -16,7 +20,7 @@ struct ForYouView: View {
                     title: spot.name,
                     minTime: spot.waitTime.min,
                     maxTime: spot.waitTime.max,
-                    distance: 0.0, // FIXME: Calculate
+                    distance: "0.0", // FIXME: Calculate
                     categories: spot.categories,
                     imageLinks: spot.imageLinks ?? [],
                     price: spot.price
@@ -26,7 +30,7 @@ struct ForYouView: View {
         })
         .padding(8)
         .task {
-            _ = try? await model.fetchRecommendedSpots(uid: "TODO: This is a user id")
+            _ = try? await model.fetchRecommendedSpots()
         }
     }
 }

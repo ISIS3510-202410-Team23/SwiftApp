@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0D16DDD32B8BB65A001D7BAB /* SpotCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16DDD22B8BB65A001D7BAB /* SpotCard.swift */; };
 		0D16DDD52B8C1799001D7BAB /* HCategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16DDD42B8C1799001D7BAB /* HCategoryList.swift */; };
+		0D347C362BAB2589003990A0 /* LocationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D347C352BAB2589003990A0 /* LocationUtils.swift */; };
+		0D347C382BAB4FA4003990A0 /* BackendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D347C372BAB4FA4003990A0 /* BackendService.swift */; };
 		0D8BBB642B9142D600739448 /* ForYouViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8BBB632B9142D600739448 /* ForYouViewModel.swift */; };
 		0D8BBB662B91462800739448 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8BBB652B91462800739448 /* LocationService.swift */; };
 		0DA610BF2B8D602A00DFDFF4 /* BrowseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA610BE2B8D602A00DFDFF4 /* BrowseViewModel.swift */; };
@@ -90,6 +92,8 @@
 /* Begin PBXFileReference section */
 		0D16DDD22B8BB65A001D7BAB /* SpotCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotCard.swift; sourceTree = "<group>"; };
 		0D16DDD42B8C1799001D7BAB /* HCategoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCategoryList.swift; sourceTree = "<group>"; };
+		0D347C352BAB2589003990A0 /* LocationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUtils.swift; sourceTree = "<group>"; };
+		0D347C372BAB4FA4003990A0 /* BackendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendService.swift; sourceTree = "<group>"; };
 		0D8BBB632B9142D600739448 /* ForYouViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForYouViewModel.swift; sourceTree = "<group>"; };
 		0D8BBB652B91462800739448 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		0DA610BC2B8D2A5500DFDFF4 /* Spot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
@@ -229,6 +233,7 @@
 			children = (
 				6CF821762B8D7E15008E7057 /* AuthService.swift */,
 				0D8BBB652B91462800739448 /* LocationService.swift */,
+				0D347C372BAB4FA4003990A0 /* BackendService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -384,6 +389,7 @@
 				6CF821842B8D8A0C008E7057 /* Utils.swift */,
 				6CF821882B8D92FB008E7057 /* SignInGoogleHelper.swift */,
 				6C10219B2B96AB87007DCEEF /* Error.swift */,
+				0D347C352BAB2589003990A0 /* LocationUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -606,6 +612,7 @@
 				6C0C82E62B8D2F08004EAE3F /* ExampleDAOFirebase.swift in Sources */,
 				D34B697A2B8FA2BA0043937B /* CreateReview1View.swift in Sources */,
 				D30C88132B8FB5B50052C01E /* CreateReview2View.swift in Sources */,
+				0D347C362BAB2589003990A0 /* LocationUtils.swift in Sources */,
 				D342009D2B91404A00B8817C /* TextButton.swift in Sources */,
 				0DCB7BD82B86F0290088C333 /* BrowseView.swift in Sources */,
 				D32FC9A32B9624A8008D66BA /* ClearButton.swift in Sources */,
@@ -626,6 +633,7 @@
 				0DCB7BD82B86F0290088C333 /* BrowseView.swift in Sources */,
 				D30C881B2B90EB560052C01E /* TextButton.swift in Sources */,
 				6CC9292D2B84FFEE00EDDE78 /* FoodBookApp.swift in Sources */,
+				0D347C382BAB4FA4003990A0 /* BackendService.swift in Sources */,
 				6C1021982B96710D007DCEEF /* SpotDAOFirebase.swift in Sources */,
 				D342009F2B91414800B8817C /* BoldTextButton.swift in Sources */,
 				D34200A32B925A5D00B8817C /* Separator.swift in Sources */,

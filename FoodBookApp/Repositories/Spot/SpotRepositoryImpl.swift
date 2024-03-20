@@ -18,4 +18,8 @@ class SpotRepositoryImpl: SpotRepository {
     func getSpots() async throws -> [Spot] {
         return try await SpotRepositoryImpl.spotDao.getSpots()
     }
+    
+    func getSpotsWithIDList(list: [String]) async throws -> [Spot] {
+        return try await SpotRepositoryImpl.spotDao.getSpotsWithIDList(docIDs: list)
+    }
 }
