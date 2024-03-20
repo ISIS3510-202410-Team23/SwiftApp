@@ -114,17 +114,20 @@ struct CreateReview2View: View {
 
                                 Task {
                                     do {
+                                        
+                                        let trimmedBody = reviewBody.trimmingCharacters(in: .whitespacesAndNewlines)
+                                        let trimmedTitle = reviewTitle.trimmingCharacters(in: .whitespacesAndNewlines)
                                         let reviewImage = try await model.uploadPhoto(image: selectedImage)
-                                        let newReview = Review(content: reviewBody, // FIXME: trim
+                                        let newReview = Review(content: trimmedBody == "" ? nil : trimmedBody,
                                                                date: reviewDate,
-                                                               imageUrl: reviewImage, // FIXME: handle photo
+                                                               imageUrl: reviewImage,
                                                                ratings: ReviewStats(
                                                                 cleanliness: cleanliness,
                                                                 foodQuality: foodQuality,
                                                                 service: service,
                                                                 waitTime: waitingTime),
                                                                selectedCategories: lowercasedCategories,
-                                                               title: reviewTitle, // FIXME: trim
+                                                               title: trimmedTitle == "" ? nil : trimmedTitle,
                                                                user: model.username)
                                         do {
                                             let reviewId = try await model.addReview(review: newReview)
@@ -174,8 +177,8 @@ struct CreateReview2View: View {
                 if !imageIsSelected {
                     addPhotoButton.padding()
                 }
-                else { // FIXME: confirm message (?)
-                    LargeButtont(text: "Remove photo", bgColor: customGray, txtColor: Color.red, txtSize: 20){ selectedImage = nil }
+                else {
+                    LargeButton(text: "Remove photo", bgColor: customGray, txtColor: Color.red, txtSize: 20){ selectedImage = nil }
                 }
                 
                 // Leave a comment
@@ -236,7 +239,7 @@ struct CreateReview2View: View {
         }
     }
     
-    var addPhotoButton: some View { // FIXME: should be component (yes!)
+    var addPhotoButton: some View {
         
         Button(action : {
             self.showSheet = true

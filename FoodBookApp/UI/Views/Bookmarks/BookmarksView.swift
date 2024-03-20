@@ -21,7 +21,6 @@ struct BookmarksView: View {
                 .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
                 .font(.system(size: 100))
             
-            // FIXME: sign out button for testing only
             Button(action: {
                 Task {
                     do {

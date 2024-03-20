@@ -16,8 +16,6 @@ class CreateReview1ViewModel {
     
     @MainActor
     func fetchCategories() async throws {
-        self.categories = try await repository.getCategories().map { tag in
-            tag.capitalized
-        }
+        self.categories = try await repository.getCategories()
     }
 }

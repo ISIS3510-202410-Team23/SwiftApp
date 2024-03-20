@@ -7,7 +7,6 @@
 import Observation
 import Foundation
 import CoreLocation
-import FirebaseFirestore //FIXME: delete later
 
 @Observable
 class BrowseViewModel {
