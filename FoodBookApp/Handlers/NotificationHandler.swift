@@ -37,7 +37,7 @@ class NotificationHandler {
                 
         let content = UNMutableNotificationContent()
         content.title = "We miss you..."
-        content.body = "You haven't left a review in the past 4 days"
+        content.body = "You haven't left a review in a while"
         content.sound = UNNotificationSound.default
         
         let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger)
