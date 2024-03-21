@@ -7,36 +7,23 @@
 
 import Foundation
 import Observation
+import FirebaseFirestore
 
 @Observable
 class SpotDetailViewModel {
     
-    var spot = Spot(
-        id: "",
-        name: "",
-        minTime: 0,
-        maxTime: 0,
-        distance: 0,
-        latitude: 0,
-        longitude: 0,
-        categories: [""],
-        imageLinks: [""]
-    )
     
-    func fetchSpot() async throws -> Spot { // FIXME: should receive spot's ID
-        // TODO: actual fetch
-        try await Task.sleep(nanoseconds: 20000)
-        spot = Spot(id:"1",
-                name: "MiCaserito",
-                minTime: 5,
-                maxTime: 10,
-                distance: 0.5,
-                latitude: 4.663883085700034,
-                longitude: -74.08049675792543,
-                categories: ["Vegan", "Homemade", "Fast", "Colombian", "Dessert"],
-                imageLinks: [""]
-        )
-
-        return spot
+    var spot: Spot = Spot(categories: [], location: GeoPoint(latitude: 0, longitude: 0), name: "", price: "", waitTime: WaitTime(min: 0, max: 5), reviewData: ReviewData(stats: SpotStats(cleanliness: 5, foodQuality: 5, service: 5, waitTime: 5), userReviews: []), imageLinks: [])
+    
+    var ratings: [String: Double] = ["Cleanliness": 0, "Waiting time": 0, "Service": 0, "Food quality": 0]
+    
+    private let repository: SpotRepository = SpotRepositoryImpl.shared
+    
+    init() {}
+    
+    @MainActor
+    func fetchSpot(spotId: String) async throws {
+        self.spot = try await repository.getSpotById(docId: spotId)
+        self.ratings = ["Cleanliness": self.spot.reviewData.stats.cleanliness / 5,"Waiting Time": self.spot.reviewData.stats.waitTime / 5,"Service": self.spot.reviewData.stats.service / 5,"Food quality": self.spot.reviewData.stats.foodQuality / 5]
     }
 }

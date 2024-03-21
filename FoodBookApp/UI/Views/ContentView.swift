@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import BackgroundTasks
 
 enum Tabs:String {
     case browse
@@ -25,23 +26,14 @@ struct ContentView: View {
     @State var selectedTab: Tabs = .browse
     @Binding var showSignInView: Bool
     @State private var searchText = ""
+   
     
-    // FIXME: testing only
-    let bs: BackendService =  BackendService()
-    
-//    init () {
-//        bs.fetchAllSpots()
-//    }
-    
-
     var body: some View {
-        
         NavigationStack {
             TabView(selection: $selectedTab){
                 BrowseView(searchText: $searchText)
                     .tabItem { Label("Browse", systemImage: "magnifyingglass.circle") }
                     .tag(Tabs.browse)
-                
                 ForYouView()
                     .tabItem { Label("For you", systemImage: "star") }
                     .tag(Tabs.foryou)

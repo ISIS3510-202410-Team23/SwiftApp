@@ -14,8 +14,9 @@ struct SpotDetailView: View {
     @State private var isReviewsSheetPresented : Bool = false
     @State private var isNewReviewSheetPresented : Bool = false
     
+    var spotId: String
+    
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
-    let ratings: [String: Double] = ["Cleanliness": 0.81, "Waiting time": 0.99, "Service": 0.36, "Food quality": 0.73] // FIXME: should calculate or retrieve stats
         
     var body: some View {
         
@@ -26,7 +27,7 @@ struct SpotDetailView: View {
                     VStack {
                         
                         Map() {
-                            Marker(model.spot.name, coordinate: CLLocationCoordinate2D(latitude: model.spot.latitude, longitude: model.spot.longitude))
+                            Marker(model.spot.name, coordinate: CLLocationCoordinate2D(latitude: model.spot.location.latitude, longitude: model.spot.location.longitude))
                         }
                         .frame(width: 350, height: 200)
                         .padding()
@@ -36,7 +37,7 @@ struct SpotDetailView: View {
                         ScrollView(.horizontal) {
                             HStack {
                                 ForEach(model.spot.categories, id: \.self) { cat in
-                                    Text(cat)
+                                    Text(cat.capitalized)
                                         .font(.system(size: 14))
                                         .bold()
                                         .foregroundColor(.black)
@@ -70,8 +71,8 @@ struct SpotDetailView: View {
                                 .fill(Color.white)
                                 .cornerRadius(20)
                             VStack(spacing: 0) {
-                                ForEach(ratings.keys.sorted(), id: \.self) { key in
-                                    let rating = ratings[key] ?? 0
+                                ForEach(model.ratings.keys.sorted(), id: \.self) { key in
+                                    let rating = model.ratings[key] ?? 0
                                     HStack(spacing: 0) {
                                         VStack(alignment: .leading) {
                                             Text(key).font(.system(size: 18))
@@ -132,22 +133,22 @@ struct SpotDetailView: View {
             }
             
         }.task {
-            _ = try? await model.fetchSpot()
+            _ = try? await model.fetchSpot(spotId: spotId)
         }
         .navigationTitle(model.spot.name)
         .sheet(
             isPresented: $isReviewsSheetPresented,
             content: {
-                ReviewsView(spotName: "MiCaserito")
+                ReviewsView(spotName: "MiCaserito", reviews: model.spot.reviewData.userReviews)
             })
         .sheet(
             isPresented: $isNewReviewSheetPresented,
             content: {
-                CreateReview1View(isNewReviewSheetPresented: $isNewReviewSheetPresented)
+                CreateReview1View(spotId: spotId, isNewReviewSheetPresented: $isNewReviewSheetPresented)
             })
     }
 }
 
 #Preview {
-    SpotDetailView()
+    SpotDetailView(spotId: "7kzd8gmyG842rx2Ad98b")
 }

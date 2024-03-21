@@ -9,11 +9,13 @@ import Foundation
 import SwiftUI
 
 struct CreateReview1View: View {
+    var spotId: String
     @State private var model = CreateReview1ViewModel()
     @State private var searchText: String = ""
     @FocusState private var searchTextIsFocused: Bool
     @State private var selectedCats: [String] = []
     @Binding var isNewReviewSheetPresented: Bool
+    @State private var showAlert = false
     
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     let customGray2 = Color(red: 242/255, green: 242/255, blue: 247/255)
@@ -26,21 +28,25 @@ struct CreateReview1View: View {
                     HStack{
                         TextButton(text: "Cancel", txtSize: 17, hPadding: 0, action: {
                             isNewReviewSheetPresented.toggle()
-                        }) // FIXME: should redirect
+                        })
                         Spacer()
                         Text("Review")
                             .bold()
                         Spacer()
-                        NavigationLink {
-                            CreateReview2View(categories: self.selectedCats, isNewReviewSheetPresented: $isNewReviewSheetPresented)
-                        } label: {
-                            Text("Next")
+                        if selectedCats.isEmpty {
+                            Button("Next") {
+                                showAlert.toggle()
+                            }
+                            .alert(isPresented: $showAlert) {
+                                Alert(title: Text("Try again"), message: Text("Please select at least one category"), dismissButton: .default(Text("OK")))
+                            }
+                        } else {
+                            NavigationLink(destination: CreateReview2View(categories: self.selectedCats, spotId: spotId, isNewReviewSheetPresented: $isNewReviewSheetPresented)) {
+                                Text("Next")
+                            }
                         }
-                        // FIXME: This could be layed out with the Navigation things
                         
                     }.padding(.horizontal).padding(.top)
-                    
-                    Separator()
                     
                     VStack(alignment: .leading, spacing: 0) {
                         Text("What did you order?")
@@ -88,7 +94,7 @@ struct CreateReview1View: View {
                                                 selectedCats.append(cat)
                                             }
                                         }
-                                    }, label: {Text(cat)
+                                    }, label: {Text(cat.capitalized)
                                             .font(.system(size: 14))
                                             .bold()
                                             .foregroundColor(selectedCats.contains(cat) ? Color.white : Color.black)
@@ -121,5 +127,5 @@ struct CreateReview1View: View {
 }
 
 #Preview {
-    CreateReview1View(isNewReviewSheetPresented: .constant(true))
+    CreateReview1View(spotId: "ms1hTTxzVkiJElZiYHAT", isNewReviewSheetPresented: .constant(true))
 }

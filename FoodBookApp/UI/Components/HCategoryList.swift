@@ -11,17 +11,18 @@ struct HCategoryList: View {
     let categories : [String]
     let color : Color
     
-    // FIXME: could function better with a lot of categories
     var body: some View {
-        HStack {
-            ForEach(categories, id: \.self){
-                cat in 
-                Text(cat)
-                    .padding(8)
-                    .background(color.opacity(0.2))
-                    .cornerRadius(8)
-                    .lineLimit(1)
-                    .truncationMode(.tail)
+        ScrollView(.horizontal) {
+            HStack {
+                ForEach(categories, id: \.self){
+                    cat in
+                    Text(cat.capitalized)
+                        .padding(8)
+                        .background(color.opacity(0.2))
+                        .cornerRadius(8)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                }
             }
         }
     }

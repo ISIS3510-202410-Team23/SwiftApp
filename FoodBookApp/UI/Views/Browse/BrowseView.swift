@@ -7,27 +7,23 @@
 
 import SwiftUI
 
-
-
-struct BrowseView: View {
-    let locationService = LocationService.shared
-    
+struct BrowseView: View {    
     @State private var model = BrowseViewModel()
-    
     @Binding var searchText: String
     
     var body: some View {
         ScrollView {
             Group {
                 ForEach(searchResults, id: \.self) { spot in
-                    NavigationLink(destination: SpotDetailView()){ // TODO: In the future this should have the SpotId as param
+                    NavigationLink(destination: SpotDetailView(spotId: spot.id ?? "")){ 
                         SpotCard(
                             title: spot.name,
-                            minTime: spot.minTime,
-                            maxTime: spot.maxTime,
-                            distance: Float(spot.distance),
+                            minTime: spot.waitTime.min,
+                            maxTime: spot.waitTime.max,
+                            distance: spot.distance ?? "-",
                             categories: spot.categories,
-                            imageLinks: spot.imageLinks
+                            imageLinks: spot.imageLinks ?? [],
+                            price: spot.price
                         )
                         .fixedSize(horizontal: false, vertical: true)
                     }
@@ -35,12 +31,10 @@ struct BrowseView: View {
                 }
             }
             .searchable(text: $searchText)
-
-
         }
         .padding(8)
         .task {
-            _ = try? await model.fetchSpots()
+            _ = try? await model.fetchSpotsAndCalculateDistance()
         }
     }
     

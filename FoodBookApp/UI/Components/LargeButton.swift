@@ -1,8 +1,8 @@
 //
-//  LargeButton.swift
+//  LargeButtont.swift
 //  FoodBookApp
 //
-//  Created by Laura Restrepo on 29/02/24.
+//  Created by Laura Restrepo on 5/03/24.
 //
 
 import Foundation
@@ -14,11 +14,10 @@ struct LargeButton: View {
     let bgColor: Color
     let txtColor: Color
     let txtSize: CGFloat
+    let action: () -> Void
     
     var body: some View {
-        Button(action: {
-                print("LargeButton action...") // FIXME: Should do action
-            }, label: {
+        Button(action: action) {
                 Text(text)
                     .frame(maxWidth: .infinity)
                     .padding()
@@ -26,10 +25,10 @@ struct LargeButton: View {
                     .foregroundColor(txtColor)
                     .cornerRadius(12)
                     .font(.system(size: txtSize))
-        }).padding()
+        }.padding()
     }
 }
 
 #Preview {
-    LargeButton(text: "Leave a review", bgColor: Color.blue, txtColor: Color.white, txtSize: 20)
+    LargeButton(text: "Leave a review", bgColor: Color.blue, txtColor: Color.white, txtSize: 20){ print("Leave a review") }
 }

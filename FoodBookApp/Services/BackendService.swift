@@ -2,29 +2,24 @@
 //  BackendService.swift
 //  FoodBookApp
 //
-//  Created by Maria Castro on 2/26/24.
+//  Created by Juan Diego Yepes Parra on 20/03/24.
 //
 
 import Foundation
 
-class BackendService {
-    
-    // FIXME: only for demostration purposeas
-    let exampleRepo: ExampleRepository = ExampleRepositoryImpl.shared
-    
-    // FIXME: only for demostration purposes, should be replaced with real information
-    func fetchAllSpots() {
-        Task {
-            
-            do {
-                let spots = try await exampleRepo.getSpots()
-                print(spots) // FIXME: return spots as [Spots]
-                
-            } catch {
-                // FIXME: Error management
-                print("Error fetching spots...")
-            }
+final class BackendService: NSObject, ObservableObject {
+    struct Answer: Codable {
+        let spots: [String]
+        let category: String
+        let user: String
+    }
 
-        }
+    func performAPICall(uid: String) async throws -> [String]{
+        let url = URL(string: "https://foodbook-app-backend.2.us-1.fl0.io/recommendation/\(uid)")!
+        let (data, _) = try await URLSession.shared.data(from: url)
+        print(data)
+        let wrapper = try JSONDecoder().decode(Answer.self, from: data)
+        print(wrapper)
+        return wrapper.spots
     }
 }

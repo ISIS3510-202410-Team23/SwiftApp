@@ -11,6 +11,7 @@ import PhotosUI
 
 struct CreateReview2View: View {
     let categories: [String]
+    let spotId: String
     @State private var selectedImage: UIImage?
     @State private var showSheet: Bool = false
     @State private var showImagePicker: Bool = false
@@ -25,6 +26,10 @@ struct CreateReview2View: View {
     @State private var reviewBody: String = ""
     @FocusState private var reviewBodyIsFocused: Bool
     @Binding var isNewReviewSheetPresented: Bool
+    @State private var showAlert = false
+    
+    let notify = NotificationHandler()
+    @State private var model = CreateReview2ViewModel()
     
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     let customGray2 = Color(red: 242/255, green: 242/255, blue: 247/255)
@@ -32,18 +37,6 @@ struct CreateReview2View: View {
     var body: some View {
         VStack(alignment: .leading) {
             // Header
-//            HStack{
-//                TextButton(text: "Cancel", txtSize: 20, hPadding: 0) // FIXME: should redirect
-//                Spacer()
-//                Text("Review")
-//                    .bold()
-//                    .font(.system(size: 20))
-//                Spacer()
-//                BoldTextButton(text: "Done", txtSize: 20) { print("Done") } // FIXME: should verify inputs and send them to DB
-//                
-//            }.padding(.horizontal).padding(.top)
-//            
-//            Separator()
             
             ScrollView(.vertical) {
                 // Quality attributes
@@ -107,24 +100,64 @@ struct CreateReview2View: View {
                         }
                     }.padding().background(customGray2).cornerRadius(10)
                 }.padding(.horizontal).padding(.top)
-                .navigationTitle("Review")
-                .toolbar{
-                    Button(action: {
-                        // Step 1: Uplad review
-                        print("Uploads this review!")
-                        // Very Nice To Have, but that the "Done" turns into the loading indicator while the review is uploaded, idk how complex it could be though.
-                        
-                        // Step 2: Close sheet
-                        isNewReviewSheetPresented.toggle()
-                        
-                    }, label: {
-                        Text("Done")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                    })
-                           
-                }
-                
+                    .navigationTitle("Review")
+                    .toolbar{
+                        Button(action: {
+                            
+                            if cleanliness == 0 || waitingTime == 0 || service == 0 || foodQuality == 0 {
+                                showAlert.toggle()
+                            }
+                            else {
+                                // Step 1: Upload review
+                                let reviewDate = Date()
+                                let lowercasedCategories = categories.map { $0.lowercased() }
+
+                                Task {
+                                    do {
+                                        
+                                        let trimmedBody = reviewBody.trimmingCharacters(in: .whitespacesAndNewlines)
+                                        let trimmedTitle = reviewTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+                                        let reviewImage = try await model.uploadPhoto(image: selectedImage)
+                                        let newReview = Review(content: trimmedBody == "" ? nil : trimmedBody,
+                                                               date: reviewDate,
+                                                               imageUrl: reviewImage,
+                                                               ratings: ReviewStats(
+                                                                cleanliness: cleanliness,
+                                                                foodQuality: foodQuality,
+                                                                service: service,
+                                                                waitTime: waitingTime),
+                                                               selectedCategories: lowercasedCategories,
+                                                               title: trimmedTitle == "" ? nil : trimmedTitle,
+                                                               user: model.username)
+                                        do {
+                                            let reviewId = try await model.addReview(review: newReview)
+                                            try await model.addReviewToSpot(spotId: spotId, reviewId: reviewId)
+                                            print("The review uploaded has this ID:", reviewId)
+                                            
+                                        } catch {
+                                            print("Error adding review: \(error)")
+                                        }
+                                    }
+                                    catch {
+                                        print(error)
+                                    }
+ 
+                                }
+                                
+                                // Very Nice To Have, but that the "Done" turns into the loading indicator while the review is uploaded, idk how complex it could be though.
+                                
+                                // Step 1.5: Trigger notification
+                                notify.sendLastReviewNotification(date: reviewDate)
+                                
+                                // Step 2: Close sheet
+                                isNewReviewSheetPresented.toggle()
+                            }
+                            
+                        }, label: {
+                            Text("Done")
+                                .frame(maxWidth: .infinity)
+                        })
+                    }
                 
                 // Photo
                 if let image = selectedImage {
@@ -144,8 +177,8 @@ struct CreateReview2View: View {
                 if !imageIsSelected {
                     addPhotoButton.padding()
                 }
-                else { // FIXME: confirm message (?)
-                    LargeButtont(text: "Remove photo", bgColor: customGray, txtColor: Color.red, txtSize: 20){ selectedImage = nil }
+                else {
+                    LargeButton(text: "Remove photo", bgColor: customGray, txtColor: Color.red, txtSize: 20){ selectedImage = nil }
                 }
                 
                 // Leave a comment
@@ -197,10 +230,16 @@ struct CreateReview2View: View {
                     imageIsSelected = true
                 }
             }
+        }.alert("Try again", isPresented: $showAlert) {
+            
+        } message: {
+            Text("Please make sure to at least fill out all the star ratings")
+        }.task {
+            _ = try? await model.getUsername()
         }
     }
     
-    var addPhotoButton: some View { // FIXME: should be component (yes!)
+    var addPhotoButton: some View {
         
         Button(action : {
             self.showSheet = true
@@ -228,5 +267,5 @@ struct CreateReview2View: View {
 }
 
 #Preview {
-    CreateReview2View(categories: ["Homemade", "Colombian"], isNewReviewSheetPresented: .constant(true))
+    CreateReview2View(categories: ["Homemade", "Colombian"], spotId: "ms1hTTxzVkiJElZiYHAT", isNewReviewSheetPresented: .constant(true))
 }
