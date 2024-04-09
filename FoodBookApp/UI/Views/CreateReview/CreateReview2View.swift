@@ -128,7 +128,7 @@ struct CreateReview2View: View {
                                                                 waitTime: waitingTime),
                                                                selectedCategories: lowercasedCategories,
                                                                title: trimmedTitle == "" ? nil : trimmedTitle,
-                                                               user: model.username)
+                                                               user: UserInfo(id:"", name:"") ) //TODO: Should get a UserInfo object from the view model
                                         do {
                                             let reviewId = try await model.addReview(review: newReview)
                                             try await model.addReviewToSpot(spotId: spotId, reviewId: reviewId)
