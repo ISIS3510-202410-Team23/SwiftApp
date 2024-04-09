@@ -42,6 +42,7 @@ final class Utils {
         return now >= startTime && now <= endTime
     }
     
+    //User ID
     func getUsername() async throws -> String {
         do {
             let email = try AuthService.shared.getAuthenticatedUser().email
@@ -54,6 +55,20 @@ final class Utils {
                 }
             } else {
                 throw NSError(domain: "Google", code: 0, userInfo: [NSLocalizedDescriptionKey: "Email not found"])
+            }
+        } catch {
+            throw error
+        }
+    }
+    
+    //User name
+    func getUser() async throws -> String? {
+        do {
+            let name = try AuthService.shared.getAuthenticatedUser().name
+            if let name = name {
+                return String(name)
+            } else {
+                throw NSError(domain: "Google", code: 0, userInfo: [NSLocalizedDescriptionKey: "User not found"])
             }
         } catch {
             throw error

@@ -128,7 +128,7 @@ struct CreateReview2View: View {
                                                                 waitTime: waitingTime),
                                                                selectedCategories: lowercasedCategories,
                                                                title: trimmedTitle == "" ? nil : trimmedTitle,
-                                                               user: UserInfo(id:"", name:"") ) //TODO: Should get a UserInfo object from the view model
+                                                               user: UserInfo(id: model.username, name: model.user) )
                                         do {
                                             let reviewId = try await model.addReview(review: newReview)
                                             try await model.addReviewToSpot(spotId: spotId, reviewId: reviewId)
@@ -235,7 +235,7 @@ struct CreateReview2View: View {
         } message: {
             Text("Please make sure to at least fill out all the star ratings")
         }.task {
-            _ = try? await model.getUsername()
+            _ = try? await model.getUserInfo()
         }
     }
     
