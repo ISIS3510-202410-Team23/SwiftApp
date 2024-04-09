@@ -52,8 +52,8 @@ class NotificationHandler {
             let notificationIdentifier = "lunchTimeNotification"
             
             // i18n
-            let title = "Time for lunch!"
-            let body = "Looks like you're on campus, find your spot or rate the one you've been at!"
+            let title = "Hungry? It's lunchtime!"
+            let body = "Looks like you're on campus, find a spot or rate the one you've been at!"
             
             let content = UNMutableNotificationContent()
             content.title = title
