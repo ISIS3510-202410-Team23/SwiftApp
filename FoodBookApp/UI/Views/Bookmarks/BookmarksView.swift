@@ -13,6 +13,8 @@ struct BookmarksView: View {
     //TODO: move this to sign out view if created
     let notify = NotificationHandler()
     
+    @State var notified = NotificationHandler().hasDayPassedSinceLastNotification()
+    
     var body: some View {
         
         VStack {
@@ -40,6 +42,17 @@ struct BookmarksView: View {
             })
             .buttonStyle(.borderedProminent)
             .padding()
+            
+            Text(notified ? "Sent" : "Not Sent")
+            
+            Button(action: {
+                UserDefaults.standard.removeObject(forKey: "lastNotificationTime")
+                notified = NotificationHandler().hasDayPassedSinceLastNotification()
+            }, label: {
+                /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
+            })
+            
+            
             
         }
 

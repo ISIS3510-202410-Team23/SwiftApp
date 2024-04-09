@@ -21,10 +21,10 @@ final class LocationService: NSObject, ObservableObject {
         self.manager.delegate = self
         self.manager.desiredAccuracy = kCLLocationAccuracyBest
         self.manager.startUpdatingLocation()
+        setupGeofence(for: uniandesLocation, regionRadius: 400, identifier: "uniandes")
     }
 
     func requestLocationAuthorization() {
-        setupGeofence(for: uniandesLocation, regionRadius: 240, identifier: "uniandes")
         self.manager.requestWhenInUseAuthorization()
     }
     
@@ -76,7 +76,7 @@ extension LocationService: CLLocationManagerDelegate {
         if Utils.shared.isWithinLunchWindow() && self.userInRegion(regionId: "uniandes") {
             NotificationHandler().sendLunchTimeReminder(identifier: "lunchUniandes")
         } else {
-            print("Notif criteria not met")
+            print("Notif criteria not met: time \(Utils.shared.isWithinLunchWindow()), place \(self.userInRegion(regionId: "uniandes"))")
         }
     }
 }
