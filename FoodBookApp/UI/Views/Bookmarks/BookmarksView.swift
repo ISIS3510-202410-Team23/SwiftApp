@@ -13,6 +13,14 @@ struct BookmarksView: View {
     //TODO: move this to sign out view if created
     let notify = NotificationHandler()
     
+    var user: AuthDataResultModel? {
+        do {
+            return try AuthService.shared.getAuthenticatedUser()
+        } catch {
+            return nil
+        }
+    }
+    
     var body: some View {
         
         VStack {
@@ -40,7 +48,8 @@ struct BookmarksView: View {
             })
             .buttonStyle(.borderedProminent)
             .padding()
-            
+            Text(user?.name ?? "")
+            Text(user?.email ?? "")
         }
 
     }
