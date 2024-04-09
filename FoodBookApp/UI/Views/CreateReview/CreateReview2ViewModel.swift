@@ -15,6 +15,7 @@ class CreateReview2ViewModel {
     private let spotRepository: SpotRepository = SpotRepositoryImpl.shared
     private let utils = Utils.shared
     var username: String = ""
+    var user: String?
     
     init() {}
     
@@ -48,8 +49,9 @@ class CreateReview2ViewModel {
         }
     }
     
-    func getUsername() async throws {
+    func getUserInfo() async throws {
         self.username = try await utils.getUsername()
+        self.user = try await utils.getUser()
     }
     
 }

@@ -48,7 +48,7 @@ struct ReviewsView: View {
                                     }.padding()
                                     HStack {
                                         Spacer()
-                                        Text(review.user)
+                                        Text(review.user.name ?? "-")
                                             .foregroundColor(.gray)
                                     }.padding(.horizontal, 10)
                                     
@@ -151,7 +151,7 @@ struct ReviewsView: View {
                 ratings: ReviewStats(cleanliness: 5, foodQuality: 5, service: 5, waitTime: 4),
                 selectedCategories: ["Homemade", "Dessert"],
                 title: "Me fascina!!",
-                user: "Juan Pedro Gonzalez" // TODO: will be user uid, might need to add antoher field for email
+                user: UserInfo(id: "juan.pg", name: "Juan Pedro Gonzalez") // TODO: will be user uid, might need to add antoher field for email
             ),
             Review(
                 content: "La comida me gustó pero la atención fue pésima, se demoró muchísimo, lástima.",
@@ -164,7 +164,7 @@ struct ReviewsView: View {
                 
                     selectedCategories: ["Poultry", "Rice", "Soup"],
                     title: "No lo recomiendo.",
-                    user: "Mariana Martínez"
+                user: UserInfo(id: "mmz", name:"Mariana Martínez")
             )
             
         ])
