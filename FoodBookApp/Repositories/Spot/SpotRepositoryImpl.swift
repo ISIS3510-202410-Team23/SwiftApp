@@ -9,21 +9,21 @@ import Foundation
 
 class SpotRepositoryImpl: SpotRepository {
     static var shared: SpotRepository = SpotRepositoryImpl()
-    static var spotDao: SpotDAO = SpotDAOFirebase.shared
+    static var spotSA: SpotSA = SpotSAFirebase.shared
     
     func getSpotById(docId: String) async throws -> Spot {
-        return try await SpotRepositoryImpl.spotDao.getSpotById(documentId: docId)
+        return try await SpotRepositoryImpl.spotSA.getSpotById(documentId: docId)
     }
     
     func getSpots() async throws -> [Spot] {
-        return try await SpotRepositoryImpl.spotDao.getSpots()
+        return try await SpotRepositoryImpl.spotSA.getSpots()
     }
     
     func getSpotsWithIDList(list: [String]) async throws -> [Spot] {
-        return try await SpotRepositoryImpl.spotDao.getSpotsWithIDList(docIDs: list)
+        return try await SpotRepositoryImpl.spotSA.getSpotsWithIDList(docIDs: list)
     }   
     
     func updateSpot(docId: String, revId: String) async throws {
-        return try await SpotRepositoryImpl.spotDao.updateSpot(documentId: docId, reviewId: revId)
+        return try await SpotRepositoryImpl.spotSA.updateSpot(documentId: docId, reviewId: revId)
     }
 }

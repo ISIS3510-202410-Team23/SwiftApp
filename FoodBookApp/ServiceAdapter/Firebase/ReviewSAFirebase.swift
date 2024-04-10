@@ -1,5 +1,5 @@
 //
-//  ReviewDAOFirebase.swift
+//  ReviewSAFirebase.swift
 //  FoodBookApp
 //
 //  Created by Laura Restrepo on 18/03/24.
@@ -9,9 +9,9 @@ import Foundation
 import FirebaseFirestore
 import FirebaseStorage
 
-class ReviewDAOFirebase: ReviewDAO {
+class ReviewSAFirebase: ReviewSA {
     
-    static var shared: ReviewDAO = ReviewDAOFirebase()
+    static var shared: ReviewSA = ReviewSAFirebase()
     
     private var client: FirebaseClient = FirebaseClient.shared
     
