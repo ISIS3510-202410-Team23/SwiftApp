@@ -9,10 +9,10 @@ import Foundation
 
 class CategoryRepositoryImpl: CategoryRepository {
     static var shared: CategoryRepository = CategoryRepositoryImpl()
-    private static var categoryDao: CategoryDAO = CategoryDAOFirebase.shared
+    private static var categorySA: CategorySA = CategorySAFirebase.shared
     
     func getCategories() async throws -> [String] {
-        return try await CategoryRepositoryImpl.categoryDao.getCategories()
+        return try await CategoryRepositoryImpl.categorySA.getCategories()
     }
     
     
