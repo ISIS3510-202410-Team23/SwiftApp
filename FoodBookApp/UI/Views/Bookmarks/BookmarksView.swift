@@ -10,7 +10,7 @@ import LocalAuthentication
 
 struct BookmarksView: View {
     @Binding var showSignInView: Bool
-    @State private var isAuthenticated = false
+    @State var isAuthenticated = false
     
     //TODO: move this to sign out view if created
     let notify = NotificationHandler()
@@ -59,27 +59,17 @@ struct BookmarksView: View {
                     .font(.title)
                     .padding()
                 Button("Authenticate") {
-                    authenticateUser()
+                    AuthService.shared.authenticateUser { success in
+                        if success {
+                            isAuthenticated = true
+                            print("Authentication successful")
+                        } else {
+                            print("Authentication failed")
+                        }
+                    }
                 }
                 .padding()
             }
-        }
-    }
-    
-    private func authenticateUser() {
-        let context = LAContext()
-        var error: NSError?
-        
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Unlock to access content") { success, authenticationError in
-                if success {
-                    isAuthenticated = true
-                } else {
-                    print("Authentication failed: \(authenticationError?.localizedDescription ?? "Unknown error")")
-                }
-            }
-        } else {
-            print("Biometric authentication unavailable: \(error?.localizedDescription ?? "Unknown error")")
         }
     }
 }
