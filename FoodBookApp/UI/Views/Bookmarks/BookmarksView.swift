@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import LocalAuthentication
 
 struct BookmarksView: View {
     @Binding var showSignInView: Bool
+    @State var isAuthenticated = false
     
     //TODO: move this to sign out view if created
     let notify = NotificationHandler()
@@ -22,36 +24,53 @@ struct BookmarksView: View {
     }
     
     var body: some View {
-        
-        VStack {
-            // FIXME: the following content is temporary
-            Image(systemName: "book")
-                .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
-                .font(.system(size: 100))
-            
-            Button(action: {
-                Task {
-                    do {
-                        print("signing out...")
-                        try AuthService.shared.signOut()
-                        showSignInView = true
-                        
-                        //TODO: move this to sign out view if created
-                        notify.cancelNotification(identifier: "lastReviewNotification")
-                        
-                    } catch {
-                        print("Failed to sign out...")
+        if isAuthenticated {
+            VStack {
+                // FIXME: the following content is temporary
+                Image(systemName: "book")
+                    .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                    .font(.system(size: 100))
+                
+                Button(action: {
+                    Task {
+                        do {
+                            print("signing out...")
+                            try AuthService.shared.signOut()
+                            showSignInView = true
+                            
+                            //TODO: move this to sign out view if created
+                            notify.cancelNotification(identifier: "lastReviewNotification")
+                            
+                        } catch {
+                            print("Failed to sign out...")
+                        }
+                    }
+                }, label: {
+                    Text("Sign out")
+                })
+                .buttonStyle(.borderedProminent)
+                .padding()
+                Text(user?.name ?? "")
+                Text(user?.email ?? "")
+            }
+        } else {
+            VStack {
+                Text("Please confirm it's you to proceed")
+                    .font(.title)
+                    .padding()
+                Button("Authenticate") {
+                    AuthService.shared.authenticateUser { success in
+                        if success {
+                            isAuthenticated = true
+                            print("Authentication successful")
+                        } else {
+                            print("Authentication failed")
+                        }
                     }
                 }
-            }, label: {
-                Text("Sign out")
-            })
-            .buttonStyle(.borderedProminent)
-            .padding()
-            Text(user?.name ?? "")
-            Text(user?.email ?? "")
+                .padding()
+            }
         }
-
     }
 }
 
