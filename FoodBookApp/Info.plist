@@ -21,6 +21,8 @@
 	</array>
 	<key>GIDClientID</key>
 	<string>168193050245-rjfigcrplom7lkmts7i5nonn2t90pb46.apps.googleusercontent.com</string>
+	<key>NSIdentityUsageDescription</key>
+	<string>Please allow for biometrics usage</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>ArchivoBlack-Regular.ttf</string>

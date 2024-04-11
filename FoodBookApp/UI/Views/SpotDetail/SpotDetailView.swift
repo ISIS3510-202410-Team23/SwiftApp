@@ -59,7 +59,7 @@ struct SpotDetailView: View {
                             Button(action: {
                                 isReviewsSheetPresented.toggle()
                             }) {
-                                Text("See more")
+                                Text("See more (\(model.spot.reviewData.userReviews.count))")
                                     .font(.system(size: 17))
                                     .foregroundColor(.blue)
                             }

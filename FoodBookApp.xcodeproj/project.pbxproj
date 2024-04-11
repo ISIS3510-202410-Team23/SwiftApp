@@ -19,22 +19,21 @@
 		0DCB7BDA2B86F0290088C333 /* BookmarksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB7BD72B86F0290088C333 /* BookmarksView.swift */; };
 		6C0C82DA2B8D2D99004EAE3F /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C82D92B8D2D99004EAE3F /* Firebase.swift */; };
 		6C0C82DD2B8D2E49004EAE3F /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 6C0C82DC2B8D2E49004EAE3F /* FirebaseFirestore */; };
-		6C1021982B96710D007DCEEF /* SpotDAOFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1021972B96710D007DCEEF /* SpotDAOFirebase.swift */; };
-		6C10219A2B96712D007DCEEF /* SpotDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1021992B96712D007DCEEF /* SpotDAO.swift */; };
+		6C1021982B96710D007DCEEF /* SpotSAFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1021972B96710D007DCEEF /* SpotSAFirebase.swift */; };
+		6C10219A2B96712D007DCEEF /* SpotSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1021992B96712D007DCEEF /* SpotSA.swift */; };
 		6C10219C2B96AB87007DCEEF /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C10219B2B96AB87007DCEEF /* Error.swift */; };
 		6C10219E2B96B4CB007DCEEF /* SpotRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C10219D2B96B4CB007DCEEF /* SpotRepository.swift */; };
 		6C1021A12B96B4E1007DCEEF /* SpotRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1021A02B96B4E1007DCEEF /* SpotRepositoryImpl.swift */; };
 		6C1811D52B8AC15C0066F3D0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1811D42B8AC15C0066F3D0 /* LoginView.swift */; };
 		6C1811E12B8ACA090066F3D0 /* ArchivoBlack-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C1811E02B8ACA090066F3D0 /* ArchivoBlack-Regular.ttf */; };
 		6C1811E22B8ACA090066F3D0 /* ArchivoBlack-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C1811E02B8ACA090066F3D0 /* ArchivoBlack-Regular.ttf */; };
-		6C2504F12BA9D00A0018D1DD /* CategoryDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2504F02BA9D00A0018D1DD /* CategoryDAO.swift */; };
-		6C2504F32BA9D0310018D1DD /* CategoryDAOFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2504F22BA9D0310018D1DD /* CategoryDAOFirebase.swift */; };
+		6C2504F12BA9D00A0018D1DD /* CategorySA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2504F02BA9D00A0018D1DD /* CategorySA.swift */; };
+		6C2504F32BA9D0310018D1DD /* CategorySAFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2504F22BA9D0310018D1DD /* CategorySAFirebase.swift */; };
 		6C2504F62BA9D25B0018D1DD /* CategoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2504F52BA9D25B0018D1DD /* CategoryRepository.swift */; };
 		6C2504F82BA9D26C0018D1DD /* CategoryRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2504F72BA9D26C0018D1DD /* CategoryRepositoryImpl.swift */; };
 		6C5ED6D12B8ADB1000AF115C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6C5ED6D02B8ADB1000AF115C /* FirebaseAnalytics */; };
 		6C5ED6D32B8ADB1000AF115C /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6C5ED6D22B8ADB1000AF115C /* FirebaseAnalyticsSwift */; };
 		6C5ED6D52B8ADB1000AF115C /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 6C5ED6D42B8ADB1000AF115C /* FirebaseAnalyticsWithoutAdIdSupport */; };
-		6C5ED6D72B8ADB1000AF115C /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 6C5ED6D62B8ADB1000AF115C /* FirebaseAppCheck */; };
 		6CC929052B84FB0700EDDE78 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC929042B84FB0700EDDE78 /* ContentView.swift */; };
 		6CC929072B84FB0900EDDE78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CC929062B84FB0900EDDE78 /* Assets.xcassets */; };
 		6CC9290A2B84FB0900EDDE78 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CC929092B84FB0900EDDE78 /* Preview Assets.xcassets */; };
@@ -52,12 +51,11 @@
 		6CF821852B8D8A0D008E7057 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF821842B8D8A0C008E7057 /* Utils.swift */; };
 		6CF821892B8D92FB008E7057 /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF821882B8D92FB008E7057 /* SignInGoogleHelper.swift */; };
 		D30C88132B8FB5B50052C01E /* CreateReview2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30C88122B8FB5B50052C01E /* CreateReview2View.swift */; };
-		D30C881B2B90EB560052C01E /* TextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30C881A2B90EB560052C01E /* TextButton.swift */; };
 		D30C88212B9108C20052C01E /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30C88202B9108C20052C01E /* Separator.swift */; };
 		D31966A32BA7A54300E1DD53 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31966A22BA7A54300E1DD53 /* NotificationHandler.swift */; };
 		D319C47B2B8D5FB90030ED34 /* SpotDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D319C47A2B8D5FB90030ED34 /* SpotDetailView.swift */; };
-		D31D67092BA904A100B22A79 /* ReviewDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31D67082BA904A100B22A79 /* ReviewDAO.swift */; };
-		D31D670B2BA904FE00B22A79 /* ReviewDAOFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31D670A2BA904FE00B22A79 /* ReviewDAOFirebase.swift */; };
+		D31D67092BA904A100B22A79 /* ReviewSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31D67082BA904A100B22A79 /* ReviewSA.swift */; };
+		D31D670B2BA904FE00B22A79 /* ReviewSAFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31D670A2BA904FE00B22A79 /* ReviewSAFirebase.swift */; };
 		D31D670E2BA906D500B22A79 /* ReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31D670D2BA906D500B22A79 /* ReviewRepository.swift */; };
 		D31D67102BA906E600B22A79 /* ReviewRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31D670F2BA906E600B22A79 /* ReviewRepositoryImpl.swift */; };
 		D31D67162BA9119700B22A79 /* CreateReview2ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31D67152BA9119700B22A79 /* CreateReview2ViewModel.swift */; };
@@ -69,7 +67,6 @@
 		D32FC9A32B9624A8008D66BA /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32FC9A22B9624A8008D66BA /* ClearButton.swift */; };
 		D342009D2B91404A00B8817C /* TextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D342009C2B91404A00B8817C /* TextButton.swift */; };
 		D342009F2B91414800B8817C /* BoldTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D342009E2B91414800B8817C /* BoldTextButton.swift */; };
-		D34200A32B925A5D00B8817C /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34200A22B925A5D00B8817C /* Separator.swift */; };
 		D34B697A2B8FA2BA0043937B /* CreateReview1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34B69792B8FA2BA0043937B /* CreateReview1View.swift */; };
 		D34B697C2B8FAD7F0043937B /* CreateReview1ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34B697B2B8FAD7F0043937B /* CreateReview1ViewModel.swift */; };
 		D3DA08072B96EB3B00475AC9 /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DA08062B96EB3A00475AC9 /* LargeButton.swift */; };
@@ -106,16 +103,16 @@
 		0DCB7BD62B86F0290088C333 /* ForYouView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForYouView.swift; sourceTree = "<group>"; };
 		0DCB7BD72B86F0290088C333 /* BookmarksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksView.swift; sourceTree = "<group>"; };
 		6C0C82D92B8D2D99004EAE3F /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
-		6C1021972B96710D007DCEEF /* SpotDAOFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotDAOFirebase.swift; sourceTree = "<group>"; };
-		6C1021992B96712D007DCEEF /* SpotDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotDAO.swift; sourceTree = "<group>"; };
+		6C1021972B96710D007DCEEF /* SpotSAFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotSAFirebase.swift; sourceTree = "<group>"; };
+		6C1021992B96712D007DCEEF /* SpotSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotSA.swift; sourceTree = "<group>"; };
 		6C10219B2B96AB87007DCEEF /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		6C10219D2B96B4CB007DCEEF /* SpotRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotRepository.swift; sourceTree = "<group>"; };
 		6C1021A02B96B4E1007DCEEF /* SpotRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotRepositoryImpl.swift; sourceTree = "<group>"; };
 		6C1811D42B8AC15C0066F3D0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		6C1811DA2B8AC62B0066F3D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		6C1811E02B8ACA090066F3D0 /* ArchivoBlack-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ArchivoBlack-Regular.ttf"; sourceTree = "<group>"; };
-		6C2504F02BA9D00A0018D1DD /* CategoryDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDAO.swift; sourceTree = "<group>"; };
-		6C2504F22BA9D0310018D1DD /* CategoryDAOFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDAOFirebase.swift; sourceTree = "<group>"; };
+		6C2504F02BA9D00A0018D1DD /* CategorySA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySA.swift; sourceTree = "<group>"; };
+		6C2504F22BA9D0310018D1DD /* CategorySAFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySAFirebase.swift; sourceTree = "<group>"; };
 		6C2504F52BA9D25B0018D1DD /* CategoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepository.swift; sourceTree = "<group>"; };
 		6C2504F72BA9D26C0018D1DD /* CategoryRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepositoryImpl.swift; sourceTree = "<group>"; };
 		6CC928FF2B84FB0700EDDE78 /* FoodBookApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodBookApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,8 +136,8 @@
 		D30C88202B9108C20052C01E /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
 		D31966A22BA7A54300E1DD53 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 		D319C47A2B8D5FB90030ED34 /* SpotDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotDetailView.swift; sourceTree = "<group>"; };
-		D31D67082BA904A100B22A79 /* ReviewDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDAO.swift; sourceTree = "<group>"; };
-		D31D670A2BA904FE00B22A79 /* ReviewDAOFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDAOFirebase.swift; sourceTree = "<group>"; };
+		D31D67082BA904A100B22A79 /* ReviewSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSA.swift; sourceTree = "<group>"; };
+		D31D670A2BA904FE00B22A79 /* ReviewSAFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSAFirebase.swift; sourceTree = "<group>"; };
 		D31D670D2BA906D500B22A79 /* ReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRepository.swift; sourceTree = "<group>"; };
 		D31D670F2BA906E600B22A79 /* ReviewRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRepositoryImpl.swift; sourceTree = "<group>"; };
 		D31D67152BA9119700B22A79 /* CreateReview2ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReview2ViewModel.swift; sourceTree = "<group>"; };
@@ -163,7 +160,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C5ED6D72B8ADB1000AF115C /* FirebaseAppCheck in Frameworks */,
 				6CF821792B8D7FF8008E7057 /* FirebaseAuth in Frameworks */,
 				D31D67182BAA763B00B22A79 /* FirebaseStorage in Frameworks */,
 				6C5ED6D32B8ADB1000AF115C /* FirebaseAnalyticsSwift in Frameworks */,
@@ -234,23 +230,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6C0C82DE2B8D2EC2004EAE3F /* DAO */ = {
+		6C0C82DE2B8D2EC2004EAE3F /* ServiceAdapter */ = {
 			isa = PBXGroup;
 			children = (
 				6C0C82DF2B8D2EC9004EAE3F /* Firebase */,
-				D31D67082BA904A100B22A79 /* ReviewDAO.swift */,
-				6C1021992B96712D007DCEEF /* SpotDAO.swift */,
-				6C2504F02BA9D00A0018D1DD /* CategoryDAO.swift */,
+				D31D67082BA904A100B22A79 /* ReviewSA.swift */,
+				6C1021992B96712D007DCEEF /* SpotSA.swift */,
+				6C2504F02BA9D00A0018D1DD /* CategorySA.swift */,
 			);
-			path = DAO;
+			path = ServiceAdapter;
 			sourceTree = "<group>";
 		};
 		6C0C82DF2B8D2EC9004EAE3F /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
-				D31D670A2BA904FE00B22A79 /* ReviewDAOFirebase.swift */,
-				6C1021972B96710D007DCEEF /* SpotDAOFirebase.swift */,
-				6C2504F22BA9D0310018D1DD /* CategoryDAOFirebase.swift */,
+				D31D670A2BA904FE00B22A79 /* ReviewSAFirebase.swift */,
+				6C1021972B96710D007DCEEF /* SpotSAFirebase.swift */,
+				6C2504F22BA9D0310018D1DD /* CategorySAFirebase.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -329,7 +325,7 @@
 				6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */,
 				6CF8217A2B8D877B008E7057 /* GoogleService-Info.plist */,
 				6C1811DA2B8AC62B0066F3D0 /* Info.plist */,
-				6C0C82DE2B8D2EC2004EAE3F /* DAO */,
+				6C0C82DE2B8D2EC2004EAE3F /* ServiceAdapter */,
 				D31966A12BA7A51100E1DD53 /* Handlers */,
 				6CC9292E2B85023500EDDE78 /* Models */,
 				6CC9292F2B85028900EDDE78 /* Persistence */,
@@ -504,7 +500,6 @@
 				6C5ED6D02B8ADB1000AF115C /* FirebaseAnalytics */,
 				6C5ED6D22B8ADB1000AF115C /* FirebaseAnalyticsSwift */,
 				6C5ED6D42B8ADB1000AF115C /* FirebaseAnalyticsWithoutAdIdSupport */,
-				6C5ED6D62B8ADB1000AF115C /* FirebaseAppCheck */,
 				6C0C82DC2B8D2E49004EAE3F /* FirebaseFirestore */,
 				6CF821782B8D7FF8008E7057 /* FirebaseAuth */,
 				6CF8217D2B8D8837008E7057 /* GoogleSignIn */,
@@ -645,11 +640,10 @@
 				6C10219E2B96B4CB007DCEEF /* SpotRepository.swift in Sources */,
 				6CF821822B8D891D008E7057 /* LoginViewModel.swift in Sources */,
 				6CF821772B8D7E15008E7057 /* AuthService.swift in Sources */,
-				6C2504F32BA9D0310018D1DD /* CategoryDAOFirebase.swift in Sources */,
+				6C2504F32BA9D0310018D1DD /* CategorySAFirebase.swift in Sources */,
 				0DCB7BD92B86F0290088C333 /* ForYouView.swift in Sources */,
 				6CF821892B8D92FB008E7057 /* SignInGoogleHelper.swift in Sources */,
-				D31D67092BA904A100B22A79 /* ReviewDAO.swift in Sources */,
-				0DCB7BD92B86F0290088C333 /* ForYouView.swift in Sources */,
+				D31D67092BA904A100B22A79 /* ReviewSA.swift in Sources */,
 				0D16DDD52B8C1799001D7BAB /* HCategoryList.swift in Sources */,
 				D31D67102BA906E600B22A79 /* ReviewRepositoryImpl.swift in Sources */,
 				0D16DDD32B8BB65A001D7BAB /* SpotCard.swift in Sources */,
@@ -658,32 +652,29 @@
 				D34B697A2B8FA2BA0043937B /* CreateReview1View.swift in Sources */,
 				D30C88132B8FB5B50052C01E /* CreateReview2View.swift in Sources */,
 				0D347C362BAB2589003990A0 /* LocationUtils.swift in Sources */,
-				D31D670B2BA904FE00B22A79 /* ReviewDAOFirebase.swift in Sources */,
+				D31D670B2BA904FE00B22A79 /* ReviewSAFirebase.swift in Sources */,
 				D342009D2B91404A00B8817C /* TextButton.swift in Sources */,
 				0DCB7BD82B86F0290088C333 /* BrowseView.swift in Sources */,
 				D32FC9A32B9624A8008D66BA /* ClearButton.swift in Sources */,
 				D34B697C2B8FAD7F0043937B /* CreateReview1ViewModel.swift in Sources */,
 				D3DA08072B96EB3B00475AC9 /* LargeButton.swift in Sources */,
 				D321E4A42B8F929200F93974 /* Review.swift in Sources */,
-				6C2504F12BA9D00A0018D1DD /* CategoryDAO.swift in Sources */,
+				6C2504F12BA9D00A0018D1DD /* CategorySA.swift in Sources */,
 				D321E4A62B8F929D00F93974 /* Spot.swift in Sources */,
 				6C2504F82BA9D26C0018D1DD /* CategoryRepositoryImpl.swift in Sources */,
 				D31966A32BA7A54300E1DD53 /* NotificationHandler.swift in Sources */,
 				D321E4962B8E971500F93974 /* ReviewsView.swift in Sources */,
-				6C10219A2B96712D007DCEEF /* SpotDAO.swift in Sources */,
+				6C10219A2B96712D007DCEEF /* SpotSA.swift in Sources */,
 				6C1021A12B96B4E1007DCEEF /* SpotRepositoryImpl.swift in Sources */,
 				6C10219C2B96AB87007DCEEF /* Error.swift in Sources */,
 				D31D670E2BA906D500B22A79 /* ReviewRepository.swift in Sources */,
 				D319C47B2B8D5FB90030ED34 /* SpotDetailView.swift in Sources */,
 				D30C88212B9108C20052C01E /* Separator.swift in Sources */,
 				0D8BBB662B91462800739448 /* LocationService.swift in Sources */,
-				0DCB7BD82B86F0290088C333 /* BrowseView.swift in Sources */,
-				D30C881B2B90EB560052C01E /* TextButton.swift in Sources */,
 				6CC9292D2B84FFEE00EDDE78 /* FoodBookApp.swift in Sources */,
 				0D347C382BAB4FA4003990A0 /* BackendService.swift in Sources */,
-				6C1021982B96710D007DCEEF /* SpotDAOFirebase.swift in Sources */,
+				6C1021982B96710D007DCEEF /* SpotSAFirebase.swift in Sources */,
 				D342009F2B91414800B8817C /* BoldTextButton.swift in Sources */,
-				D34200A32B925A5D00B8817C /* Separator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -853,6 +844,7 @@
 				INFOPLIST_FILE = FoodBookApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FoodBook;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow camera access";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Please allow for biometrics usage";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Please allow location usage.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Please allow location usage.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow for location usage";
@@ -888,6 +880,7 @@
 				INFOPLIST_FILE = FoodBookApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FoodBook;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow camera access";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Please allow for biometrics usage";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Please allow location usage.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Please allow location usage.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow for location usage";
@@ -1061,11 +1054,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6C5ED6CF2B8ADB1000AF115C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalyticsWithoutAdIdSupport;
-		};
-		6C5ED6D62B8ADB1000AF115C /* FirebaseAppCheck */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6C5ED6CF2B8ADB1000AF115C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAppCheck;
 		};
 		6CF821782B8D7FF8008E7057 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

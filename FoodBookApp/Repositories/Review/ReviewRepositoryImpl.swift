@@ -10,13 +10,13 @@ import SwiftUI
 
 class ReviewRepositoryImpl: ReviewRepository {
     static var shared: ReviewRepository = ReviewRepositoryImpl()
-    static var reviewDao: ReviewDAO = ReviewDAOFirebase.shared
+    static var reviewSA: ReviewSA = ReviewSAFirebase.shared
     
     func createReview(review: Review) async throws -> String {
-        return try await ReviewRepositoryImpl.reviewDao.createReview(review: review)
+        return try await ReviewRepositoryImpl.reviewSA.createReview(review: review)
     }
     
     func uploadPhoto(image: UIImage) async throws -> String {
-        return try await ReviewRepositoryImpl.reviewDao.uploadPhoto(image: image)
+        return try await ReviewRepositoryImpl.reviewSA.uploadPhoto(image: image)
     }
 }

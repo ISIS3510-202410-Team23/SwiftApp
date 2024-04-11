@@ -13,9 +13,14 @@ final class BackendService: NSObject, ObservableObject {
         let category: String
         let user: String
     }
+    
+    private let backendUrl = ProcessInfo.processInfo.environment["BACKEND_URL"]
 
-    func performAPICall(uid: String) async throws -> [String]{
-        let url = URL(string: "https://foodbook-app-backend.2.us-1.fl0.io/recommendation/\(uid)")!
+    func performAPICall(uid: String) async throws -> [String ]{
+        guard let validUrl = backendUrl else {
+            throw NSError() // TODO: Should throw specialized error
+        }
+        let url = URL(string: "\(validUrl)/recommendation/\(uid)")!
         let (data, _) = try await URLSession.shared.data(from: url)
         print(data)
         let wrapper = try JSONDecoder().decode(Answer.self, from: data)
