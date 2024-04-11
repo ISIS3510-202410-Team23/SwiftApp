@@ -75,8 +75,6 @@ extension LocationService: CLLocationManagerDelegate {
         
         if Utils.shared.isWithinLunchWindow() && self.userInRegion(regionId: "uniandes") {
             NotificationHandler().sendLunchTimeReminder(identifier: "lunchUniandes")
-        } else {
-            print("Notif criteria not met")
         }
     }
 }

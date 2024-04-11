@@ -76,7 +76,7 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "BACKEND_URL"
-            value = "https://backend-aii7.onrender.com"
+            value = "https://foodbook-app-backend.onrender.com"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
