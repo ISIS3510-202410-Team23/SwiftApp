@@ -11,6 +11,7 @@ import LocalAuthentication
 struct BookmarksView: View {
     @Binding var showSignInView: Bool
     @State var isAuthenticated = false
+    @ObservedObject var networkService = NetworkService.shared
     
     //TODO: move this to sign out view if created
     let notify = NotificationHandler()
@@ -64,7 +65,25 @@ struct BookmarksView: View {
                 }, label: {
                     /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
                 })
+                
+                // FIXME: Remove, only fro testing Network Service
+                if networkService.isOnline {
+                    Text("Online")
+                }
+                if networkService.isLowConnection {
+                    Text("Low Connection")
+                }
+                if networkService.isUnavailable {
+                    Text("Unavailble")
+                }
+                
+                Button(action: {
+                    networkService.checkStatus()
+                }, label: {
+                    Text("Status Report")
+                })
             }
+            
         } else {
             VStack {
                 Text("Please confirm it's you to proceed")
