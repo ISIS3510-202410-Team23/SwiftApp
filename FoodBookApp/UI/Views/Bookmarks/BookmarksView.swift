@@ -15,6 +15,8 @@ struct BookmarksView: View {
     //TODO: move this to sign out view if created
     let notify = NotificationHandler()
     
+    @State var notified = NotificationHandler().hasDayPassedSinceLastNotification()
+    
     var user: AuthDataResultModel? {
         do {
             return try AuthService.shared.getAuthenticatedUser()
@@ -22,6 +24,7 @@ struct BookmarksView: View {
             return nil
         }
     }
+    
     
     var body: some View {
         if isAuthenticated {
@@ -52,6 +55,15 @@ struct BookmarksView: View {
                 .padding()
                 Text(user?.name ?? "")
                 Text(user?.email ?? "")
+                
+                Text(notified ? "Sent" : "Not Sent")
+                
+                Button(action: {
+                    UserDefaults.standard.removeObject(forKey: "lastNotificationTime")
+                    notified = NotificationHandler().hasDayPassedSinceLastNotification()
+                }, label: {
+                    /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
+                })
             }
         } else {
             VStack {
@@ -67,8 +79,7 @@ struct BookmarksView: View {
                             print("Authentication failed")
                         }
                     }
-                }
-                .padding()
+                }.padding()
             }
         }
     }

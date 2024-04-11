@@ -21,10 +21,10 @@ final class LocationService: NSObject, ObservableObject {
         self.manager.delegate = self
         self.manager.desiredAccuracy = kCLLocationAccuracyBest
         self.manager.startUpdatingLocation()
+        setupGeofence(for: uniandesLocation, regionRadius: 400, identifier: "uniandes")
     }
 
     func requestLocationAuthorization() {
-        setupGeofence(for: uniandesLocation, regionRadius: 240, identifier: "uniandes")
         self.manager.requestWhenInUseAuthorization()
     }
     
