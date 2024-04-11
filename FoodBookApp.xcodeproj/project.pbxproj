@@ -844,6 +844,7 @@
 				INFOPLIST_FILE = FoodBookApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FoodBook;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow camera access";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Please allow for biometrics usage";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Please allow location usage.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Please allow location usage.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow for location usage";
@@ -879,6 +880,7 @@
 				INFOPLIST_FILE = FoodBookApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FoodBook;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow camera access";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Please allow for biometrics usage";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Please allow location usage.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Please allow location usage.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow for location usage";
