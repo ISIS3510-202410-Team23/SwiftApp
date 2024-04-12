@@ -7,15 +7,21 @@
 
 import SwiftUI
 
-struct BrowseView: View {    
+struct BrowseView: View {
     @State private var model = BrowseViewModel()
     @Binding var searchText: String
     
     var body: some View {
         ScrollView {
-            Group {
+            if searchResults.isEmpty {
+                Text("Hmm, nothing here. Maybe try a different search?")
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                    .safeAreaPadding()
+                
+            } else {
                 ForEach(searchResults, id: \.self) { spot in
-                    NavigationLink(destination: SpotDetailView(spotId: spot.id ?? "")){ 
+                    NavigationLink(destination: SpotDetailView(spotId: spot.id ?? "")){
                         SpotCard(
                             title: spot.name,
                             minTime: spot.waitTime.min,
@@ -30,7 +36,6 @@ struct BrowseView: View {
                     .accentColor(.black)
                 }
             }
-            .searchable(text: $searchText)
         }
         .padding(8)
         .task {
@@ -48,6 +53,7 @@ struct BrowseView: View {
         }
     }
 }
+
 
 struct BrowseView_Previews: PreviewProvider {
     static var previews: some View {
