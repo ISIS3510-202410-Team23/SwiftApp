@@ -74,4 +74,11 @@ final class Utils {
             throw error
         }
     }
+    
+    func highestCategories(spot: Spot) -> [Category] {
+        return spot.categories.sorted { cat1, cat2 in
+            cat2.count < cat1.count
+        }
+        
+    }
 }
