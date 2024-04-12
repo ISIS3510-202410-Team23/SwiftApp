@@ -14,7 +14,7 @@ struct SpotCard: View {
     let minTime : Int
     let maxTime : Int
     let distance : String
-    let categories : [String]
+    let categories : [Category]
     let imageLinks : [String]
     let price : String
     
@@ -60,7 +60,8 @@ struct SpotCard: View {
         minTime: 25,
         maxTime: 30,
         distance: "99+",
-        categories: ["Vegan", "Sandwich", "Bowl", "Healthy", "..."],
+        categories:[ Category(name: "sandwich", count: 1),  Category(name: "healthy", count: 1),  Category(name: "organic", count: 1),  Category(name: "fast", count: 2),  Category(name: "burger", count: 2),  Category(name: "low-fat", count: 1),  Category(name: "fries", count: 1)]
+,
         imageLinks: [
             "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=2380&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             "https://images.unsplash.com/photo-1493770348161-369560ae357d?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",

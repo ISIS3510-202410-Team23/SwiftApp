@@ -21,7 +21,7 @@ struct BrowseView: View {
                             minTime: spot.waitTime.min,
                             maxTime: spot.waitTime.max,
                             distance: spot.distance ?? "-",
-                            categories: spot.categories,
+                            categories: Array(Utils.shared.highestCategories(spot: spot).prefix(5)),
                             imageLinks: spot.imageLinks ?? [],
                             price: spot.price
                         )

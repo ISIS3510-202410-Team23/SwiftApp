@@ -36,8 +36,8 @@ struct SpotDetailView: View {
                         // Categories
                         ScrollView(.horizontal) {
                             HStack {
-                                ForEach(model.spot.categories, id: \.self) { cat in
-                                    Text(cat.capitalized)
+                                ForEach(Utils.shared.highestCategories(spot: model.spot), id: \.self) { cat in
+                                    Text("\(cat.name.capitalized) (\(cat.count))")
                                         .font(.system(size: 14))
                                         .bold()
                                         .foregroundColor(.black)

@@ -30,9 +30,14 @@ struct ReviewDataDTO: Codable, Equatable, Hashable {
     let userReviews: [DocumentReference]
 }
 
+struct Category: Codable, Equatable, Hashable {
+    let name: String
+    let count: Int
+}
+
 struct SpotDTO: Codable, Equatable, Hashable {
     @DocumentID var id: String?
-    let categories: [String]
+    let categories: [Category]
     let location: GeoPoint
     let name: String
     let price: String
@@ -43,7 +48,7 @@ struct SpotDTO: Codable, Equatable, Hashable {
 
 struct Spot: Codable, Equatable, Hashable {
     @DocumentID var id: String?
-    let categories: [String]
+    let categories: [Category]
     let location: GeoPoint
     let name: String
     let price: String
