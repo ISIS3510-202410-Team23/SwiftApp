@@ -13,6 +13,8 @@ struct SpotDetailView: View {
     @State private var model = SpotDetailViewModel()
     @State private var isReviewsSheetPresented : Bool = false
     @State private var isNewReviewSheetPresented : Bool = false
+    @State private var showDraftMenu = false
+    @State private var draft : Review?
     
     var spotId: String
     
@@ -114,7 +116,8 @@ struct SpotDetailView: View {
                         HStack {
                             
                             Button(action: {
-                                isNewReviewSheetPresented.toggle()
+                                //isNewReviewSheetPresented.toggle()
+                                showDraftMenu.toggle()
                                 }, label: {
                                     Text("Leave a review")
                                         .frame(maxWidth: .infinity)
@@ -124,7 +127,23 @@ struct SpotDetailView: View {
                                         .cornerRadius(12)
                                         .font(.system(size: 20))
                             }).padding()
+                        }.actionSheet(isPresented: $showDraftMenu) {
+                            ActionSheet(
+                                title: Text("Looks like you have draft"),
+                                buttons: [
+                                    .default(Text("Create review from draft")) {
+                                        // Handle action for creating review from draft
+                                        isNewReviewSheetPresented.toggle()
+                                    },
+                                    .default(Text("Create new review")) {
+                                        // Handle action for creating new review
+                                        isNewReviewSheetPresented.toggle()
+                                    },
+                                    .cancel()
+                                ]
+                            )
                         }
+                        
                         .padding(.vertical, 20)
                     }
                 }
