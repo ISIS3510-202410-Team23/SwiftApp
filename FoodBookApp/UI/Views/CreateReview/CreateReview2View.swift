@@ -12,6 +12,7 @@ import PhotosUI
 struct CreateReview2View: View {
     let categories: [String]
     let spotId: String
+    var draftMode: Bool
     @State private var selectedImage: UIImage? // TODO: binding for local storage
     @State private var showSheet: Bool = false
     @State private var showImagePicker: Bool = false
@@ -114,7 +115,6 @@ struct CreateReview2View: View {
                                 
                                 Task {
                                     do {
-                                        
                                         let trimmedContent = content.trimmingCharacters(in: .whitespacesAndNewlines)
                                         let trimmedTitle = title.trimmingCharacters(in: .whitespacesAndNewlines)
                                         let reviewImage = try await model.uploadPhoto(image: selectedImage)
@@ -132,6 +132,9 @@ struct CreateReview2View: View {
                                         do {
                                             let reviewId = try await model.addReview(review: newReview)
                                             try await model.addReviewToSpot(spotId: spotId, reviewId: reviewId)
+                                            if (DBManager().draftExists(spot: spotId) && draftMode) {
+                                                DBManager().deleteDraft(spot: spotId)
+                                            }
                                             print("The review uploaded has this ID:", reviewId)
                                             
                                         } catch {
@@ -266,5 +269,5 @@ struct CreateReview2View: View {
 }
 
 #Preview {
-    CreateReview2View(categories: ["Homemade", "Colombian"], spotId: "ms1hTTxzVkiJElZiYHAT", cleanliness: .constant(0), waitingTime: .constant(0), foodQuality: .constant(0), service: .constant(0), title: .constant(""), content: .constant(""), isNewReviewSheetPresented: .constant(true))
+    CreateReview2View(categories: ["Homemade", "Colombian"], spotId: "ms1hTTxzVkiJElZiYHAT", draftMode: false, cleanliness: .constant(0), waitingTime: .constant(0), foodQuality: .constant(0), service: .constant(0), title: .constant(""), content: .constant(""), isNewReviewSheetPresented: .constant(true))
 }

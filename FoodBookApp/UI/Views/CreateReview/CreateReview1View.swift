@@ -11,6 +11,7 @@ import SwiftUI
 struct CreateReview1View: View {
     var spotId: String
     var draft: ReviewDraft?
+    var draftMode: Bool
     @State private var model = CreateReview1ViewModel()
     @State private var searchText: String = ""
     @FocusState private var searchTextIsFocused: Bool
@@ -78,7 +79,7 @@ struct CreateReview1View: View {
                                 Alert(title: Text("Try again"), message: Text("Please select at least one category"), dismissButton: .default(Text("OK")))
                             }
                         } else {
-                            NavigationLink(destination: CreateReview2View(categories: self.selectedCats, spotId: spotId, cleanliness: $cleanliness, waitingTime: $waitingTime, foodQuality: $foodQuality, service: $service, title: $title, content: $content, isNewReviewSheetPresented: $isNewReviewSheetPresented)) {
+                            NavigationLink(destination: CreateReview2View(categories: self.selectedCats, spotId: spotId, draftMode: draftMode, cleanliness: $cleanliness, waitingTime: $waitingTime, foodQuality: $foodQuality, service: $service, title: $title, content: $content, isNewReviewSheetPresented: $isNewReviewSheetPresented)) {
                                 Text("Next")
                             }
                         }
@@ -187,5 +188,5 @@ struct CreateReview1View: View {
 }
 
 #Preview {
-    CreateReview1View(spotId: "ms1hTTxzVkiJElZiYHAT", isNewReviewSheetPresented: .constant(true))
+    CreateReview1View(spotId: "ms1hTTxzVkiJElZiYHAT", draftMode: false, isNewReviewSheetPresented: .constant(true))
 }

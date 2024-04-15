@@ -15,11 +15,12 @@ struct SpotDetailView: View {
     @State private var isNewReviewSheetPresented : Bool = false
     @State private var showDraftMenu = false
     @State private var draft : ReviewDraft?
+    @State private var draftMode = false
     
     var spotId: String
     
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
-        
+    
     var body: some View {
         
         VStack(alignment: .leading) {
@@ -117,18 +118,19 @@ struct SpotDetailView: View {
                                 let draftExists = DBManager().draftExists(spot: spotId)
                                 if (draftExists) {
                                     showDraftMenu.toggle()
-                                }
-                                else {
+                                } else {
+                                    draft = nil
+                                    draftMode = false
                                     isNewReviewSheetPresented.toggle()
                                 }
-                                }, label: {
-                                    Text("Leave a review")
-                                        .frame(maxWidth: .infinity)
-                                        .padding()
-                                        .background(.blue)
-                                        .foregroundColor(.white)
-                                        .cornerRadius(12)
-                                        .font(.system(size: 20))
+                            }, label: {
+                                Text("Leave a review")
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(.blue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(12)
+                                    .font(.system(size: 20))
                             }).padding()
                         }.actionSheet(isPresented: $showDraftMenu) {
                             ActionSheet(
@@ -136,10 +138,12 @@ struct SpotDetailView: View {
                                 buttons: [
                                     .default(Text("Create review from draft")) {
                                         draft = DBManager().getDraft(spot: spotId)
+                                        draftMode = true
                                         isNewReviewSheetPresented.toggle()
                                     },
                                     .default(Text("Create new review")) {
                                         draft = nil
+                                        draftMode = false
                                         isNewReviewSheetPresented.toggle()
                                     },
                                     .cancel()
@@ -163,7 +167,7 @@ struct SpotDetailView: View {
         .sheet(
             isPresented: $isNewReviewSheetPresented,
             content: {
-                CreateReview1View(spotId: spotId, draft: draft, isNewReviewSheetPresented: $isNewReviewSheetPresented)
+                CreateReview1View(spotId: spotId, draft: draft, draftMode: draftMode, isNewReviewSheetPresented: $isNewReviewSheetPresented)
             })
     }
 }
