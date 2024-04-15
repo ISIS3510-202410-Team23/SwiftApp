@@ -13,11 +13,14 @@ struct SpotDetailView: View {
     @State private var model = SpotDetailViewModel()
     @State private var isReviewsSheetPresented : Bool = false
     @State private var isNewReviewSheetPresented : Bool = false
+    @State private var showDraftMenu = false
+    @State private var draft : ReviewDraft?
+    @State private var draftMode = false
     
     var spotId: String
     
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
-        
+    
     var body: some View {
         
         VStack(alignment: .leading) {
@@ -25,7 +28,6 @@ struct SpotDetailView: View {
                 customGray.edgesIgnoringSafeArea(.all)
                 ScrollView(.vertical) {
                     VStack {
-                        
                         Map() {
                             Marker(model.spot.name, coordinate: CLLocationCoordinate2D(latitude: model.spot.location.latitude, longitude: model.spot.location.longitude))
                         }
@@ -112,24 +114,45 @@ struct SpotDetailView: View {
                         
                         // Leave a review
                         HStack {
-                            
                             Button(action: {
-                                isNewReviewSheetPresented.toggle()
-                                }, label: {
-                                    Text("Leave a review")
-                                        .frame(maxWidth: .infinity)
-                                        .padding()
-                                        .background(.blue)
-                                        .foregroundColor(.white)
-                                        .cornerRadius(12)
-                                        .font(.system(size: 20))
+                                let draftExists = DBManager().draftExists(spot: spotId)
+                                if (draftExists) {
+                                    showDraftMenu.toggle()
+                                } else {
+                                    draft = nil
+                                    draftMode = false
+                                    isNewReviewSheetPresented.toggle()
+                                }
+                            }, label: {
+                                Text("Leave a review")
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(.blue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(12)
+                                    .font(.system(size: 20))
                             }).padding()
+                        }.actionSheet(isPresented: $showDraftMenu) {
+                            ActionSheet(
+                                title: Text("Looks like you have a draft"),
+                                buttons: [
+                                    .default(Text("Create review from draft")) {
+                                        draft = DBManager().getDraft(spot: spotId)
+                                        draftMode = true
+                                        isNewReviewSheetPresented.toggle()
+                                    },
+                                    .default(Text("Create new review")) {
+                                        draft = nil
+                                        draftMode = false
+                                        isNewReviewSheetPresented.toggle()
+                                    },
+                                    .cancel()
+                                ]
+                            )
                         }
                         .padding(.vertical, 20)
                     }
                 }
-                
-                
             }
             
         }.task {
@@ -144,7 +167,7 @@ struct SpotDetailView: View {
         .sheet(
             isPresented: $isNewReviewSheetPresented,
             content: {
-                CreateReview1View(spotId: spotId, isNewReviewSheetPresented: $isNewReviewSheetPresented)
+                CreateReview1View(spotId: spotId, draft: draft, draftMode: draftMode, isNewReviewSheetPresented: $isNewReviewSheetPresented)
             })
     }
 }

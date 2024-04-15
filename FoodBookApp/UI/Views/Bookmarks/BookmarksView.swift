@@ -43,6 +43,7 @@ struct BookmarksView: View {
                             showSignInView = true
                             
                             //TODO: move this to sign out view if created
+                            DBManager().deleteDraftsTable() //TODO: maybe show alert notifying user?
                             notify.cancelNotification(identifier: "lastReviewNotification")
                             
                         } catch {

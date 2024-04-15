@@ -12,19 +12,20 @@ import PhotosUI
 struct CreateReview2View: View {
     let categories: [String]
     let spotId: String
-    @State private var selectedImage: UIImage?
+    var draftMode: Bool
+    @State private var selectedImage: UIImage? // TODO: binding for local storage
     @State private var showSheet: Bool = false
     @State private var showImagePicker: Bool = false
     @State private var sourceType: UIImagePickerController.SourceType = .camera
     @State private var imageIsSelected: Bool = false
-    @State private var cleanliness: Int = 0
-    @State private var waitingTime: Int = 0
-    @State private var service: Int = 0
-    @State private var foodQuality: Int = 0
-    @State private var reviewTitle: String = ""
-    @FocusState private var reviewTitleIsFocused: Bool
-    @State private var reviewBody: String = ""
-    @FocusState private var reviewBodyIsFocused: Bool
+    @Binding var cleanliness: Int
+    @Binding var waitingTime: Int
+    @Binding var foodQuality: Int
+    @Binding var service: Int
+    @Binding var title: String
+    @Binding var content: String
+    @FocusState private var titleIsFocused: Bool
+    @FocusState private var contentIsFocused: Bool
     @Binding var isNewReviewSheetPresented: Bool
     @State private var showAlert = false
     
@@ -111,14 +112,13 @@ struct CreateReview2View: View {
                                 // Step 1: Upload review
                                 let reviewDate = Date()
                                 let lowercasedCategories = categories.map { $0.lowercased() }
-
+                                
                                 Task {
                                     do {
-                                        
-                                        let trimmedBody = reviewBody.trimmingCharacters(in: .whitespacesAndNewlines)
-                                        let trimmedTitle = reviewTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+                                        let trimmedContent = content.trimmingCharacters(in: .whitespacesAndNewlines)
+                                        let trimmedTitle = title.trimmingCharacters(in: .whitespacesAndNewlines)
                                         let reviewImage = try await model.uploadPhoto(image: selectedImage)
-                                        let newReview = Review(content: trimmedBody == "" ? nil : trimmedBody,
+                                        let newReview = Review(content: trimmedContent == "" ? nil : trimmedContent,
                                                                date: reviewDate,
                                                                imageUrl: reviewImage,
                                                                ratings: ReviewStats(
@@ -132,6 +132,9 @@ struct CreateReview2View: View {
                                         do {
                                             let reviewId = try await model.addReview(review: newReview)
                                             try await model.addReviewToSpot(spotId: spotId, reviewId: reviewId)
+                                            if (DBManager().draftExists(spot: spotId) && draftMode) {
+                                                DBManager().deleteDraft(spot: spotId)
+                                            }
                                             print("The review uploaded has this ID:", reviewId)
                                             
                                         } catch {
@@ -141,7 +144,6 @@ struct CreateReview2View: View {
                                     catch {
                                         print(error)
                                     }
- 
                                 }
                                 
                                 // Very Nice To Have, but that the "Done" turns into the loading indicator while the review is uploaded, idk how complex it could be though.
@@ -189,14 +191,14 @@ struct CreateReview2View: View {
                     // Review title
                     HStack {
                         Text("Title").font(.system(size: 20))
-                        TextField("Optional", text: $reviewTitle)
-                            .focused($reviewTitleIsFocused)
+                        TextField("Optional", text: $title)
+                            .focused($titleIsFocused)
                             .padding(.leading)
                         Spacer()
-                        if reviewTitleIsFocused {
+                        if titleIsFocused {
                             ClearButton(){
-                                reviewTitle = ""
-                                reviewTitleIsFocused = false}
+                                title = ""
+                                titleIsFocused = false}
                         }
                     }.padding(.horizontal)
                     
@@ -205,14 +207,14 @@ struct CreateReview2View: View {
                     // Review body
                     HStack {
                         Text("Body").font(.system(size: 20))
-                        TextField("Value", text: $reviewBody)
-                            .focused($reviewBodyIsFocused)
+                        TextField("Value", text: $content)
+                            .focused($contentIsFocused)
                             .padding(.leading)
                         Spacer()
-                        if reviewBodyIsFocused {
+                        if contentIsFocused {
                             ClearButton(){
-                                reviewBody = ""
-                                reviewBodyIsFocused = false}
+                                content = ""
+                                contentIsFocused = false}
                         }
                     }.padding(.horizontal)
                 }.padding(.horizontal, 15)
@@ -267,5 +269,5 @@ struct CreateReview2View: View {
 }
 
 #Preview {
-    CreateReview2View(categories: ["Homemade", "Colombian"], spotId: "ms1hTTxzVkiJElZiYHAT", isNewReviewSheetPresented: .constant(true))
+    CreateReview2View(categories: ["Homemade", "Colombian"], spotId: "ms1hTTxzVkiJElZiYHAT", draftMode: false, cleanliness: .constant(0), waitingTime: .constant(0), foodQuality: .constant(0), service: .constant(0), title: .constant(""), content: .constant(""), isNewReviewSheetPresented: .constant(true))
 }
