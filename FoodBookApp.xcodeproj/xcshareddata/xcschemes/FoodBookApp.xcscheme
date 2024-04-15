@@ -76,7 +76,7 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "BACKEND_URL"
-            value = "https://foodbook-app-backend.onrender.com"
+            value = "https://foodbook-app-backend.vercel.app"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
