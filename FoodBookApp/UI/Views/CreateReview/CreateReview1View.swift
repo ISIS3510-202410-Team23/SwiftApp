@@ -61,7 +61,7 @@ struct CreateReview1View: View {
                                     if (DBManager().draftExists(spot: spotId)) {
                                         DBManager().deleteDraft(spot: spotId)
                                     }
-                                    DBManager().addDraft(spotValue: spotId, cat1Value: selectedCats[0], cat2Value: selectedCats.indices.contains(1) ? selectedCats[1] : "", cat3Value: selectedCats.indices.contains(2) ? selectedCats[2] : "", cleanlinessValue: cleanliness, waitTimeValue: waitingTime, foodQualityValue: foodQuality, serviceValue: service, titleValue: title, contentValue: content, uploadValue: false)
+                                    DBManager().addDraft(spotValue: spotId, cat1Value: selectedCats.indices.contains(0) ? selectedCats[0] : "", cat2Value: selectedCats.indices.contains(1) ? selectedCats[1] : "", cat3Value: selectedCats.indices.contains(2) ? selectedCats[2] : "", cleanlinessValue: cleanliness, waitTimeValue: waitingTime, foodQualityValue: foodQuality, serviceValue: service, titleValue: title, contentValue: content, uploadValue: false)
                                     isNewReviewSheetPresented.toggle()
                                 }
                             )
