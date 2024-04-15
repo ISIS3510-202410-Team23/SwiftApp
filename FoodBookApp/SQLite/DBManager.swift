@@ -132,4 +132,14 @@ class DBManager {
             print(error.localizedDescription)
         }
     }
+    
+    func deleteDraftsTable() {
+        do {
+            try db.run(drafts.drop(ifExists: true))
+            UserDefaults.standard.set(false, forKey: "is_db_created")
+        }
+        catch {
+            print("Error deleting drafts table: \(error.localizedDescription)")
+        }
+    }
 }
