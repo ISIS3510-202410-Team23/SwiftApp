@@ -18,19 +18,20 @@ class NetworkService: ObservableObject {
     @Published var isUnavailable = false
     
     private let monitor: NWPathMonitor
+    private let queue = DispatchQueue(label: "NetworkMonitor")
     public private(set) var networkStatus: NWPath.Status = .requiresConnection // TODO: review if this is needed
     
     private init() {
         monitor = NWPathMonitor()
         monitor.pathUpdateHandler = { path in
-            let queue = DispatchQueue.main
-            queue.sync {
+            DispatchQueue.main.async {
                 self.isOnline = path.status == .satisfied
                 self.isLowConnection = path.isConstrained // Haven't been able to test for this conditions
                 self.isUnavailable = path.status == .unsatisfied || path.status == .requiresConnection
+                
+                print("new values \(self.isOnline) \(self.isUnavailable)")
             }
         }
-        let queue = DispatchQueue(label: "NetworkMonitor") // TODO: this might be a multithreading strategy
         monitor.start(queue: queue)
     }
     

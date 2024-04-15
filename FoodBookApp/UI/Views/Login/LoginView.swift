@@ -17,6 +17,7 @@ struct LoginView: View {
     @State private var viewModel = LoginViewModel()
     @Binding var showSignInView: Bool
     @ObservedObject var locationService = LocationService.shared
+    @ObservedObject var networkService = NetworkService.shared
     
     let notify = NotificationHandler()
     
@@ -71,8 +72,31 @@ struct LoginView: View {
                 }
                 
             }
+            .disabled(networkService.isUnavailable)
             .padding()
+            .colorMultiply(networkService.isUnavailable ? .gray : .white)
             
+            if(networkService.isUnavailable) {
+                Text("No connection, please make sure you have internet access before attempting to log-in")
+                    .foregroundStyle(.red)
+            }
+            
+            Button(action: {
+                networkService.checkStatus()
+            }, label: {
+                Text("Status Report")
+            })
+            
+            // FIXME: Remove, only fro testing Network Service
+            if networkService.isOnline {
+                Text("Online")
+            }
+            if networkService.isLowConnection {
+                Text("Low Connection")
+            }
+            if networkService.isUnavailable {
+                Text("Unavailble")
+            }
             
             // Keeping old Button code for reference
             
