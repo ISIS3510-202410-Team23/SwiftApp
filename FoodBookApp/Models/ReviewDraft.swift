@@ -20,4 +20,5 @@ struct ReviewDraft: Codable, Equatable, Hashable {
     let ratings: ReviewDraftStats
     let selectedCategories: [String]
     let title: String!
+    let upload: Bool
 }

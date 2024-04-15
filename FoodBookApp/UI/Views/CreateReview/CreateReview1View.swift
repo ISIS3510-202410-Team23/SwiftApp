@@ -17,6 +17,7 @@ struct CreateReview1View: View {
     @State private var selectedCats: [String] = []
     @Binding var isNewReviewSheetPresented: Bool
     @State private var showAlert = false
+    @State private var showDraftAlert = false
     
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     let customGray2 = Color(red: 242/255, green: 242/255, blue: 247/255)
@@ -28,11 +29,30 @@ struct CreateReview1View: View {
                     // Header
                     HStack{
                         TextButton(text: "Cancel", txtSize: 17, hPadding: 0, action: {
-                            isNewReviewSheetPresented.toggle()
                             if (!selectedCats.isEmpty) {
-                                DBManager().addDraft(spotValue: spotId, cat1Value: selectedCats[0], cat2Value: selectedCats.indices.contains(1) ? selectedCats[1] : "", cat3Value: selectedCats.indices.contains(2) ? selectedCats[2] : "", cleanlinessValue: 1, waitTimeValue: 2, foodQualityValue: 3, serviceValue: 4, titleValue: nil, contentValue: nil)
+                                showDraftAlert.toggle()
+                            }
+                            else {
+                                isNewReviewSheetPresented.toggle()
                             }
                         })
+                        .alert(isPresented: $showDraftAlert) {
+                                    Alert(
+                                        title: Text("Would you like to save this review as a draft?"),
+                                        message: Text("This will delete your latest draft"),
+                                        primaryButton: .default(Text("No")) {
+                                            // TODO: +1 unfinished reviews
+                                            isNewReviewSheetPresented.toggle()
+                                        },
+                                        secondaryButton: .default(Text("Yes")) {
+                                            if (DBManager().draftExists(spot: spotId)) {
+                                                DBManager().deleteDraft(spot: spotId)
+                                            }
+                                            DBManager().addDraft(spotValue: spotId, cat1Value: selectedCats[0], cat2Value: selectedCats.indices.contains(1) ? selectedCats[1] : "", cat3Value: selectedCats.indices.contains(2) ? selectedCats[2] : "", cleanlinessValue: 1, waitTimeValue: 2, foodQualityValue: 3, serviceValue: 4, titleValue: nil, contentValue: nil, uploadValue: false)
+                                            isNewReviewSheetPresented.toggle()
+                                        }
+                                    )
+                                }
                         Spacer()
                         Text("Review")
                             .bold()
@@ -90,16 +110,12 @@ struct CreateReview1View: View {
                             LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], alignment: .leading) {
                                 ForEach(searchResults, id: \.self) { cat in
                                     Button(action: {
-                                        if !(draft == nil)  {
-                                            selectedCats = draft!.selectedCategories
-                                        } else {
-                                            if selectedCats.contains(cat) {
-                                                selectedCats.removeAll { $0 == cat }
-                                            }
-                                            else {
-                                                if selectedCats.count < 3 {
-                                                    selectedCats.append(cat)
-                                                }
+                                        if selectedCats.contains(cat) {
+                                            selectedCats.removeAll { $0 == cat }
+                                        }
+                                        else {
+                                            if selectedCats.count < 3 {
+                                                selectedCats.append(cat)
                                             }
                                         }
                                         
@@ -122,6 +138,11 @@ struct CreateReview1View: View {
                 }
             }
         }
+        .onAppear {
+            if let draft = draft {
+                selectedCats = draft.selectedCategories.filter { !$0.isEmpty }
+            }
+        }
     }
     
     var searchResults: [String] {
@@ -133,9 +154,6 @@ struct CreateReview1View: View {
             }
         }
     }
-    
-    //TODO: move this to VM
-    
 }
 
 #Preview {

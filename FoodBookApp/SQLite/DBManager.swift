@@ -23,6 +23,7 @@ class DBManager {
     //private var image: Expression<String?>!
     private var title: Expression<String?>!
     private var content: Expression<String?>!
+    private var upload: Expression<Bool>!
     
     init() {
         do {
@@ -42,6 +43,7 @@ class DBManager {
             //image = Expreession<String?>("image")
             title = Expression<String?>("title")
             content = Expression<String?>("content")
+            upload = Expression<Bool>("upload")
             
             if (!UserDefaults.standard.bool(forKey: "is_db_created")) {
                 try db.run(drafts.create { (t) in
@@ -56,6 +58,7 @@ class DBManager {
                     //t.column(image)
                     t.column(title)
                     t.column(content)
+                    t.column(upload)
                 })
                 UserDefaults.standard.set(true, forKey: "is_db_created")
             }
@@ -66,22 +69,35 @@ class DBManager {
         }
     }
     
+    //(C)RUD
     public func addDraft(spotValue: String, cat1Value: String, cat2Value: String, cat3Value: String,
                          cleanlinessValue: Int, waitTimeValue: Int, foodQualityValue: Int, serviceValue: Int,
-                         titleValue: String?, contentValue: String?) {
+                         titleValue: String?, contentValue: String?, uploadValue: Bool) {
         do {
             try db.run(drafts.insert(spot <- spotValue, cat1 <- cat1Value, cat2 <- cat2Value, cat3 <- cat3Value,
                                      cleanliness <- cleanlinessValue, waitTime <- waitTimeValue, foodQuality <- foodQualityValue,
-                                    service <- serviceValue, title <- titleValue, content <- contentValue))
+                                    service <- serviceValue, title <- titleValue, content <- contentValue, upload <- uploadValue))
+            print("Draft added")
         } catch {
             print(error.localizedDescription)
         }
     }
     
-    public func draftExists(spotId: String) {
-        
+    public func draftExists(spot: String) -> Bool {
+        do {
+            if (try db.pluck(drafts.filter(self.spot == spot))) != nil {
+                return true
+            }
+            else {
+                return false
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+        return false
     }
     
+    //C(R)UD
     func getDraft(spot: String) -> ReviewDraft? {
             do {
                 if let row = try db.pluck(drafts.filter(self.spot == spot)) {
@@ -93,13 +109,27 @@ class DBManager {
                     let selectedCategories = [try row.get(self.cat1), try row.get(self.cat2), try row.get(self.cat3)]
                     let title = try row.get(self.title)
                     let reviewStats = ReviewDraftStats(cleanliness: cleanliness, foodQuality: foodQuality, service: service, waitTime: waitTime)
+                    let upload = try row.get(self.upload)
                     
-                    return ReviewDraft(content: content, ratings: reviewStats, selectedCategories: selectedCategories, title: title)
+                    print("Draft retrieved")
+                    
+                    return ReviewDraft(content: content, ratings: reviewStats, selectedCategories: selectedCategories, title: title, upload: upload)
                 }
             } catch {
                 print("Error retrieving draft: \(error.localizedDescription)")
             }
             
             return nil
+        }
+    
+    //CRU(D)
+    func deleteDraft(spot: String) {
+            let draftToDelete = drafts.filter(self.spot == spot)
+            do {
+                try db.run(draftToDelete.delete())
+                print("Draft deleted")
+            } catch {
+                print(error.localizedDescription)
+            }
         }
 }

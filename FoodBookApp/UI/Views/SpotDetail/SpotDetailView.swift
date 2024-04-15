@@ -114,11 +114,14 @@ struct SpotDetailView: View {
                         
                         // Leave a review
                         HStack {
-                            
                             Button(action: {
-                                //TODO: if draft then draft menu toggle else newReviewSheet
-                                //isNewReviewSheetPresented.toggle()
-                                showDraftMenu.toggle()
+                                let draftExists = DBManager().draftExists(spot: spotId)
+                                if (draftExists) {
+                                    showDraftMenu.toggle()
+                                }
+                                else {
+                                    isNewReviewSheetPresented.toggle()
+                                }
                                 }, label: {
                                     Text("Leave a review")
                                         .frame(maxWidth: .infinity)
@@ -130,14 +133,14 @@ struct SpotDetailView: View {
                             }).padding()
                         }.actionSheet(isPresented: $showDraftMenu) {
                             ActionSheet(
-                                title: Text("Looks like you have draft"),
+                                title: Text("Looks like you have a draft"),
                                 buttons: [
                                     .default(Text("Create review from draft")) {
                                         draft = DBManager().getDraft(spot: spotId)
                                         isNewReviewSheetPresented.toggle()
                                     },
                                     .default(Text("Create new review")) {
-                                        // TODO: set draft as nil
+                                        // TODO: set draft as nil -> i think this is already happening
                                         isNewReviewSheetPresented.toggle()
                                     },
                                     .cancel()
@@ -164,7 +167,7 @@ struct SpotDetailView: View {
         .sheet(
             isPresented: $isNewReviewSheetPresented,
             content: {
-                CreateReview1View(spotId: spotId, isNewReviewSheetPresented: $isNewReviewSheetPresented, draft: draft)
+                CreateReview1View(spotId: spotId, draft: draft, isNewReviewSheetPresented: $isNewReviewSheetPresented)
             })
     }
 }
