@@ -27,7 +27,6 @@ struct CreateReview2View: View {
     @FocusState private var contentIsFocused: Bool
     @Binding var isNewReviewSheetPresented: Bool
     @State private var showAlert = false
-    @State private var showDraftAlert = false
     
     let notify = NotificationHandler()
     @State private var model = CreateReview2ViewModel()
