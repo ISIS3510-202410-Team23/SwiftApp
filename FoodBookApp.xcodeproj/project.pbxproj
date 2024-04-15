@@ -386,14 +386,14 @@
 		6CC928F62B84FB0700EDDE78 = {
 			isa = PBXGroup;
 			children = (
-				D37B0DEC2BCC992600EEFA08 /* SQLite.xcodeproj */,
 				6C1811DE2B8AC9320066F3D0 /* Fonts */,
 				6CC929012B84FB0700EDDE78 /* FoodBookApp */,
 				6CC929122B84FB0900EDDE78 /* FoodBookAppTests */,
 				6CC9291C2B84FB0900EDDE78 /* FoodBookAppUITests */,
-				6CC929002B84FB0700EDDE78 /* Products */,
 				6C0C82DB2B8D2E49004EAE3F /* Frameworks */,
+				6CC929002B84FB0700EDDE78 /* Products */,
 				6C1374412B91236900B5ED89 /* Recovered References */,
+				D37B0DEC2BCC992600EEFA08 /* SQLite.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -457,8 +457,8 @@
 			isa = PBXGroup;
 			children = (
 				D321E4A32B8F929200F93974 /* Review.swift */,
-				D321E4A52B8F929D00F93974 /* Spot.swift */,
 				D3D92B0E2BCCABE00077C30D /* ReviewDraft.swift */,
+				D321E4A52B8F929D00F93974 /* Spot.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
