@@ -14,7 +14,7 @@ struct SpotDetailView: View {
     @State private var isReviewsSheetPresented : Bool = false
     @State private var isNewReviewSheetPresented : Bool = false
     @State private var showDraftMenu = false
-    @State private var draft : Review?
+    @State private var draft : ReviewDraft?
     
     var spotId: String
     
@@ -116,6 +116,7 @@ struct SpotDetailView: View {
                         HStack {
                             
                             Button(action: {
+                                //TODO: if draft then draft menu toggle else newReviewSheet
                                 //isNewReviewSheetPresented.toggle()
                                 showDraftMenu.toggle()
                                 }, label: {
@@ -132,11 +133,11 @@ struct SpotDetailView: View {
                                 title: Text("Looks like you have draft"),
                                 buttons: [
                                     .default(Text("Create review from draft")) {
-                                        // Handle action for creating review from draft
+                                        draft = DBManager().getDraft(spot: spotId)
                                         isNewReviewSheetPresented.toggle()
                                     },
                                     .default(Text("Create new review")) {
-                                        // Handle action for creating new review
+                                        // TODO: set draft as nil
                                         isNewReviewSheetPresented.toggle()
                                     },
                                     .cancel()
@@ -163,7 +164,7 @@ struct SpotDetailView: View {
         .sheet(
             isPresented: $isNewReviewSheetPresented,
             content: {
-                CreateReview1View(spotId: spotId, isNewReviewSheetPresented: $isNewReviewSheetPresented)
+                CreateReview1View(spotId: spotId, isNewReviewSheetPresented: $isNewReviewSheetPresented, draft: draft)
             })
     }
 }

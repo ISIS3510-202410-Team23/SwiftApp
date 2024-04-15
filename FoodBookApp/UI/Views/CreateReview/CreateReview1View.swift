@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CreateReview1View: View {
     var spotId: String
+    var draft: ReviewDraft?
     @State private var model = CreateReview1ViewModel()
     @State private var searchText: String = ""
     @FocusState private var searchTextIsFocused: Bool
@@ -28,6 +29,9 @@ struct CreateReview1View: View {
                     HStack{
                         TextButton(text: "Cancel", txtSize: 17, hPadding: 0, action: {
                             isNewReviewSheetPresented.toggle()
+                            if (!selectedCats.isEmpty) {
+                                DBManager().addDraft(spotValue: spotId, cat1Value: selectedCats[0], cat2Value: selectedCats.indices.contains(1) ? selectedCats[1] : "", cat3Value: selectedCats.indices.contains(2) ? selectedCats[2] : "", cleanlinessValue: 1, waitTimeValue: 2, foodQualityValue: 3, serviceValue: 4, titleValue: nil, contentValue: nil)
+                            }
                         })
                         Spacer()
                         Text("Review")
@@ -86,14 +90,19 @@ struct CreateReview1View: View {
                             LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], alignment: .leading) {
                                 ForEach(searchResults, id: \.self) { cat in
                                     Button(action: {
-                                        if selectedCats.contains(cat) {
-                                            selectedCats.removeAll { $0 == cat }
-                                        }
-                                        else {
-                                            if selectedCats.count < 3 {
-                                                selectedCats.append(cat)
+                                        if !(draft == nil)  {
+                                            selectedCats = draft!.selectedCategories
+                                        } else {
+                                            if selectedCats.contains(cat) {
+                                                selectedCats.removeAll { $0 == cat }
+                                            }
+                                            else {
+                                                if selectedCats.count < 3 {
+                                                    selectedCats.append(cat)
+                                                }
                                             }
                                         }
+                                        
                                     }, label: {Text(cat.capitalized)
                                             .font(.system(size: 14))
                                             .bold()
@@ -124,6 +133,9 @@ struct CreateReview1View: View {
             }
         }
     }
+    
+    //TODO: move this to VM
+    
 }
 
 #Preview {
