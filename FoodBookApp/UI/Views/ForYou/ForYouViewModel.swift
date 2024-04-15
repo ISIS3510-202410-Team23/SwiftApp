@@ -15,6 +15,7 @@ class ForYouViewModel {
     var spots: [Spot] = []
     var uid: String = ""
     var documentIds: [String] = []
+    var notFoundError = false
     
     private let backendService = BackendService()
     private let repository: SpotRepository = SpotRepositoryImpl.shared
@@ -24,25 +25,39 @@ class ForYouViewModel {
     
     func fetchRecommendedSpots() async throws {
         try await getUsername()
-        while true {
-            do {
-                let dids = try await backendService.performAPICall(uid: uid)
-                if !dids.isEmpty {
-                    self.documentIds = dids
-                    break
-                }
-                if dids.isEmpty {
-                    self.uid = "AAAAAAA"
-                }
-            } catch {
-                print("Error fetching recommended spots: \(error)")
-                throw error
+
+        do {
+            let spots = try await performAPICall(uid: self.uid)
+
+            if !spots.isEmpty {
+                self.documentIds = spots
+            } else {
+                print("Error: Spots is an empty list")
             }
+        } catch {
+            print("Error performing API call: \(error)")
+            notFoundError = true
         }
-        
+
         spots = try await repository.getSpotsWithIDList(list: documentIds)
         calculateDistance()
     }
+
+
+    
+    func performAPICall(uid: String) async throws -> [String] {
+        return try await withCheckedThrowingContinuation { continuation in
+            backendService.performAPICall(uid: uid) { result in
+                switch result {
+                case .success(let spots):
+                    continuation.resume(returning: spots)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+
 
     
     private func fetchSpotsWithIDList(li: [String]) async throws -> [Spot] {
@@ -65,7 +80,8 @@ class ForYouViewModel {
         do {
             self.uid = try await utils.getUsername()
         } catch {
-            self.uid = "userID"
+            print("ERROR: Could not fetch username")
+            throw NSError()
         }
     }
 

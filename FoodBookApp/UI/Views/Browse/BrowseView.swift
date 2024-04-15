@@ -10,36 +10,46 @@ import SwiftUI
 struct BrowseView: View {
     @State private var model = BrowseViewModel()
     @Binding var searchText: String
+    @State private var isFetching = false // Track fetching status
     
     var body: some View {
         ScrollView {
-            if searchResults.isEmpty {
-                Text("Hmm, nothing here. Maybe try a different search?")
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .safeAreaPadding()
-                
-            } else {
-                ForEach(searchResults, id: \.self) { spot in
-                    NavigationLink(destination: SpotDetailView(spotId: spot.id ?? "")){
-                        SpotCard(
-                            title: spot.name,
-                            minTime: spot.waitTime.min,
-                            maxTime: spot.waitTime.max,
-                            distance: spot.distance ?? "-",
-                            categories: Array(Utils.shared.highestCategories(spot: spot).prefix(5)),
-                            imageLinks: spot.imageLinks ?? [],
-                            price: spot.price
-                        )
-                        .fixedSize(horizontal: false, vertical: true)
+            VStack {
+                if !isFetching && searchResults.isEmpty {
+                    Text("Hmm, nothing here. Maybe try a different search?")
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .safeAreaPadding()
+                } else {
+                    ForEach(searchResults, id: \.self) { spot in
+                        NavigationLink(destination: SpotDetailView(spotId: spot.id ?? "")){
+                            SpotCard(
+                                title: spot.name,
+                                minTime: spot.waitTime.min,
+                                maxTime: spot.waitTime.max,
+                                distance: spot.distance ?? "-",
+                                categories: Array(Utils.shared.highestCategories(spot: spot).prefix(5)),
+                                imageLinks: spot.imageLinks ?? [],
+                                price: spot.price
+                            )
+                            .fixedSize(horizontal: false, vertical: true)
+                            .accentColor(.black)
+                        }
                     }
-                    .accentColor(.black)
+                }
+                
+                // Progress View
+                if isFetching {
+                    ProgressView()
+                        .padding()
                 }
             }
         }
         .padding(8)
         .task {
+            isFetching = true
             _ = try? await model.fetchSpotsAndCalculateDistance()
+            isFetching = false
         }
     }
     

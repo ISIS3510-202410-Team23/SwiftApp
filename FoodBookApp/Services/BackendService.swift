@@ -15,16 +15,32 @@ final class BackendService: NSObject, ObservableObject {
     }
     
     private let backendUrl = ProcessInfo.processInfo.environment["BACKEND_URL"]
-
-    func performAPICall(uid: String) async throws -> [String ]{
+    
+    func performAPICall(uid: String, completion: @escaping (Result<[String], Error>) -> Void) {
         guard let validUrl = backendUrl else {
-            throw NSError() // TODO: Should throw specialized error
+            print("ERROR: Invalid URL")
+            completion(.failure(NSError())) // TODO: Should throw specialized error
+            return
         }
+        
         let url = URL(string: "\(validUrl)/recommendation/\(uid)")!
-        let (data, _) = try await URLSession.shared.data(from: url)
-        print(data)
-        let wrapper = try JSONDecoder().decode(Answer.self, from: data)
-        print(wrapper)
-        return wrapper.spots
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data {
+                do {
+                    let wrapper = try JSONDecoder().decode(Answer.self, from: data)
+                    completion(.success(wrapper.spots))
+                } catch {
+                    guard let http_response = response as? HTTPURLResponse else {
+                        print("ERROR: Response is not an HTTPURLResponse or is nil")
+                        return
+                    }
+                    completion(.failure(NSError(domain: "", code: http_response.statusCode, userInfo: nil)))
+                }
+            }
+        }
+        
+        task.resume()
     }
+    
 }
