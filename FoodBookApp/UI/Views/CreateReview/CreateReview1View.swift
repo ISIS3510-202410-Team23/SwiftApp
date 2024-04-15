@@ -18,6 +18,12 @@ struct CreateReview1View: View {
     @Binding var isNewReviewSheetPresented: Bool
     @State private var showAlert = false
     @State private var showDraftAlert = false
+    @State private var cleanliness = 0
+    @State private var waitingTime = 0
+    @State private var foodQuality = 0
+    @State private var service = 0
+    @State private var title = ""
+    @State private var content = ""
     
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     let customGray2 = Color(red: 242/255, green: 242/255, blue: 247/255)
@@ -29,30 +35,37 @@ struct CreateReview1View: View {
                     // Header
                     HStack{
                         TextButton(text: "Cancel", txtSize: 17, hPadding: 0, action: {
-                            if (!selectedCats.isEmpty) {
-                                showDraftAlert.toggle()
+                            if (!selectedCats.isEmpty || cleanliness > 0 || waitingTime > 0 || foodQuality > 0 || service > 0 || !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) {
+                                let filteredCats = draft?.selectedCategories.filter { !$0.isEmpty }
+                                if (filteredCats != selectedCats || draft?.ratings.cleanliness != cleanliness || draft?.ratings.foodQuality != foodQuality || draft?.ratings.waitTime != waitingTime
+                                    || draft?.ratings.service != service || draft?.title != title || draft?.content != content) {
+                                    showDraftAlert.toggle()
+                                }
+                                else {
+                                    isNewReviewSheetPresented.toggle()
+                                }
                             }
                             else {
                                 isNewReviewSheetPresented.toggle()
                             }
                         })
                         .alert(isPresented: $showDraftAlert) {
-                                    Alert(
-                                        title: Text("Would you like to save this review as a draft?"),
-                                        message: Text("This will delete your latest draft"),
-                                        primaryButton: .default(Text("No")) {
-                                            // TODO: +1 unfinished reviews
-                                            isNewReviewSheetPresented.toggle()
-                                        },
-                                        secondaryButton: .default(Text("Yes")) {
-                                            if (DBManager().draftExists(spot: spotId)) {
-                                                DBManager().deleteDraft(spot: spotId)
-                                            }
-                                            DBManager().addDraft(spotValue: spotId, cat1Value: selectedCats[0], cat2Value: selectedCats.indices.contains(1) ? selectedCats[1] : "", cat3Value: selectedCats.indices.contains(2) ? selectedCats[2] : "", cleanlinessValue: 1, waitTimeValue: 2, foodQualityValue: 3, serviceValue: 4, titleValue: nil, contentValue: nil, uploadValue: false)
-                                            isNewReviewSheetPresented.toggle()
-                                        }
-                                    )
+                            Alert(
+                                title: Text("Would you like to save this review as a draft?"),
+                                message: Text("This will delete your latest draft"),
+                                primaryButton: .default(Text("No")) {
+                                    // TODO: +1 unfinished reviews
+                                    isNewReviewSheetPresented.toggle()
+                                },
+                                secondaryButton: .default(Text("Yes")) {
+                                    if (DBManager().draftExists(spot: spotId)) {
+                                        DBManager().deleteDraft(spot: spotId)
+                                    }
+                                    DBManager().addDraft(spotValue: spotId, cat1Value: selectedCats[0], cat2Value: selectedCats.indices.contains(1) ? selectedCats[1] : "", cat3Value: selectedCats.indices.contains(2) ? selectedCats[2] : "", cleanlinessValue: cleanliness, waitTimeValue: waitingTime, foodQualityValue: foodQuality, serviceValue: service, titleValue: title, contentValue: content, uploadValue: false)
+                                    isNewReviewSheetPresented.toggle()
                                 }
+                            )
+                        }
                         Spacer()
                         Text("Review")
                             .bold()
@@ -65,7 +78,7 @@ struct CreateReview1View: View {
                                 Alert(title: Text("Try again"), message: Text("Please select at least one category"), dismissButton: .default(Text("OK")))
                             }
                         } else {
-                            NavigationLink(destination: CreateReview2View(categories: self.selectedCats, spotId: spotId, isNewReviewSheetPresented: $isNewReviewSheetPresented)) {
+                            NavigationLink(destination: CreateReview2View(categories: self.selectedCats, spotId: spotId, cleanliness: $cleanliness, waitingTime: $waitingTime, foodQuality: $foodQuality, service: $service, title: $title, content: $content, isNewReviewSheetPresented: $isNewReviewSheetPresented)) {
                                 Text("Next")
                             }
                         }
@@ -141,6 +154,23 @@ struct CreateReview1View: View {
         .onAppear {
             if let draft = draft {
                 selectedCats = draft.selectedCategories.filter { !$0.isEmpty }
+                cleanliness = draft.ratings.cleanliness
+                waitingTime = draft.ratings.waitTime
+                foodQuality = draft.ratings.foodQuality
+                service = draft.ratings.service
+                //TODO: image
+                title = draft.title
+                content = draft.content
+            }
+            else {
+                selectedCats = []
+                cleanliness = 0
+                waitingTime = 0
+                foodQuality = 0
+                service = 0
+                //TODO: image
+                title = ""
+                content = ""
             }
         }
     }

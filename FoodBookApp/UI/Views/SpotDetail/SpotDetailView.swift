@@ -27,7 +27,6 @@ struct SpotDetailView: View {
                 customGray.edgesIgnoringSafeArea(.all)
                 ScrollView(.vertical) {
                     VStack {
-                        
                         Map() {
                             Marker(model.spot.name, coordinate: CLLocationCoordinate2D(latitude: model.spot.location.latitude, longitude: model.spot.location.longitude))
                         }
@@ -140,19 +139,16 @@ struct SpotDetailView: View {
                                         isNewReviewSheetPresented.toggle()
                                     },
                                     .default(Text("Create new review")) {
-                                        // TODO: set draft as nil -> i think this is already happening
+                                        draft = nil
                                         isNewReviewSheetPresented.toggle()
                                     },
                                     .cancel()
                                 ]
                             )
                         }
-                        
                         .padding(.vertical, 20)
                     }
                 }
-                
-                
             }
             
         }.task {
