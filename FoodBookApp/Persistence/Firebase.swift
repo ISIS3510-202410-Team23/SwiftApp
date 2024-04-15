@@ -17,7 +17,11 @@ class FirebaseClient {
     static var shared = FirebaseClient()
     
     private init() {
+        let settings = FirestoreSettings()
+        settings.cacheSettings = MemoryCacheSettings()
         self.db = Firestore.firestore()
+        self.db.settings = settings
+        
     }
     
 }
