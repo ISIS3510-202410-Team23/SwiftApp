@@ -26,6 +26,7 @@ struct CreateReview1View: View {
     @State private var selectedImage: UIImage?
     @State private var title = ""
     @State private var content = ""
+    @State private var imageChange = false
     
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     let customGray2 = Color(red: 242/255, green: 242/255, blue: 247/255)
@@ -38,9 +39,11 @@ struct CreateReview1View: View {
                     HStack{
                         TextButton(text: "Cancel", txtSize: 17, hPadding: 0, action: {
                             if (!selectedCats.isEmpty || cleanliness > 0 || waitingTime > 0 || foodQuality > 0 || service > 0 || !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) {
+                                
                                 let filteredCats = draft?.selectedCategories.filter { !$0.isEmpty }
+                                
                                 if (filteredCats != selectedCats || draft?.ratings.cleanliness != cleanliness || draft?.ratings.foodQuality != foodQuality || draft?.ratings.waitTime != waitingTime
-                                    || draft?.ratings.service != service || draft?.title != title || draft?.content != content) {
+                                    || draft?.ratings.service != service || imageChange || draft?.title != title || draft?.content != content) {
                                     showDraftAlert.toggle()
                                 }
                                 else {
@@ -63,17 +66,23 @@ struct CreateReview1View: View {
                                     if (DBManager().draftExists(spot: spotId)) {
                                         DBManager().deleteDraft(spot: spotId)
                                     }
-                                    let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("\(spotId).jpg") //TODO: file name should be something i can twell has been changed
-                                    DBManager().addDraft(spotValue: spotId, cat1Value: selectedCats.indices.contains(0) ? selectedCats[0] : "", cat2Value: selectedCats.indices.contains(1) ? selectedCats[1] : "", cat3Value: selectedCats.indices.contains(2) ? selectedCats[2] : "", cleanlinessValue: cleanliness, waitTimeValue: waitingTime, foodQualityValue: foodQuality, serviceValue: service, imageValue: selectedImage != nil ? path.path : "", titleValue: title, contentValue: content, uploadValue: false)
+                                    let imageName = "\(spotId).jpg"
+                                    let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(imageName)
+                                    
+                                    DBManager().addDraft(spotValue: spotId, cat1Value: selectedCats.indices.contains(0) ? selectedCats[0] : "", cat2Value: selectedCats.indices.contains(1) ? selectedCats[1] : "", cat3Value: selectedCats.indices.contains(2) ? selectedCats[2] : "", cleanlinessValue: cleanliness, waitTimeValue: waitingTime, foodQualityValue: foodQuality, serviceValue: service, imageValue: selectedImage != nil ? imageName : "", titleValue: title, contentValue: content, uploadValue: false)
+                                    
                                     isNewReviewSheetPresented.toggle()
+                                    
                                     if selectedImage != nil {
                                         do {
                                             try self.selectedImage?.jpegData(compressionQuality: 1)?.write(to: path)
-                                            print(path.path)
                                         }
                                         catch {
                                             print("Error saving image: \(error.localizedDescription)")
                                         }
+                                    }
+                                    else {
+                                        DBManager().deleteImage(spot: spotId)
                                     }
                                 }
                             )
@@ -90,7 +99,7 @@ struct CreateReview1View: View {
                                 Alert(title: Text("Try again"), message: Text("Please select at least one category"), dismissButton: .default(Text("OK")))
                             }
                         } else {
-                            NavigationLink(destination: CreateReview2View(categories: self.selectedCats, spotId: spotId, draftMode: draftMode, selectedImage: $selectedImage, cleanliness: $cleanliness, waitingTime: $waitingTime, foodQuality: $foodQuality, service: $service, title: $title, content: $content, isNewReviewSheetPresented: $isNewReviewSheetPresented)) {
+                            NavigationLink(destination: CreateReview2View(categories: self.selectedCats, spotId: spotId, draftMode: draftMode, imageChange: $imageChange, selectedImage: $selectedImage, cleanliness: $cleanliness, waitingTime: $waitingTime, foodQuality: $foodQuality, service: $service, title: $title, content: $content, isNewReviewSheetPresented: $isNewReviewSheetPresented)) {
                                 Text("Next")
                             }
                         }
@@ -171,7 +180,8 @@ struct CreateReview1View: View {
                 foodQuality = draft.ratings.foodQuality
                 service = draft.ratings.service
                 if (draft.image != "") {
-                    selectedImage = UIImage(contentsOfFile: draft.image)
+                    let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(draft.image)
+                    selectedImage = UIImage(contentsOfFile: imagePath.path)
                 }
                 title = draft.title
                 content = draft.content

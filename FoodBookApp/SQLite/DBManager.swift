@@ -134,6 +134,37 @@ class DBManager {
         }
     }
     
+    func deleteImage(spot: String) {
+        do {
+            if let row = try db.pluck(drafts.filter(self.spot == spot)) {
+                let image = try row.get(self.image)
+                if (image != "") {
+                    let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(image)
+                    try FileManager.default.removeItem(atPath: imagePath.path)
+                }
+            }
+        } catch {
+            print("Error deleting image of spot: \(error.localizedDescription)")
+        }
+        
+    }
+    
+    func deleteAllImages() {
+        do {
+            let rows = try db.prepare(drafts)
+            for row in rows {
+                let image = try row.get(self.image)
+                if (image != "") {
+                    let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(image)
+                    try FileManager.default.removeItem(atPath: imagePath.path)
+                }
+            }
+        } catch {
+            print("Error deleting images: \(error.localizedDescription)")
+        }
+    }
+
+    
     func deleteDraftsTable() {
         do {
             try db.run(drafts.drop(ifExists: true))
