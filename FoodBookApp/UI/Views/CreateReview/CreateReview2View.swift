@@ -13,11 +13,11 @@ struct CreateReview2View: View {
     let categories: [String]
     let spotId: String
     var draftMode: Bool
-    @State private var selectedImage: UIImage? // TODO: binding for local storage
+    @Binding var imageChange: Bool
+    @Binding var selectedImage: UIImage?
     @State private var showSheet: Bool = false
     @State private var showImagePicker: Bool = false
     @State private var sourceType: UIImagePickerController.SourceType = .camera
-    @State private var imageIsSelected: Bool = false
     @Binding var cleanliness: Int
     @Binding var waitingTime: Int
     @Binding var foodQuality: Int
@@ -133,6 +133,7 @@ struct CreateReview2View: View {
                                             let reviewId = try await model.addReview(review: newReview)
                                             try await model.addReviewToSpot(spotId: spotId, reviewId: reviewId)
                                             if (DBManager().draftExists(spot: spotId) && draftMode) {
+                                                DBManager().deleteImage(spot: spotId)
                                                 DBManager().deleteDraft(spot: spotId)
                                             }
                                             print("The review uploaded has this ID:", reviewId)
@@ -176,7 +177,7 @@ struct CreateReview2View: View {
                 }
                 
                 // Add or remove photo button
-                if !imageIsSelected {
+                if selectedImage == nil {
                     addPhotoButton.padding()
                 }
                 else {
@@ -225,11 +226,8 @@ struct CreateReview2View: View {
             ImagePicker(image: self.$selectedImage, isShown: self.$showImagePicker, sourceType: self.sourceType)
         }.onChange(of: selectedImage) {
             Task {
-                if imageIsSelected {
-                    imageIsSelected = false
-                }
-                else {
-                    imageIsSelected = true
+                if (draftMode) {
+                    imageChange = true
                 }
             }
         }.alert("Try again", isPresented: $showAlert) {
@@ -269,5 +267,5 @@ struct CreateReview2View: View {
 }
 
 #Preview {
-    CreateReview2View(categories: ["Homemade", "Colombian"], spotId: "ms1hTTxzVkiJElZiYHAT", draftMode: false, cleanliness: .constant(0), waitingTime: .constant(0), foodQuality: .constant(0), service: .constant(0), title: .constant(""), content: .constant(""), isNewReviewSheetPresented: .constant(true))
+    CreateReview2View(categories: ["Homemade", "Colombian"], spotId: "ms1hTTxzVkiJElZiYHAT", draftMode: false, imageChange: .constant(false), selectedImage: .constant(nil), cleanliness: .constant(0), waitingTime: .constant(0), foodQuality: .constant(0), service: .constant(0), title: .constant(""), content: .constant(""), isNewReviewSheetPresented: .constant(true))
 }
