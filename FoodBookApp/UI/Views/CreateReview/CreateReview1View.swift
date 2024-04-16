@@ -38,12 +38,12 @@ struct CreateReview1View: View {
                     // Header
                     HStack{
                         TextButton(text: "Cancel", txtSize: 17, hPadding: 0, action: {
-                            if (!selectedCats.isEmpty || cleanliness > 0 || waitingTime > 0 || foodQuality > 0 || service > 0 || !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) {
+                            if (!selectedCats.isEmpty || cleanliness > 0 || waitingTime > 0 || foodQuality > 0 || service > 0 || !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || selectedImage != nil) {
                                 
                                 let filteredCats = draft?.selectedCategories.filter { !$0.isEmpty }
                                 
                                 if (filteredCats != selectedCats || draft?.ratings.cleanliness != cleanliness || draft?.ratings.foodQuality != foodQuality || draft?.ratings.waitTime != waitingTime
-                                    || draft?.ratings.service != service || imageChange || draft?.title != title || draft?.content != content) {
+                                    || draft?.ratings.service != service || ((draftMode && imageChange) || (!draftMode && selectedImage != nil)) || draft?.title != title || draft?.content != content) {
                                     showDraftAlert.toggle()
                                 }
                                 else {
