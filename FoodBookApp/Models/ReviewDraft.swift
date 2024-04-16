@@ -15,10 +15,10 @@ struct ReviewDraftStats: Codable, Equatable, Hashable {
 }
 
 struct ReviewDraft: Codable, Equatable, Hashable {
-    let content: String
-    //let imagePath: String!
-    let ratings: ReviewDraftStats
     let selectedCategories: [String]
+    let ratings: ReviewDraftStats
+    let image: String //this is a path
     let title: String
+    let content: String
     let upload: Bool
 }
