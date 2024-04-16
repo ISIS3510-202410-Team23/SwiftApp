@@ -72,7 +72,7 @@ struct LoginView: View {
                 }
                 
             }
-            .disabled(networkService.isUnavailable)
+            .disabled(networkService.isUnavailable || networkService.isLowConnection)
             .padding()
             .colorMultiply(networkService.isUnavailable ? .gray : .white)
             
@@ -81,21 +81,9 @@ struct LoginView: View {
                     .foregroundStyle(.red)
             }
             
-            Button(action: {
-                networkService.checkStatus()
-            }, label: {
-                Text("Status Report")
-            })
-            
-            // FIXME: Remove, only fro testing Network Service
-            if networkService.isOnline {
-                Text("Online")
-            }
-            if networkService.isLowConnection {
-                Text("Low Connection")
-            }
-            if networkService.isUnavailable {
-                Text("Unavailble")
+            if(networkService.isLowConnection) {
+                Text("Your connection is low, please make sure you have internet access before attempting to log-in")
+                    .foregroundStyle(.red)
             }
             
             // Keeping old Button code for reference

@@ -26,10 +26,15 @@ class NetworkService: ObservableObject {
         monitor.pathUpdateHandler = { path in
             DispatchQueue.main.async {
                 self.isOnline = path.status == .satisfied
-                self.isLowConnection = path.isConstrained // Haven't been able to test for this conditions
+                self.isLowConnection = path.isConstrained // Activated when 'Low Data Mode' is active on the device's Cellular Data Options
                 self.isUnavailable = path.status == .unsatisfied || path.status == .requiresConnection
                 
-                print("new values \(self.isOnline) \(self.isUnavailable)")
+                print("Change in the network, new values follow:")
+                print("Status: \(path.status)") // satisfied, unsatisfied, requiresConnection
+                print("isExpensive: \(path.isExpensive)")
+                print("isOnline: \(self.isOnline)")
+                print("isLowConn / isConstrained: \(self.isLowConnection)") // isContrained == true
+                print("isUnavailble: \(self.isUnavailable)") //
             }
         }
         monitor.start(queue: queue)
@@ -37,13 +42,13 @@ class NetworkService: ObservableObject {
     
     func checkStatus () {
         let path = self.monitor.currentPath
-        print(path.status) // satisfied, unsatisfied, requiresConnection
-        print(path.isExpensive)
-        print(path.isConstrained)
-        print(self.isOnline)
-        print(self.isLowConnection)
-        print(self.isUnavailable)
-        
+        print("Network Status Report")
+        print("Change in the network, new values follow:")
+        print("Status: \(path.status)") // satisfied, unsatisfied, requiresConnection
+        print("isExpensive: \(path.isExpensive)")
+        print("isOnline: \(self.isOnline)")
+        print("isLowConn / isConstrained: \(self.isLowConnection)") // isContrained == true
+        print("isUnavailble: \(self.isUnavailable)") //
     }
     
 }
