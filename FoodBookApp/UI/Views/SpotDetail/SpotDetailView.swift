@@ -16,6 +16,7 @@ struct SpotDetailView: View {
     @State private var showDraftMenu = false
     @State private var draft : ReviewDraft?
     @State private var draftMode = false
+    @State private var isLoading = false
     
     var spotId: String
     
@@ -24,139 +25,149 @@ struct SpotDetailView: View {
     var body: some View {
         
         VStack(alignment: .leading) {
-            ZStack {
-                customGray.edgesIgnoringSafeArea(.all)
-                ScrollView(.vertical) {
-                    VStack {
-                        Map() {
-                            Marker(model.spot.name, coordinate: CLLocationCoordinate2D(latitude: model.spot.location.latitude, longitude: model.spot.location.longitude))
-                        }
-                        .frame(width: 350, height: 200)
-                        .padding()
-                        .cornerRadius(15)
-                        
-                        // Categories
-                        ScrollView(.horizontal) {
-                            HStack {
-                                ForEach(Utils.shared.highestCategories(spot: model.spot), id: \.self) { cat in
-                                    Text("\(cat.name.capitalized) (\(cat.count))")
-                                        .font(.system(size: 14))
-                                        .bold()
-                                        .foregroundColor(.black)
-                                        .padding(10)
-                                        .background(Color.white)
-                                        .cornerRadius(8)
-                                }
+            if isLoading {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+            }
+            else {
+                ZStack {
+                    customGray.edgesIgnoringSafeArea(.all)
+                    ScrollView(.vertical) {
+                        VStack {
+                            Map() {
+                                Marker(model.spot.name, coordinate: CLLocationCoordinate2D(latitude: model.spot.location.latitude, longitude: model.spot.location.longitude))
                             }
-                            .padding(.horizontal)
-                        }
-                        
-                        // Reviews - See more
-                        HStack {
-                            Text("Reviews")
-                                .font(.system(size: 24))
-                                .bold()
-                                .frame(alignment: .leading)
-                            Spacer()
-                            Button(action: {
-                                isReviewsSheetPresented.toggle()
-                            }) {
-                                Text("See more (\(model.spot.reviewData.userReviews.count))")
-                                    .font(.system(size: 17))
-                                    .foregroundColor(.blue)
-                            }
-                        }.padding(.horizontal, 20).padding(.vertical, 5)
-                        
-                        // Quality attributes
-                        ZStack {
-                            Rectangle()
-                                .fill(Color.white)
-                                .cornerRadius(20)
-                            VStack(spacing: 0) {
-                                ForEach(model.ratings.keys.sorted(), id: \.self) { key in
-                                    let rating = model.ratings[key] ?? 0
-                                    HStack(spacing: 0) {
-                                        VStack(alignment: .leading) {
-                                            Text(key).font(.system(size: 18))
-                                            HStack {
-                                                Image(systemName: rating >= 0.5 ? "hand.thumbsup" : "hand.thumbsdown")
-                                                    .font(.system(size: 15))
-                                                    .foregroundColor(.gray)
-                                                Text(String(format: "%.0f%%", rating * 100)).bold().foregroundColor(.gray).font(.system(size: 15))
-                                                
-                                            }
-                                        }.frame(maxWidth: 200, alignment: .leading)
-                                            .padding(.horizontal, 15)
-                                        
-                                        
-                                        ZStack {
-                                            GeometryReader { geometry in
-                                                Rectangle()
-                                                    .fill(customGray)
-                                                    .frame(width: geometry.size.width, height: 5)
-                                                    .cornerRadius(5)
-                                            }
-                                            
-                                            GeometryReader { geometry in
-                                                Rectangle()
-                                                    .fill(Color.blue)
-                                                    .frame(width: CGFloat(rating) * geometry.size.width, height: 5)
-                                                    .cornerRadius(5)
-                                            }
-                                        }.padding()
+                            .frame(width: 350, height: 200)
+                            .padding()
+                            .cornerRadius(15)
+                            
+                            // Categories
+                            ScrollView(.horizontal) {
+                                HStack {
+                                    ForEach(Utils.shared.highestCategories(spot: model.spot), id: \.self) { cat in
+                                        Text("\(cat.name.capitalized) (\(cat.count))")
+                                            .font(.system(size: 14))
+                                            .bold()
+                                            .foregroundColor(.black)
+                                            .padding(10)
+                                            .background(Color.white)
+                                            .cornerRadius(8)
                                     }
-                                    .padding(.vertical, 5)
+                                }
+                                .padding(.horizontal)
+                            }
+                            
+                            // Reviews - See more
+                            HStack {
+                                Text("Reviews")
+                                    .font(.system(size: 24))
+                                    .bold()
+                                    .frame(alignment: .leading)
+                                Spacer()
+                                Button(action: {
+                                    isReviewsSheetPresented.toggle()
+                                }) {
+                                    Text("See more (\(model.spot.reviewData.userReviews.count))")
+                                        .font(.system(size: 17))
+                                        .foregroundColor(.blue)
+                                }
+                            }.padding(.horizontal, 20).padding(.vertical, 5)
+                            
+                            // Quality attributes
+                            ZStack {
+                                Rectangle()
+                                    .fill(Color.white)
+                                    .cornerRadius(20)
+                                VStack(spacing: 0) {
+                                    ForEach(model.ratings.keys.sorted(), id: \.self) { key in
+                                        let rating = model.ratings[key] ?? 0
+                                        HStack(spacing: 0) {
+                                            VStack(alignment: .leading) {
+                                                Text(key).font(.system(size: 18))
+                                                HStack {
+                                                    Image(systemName: rating >= 0.5 ? "hand.thumbsup" : "hand.thumbsdown")
+                                                        .font(.system(size: 15))
+                                                        .foregroundColor(.gray)
+                                                    Text(String(format: "%.0f%%", rating * 100)).bold().foregroundColor(.gray).font(.system(size: 15))
+                                                    
+                                                }
+                                            }.frame(maxWidth: 200, alignment: .leading)
+                                                .padding(.horizontal, 15)
+                                            
+                                            
+                                            ZStack {
+                                                GeometryReader { geometry in
+                                                    Rectangle()
+                                                        .fill(customGray)
+                                                        .frame(width: geometry.size.width, height: 5)
+                                                        .cornerRadius(5)
+                                                }
+                                                
+                                                GeometryReader { geometry in
+                                                    Rectangle()
+                                                        .fill(Color.blue)
+                                                        .frame(width: CGFloat(rating) * geometry.size.width, height: 5)
+                                                        .cornerRadius(5)
+                                                }
+                                            }.padding()
+                                        }
+                                        .padding(.vertical, 5)
+                                    }
                                 }
                             }
-                        }
-                        .padding(.horizontal, 20)
-                        .cornerRadius(12)
-                        
-                        // Leave a review
-                        HStack {
-                            Button(action: {
-                                let draftExists = DBManager().draftExists(spot: spotId)
-                                if (draftExists) {
-                                    showDraftMenu.toggle()
-                                } else {
-                                    draft = nil
-                                    draftMode = false
-                                    isNewReviewSheetPresented.toggle()
-                                }
-                            }, label: {
-                                Text("Leave a review")
-                                    .frame(maxWidth: .infinity)
-                                    .padding()
-                                    .background(.blue)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(12)
-                                    .font(.system(size: 20))
-                            }).padding()
-                        }.actionSheet(isPresented: $showDraftMenu) {
-                            ActionSheet(
-                                title: Text("Looks like you have a draft"),
-                                buttons: [
-                                    .default(Text("Create review from draft")) {
-                                        draft = DBManager().getDraft(spot: spotId)
-                                        draftMode = true
-                                        isNewReviewSheetPresented.toggle()
-                                    },
-                                    .default(Text("Create new review")) {
+                            .padding(.horizontal, 20)
+                            .cornerRadius(12)
+                            
+                            // Leave a review
+                            HStack {
+                                Button(action: {
+                                    let draftExists = DBManager().draftExists(spot: spotId)
+                                    if (draftExists) {
+                                        showDraftMenu.toggle()
+                                    } else {
                                         draft = nil
                                         draftMode = false
                                         isNewReviewSheetPresented.toggle()
-                                    },
-                                    .cancel()
-                                ]
-                            )
+                                    }
+                                }, label: {
+                                    Text("Leave a review")
+                                        .frame(maxWidth: .infinity)
+                                        .padding()
+                                        .background(.blue)
+                                        .foregroundColor(.white)
+                                        .cornerRadius(12)
+                                        .font(.system(size: 20))
+                                }).padding()
+                            }.actionSheet(isPresented: $showDraftMenu) {
+                                ActionSheet(
+                                    title: Text("Looks like you have a draft"),
+                                    buttons: [
+                                        .default(Text("Create review from draft")) {
+                                            draft = DBManager().getDraft(spot: spotId)
+                                            draftMode = true
+                                            isNewReviewSheetPresented.toggle()
+                                        },
+                                        .default(Text("Create new review")) {
+                                            draft = nil
+                                            draftMode = false
+                                            isNewReviewSheetPresented.toggle()
+                                        },
+                                        .cancel()
+                                    ]
+                                )
+                            }
+                            .padding(.vertical, 20)
                         }
-                        .padding(.vertical, 20)
                     }
                 }
             }
-            
-        }.task {
-            _ = try? await model.fetchSpot(spotId: spotId)
+ 
+        }.onAppear {
+            isLoading = true
+            Task {
+                _ = try? await model.fetchSpot(spotId: spotId)
+                isLoading = false
+            }
         }
         .navigationTitle(model.spot.name)
         .sheet(
