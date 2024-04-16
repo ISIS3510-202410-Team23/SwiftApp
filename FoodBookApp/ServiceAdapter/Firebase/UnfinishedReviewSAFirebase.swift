@@ -23,7 +23,7 @@ class UnfinishedReviewSAFirebase: UnfinishedReviewSA {
         self.collection = client.db.collection("unfinishedReviews")
     }
     
-    func increaseUnfinishedReviewCount(user: String) async throws {
+    func updateUnfinishedReviewCount(user: String) async throws {
             do {
                 let document = collection.document(user)
                 let documentSnapshot = try await document.getDocument()

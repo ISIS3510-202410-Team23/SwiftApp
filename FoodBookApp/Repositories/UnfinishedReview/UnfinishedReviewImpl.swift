@@ -12,7 +12,7 @@ class UnfinishedReviewRepositoryImpl: UnfinishedReviewRepository {
     static var shared: UnfinishedReviewRepository = UnfinishedReviewRepositoryImpl()
     static var unfinishedReviewSA: UnfinishedReviewSA = UnfinishedReviewSAFirebase.shared
     
-    func increaseUnfinishedReviewCount(user: String) async throws {
-        return try await UnfinishedReviewRepositoryImpl.unfinishedReviewSA.increaseUnfinishedReviewCount(user: user)
+    func updateUnfinishedReviewCount(user: String) async throws {
+        return try await UnfinishedReviewRepositoryImpl.unfinishedReviewSA.updateUnfinishedReviewCount(user: user)
     }
 }
