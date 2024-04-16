@@ -26,6 +26,7 @@ struct ContentView: View {
     @State var selectedTab: Tabs = .browse
     @Binding var showSignInView: Bool
     @State private var searchText = ""
+    @State private var isPresented:Bool = false
    
     
     var body: some View {
@@ -38,12 +39,31 @@ struct ContentView: View {
                     .tabItem { Label("For you", systemImage: "star") }
                     .tag(Tabs.foryou)
                 
-                BookmarksView(showSignInView: $showSignInView)
+                BookmarksView()
                     .tabItem { Label("Bookmarks", systemImage: "book") }
                     .tag(Tabs.bookmarks)
             }
             .navigationTitle(selectedTab.formattedTitle)
+            .navigationBarTitleDisplayMode(.inline)
             .modifier(SearchableModifier(isSearchable: selectedTab == .browse, text: $searchText))
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        isPresented.toggle()
+                    }, label: {
+                        Image(systemName: "person.crop.circle")
+                    })
+                }
+            }
+            .sheet(isPresented: $isPresented) {
+                UserView(showSignInView: $showSignInView)
+                .presentationDragIndicator(.visible)
+                .presentationBackground(Material.ultraThinMaterial)
+                .onDisappear {
+                    let authUser = try? AuthService.shared.getAuthenticatedUser()
+                    showSignInView = authUser == nil
+                }
+            }
         }
     }
 }
