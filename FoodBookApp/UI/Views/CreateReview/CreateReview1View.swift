@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CreateReview1View: View {
     var spotId: String
+    var spotName: String
     var draft: ReviewDraft?
     var draftMode: Bool
     @State private var model = CreateReview1ViewModel()
@@ -27,6 +28,7 @@ struct CreateReview1View: View {
     @State private var title = ""
     @State private var content = ""
     @State private var imageChange = false
+    @State private var shouldCount = true
     
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     let customGray2 = Color(red: 242/255, green: 242/255, blue: 247/255)
@@ -38,12 +40,14 @@ struct CreateReview1View: View {
                     // Header
                     HStack{
                         TextButton(text: "Cancel", txtSize: 17, hPadding: 0, action: {
-                            if (!selectedCats.isEmpty || cleanliness > 0 || waitingTime > 0 || foodQuality > 0 || service > 0 || !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) {
+                            // Review is not empty
+                            if (!selectedCats.isEmpty || cleanliness > 0 || waitingTime > 0 || foodQuality > 0 || service > 0 || !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || selectedImage != nil) {
                                 
                                 let filteredCats = draft?.selectedCategories.filter { !$0.isEmpty }
                                 
+                                // Draft is different
                                 if (filteredCats != selectedCats || draft?.ratings.cleanliness != cleanliness || draft?.ratings.foodQuality != foodQuality || draft?.ratings.waitTime != waitingTime
-                                    || draft?.ratings.service != service || imageChange || draft?.title != title || draft?.content != content) {
+                                    || draft?.ratings.service != service || ((draftMode && imageChange) || (!draftMode && selectedImage != nil)) || draft?.title != title || draft?.content != content) {
                                     showDraftAlert.toggle()
                                 }
                                 else {
@@ -59,13 +63,14 @@ struct CreateReview1View: View {
                                 title: Text("Would you like to save this review as a draft?"),
                                 message: Text("This will delete your latest draft"),
                                 primaryButton: .default(Text("No")) {
-                                    // TODO: +1 unfinished reviews
                                     isNewReviewSheetPresented.toggle()
+                                    shouldCount = true
                                 },
                                 secondaryButton: .default(Text("Yes")) {
                                     if (DBManager().draftExists(spot: spotId)) {
                                         DBManager().deleteDraft(spot: spotId)
                                     }
+                                    shouldCount = false
                                     let imageName = "\(spotId).jpg"
                                     let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(imageName)
                                     
@@ -99,7 +104,7 @@ struct CreateReview1View: View {
                                 Alert(title: Text("Try again"), message: Text("Please select at least one category"), dismissButton: .default(Text("OK")))
                             }
                         } else {
-                            NavigationLink(destination: CreateReview2View(categories: self.selectedCats, spotId: spotId, draftMode: draftMode, imageChange: $imageChange, selectedImage: $selectedImage, cleanliness: $cleanliness, waitingTime: $waitingTime, foodQuality: $foodQuality, service: $service, title: $title, content: $content, isNewReviewSheetPresented: $isNewReviewSheetPresented)) {
+                            NavigationLink(destination: CreateReview2View(categories: self.selectedCats, spotId: spotId, draftMode: draftMode, shouldCount: $shouldCount, imageChange: $imageChange, selectedImage: $selectedImage, cleanliness: $cleanliness, waitingTime: $waitingTime, foodQuality: $foodQuality, service: $service, title: $title, content: $content, isNewReviewSheetPresented: $isNewReviewSheetPresented)) {
                                 Text("Next")
                             }
                         }
@@ -196,6 +201,17 @@ struct CreateReview1View: View {
                 title = ""
                 content = ""
             }
+        }.onDisappear {
+            let filteredCats = draft?.selectedCategories.filter { !$0.isEmpty }
+            if (shouldCount && ((!draftMode && (!selectedCats.isEmpty || cleanliness > 0 || waitingTime > 0 || foodQuality > 0 || service > 0 || !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || selectedImage != nil)) || (draftMode && (filteredCats != selectedCats || draft?.ratings.cleanliness != cleanliness || draft?.ratings.foodQuality != foodQuality || draft?.ratings.waitTime != waitingTime || draft?.ratings.service != service || imageChange || draft?.title != title || draft?.content != content)))) {
+                Task {
+                    do {
+                        try await model.increaseUnfinishedReviewCount(spot: spotName)
+                    } catch {
+                        print("Error increasing unfinished review count: \(error.localizedDescription)")
+                    }
+                }
+            }
         }
     }
     
@@ -211,5 +227,5 @@ struct CreateReview1View: View {
 }
 
 #Preview {
-    CreateReview1View(spotId: "ms1hTTxzVkiJElZiYHAT", draftMode: false, isNewReviewSheetPresented: .constant(true))
+    CreateReview1View(spotId: "ms1hTTxzVkiJElZiYHAT", spotName: "Mi Caserito", draftMode: false, isNewReviewSheetPresented: .constant(true))
 }

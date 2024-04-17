@@ -26,7 +26,7 @@ struct SpotDetailView: View {
         
         VStack(alignment: .leading) {
             if isLoading {
-                ProgressView()
+                ProgressView("Loading spot's detail")
                     .progressViewStyle(CircularProgressViewStyle())
             }
             else {
@@ -178,7 +178,7 @@ struct SpotDetailView: View {
         .sheet(
             isPresented: $isNewReviewSheetPresented,
             content: {
-                CreateReview1View(spotId: spotId, draft: draft, draftMode: draftMode, isNewReviewSheetPresented: $isNewReviewSheetPresented)
+                CreateReview1View(spotId: spotId, spotName: model.spot.name, draft: draft, draftMode: draftMode, isNewReviewSheetPresented: $isNewReviewSheetPresented)
             })
     }
 }
