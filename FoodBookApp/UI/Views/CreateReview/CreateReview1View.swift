@@ -62,13 +62,6 @@ struct CreateReview1View: View {
                                 message: Text("This will delete your latest draft"),
                                 primaryButton: .default(Text("No")) {
                                     isNewReviewSheetPresented.toggle()
-                                    Task {
-                                        do {
-                                            try await model.increaseUnfinishedReviewCount()
-                                        } catch {
-                                            print("Error increasing unfinished review count: \(error.localizedDescription)")
-                                        }
-                                    }
                                 },
                                 secondaryButton: .default(Text("Yes")) {
                                     if (DBManager().draftExists(spot: spotId)) {
