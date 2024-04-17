@@ -54,13 +54,6 @@ struct CreateReview1View: View {
                             }
                             else {
                                 isNewReviewSheetPresented.toggle()
-                                Task {
-                                    do {
-                                        try await model.increaseUnfinishedReviewCount()
-                                    } catch {
-                                        print("Error increasing unfinished review count: \(error.localizedDescription)")
-                                    }
-                                }
                             }
                         })
                         .alert(isPresented: $showDraftAlert) {
@@ -68,8 +61,14 @@ struct CreateReview1View: View {
                                 title: Text("Would you like to save this review as a draft?"),
                                 message: Text("This will delete your latest draft"),
                                 primaryButton: .default(Text("No")) {
-                                    // TODO: +1 unfinished reviews
                                     isNewReviewSheetPresented.toggle()
+                                    Task {
+                                        do {
+                                            try await model.increaseUnfinishedReviewCount()
+                                        } catch {
+                                            print("Error increasing unfinished review count: \(error.localizedDescription)")
+                                        }
+                                    }
                                 },
                                 secondaryButton: .default(Text("Yes")) {
                                     if (DBManager().draftExists(spot: spotId)) {
