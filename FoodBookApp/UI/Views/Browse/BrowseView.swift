@@ -12,7 +12,6 @@ struct BrowseView: View {
     @Binding var searchText: String
     @State private var model = BrowseViewModel()
     @State private var isFetching = false
-    @State private var showAlert = false
     @ObservedObject var networkService = NetworkService.shared
     
     var body: some View {
@@ -55,14 +54,6 @@ struct BrowseView: View {
             }
         }
         .padding(8)
-        .alert("Please check your internet connection and try again", isPresented: $showAlert) {
-            Button("OK", role: .cancel) { }
-        }
-        .onReceive(networkService.$isOnline) { isOnline in
-            if !isOnline {
-                showAlert = true
-            }
-        }
         .task {
             isFetching = true
             _ = try? await model.fetchSpotsAndCalculateDistance()

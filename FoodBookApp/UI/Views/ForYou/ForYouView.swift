@@ -13,7 +13,6 @@ struct ForYouView: View {
     @State private var model = ForYouViewModel()
     @State private var isFetching = true
     @State private var showNotFoundError = false
-    @State private var showAlert = false
     @ObservedObject var networkService = NetworkService.shared
     
     
@@ -56,25 +55,19 @@ struct ForYouView: View {
             }
         }
         .padding(8)
-        .alert("Please check your internet connection and try again", isPresented: $showAlert) {
-            Button("OK", role: .cancel) { }
-        }
-        .onReceive(networkService.$isOnline) { isOnline in
-            if !isOnline {
-                showAlert = true
-            }
-        }
         .task {
-            do {
+            if networkService.isOnline { // IMPORTANT, REMOVING THIS WILL MAKE THE APP CRASH WITHOUT INTERNET
                 isFetching = true
-                try await model.fetchRecommendedSpots()
-                if model.notFoundError {
-                    self.showNotFoundError = true
+                let _ = try? await model.fetchRecommendedSpots()
+                if model.spots == [] {
+                    showNotFoundError = true
+                } else {
+                    showNotFoundError = false
                 }
                 isFetching = false
-            } catch {
             }
         }
+        
     }
 }
 

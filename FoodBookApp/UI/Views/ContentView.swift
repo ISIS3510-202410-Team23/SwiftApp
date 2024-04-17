@@ -27,6 +27,8 @@ struct ContentView: View {
     @Binding var showSignInView: Bool
     @State private var searchText = ""
     @State private var isPresented:Bool = false
+    @State private var showAlert:Bool = false
+    @ObservedObject var networkService = NetworkService.shared
    
     
     var body: some View {
@@ -62,6 +64,14 @@ struct ContentView: View {
                 .onDisappear {
                     let authUser = try? AuthService.shared.getAuthenticatedUser()
                     showSignInView = authUser == nil
+                }
+            }
+            .alert("Please check your internet connection and try again", isPresented: $showAlert) {
+                Button("OK", role: .cancel) { }
+            }
+            .onReceive(networkService.$isOnline) { isOnline in
+                if !isOnline {
+                    showAlert = true
                 }
             }
         }

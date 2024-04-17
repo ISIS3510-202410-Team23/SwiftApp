@@ -7,40 +7,58 @@
 
 import Foundation
 
-final class BackendService: NSObject, ObservableObject {
-    struct Answer: Codable {
-        let spots: [String]
-        let category: String
-        let user: String
-    }
-    
+struct Answer: Codable {
+    let spots: [String]
+    let category: String
+    let user: String
+}
+
+class BackendService {
+    static let shared = BackendService()
     private let backendUrl = ProcessInfo.processInfo.environment["BACKEND_URL"]
+    private init () {}
+}
+
+extension BackendService {
     
-    func performAPICall(uid: String, completion: @escaping (Result<[String], Error>) -> Void) {
+    func performAPICall(uid: String) async throws -> [String] {
         guard let validUrl = backendUrl else {
             print("ERROR: Invalid URL")
-            completion(.failure(NSError())) // TODO: Should throw specialized error
-            return
+            throw NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
         }
         
-        let url = URL(string: "\(validUrl)/recommendation/\(uid)")!
+        guard let url = URL(string: "\(validUrl)/recommendation/\(uid)") else {
+            print("ERROR: Invalid URL")
+            throw NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
+        }
         
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if let data = data {
-                do {
-                    let wrapper = try JSONDecoder().decode(Answer.self, from: data)
-                    completion(.success(wrapper.spots))
-                } catch {
-                    guard let http_response = response as? HTTPURLResponse else {
-                        print("ERROR: Response is not an HTTPURLResponse or is nil")
-                        return
-                    }
-                    completion(.failure(NSError(domain: "", code: http_response.statusCode, userInfo: nil)))
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+            
+            if let http_response = response as? HTTPURLResponse, !(200...299).contains(http_response.statusCode) {
+                print("HTTP status code \(http_response.statusCode)")
+                if http_response.statusCode == 404 {
+                    return ["404"]
                 }
+                throw NSError(domain: "", code: http_response.statusCode, userInfo: nil)
             }
+            
+            let wrapper = try JSONDecoder().decode(Answer.self, from: data)
+            return wrapper.spots
+            
+        } catch {
+            if let urlError = error as? URLError, urlError.code == .cancelled {
+                print("API call was cancelled")
+                // Optionally, you can throw a specific error for cancellation if needed
+//                 throw NSError(domain: "", code: -2, userInfo: [NSLocalizedDescriptionKey: "API call was cancelled"])
+            } else {
+                print("Error performing API call: \(error)")
+                // Re-throw the error or throw a new one with more specific information
+                throw NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Error performing API call"])
+            }
+            return [""]
         }
-        
-        task.resume()
     }
+
     
 }
