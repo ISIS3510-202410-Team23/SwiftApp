@@ -52,11 +52,11 @@ struct LoginView: View {
             
             // Button to log in
             GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .wide, state: .normal)) {
-                
                 Task {
-                    do {
-                        try await viewModel.signInGoogle()
-                        print("Successfully signed in.") 
+                    await viewModel.signInGoogle()
+                    
+                    if !viewModel.showAlert {
+                        print("Successful sign in.")
                         showSignInView = false
                         notify.askPermission() // This will only be done once, not every time a user signs in
                         notify.sendLastReviewNotification(date: Date())
@@ -65,9 +65,6 @@ struct LoginView: View {
                             locationService.requestLocationAuthorization()
                             schedule()
                         }
-                        
-                    } catch {
-                        print(error)
                     }
                 }
                 
@@ -75,6 +72,9 @@ struct LoginView: View {
             .disabled(networkService.isUnavailable || networkService.isLowConnection)
             .padding()
             .colorMultiply(networkService.isUnavailable ? .gray : .white)
+            .alert(viewModel.errorMsg, isPresented: $viewModel.showAlert) {
+                Button("OK", role: .cancel) { }
+            }
             
             if(networkService.isUnavailable) {
                 Text("No connection, please make sure you have internet access before attempting to log-in")
