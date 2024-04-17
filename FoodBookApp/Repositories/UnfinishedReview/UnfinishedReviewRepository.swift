@@ -10,5 +10,5 @@ import SwiftUI
 
 protocol UnfinishedReviewRepository {
     static var unfinishedReviewSA: UnfinishedReviewSA { get }
-    func updateUnfinishedReviewCount(user: String) async throws
+    func updateUnfinishedReviewCount(spot: String) async throws
 }

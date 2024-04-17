@@ -21,8 +21,7 @@ class CreateReview1ViewModel {
         self.categories = try await categoryRepository.getCategories()
     }
     
-    func increaseUnfinishedReviewCount() async throws {
-        let user = try await utils.getUsername()
-        try await unfinishedReviewRepository.updateUnfinishedReviewCount(user: user)
+    func increaseUnfinishedReviewCount(spot: String) async throws {
+        try await unfinishedReviewRepository.updateUnfinishedReviewCount(spot: spot)
     }
 }

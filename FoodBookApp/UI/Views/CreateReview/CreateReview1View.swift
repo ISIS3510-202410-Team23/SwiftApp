@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CreateReview1View: View {
     var spotId: String
+    var spotName: String
     var draft: ReviewDraft?
     var draftMode: Bool
     @State private var model = CreateReview1ViewModel()
@@ -205,7 +206,7 @@ struct CreateReview1View: View {
             if (shouldCount && ((!draftMode && (!selectedCats.isEmpty || cleanliness > 0 || waitingTime > 0 || foodQuality > 0 || service > 0 || !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || selectedImage != nil)) || (draftMode && (filteredCats != selectedCats || draft?.ratings.cleanliness != cleanliness || draft?.ratings.foodQuality != foodQuality || draft?.ratings.waitTime != waitingTime || draft?.ratings.service != service || imageChange || draft?.title != title || draft?.content != content)))) {
                 Task {
                     do {
-                        try await model.increaseUnfinishedReviewCount()
+                        try await model.increaseUnfinishedReviewCount(spot: spotName)
                     } catch {
                         print("Error increasing unfinished review count: \(error.localizedDescription)")
                     }
@@ -226,5 +227,5 @@ struct CreateReview1View: View {
 }
 
 #Preview {
-    CreateReview1View(spotId: "ms1hTTxzVkiJElZiYHAT", draftMode: false, isNewReviewSheetPresented: .constant(true))
+    CreateReview1View(spotId: "ms1hTTxzVkiJElZiYHAT", spotName: "Mi Caserito", draftMode: false, isNewReviewSheetPresented: .constant(true))
 }

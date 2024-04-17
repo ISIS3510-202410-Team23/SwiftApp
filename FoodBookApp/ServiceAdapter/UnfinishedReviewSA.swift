@@ -9,5 +9,5 @@ import Foundation
 
 protocol UnfinishedReviewSA {
     static var shared: UnfinishedReviewSA { get }
-    func updateUnfinishedReviewCount(user: String) async throws
+    func updateUnfinishedReviewCount(spot: String) async throws
 }
