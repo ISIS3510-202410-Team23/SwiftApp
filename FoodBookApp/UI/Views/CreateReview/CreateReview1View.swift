@@ -204,6 +204,17 @@ struct CreateReview1View: View {
                 title = ""
                 content = ""
             }
+        }.onDisappear {
+            let filteredCats = draft?.selectedCategories.filter { !$0.isEmpty }
+            if (!draftMode && (!selectedCats.isEmpty || cleanliness > 0 || waitingTime > 0 || foodQuality > 0 || service > 0 || !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || selectedImage != nil)) || (draftMode && (filteredCats != selectedCats || draft?.ratings.cleanliness != cleanliness || draft?.ratings.foodQuality != foodQuality || draft?.ratings.waitTime != waitingTime || draft?.ratings.service != service || imageChange || draft?.title != title || draft?.content != content)) {
+                Task {
+                    do {
+                        try await model.increaseUnfinishedReviewCount()
+                    } catch {
+                        print("Error increasing unfinished review count: \(error.localizedDescription)")
+                    }
+                }
+            }
         }
     }
     
