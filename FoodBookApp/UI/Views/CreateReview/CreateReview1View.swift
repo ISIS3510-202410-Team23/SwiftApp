@@ -38,10 +38,12 @@ struct CreateReview1View: View {
                     // Header
                     HStack{
                         TextButton(text: "Cancel", txtSize: 17, hPadding: 0, action: {
+                            // Review is not empty
                             if (!selectedCats.isEmpty || cleanliness > 0 || waitingTime > 0 || foodQuality > 0 || service > 0 || !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || selectedImage != nil) {
                                 
                                 let filteredCats = draft?.selectedCategories.filter { !$0.isEmpty }
                                 
+                                // Draft is different
                                 if (filteredCats != selectedCats || draft?.ratings.cleanliness != cleanliness || draft?.ratings.foodQuality != foodQuality || draft?.ratings.waitTime != waitingTime
                                     || draft?.ratings.service != service || ((draftMode && imageChange) || (!draftMode && selectedImage != nil)) || draft?.title != title || draft?.content != content) {
                                     showDraftAlert.toggle()
@@ -52,6 +54,13 @@ struct CreateReview1View: View {
                             }
                             else {
                                 isNewReviewSheetPresented.toggle()
+                                Task {
+                                    do {
+                                        try await model.increaseUnfinishedReviewCount()
+                                    } catch {
+                                        print("Error increasing unfinished review count: \(error.localizedDescription)")
+                                    }
+                                }
                             }
                         })
                         .alert(isPresented: $showDraftAlert) {

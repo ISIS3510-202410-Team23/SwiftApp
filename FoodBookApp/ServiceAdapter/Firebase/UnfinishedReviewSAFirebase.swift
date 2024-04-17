@@ -24,17 +24,18 @@ class UnfinishedReviewSAFirebase: UnfinishedReviewSA {
     }
     
     func updateUnfinishedReviewCount(user: String) async throws {
-            do {
-                let document = collection.document(user)
-                let documentSnapshot = try await document.getDocument()
-                
-                if !documentSnapshot.exists {
-                    try await document.setData(["count": 1])
-                } else {
-                    try await document.updateData(["count": FieldValue.increment(Int64(1))])
-                }
-            } catch {
-                throw error
+        do {
+            let querySnapshot = try await collection.whereField("user", isEqualTo: user).getDocuments()
+        
+            if querySnapshot.documents.isEmpty {
+                try await collection.addDocument(data: ["user": user, "count": 1])
+            } else {
+                let document = querySnapshot.documents[0]
+                let count = document.data()["count"] as? Int ?? 0
+                try await document.reference.updateData(["count": count + 1])
             }
+        } catch {
+            throw error
         }
+    }
 }
