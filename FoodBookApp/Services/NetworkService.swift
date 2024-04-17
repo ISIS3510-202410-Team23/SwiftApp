@@ -18,31 +18,37 @@ class NetworkService: ObservableObject {
     @Published var isUnavailable = false
     
     private let monitor: NWPathMonitor
+    private let queue = DispatchQueue(label: "NetworkMonitor")
     public private(set) var networkStatus: NWPath.Status = .requiresConnection // TODO: review if this is needed
     
     private init() {
         monitor = NWPathMonitor()
         monitor.pathUpdateHandler = { path in
-            let queue = DispatchQueue.main
-            queue.sync {
+            DispatchQueue.main.async {
                 self.isOnline = path.status == .satisfied
-                self.isLowConnection = path.isConstrained // Haven't been able to test for this conditions
+                self.isLowConnection = path.isConstrained // Activated when 'Low Data Mode' is active on the device's Cellular Data Options
                 self.isUnavailable = path.status == .unsatisfied || path.status == .requiresConnection
+                
+                print("Change in the network, new values follow:")
+                print("Status: \(path.status)") // satisfied, unsatisfied, requiresConnection
+                print("isExpensive: \(path.isExpensive)")
+                print("isOnline: \(self.isOnline)")
+                print("isLowConn / isConstrained: \(self.isLowConnection)") // isContrained == true
+                print("isUnavailble: \(self.isUnavailable)") //
             }
         }
-        let queue = DispatchQueue(label: "NetworkMonitor") // TODO: this might be a multithreading strategy
         monitor.start(queue: queue)
     }
     
     func checkStatus () {
         let path = self.monitor.currentPath
-        print(path.status) // satisfied, unsatisfied, requiresConnection
-        print(path.isExpensive)
-        print(path.isConstrained)
-        print(self.isOnline)
-        print(self.isLowConnection)
-        print(self.isUnavailable)
-        
+        print("Network Status Report")
+        print("Change in the network, new values follow:")
+        print("Status: \(path.status)") // satisfied, unsatisfied, requiresConnection
+        print("isExpensive: \(path.isExpensive)")
+        print("isOnline: \(self.isOnline)")
+        print("isLowConn / isConstrained: \(self.isLowConnection)") // isContrained == true
+        print("isUnavailble: \(self.isUnavailable)") //
     }
     
 }
