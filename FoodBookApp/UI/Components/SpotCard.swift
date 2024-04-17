@@ -20,6 +20,7 @@ struct SpotCard: View {
     
     let rowLayout = Array(repeating: GridItem(), count: 2)
     
+    @State var selected = false
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -37,9 +38,18 @@ struct SpotCard: View {
                         
                 }
             })
-            Text("\(title) · \(price) ")
-                .font(.title)
-                .bold()
+            HStack {
+                Text("\(title) · \(price) ")
+                    .font(.title)
+                    .bold()
+                Spacer()
+                Button(action: {
+                    selected.toggle()
+                }, label: {
+                    Image(systemName: selected ? "bookmark.fill" : "bookmark").imageScale(.large).bold()
+                })
+                .buttonStyle(.plain)
+            }
             Text("\(Image(systemName: "clock")) \(minTime)-\(maxTime) min.   \(Image(systemName: "location")) \(distance) km")
             HCategoryList(categories: categories, color: Color.gray)
         }
