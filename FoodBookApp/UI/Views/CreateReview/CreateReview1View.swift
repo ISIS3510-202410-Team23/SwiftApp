@@ -27,6 +27,7 @@ struct CreateReview1View: View {
     @State private var title = ""
     @State private var content = ""
     @State private var imageChange = false
+    @State private var shouldCount = true
     
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     let customGray2 = Color(red: 242/255, green: 242/255, blue: 247/255)
@@ -62,11 +63,13 @@ struct CreateReview1View: View {
                                 message: Text("This will delete your latest draft"),
                                 primaryButton: .default(Text("No")) {
                                     isNewReviewSheetPresented.toggle()
+                                    shouldCount = true
                                 },
                                 secondaryButton: .default(Text("Yes")) {
                                     if (DBManager().draftExists(spot: spotId)) {
                                         DBManager().deleteDraft(spot: spotId)
                                     }
+                                    shouldCount = false
                                     let imageName = "\(spotId).jpg"
                                     let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(imageName)
                                     
@@ -199,7 +202,7 @@ struct CreateReview1View: View {
             }
         }.onDisappear {
             let filteredCats = draft?.selectedCategories.filter { !$0.isEmpty }
-            if (!draftMode && (!selectedCats.isEmpty || cleanliness > 0 || waitingTime > 0 || foodQuality > 0 || service > 0 || !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || selectedImage != nil)) || (draftMode && (filteredCats != selectedCats || draft?.ratings.cleanliness != cleanliness || draft?.ratings.foodQuality != foodQuality || draft?.ratings.waitTime != waitingTime || draft?.ratings.service != service || imageChange || draft?.title != title || draft?.content != content)) {
+            if (shouldCount && (!draftMode && (!selectedCats.isEmpty || cleanliness > 0 || waitingTime > 0 || foodQuality > 0 || service > 0 || !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || selectedImage != nil)) || (draftMode && (filteredCats != selectedCats || draft?.ratings.cleanliness != cleanliness || draft?.ratings.foodQuality != foodQuality || draft?.ratings.waitTime != waitingTime || draft?.ratings.service != service || imageChange || draft?.title != title || draft?.content != content))) {
                 Task {
                     do {
                         try await model.increaseUnfinishedReviewCount()
