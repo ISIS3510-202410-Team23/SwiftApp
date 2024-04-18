@@ -10,13 +10,25 @@ import LocalAuthentication
 
 struct BookmarksView: View {
     
+    @State var bookmarksManager = BookmarksService.shared
+    
     var body: some View {
-        VStack {
-            // FIXME: the following content is temporary
-            Image(systemName: "book")
-                .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
-                .font(.system(size: 100))
+        
+        if !bookmarksManager.savedBookmarkIds.isEmpty {
+            Text("You have \(bookmarksManager.savedBookmarkIds.count) saved spot.")
+//            ForEach(Array(bookmarksManager.savedBookmarkIds), id: \.self) { spotId in
+//                Text(spotId)
+//            }
+        } else {
+            VStack {
+                Image(systemName: "book")
+                    .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                    .font(.system(size: 100))
+                Text("You have no saved bookmarks.")
+            }
         }
+        
+        
     }
 }
 

@@ -24,6 +24,7 @@ struct BrowseView: View {
                     ForEach(searchResults, id: \.self) { spot in
                         NavigationLink(destination: SpotDetailView(spotId: spot.id ?? "")){
                             SpotCard(
+                                id: spot.id ?? "",
                                 title: spot.name,
                                 minTime: spot.waitTime.min,
                                 maxTime: spot.waitTime.max,
