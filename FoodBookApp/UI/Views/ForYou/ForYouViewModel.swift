@@ -14,51 +14,44 @@ import FirebaseFirestore
 class ForYouViewModel {
     var spots: [Spot] = []
     var uid: String = ""
-    var documentIds: [String] = []
-    var notFoundError = false
+//    var notFoundError = false
     
-    private let backendService = BackendService()
+    private let backendService = BackendService.shared
     private let repository: SpotRepository = SpotRepositoryImpl.shared
     private let locationService = LocationService.shared
     private let locationUtils = LocationUtils()
     private let utils = Utils.shared
     
     func fetchRecommendedSpots() async throws {
-        try await getUsername()
-
         do {
-            let spots = try await performAPICall(uid: self.uid)
-
-            if !spots.isEmpty {
-                self.documentIds = spots
-            } else {
-                print("Error: Spots is an empty list")
+            try await getUsername()
+            let dids = try await performAPICall(uid: self.uid)
+            
+            if dids != [""] && !dids.isEmpty {
+                self.spots = try await repository.getSpotsWithIDList(list: dids)
+                calculateDistance()
             }
         } catch {
-            print("Error performing API call: \(error)")
-            notFoundError = true
-        }
-
-        spots = try await repository.getSpotsWithIDList(list: documentIds)
-        calculateDistance()
-    }
-
-
-    
-    func performAPICall(uid: String) async throws -> [String] {
-        return try await withCheckedThrowingContinuation { continuation in
-            backendService.performAPICall(uid: uid) { result in
-                switch result {
-                case .success(let spots):
-                    continuation.resume(returning: spots)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
+            if let urlError = error as? URLError, urlError.code == .cancelled {
+                print("API call was cancelled")
+            } else {
+//                print("Error performing API call: \(error)")
+                throw NSError()
             }
         }
     }
-
-
+    
+    
+    
+    func performAPICall(uid: String) async throws -> [String] {
+        do {
+            return try await backendService.performAPICall(uid: uid)
+        } catch {
+            print("ForYouViewModel: Error performing API call: \(error)")
+            throw NSError()
+        }
+    }
+    
     
     private func fetchSpotsWithIDList(li: [String]) async throws -> [Spot] {
         return try await repository.getSpotsWithIDList(list: li)
@@ -84,5 +77,5 @@ class ForYouViewModel {
             throw NSError()
         }
     }
-
+    
 }
