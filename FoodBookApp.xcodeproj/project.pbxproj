@@ -36,6 +36,7 @@
 		6C5ED6D12B8ADB1000AF115C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6C5ED6D02B8ADB1000AF115C /* FirebaseAnalytics */; };
 		6C5ED6D32B8ADB1000AF115C /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6C5ED6D22B8ADB1000AF115C /* FirebaseAnalyticsSwift */; };
 		6C5ED6D52B8ADB1000AF115C /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 6C5ED6D42B8ADB1000AF115C /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		6CBFB8372BD03D1F00D69E85 /* BookmarksService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFB8362BD03D1F00D69E85 /* BookmarksService.swift */; };
 		6CC929052B84FB0700EDDE78 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC929042B84FB0700EDDE78 /* ContentView.swift */; };
 		6CC929072B84FB0900EDDE78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CC929062B84FB0900EDDE78 /* Assets.xcassets */; };
 		6CC9290A2B84FB0900EDDE78 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CC929092B84FB0900EDDE78 /* Preview Assets.xcassets */; };
@@ -44,6 +45,7 @@
 		6CC929202B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9291F2B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift */; };
 		6CC9292D2B84FFEE00EDDE78 /* FoodBookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */; };
 		6CE6C5D12B8E1576008C7349 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE6C5D02B8E1576008C7349 /* RootView.swift */; };
+		6CF6CCCF2BCF5B5B006F3DE9 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 6CF6CCCE2BCF5B5B006F3DE9 /* SQLite */; };
 		6CF821772B8D7E15008E7057 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF821762B8D7E15008E7057 /* AuthService.swift */; };
 		6CF821792B8D7FF8008E7057 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6CF821782B8D7FF8008E7057 /* FirebaseAuth */; };
 		6CF8217B2B8D877B008E7057 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CF8217A2B8D877B008E7057 /* GoogleService-Info.plist */; };
@@ -71,8 +73,6 @@
 		D342009F2B91414800B8817C /* BoldTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D342009E2B91414800B8817C /* BoldTextButton.swift */; };
 		D34B697A2B8FA2BA0043937B /* CreateReview1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34B69792B8FA2BA0043937B /* CreateReview1View.swift */; };
 		D34B697C2B8FAD7F0043937B /* CreateReview1ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34B697B2B8FAD7F0043937B /* CreateReview1ViewModel.swift */; };
-		D37B0E0A2BCC997C00EEFA08 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D37B0DF92BCC992800EEFA08 /* SQLite.framework */; };
-		D37B0E0B2BCC997C00EEFA08 /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D37B0DF92BCC992800EEFA08 /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D37B0E0F2BCC9ADC00EEFA08 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37B0E0E2BCC9ADB00EEFA08 /* DBManager.swift */; };
 		D3D92B0F2BCCABE00077C30D /* ReviewDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D92B0E2BCCABE00077C30D /* ReviewDraft.swift */; };
 		D3DA08072B96EB3B00475AC9 /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DA08062B96EB3A00475AC9 /* LargeButton.swift */; };
@@ -94,69 +94,6 @@
 			remoteGlobalIDString = 6CC928FE2B84FB0700EDDE78;
 			remoteInfo = FoodBookApp;
 		};
-		D37B0DF82BCC992800EEFA08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D37B0DEC2BCC992600EEFA08 /* SQLite.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EE247AD31C3F04ED00AE3E12;
-			remoteInfo = "SQLite iOS";
-		};
-		D37B0DFA2BCC992800EEFA08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D37B0DEC2BCC992600EEFA08 /* SQLite.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EE247ADD1C3F04ED00AE3E12;
-			remoteInfo = "SQLiteTests iOS";
-		};
-		D37B0DFC2BCC992800EEFA08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D37B0DEC2BCC992600EEFA08 /* SQLite.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EE247B3C1C3F3ED000AE3E12;
-			remoteInfo = "SQLite Mac";
-		};
-		D37B0DFE2BCC992800EEFA08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D37B0DEC2BCC992600EEFA08 /* SQLite.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EE247B451C3F3ED000AE3E12;
-			remoteInfo = "SQLiteTests Mac";
-		};
-		D37B0E002BCC992800EEFA08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D37B0DEC2BCC992600EEFA08 /* SQLite.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 03A65E5A1C6BB0F50062603F;
-			remoteInfo = "SQLite tvOS";
-		};
-		D37B0E022BCC992800EEFA08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D37B0DEC2BCC992600EEFA08 /* SQLite.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 03A65E631C6BB0F60062603F;
-			remoteInfo = "SQLiteTests tvOS";
-		};
-		D37B0E042BCC992800EEFA08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D37B0DEC2BCC992600EEFA08 /* SQLite.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A121AC451CA35C79005A31D1;
-			remoteInfo = "SQLite watchOS";
-		};
-		D37B0E062BCC992800EEFA08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D37B0DEC2BCC992600EEFA08 /* SQLite.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DEB306E52B61CEF500F9D46B;
-			remoteInfo = "SQLite visionOS";
-		};
-		D37B0E082BCC992800EEFA08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D37B0DEC2BCC992600EEFA08 /* SQLite.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DEB307112B61CF9500F9D46B;
-			remoteInfo = "SQLiteTests visionOS";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -166,7 +103,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D37B0E0B2BCC997C00EEFA08 /* SQLite.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -200,6 +136,7 @@
 		6C2504F52BA9D25B0018D1DD /* CategoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepository.swift; sourceTree = "<group>"; };
 		6C2504F72BA9D26C0018D1DD /* CategoryRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepositoryImpl.swift; sourceTree = "<group>"; };
 		6C396DC12BC83EB0006F0855 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		6CBFB8362BD03D1F00D69E85 /* BookmarksService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksService.swift; sourceTree = "<group>"; };
 		6CC928FF2B84FB0700EDDE78 /* FoodBookApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodBookApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CC929042B84FB0700EDDE78 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6CC929062B84FB0900EDDE78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -236,7 +173,6 @@
 		D34200A22B925A5D00B8817C /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
 		D34B69792B8FA2BA0043937B /* CreateReview1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReview1View.swift; sourceTree = "<group>"; };
 		D34B697B2B8FAD7F0043937B /* CreateReview1ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReview1ViewModel.swift; sourceTree = "<group>"; };
-		D37B0DEC2BCC992600EEFA08 /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = "../../../../Downloads/SQLite.swift-master/SQLite.xcodeproj"; sourceTree = "<group>"; };
 		D37B0E0E2BCC9ADB00EEFA08 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		D3D92B0E2BCCABE00077C30D /* ReviewDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDraft.swift; sourceTree = "<group>"; };
 		D3DA08062B96EB3A00475AC9 /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
@@ -254,9 +190,9 @@
 				6CF821802B8D8837008E7057 /* GoogleSignInSwift in Frameworks */,
 				6C5ED6D52B8ADB1000AF115C /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				6C0C82DD2B8D2E49004EAE3F /* FirebaseFirestore in Frameworks */,
+				6CF6CCCF2BCF5B5B006F3DE9 /* SQLite in Frameworks */,
 				6C5ED6D12B8ADB1000AF115C /* FirebaseAnalytics in Frameworks */,
 				6CF8217E2B8D8837008E7057 /* GoogleSignIn in Frameworks */,
-				D37B0E0A2BCC997C00EEFA08 /* SQLite.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,6 +283,7 @@
 				0D8BBB652B91462800739448 /* LocationService.swift */,
 				0D347C372BAB4FA4003990A0 /* BackendService.swift */,
 				6C396DC12BC83EB0006F0855 /* NetworkService.swift */,
+				6CBFB8362BD03D1F00D69E85 /* BookmarksService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -403,7 +340,6 @@
 				6C0C82DB2B8D2E49004EAE3F /* Frameworks */,
 				6CC929002B84FB0700EDDE78 /* Products */,
 				6C1374412B91236900B5ED89 /* Recovered References */,
-				D37B0DEC2BCC992600EEFA08 /* SQLite.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -582,22 +518,6 @@
 			path = CreateReview;
 			sourceTree = "<group>";
 		};
-		D37B0DED2BCC992600EEFA08 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D37B0DF92BCC992800EEFA08 /* SQLite.framework */,
-				D37B0DFB2BCC992800EEFA08 /* SQLiteTests iOS.xctest */,
-				D37B0DFD2BCC992800EEFA08 /* SQLite.framework */,
-				D37B0DFF2BCC992800EEFA08 /* SQLiteTests Mac.xctest */,
-				D37B0E012BCC992800EEFA08 /* SQLite.framework */,
-				D37B0E032BCC992800EEFA08 /* SQLiteTests tvOS.xctest */,
-				D37B0E052BCC992800EEFA08 /* SQLite.framework */,
-				D37B0E072BCC992800EEFA08 /* SQLite.framework */,
-				D37B0E092BCC992800EEFA08 /* SQLiteTests visionOS.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		D37B0E0D2BCC9A7800EEFA08 /* SQLite */ = {
 			isa = PBXGroup;
 			children = (
@@ -632,6 +552,7 @@
 				6CF8217D2B8D8837008E7057 /* GoogleSignIn */,
 				6CF8217F2B8D8837008E7057 /* GoogleSignInSwift */,
 				D31D67172BAA763B00B22A79 /* FirebaseStorage */,
+				6CF6CCCE2BCF5B5B006F3DE9 /* SQLite */,
 			);
 			productName = FoodBookApp;
 			productReference = 6CC928FF2B84FB0700EDDE78 /* FoodBookApp.app */;
@@ -708,15 +629,10 @@
 			packageReferences = (
 				6C5ED6CF2B8ADB1000AF115C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				6CF8217C2B8D8837008E7057 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				6CF6CCCD2BCF5B5B006F3DE9 /* XCRemoteSwiftPackageReference "SQLite" */,
 			);
 			productRefGroup = 6CC929002B84FB0700EDDE78 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = D37B0DED2BCC992600EEFA08 /* Products */;
-					ProjectRef = D37B0DEC2BCC992600EEFA08 /* SQLite.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				6CC928FE2B84FB0700EDDE78 /* FoodBookApp */,
@@ -725,72 +641,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		D37B0DF92BCC992800EEFA08 /* SQLite.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SQLite.framework;
-			remoteRef = D37B0DF82BCC992800EEFA08 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D37B0DFB2BCC992800EEFA08 /* SQLiteTests iOS.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "SQLiteTests iOS.xctest";
-			remoteRef = D37B0DFA2BCC992800EEFA08 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D37B0DFD2BCC992800EEFA08 /* SQLite.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SQLite.framework;
-			remoteRef = D37B0DFC2BCC992800EEFA08 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D37B0DFF2BCC992800EEFA08 /* SQLiteTests Mac.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "SQLiteTests Mac.xctest";
-			remoteRef = D37B0DFE2BCC992800EEFA08 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D37B0E012BCC992800EEFA08 /* SQLite.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SQLite.framework;
-			remoteRef = D37B0E002BCC992800EEFA08 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D37B0E032BCC992800EEFA08 /* SQLiteTests tvOS.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "SQLiteTests tvOS.xctest";
-			remoteRef = D37B0E022BCC992800EEFA08 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D37B0E052BCC992800EEFA08 /* SQLite.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SQLite.framework;
-			remoteRef = D37B0E042BCC992800EEFA08 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D37B0E072BCC992800EEFA08 /* SQLite.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SQLite.framework;
-			remoteRef = D37B0E062BCC992800EEFA08 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D37B0E092BCC992800EEFA08 /* SQLiteTests visionOS.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "SQLiteTests visionOS.xctest";
-			remoteRef = D37B0E082BCC992800EEFA08 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6CC928FD2B84FB0700EDDE78 /* Resources */ = {
@@ -855,6 +705,7 @@
 				D30C88132B8FB5B50052C01E /* CreateReview2View.swift in Sources */,
 				0D347C362BAB2589003990A0 /* LocationUtils.swift in Sources */,
 				D31D670B2BA904FE00B22A79 /* ReviewSAFirebase.swift in Sources */,
+				6CBFB8372BD03D1F00D69E85 /* BookmarksService.swift in Sources */,
 				6C1226C82BCDDFA400A18E77 /* UserView.swift in Sources */,
 				D342009D2B91404A00B8817C /* TextButton.swift in Sources */,
 				0DCB7BD82B86F0290088C333 /* BrowseView.swift in Sources */,
@@ -1227,6 +1078,14 @@
 				minimumVersion = 10.21.0;
 			};
 		};
+		6CF6CCCD2BCF5B5B006F3DE9 /* XCRemoteSwiftPackageReference "SQLite" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.15.2;
+			};
+		};
 		6CF8217C2B8D8837008E7057 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
@@ -1257,6 +1116,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6C5ED6CF2B8ADB1000AF115C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		6CF6CCCE2BCF5B5B006F3DE9 /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CF6CCCD2BCF5B5B006F3DE9 /* XCRemoteSwiftPackageReference "SQLite" */;
+			productName = SQLite;
 		};
 		6CF821782B8D7FF8008E7057 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

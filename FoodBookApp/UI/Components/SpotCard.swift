@@ -10,6 +10,7 @@ import SwiftUI
 struct SpotCard: View {
     // TODO: Missing bookmarking feature
     
+    let id: String
     let title : String
     let minTime : Int
     let maxTime : Int
@@ -20,7 +21,7 @@ struct SpotCard: View {
     
     let rowLayout = Array(repeating: GridItem(), count: 2)
     
-    @State var selected = false
+    @State var bookmarksManager = BookmarksService.shared
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -30,12 +31,12 @@ struct SpotCard: View {
                     AsyncImage(url: URL(string: image)) { image in
                         image.resizable()
                             .aspectRatio(contentMode: .fill)
-                      } placeholder: {
-                          ProgressView()
-                      }
-                      .frame(width: 110, height: 80)
-                      .cornerRadius(10)
-                        
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .frame(width: 110, height: 80)
+                    .cornerRadius(10)
+                    
                 }
             })
             HStack {
@@ -44,13 +45,17 @@ struct SpotCard: View {
                     .bold()
                 Spacer()
                 Button(action: {
-                    selected.toggle()
+                    
+                    bookmarksManager.updateBookmarks(spotId: id)
                 }, label: {
-                    Image(systemName: selected ? "bookmark.fill" : "bookmark").imageScale(.large).bold()
+                    Image(systemName: bookmarksManager.containsId(spotId: id) ? "bookmark.fill" : "bookmark").imageScale(.large).bold()
                 })
                 .buttonStyle(.plain)
             }
-            Text("\(Image(systemName: "clock")) \(minTime)-\(maxTime) min.   \(Image(systemName: "location")) \(distance) km")
+            HStack {
+                Text("\(Image(systemName: "clock")) \(minTime)-\(maxTime) min.   \(Image(systemName: "location")) \(distance) km")
+                
+            }
             HCategoryList(categories: categories, color: Color.gray)
         }
         .padding(.all)
@@ -61,17 +66,17 @@ struct SpotCard: View {
                 .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
         )
     }
-    
 }
 
 #Preview {
     SpotCard(
+        id: "oKsH5BceBWTaXWUGUEvZ",
         title: "Divino Pecado",
         minTime: 25,
         maxTime: 30,
         distance: "99+",
         categories:[ Category(name: "sandwich", count: 1),  Category(name: "healthy", count: 1),  Category(name: "organic", count: 1),  Category(name: "fast", count: 2),  Category(name: "burger", count: 2),  Category(name: "low-fat", count: 1),  Category(name: "fries", count: 1)]
-,
+        ,
         imageLinks: [
             "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=2380&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             "https://images.unsplash.com/photo-1493770348161-369560ae357d?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
