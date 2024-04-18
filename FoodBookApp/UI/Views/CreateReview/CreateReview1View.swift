@@ -11,6 +11,7 @@ import SwiftUI
 struct CreateReview1View: View {
     var spotId: String
     var spotName: String
+    var categories: [String]
     var draft: ReviewDraft?
     var draftMode: Bool
     @State private var model = CreateReview1ViewModel()
@@ -172,8 +173,6 @@ struct CreateReview1View: View {
                         Spacer()
                     }
                     
-                }.task {
-                    _ = try? await model.fetchCategories()
                 }
             }
         }
@@ -217,9 +216,9 @@ struct CreateReview1View: View {
     
     var searchResults: [String] {
         if searchText.isEmpty {
-            return model.categories
+            return categories
         } else {
-            return model.categories.filter { cat in
+            return categories.filter { cat in
                 cat.localizedCaseInsensitiveContains(searchText)
             }
         }
@@ -227,5 +226,5 @@ struct CreateReview1View: View {
 }
 
 #Preview {
-    CreateReview1View(spotId: "ms1hTTxzVkiJElZiYHAT", spotName: "Mi Caserito", draftMode: false, isNewReviewSheetPresented: .constant(true))
+    CreateReview1View(spotId: "ms1hTTxzVkiJElZiYHAT", spotName: "Mi Caserito", categories: ["Homemade", "Colombian"], draftMode: false, isNewReviewSheetPresented: .constant(true))
 }
