@@ -13,6 +13,7 @@ struct CreateReview2View: View {
     let categories: [String]
     let spotId: String
     var draftMode: Bool
+    @Binding var shouldCount: Bool
     @Binding var imageChange: Bool
     @Binding var selectedImage: UIImage?
     @State private var showSheet: Bool = false
@@ -109,6 +110,7 @@ struct CreateReview2View: View {
                                 showAlert.toggle()
                             }
                             else {
+                                shouldCount = false
                                 // Step 1: Upload review
                                 let reviewDate = Date()
                                 let lowercasedCategories = categories.map { $0.lowercased() }
@@ -267,5 +269,5 @@ struct CreateReview2View: View {
 }
 
 #Preview {
-    CreateReview2View(categories: ["Homemade", "Colombian"], spotId: "ms1hTTxzVkiJElZiYHAT", draftMode: false, imageChange: .constant(false), selectedImage: .constant(nil), cleanliness: .constant(0), waitingTime: .constant(0), foodQuality: .constant(0), service: .constant(0), title: .constant(""), content: .constant(""), isNewReviewSheetPresented: .constant(true))
+    CreateReview2View(categories: ["Homemade", "Colombian"], spotId: "ms1hTTxzVkiJElZiYHAT", draftMode: false, shouldCount: .constant(false), imageChange: .constant(false), selectedImage: .constant(nil), cleanliness: .constant(0), waitingTime: .constant(0), foodQuality: .constant(0), service: .constant(0), title: .constant(""), content: .constant(""), isNewReviewSheetPresented: .constant(true))
 }
