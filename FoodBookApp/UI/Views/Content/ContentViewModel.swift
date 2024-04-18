@@ -11,13 +11,13 @@ import FirebaseFirestore
 
 @Observable
 class ContentViewModel {
-    @Published var browseSpots: [Spot] = []
-    @Published var forYouSpots: [Spot] = []
+    var browseSpots: [Spot] = []
+    var forYouSpots: [Spot] = []
     
     private let locationService = LocationService.shared
     private let locationUtils = LocationUtils()
     private let repository: SpotRepository = SpotRepositoryImpl.shared
-    private let backendService = BackendService()
+//    private let backendService = BackendService()
     private let utils = Utils.shared
     
 //    private let cache = NSCache<NSString, Spot>()

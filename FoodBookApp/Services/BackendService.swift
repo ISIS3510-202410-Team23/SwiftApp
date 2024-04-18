@@ -49,14 +49,11 @@ extension BackendService {
         } catch {
             if let urlError = error as? URLError, urlError.code == .cancelled {
                 print("API call was cancelled")
-                // Optionally, you can throw a specific error for cancellation if needed
-//                 throw NSError(domain: "", code: -2, userInfo: [NSLocalizedDescriptionKey: "API call was cancelled"])
             } else {
                 print("Error performing API call: \(error)")
-                // Re-throw the error or throw a new one with more specific information
                 throw NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Error performing API call"])
             }
-            return [""]
+            return []
         }
     }
 

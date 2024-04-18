@@ -59,11 +59,11 @@ struct ForYouView: View {
             if networkService.isOnline { // IMPORTANT, REMOVING THIS WILL MAKE THE APP CRASH WITHOUT INTERNET
                 isFetching = true
                 let _ = try? await model.fetchRecommendedSpots()
-                if model.spots == [] {
-                    showNotFoundError = true
-                } else {
-                    showNotFoundError = false
-                }
+//                if model.spots == [] {
+//                    showNotFoundError = true
+//                } else {
+//                    showNotFoundError = false
+//                }
                 isFetching = false
             }
         }
