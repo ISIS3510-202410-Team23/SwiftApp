@@ -10,16 +10,12 @@ import LocalAuthentication
 
 struct BookmarksView: View {
     
-    @State var bookmarksManager = BookmarksService.shared
+    @State private var model = BookmarksViewModel()
+    @State private var isFetching = false // Track fetching status
     
     var body: some View {
         
-        if !bookmarksManager.savedBookmarkIds.isEmpty {
-            Text("You have \(bookmarksManager.savedBookmarkIds.count) saved spot.")
-//            ForEach(Array(bookmarksManager.savedBookmarkIds), id: \.self) { spotId in
-//                Text(spotId)
-//            }
-        } else {
+        if model.noBookmarks() {
             VStack {
                 Image(systemName: "book")
                     .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
@@ -27,8 +23,38 @@ struct BookmarksView: View {
                 Text("You have no saved bookmarks.")
             }
         }
-        
-        
+        else {
+            ScrollView {
+                if isFetching {
+                    ProgressView()
+                } else if model.spots.isEmpty {
+                    Text("Hmm, nothing here.")
+                } else {
+                    ForEach(model.spots, id: \.self) {spot in
+                        NavigationLink(destination: SpotDetailView(spotId: spot.id ?? "")){
+                            SpotCard(
+                                id: spot.id ?? "",
+                                title: spot.name,
+                                minTime: spot.waitTime.min,
+                                maxTime: spot.waitTime.max,
+                                distance: spot.distance ?? "-",
+                                categories: Array(Utils.shared.highestCategories(spot: spot).prefix(5)),
+                                imageLinks: spot.imageLinks ?? [],
+                                price: spot.price
+                            )
+                            .fixedSize(horizontal: false, vertical: true)
+                            .accentColor(.black)
+                        }
+                    }
+                }
+            }
+            .padding(8)
+            .task {
+                isFetching = true
+                await model.fetchSpots()
+                isFetching = false
+            }
+        }
     }
 }
 
