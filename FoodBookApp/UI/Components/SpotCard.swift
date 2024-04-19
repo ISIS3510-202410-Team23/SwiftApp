@@ -21,7 +21,7 @@ struct SpotCard: View {
     
     let rowLayout = Array(repeating: GridItem(), count: 2)
     
-    @State var bookmarksManager = BookmarksService.shared
+    @Environment(BookmarksService.self) private var bookmarksManager
     
     var body: some View {
         VStack(alignment: .leading) {

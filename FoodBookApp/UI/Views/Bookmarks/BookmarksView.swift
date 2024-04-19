@@ -10,7 +10,7 @@ import LocalAuthentication
 
 struct BookmarksView: View {
     
-    @State var bookmarksManager = BookmarksService.shared
+    @Environment(BookmarksService.self) private var bookmarksManager
     
     var body: some View {
         
