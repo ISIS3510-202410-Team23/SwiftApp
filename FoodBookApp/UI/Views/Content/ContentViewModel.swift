@@ -9,10 +9,14 @@ import Foundation
 import CoreData
 import FirebaseFirestore
 
-class ContentViewModel {
+class ContentViewModel: ObservableObject {
+    static let shared = ContentViewModel()
+    
+    private init() {}
+    
     var spots: [Spot] = []
-    private var uid: String = ""
-    private var dids: [String] = []
+    var uid: String = ""
+    var dids: [String] = []
     
     private let locationService = LocationService.shared
     private let locationUtils = LocationUtils()
@@ -32,9 +36,6 @@ class ContentViewModel {
                         self.spots = try await self.fetchSpots()
                         self.cacheService.setSpots(self.spots)
                     }
-                    
-                    await self.calculateDistance()
-                    print("DEBUG: Spots from model: \(self.spots)")
                 } catch {
                     print("ERROR: fetching spots from firebase \(error)")
                 }
@@ -56,16 +57,12 @@ class ContentViewModel {
                         self.cacheService.setDids(self.dids)
                     }
                     
-                    print("DEBUG: Dids from model: \(self.dids)")
-                    
                 } catch {
                     print("ERROR: fetching backend \(error)")
                 }
             }
         }
     }
-    
-    
     
     private func fetchSpots() async throws -> [Spot] {
         return try await repository.getSpots()

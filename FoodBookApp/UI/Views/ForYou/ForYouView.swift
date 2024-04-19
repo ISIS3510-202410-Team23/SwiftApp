@@ -10,7 +10,8 @@ import SwiftUI
 
 struct ForYouView: View {
 //    @State private var model = ForYouViewModel()
-    @State private var model = ContentViewModel()
+    @ObservedObject var model = ContentViewModel.shared
+    
     @State private var isFetching = true
     @State private var showNotFoundError = false
     @ObservedObject var networkService = NetworkService.shared

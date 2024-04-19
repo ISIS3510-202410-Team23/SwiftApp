@@ -28,9 +28,9 @@ struct ContentView: View {
     @State private var searchText = ""
     @State private var isPresented:Bool = false
     @State private var showAlert:Bool = false
-    @ObservedObject var networkService = NetworkService.shared
     
-    @State private var model = ContentViewModel()
+    @ObservedObject var networkService = NetworkService.shared
+    @ObservedObject var model = ContentViewModel.shared
     
     
     var body: some View {

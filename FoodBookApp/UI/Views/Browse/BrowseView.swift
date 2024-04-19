@@ -11,8 +11,10 @@ struct BrowseView: View {
     
     @Binding var searchText: String
 //    @State private var model = BrowseViewModel()
-    @State private var model = ContentViewModel()
-    @State private var isFetching = false
+    
+    @State private var isFetching = true
+    
+    @ObservedObject var model = ContentViewModel.shared
     @ObservedObject var networkService = NetworkService.shared
     
     var body: some View {
@@ -45,7 +47,7 @@ struct BrowseView: View {
                     if isFetching {
                         ProgressView()
                             .padding()
-                    }
+                        }
                 } else {
                     Text("Nothing here... yet!")
                         .foregroundColor(.secondary)
@@ -55,11 +57,7 @@ struct BrowseView: View {
             }
         }
         .padding(8)
-//        .task {
-//            isFetching = true
-//            _ = try? await model.fetchSpotsAndCalculateDistance()
-//            isFetching = false
-//        }
+        .onAppear()
     }
     
     var searchResults: [Spot] {
