@@ -18,6 +18,7 @@
 		0DCB7BD82B86F0290088C333 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB7BD52B86F0290088C333 /* BrowseView.swift */; };
 		0DCB7BD92B86F0290088C333 /* ForYouView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB7BD62B86F0290088C333 /* ForYouView.swift */; };
 		0DCB7BDA2B86F0290088C333 /* BookmarksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB7BD72B86F0290088C333 /* BookmarksView.swift */; };
+		0DCDE9C02BD1FCD8006F43BD /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDE9BF2BD1FCD8006F43BD /* CacheService.swift */; };
 		6C0C82DA2B8D2D99004EAE3F /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C82D92B8D2D99004EAE3F /* Firebase.swift */; };
 		6C0C82DD2B8D2E49004EAE3F /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 6C0C82DC2B8D2E49004EAE3F /* FirebaseFirestore */; };
 		6C1021982B96710D007DCEEF /* SpotSAFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1021972B96710D007DCEEF /* SpotSAFirebase.swift */; };
@@ -126,6 +127,7 @@
 		0DCB7BD52B86F0290088C333 /* BrowseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseView.swift; sourceTree = "<group>"; };
 		0DCB7BD62B86F0290088C333 /* ForYouView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForYouView.swift; sourceTree = "<group>"; };
 		0DCB7BD72B86F0290088C333 /* BookmarksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksView.swift; sourceTree = "<group>"; };
+		0DCDE9BF2BD1FCD8006F43BD /* CacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheService.swift; sourceTree = "<group>"; };
 		6C0C82D92B8D2D99004EAE3F /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		6C1021972B96710D007DCEEF /* SpotSAFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotSAFirebase.swift; sourceTree = "<group>"; };
 		6C1021992B96712D007DCEEF /* SpotSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotSA.swift; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				0D8BBB652B91462800739448 /* LocationService.swift */,
 				0D347C372BAB4FA4003990A0 /* BackendService.swift */,
 				6C396DC12BC83EB0006F0855 /* NetworkService.swift */,
+				0DCDE9BF2BD1FCD8006F43BD /* CacheService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -748,6 +751,7 @@
 				6C2504F82BA9D26C0018D1DD /* CategoryRepositoryImpl.swift in Sources */,
 				D31966A32BA7A54300E1DD53 /* NotificationHandler.swift in Sources */,
 				D321E4962B8E971500F93974 /* ReviewsView.swift in Sources */,
+				0DCDE9C02BD1FCD8006F43BD /* CacheService.swift in Sources */,
 				6C10219A2B96712D007DCEEF /* SpotSA.swift in Sources */,
 				6C1021A12B96B4E1007DCEEF /* SpotRepositoryImpl.swift in Sources */,
 				D338BDB42BCF46A9005481EF /* UnfinishedReviewImpl.swift in Sources */,

@@ -29,7 +29,9 @@ struct ContentView: View {
     @State private var isPresented:Bool = false
     @State private var showAlert:Bool = false
     @ObservedObject var networkService = NetworkService.shared
-   
+    
+    @State private var model = ContentViewModel()
+    
     
     var body: some View {
         NavigationStack {
@@ -59,12 +61,12 @@ struct ContentView: View {
             }
             .sheet(isPresented: $isPresented) {
                 UserView(showSignInView: $showSignInView)
-                .presentationDragIndicator(.visible)
-                .presentationBackground(Material.ultraThinMaterial)
-                .onDisappear {
-                    let authUser = try? AuthService.shared.getAuthenticatedUser()
-                    showSignInView = authUser == nil
-                }
+                    .presentationDragIndicator(.visible)
+                    .presentationBackground(Material.ultraThinMaterial)
+                    .onDisappear {
+                        let authUser = try? AuthService.shared.getAuthenticatedUser()
+                        showSignInView = authUser == nil
+                    }
             }
             .alert("Please check your internet connection and try again", isPresented: $showAlert) {
                 Button("OK", role: .cancel) { }
@@ -72,6 +74,15 @@ struct ContentView: View {
             .onReceive(networkService.$isOnline) { isOnline in
                 if !isOnline {
                     showAlert = true
+                    
+                } else if isOnline {
+                    Task {
+                        do {
+                            try await model.networkFallbackToCache()
+                        } catch {
+                            print("ERROR: Could not fetch from content: \(error)")
+                        }
+                    }
                 }
             }
         }
@@ -81,7 +92,7 @@ struct ContentView: View {
 struct SearchableModifier: ViewModifier {
     let isSearchable: Bool
     @Binding var text: String
-
+    
     func body(content: Content) -> some View {
         if isSearchable {
             return content

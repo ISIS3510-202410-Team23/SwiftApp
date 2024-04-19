@@ -9,11 +9,12 @@ import SwiftUI
 
 
 struct ForYouView: View {
-    
-    @State private var model = ForYouViewModel()
+//    @State private var model = ForYouViewModel()
+    @State private var model = ContentViewModel()
     @State private var isFetching = true
     @State private var showNotFoundError = false
     @ObservedObject var networkService = NetworkService.shared
+    @ObservedObject var cacheService = CacheService.shared
     
     
     var body: some View {
@@ -55,18 +56,19 @@ struct ForYouView: View {
             }
         }
         .padding(8)
-        .task {
-            if networkService.isOnline { // IMPORTANT, REMOVING THIS WILL MAKE THE APP CRASH WITHOUT INTERNET
-                isFetching = true
-                let _ = try? await model.fetchRecommendedSpots()
-//                if model.spots == [] {
-//                    showNotFoundError = true
-//                } else {
-//                    showNotFoundError = false
-//                }
-                isFetching = false
-            }
-        }
+//        .task {
+//            
+//            if networkService.isOnline {
+//                isFetching = true
+//                let _ = try? await model.fetchRecommendedSpots()
+//                //                if model.spots == [] {
+//                //                    showNotFoundError = true
+//                //                } else {
+//                //                    showNotFoundError = false
+//                //                }
+//                isFetching = false
+//            }
+//        }
         
     }
 }

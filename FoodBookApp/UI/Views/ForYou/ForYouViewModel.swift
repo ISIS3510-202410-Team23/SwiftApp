@@ -20,6 +20,7 @@ class ForYouViewModel {
     private let repository: SpotRepository = SpotRepositoryImpl.shared
     private let locationService = LocationService.shared
     private let locationUtils = LocationUtils()
+    private let cacheService: CacheService = CacheService.shared
     private let utils = Utils.shared
     
     func fetchRecommendedSpots() async throws {

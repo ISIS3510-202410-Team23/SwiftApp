@@ -10,7 +10,8 @@ import SwiftUI
 struct BrowseView: View {
     
     @Binding var searchText: String
-    @State private var model = BrowseViewModel()
+//    @State private var model = BrowseViewModel()
+    @State private var model = ContentViewModel()
     @State private var isFetching = false
     @ObservedObject var networkService = NetworkService.shared
     
@@ -54,11 +55,11 @@ struct BrowseView: View {
             }
         }
         .padding(8)
-        .task {
-            isFetching = true
-            _ = try? await model.fetchSpotsAndCalculateDistance()
-            isFetching = false
-        }
+//        .task {
+//            isFetching = true
+//            _ = try? await model.fetchSpotsAndCalculateDistance()
+//            isFetching = false
+//        }
     }
     
     var searchResults: [Spot] {
