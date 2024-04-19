@@ -72,8 +72,10 @@ struct LoginView: View {
             .disabled(networkService.isUnavailable || networkService.isLowConnection)
             .padding()
             .colorMultiply(networkService.isUnavailable ? .gray : .white)
-            .alert(viewModel.errorMsg, isPresented: $viewModel.showAlert) {
+            .alert(viewModel.errorTitle, isPresented: $viewModel.showAlert) {
                 Button("OK", role: .cancel) { }
+            } message: {
+                Text(viewModel.errorTitle)
             }
             
             if(networkService.isUnavailable) {
