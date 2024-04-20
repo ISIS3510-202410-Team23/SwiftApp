@@ -75,7 +75,7 @@ struct LoginView: View {
             .alert(viewModel.errorTitle, isPresented: $viewModel.showAlert) {
                 Button("OK", role: .cancel) { }
             } message: {
-                Text(viewModel.errorTitle)
+                Text(viewModel.errorMsg)
             }
             
             if(networkService.isUnavailable) {

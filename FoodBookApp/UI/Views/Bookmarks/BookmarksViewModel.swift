@@ -13,18 +13,14 @@ import FirebaseFirestore
 @Observable
 final class BookmarksViewModel {
     
-    var spots: [Spot] = []
-    var noBookmarks = {
-        BookmarksService.shared.noBookmarks()
-    }
     
+    var spots: [Spot] = []
     private let cacheKey: NSString = "BookmarksInfo"
     
-    private let bookmarksManager = BookmarksService.shared
     private let bookmarksCache = BookmarksService.bookmarksCache
     private let repository: SpotRepository = SpotRepositoryImpl.shared
     
-    func fetchSpots() async {
+    func fetchSpots(_ spotIds: [String]) async {
         print("Fetching bookmarked spots...")
         
         if let cachedSpots = bookmarksCache.object(forKey: cacheKey) {
@@ -32,7 +28,7 @@ final class BookmarksViewModel {
             spots = cachedSpots as! [Spot]
         } else {
             do {
-                spots = try await self.repository.getSpotsWithIDList(list: Array(bookmarksManager.savedBookmarkIds))
+                spots = try await self.repository.getSpotsWithIDList(list: spotIds)
                  bookmarksCache.setObject(spots as NSArray, forKey: cacheKey)
             } catch {
                 print(error)

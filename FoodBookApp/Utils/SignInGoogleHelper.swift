@@ -51,7 +51,7 @@ final class SignInGoogleHelper {
         
         let timeoutTask = Task (priority: .background) {
 //            print("start timeout")
-            try await Task.sleep(for: .seconds(10)) // User has 30 seconds to complete login process
+            try await Task.sleep(for: .seconds(45)) // User has 30 seconds to complete login process
 //            print("end timeout")
             await topVC.dismiss(animated: true)
             try Task.checkCancellation()
