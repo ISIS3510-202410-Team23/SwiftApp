@@ -13,7 +13,15 @@ final class BookmarksService {
     static let shared: BookmarksService = BookmarksService()
     static let bookmarksCache = NSCache<NSString, NSArray>()
     private let cacheKey: NSString = "BookmarksInfo"
+    private let repository: BookmarksUsageRepository = BookmarksUsageRepositoryImpl.shared
     var savedBookmarkIds: Set<String> = []
+    var user: AuthDataResultModel? {
+            do {
+                return try AuthService.shared.getAuthenticatedUser()
+            } catch {
+                return nil
+            }
+        }
     
     private init() {
         self.savedBookmarkIds = self.loadBookmarksIds()
@@ -27,6 +35,9 @@ final class BookmarksService {
     }
     
     func updateBookmarks(spotId: String) {
+        
+        let prevSize = savedBookmarkIds.count
+        
         if !self.containsId(spotId: spotId) {
             self.savedBookmarkIds.insert(spotId)
         } else {
@@ -46,6 +57,13 @@ final class BookmarksService {
         
         print("Now there are \(savedBookmarkIds.count) saved.")
         UserDefaults.standard.set(Array(self.savedBookmarkIds), forKey: "bookmarks")
+        
+        if prevSize == 0 && savedBookmarkIds.count - prevSize == 1 {
+            updateUserLogs(usage: true)
+        } else if prevSize == 1 && savedBookmarkIds.count - prevSize == -1 {
+            updateUserLogs(usage: false)
+        }
+        
     }
     
     func containsId(spotId: String) -> Bool {
@@ -54,5 +72,12 @@ final class BookmarksService {
     
     func noBookmarks() -> Bool {
         return self.savedBookmarkIds.isEmpty
+    }
+    
+    func updateUserLogs(usage usesBookmarks: Bool)  {
+        Task(priority: .background) {
+            try await self.repository.updateBookmarksUsage(usage: usesBookmarks)
+        }
+        
     }
 }
