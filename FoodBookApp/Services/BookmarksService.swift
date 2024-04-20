@@ -10,9 +10,10 @@ import Foundation
 @Observable
 final class BookmarksService {
     
-    static let shared: BookmarksService = BookmarksService()
+
     static let bookmarksCache = NSCache<NSString, NSArray>()
     private let cacheKey: NSString = "BookmarksInfo"
+
     private let repository: BookmarksUsageRepository = BookmarksUsageRepositoryImpl.shared
     var savedBookmarkIds: Set<String> = []
     var user: AuthDataResultModel? {
@@ -23,12 +24,12 @@ final class BookmarksService {
             }
         }
     
-    private init() {
+    init() {
         self.savedBookmarkIds = self.loadBookmarksIds()
     }
     
     private func loadBookmarksIds() -> Set<String> {
-        if let bookmarksArray = UserDefaults.standard.array(forKey: "bookmarks") as? [String] {
+        if let bookmarksArray = UserDefaults.standard.array(forKey: "bookmarks-\(user?.uid ?? "defaut")") as? [String] {
             return Set(bookmarksArray)
         }
         return []
@@ -56,14 +57,13 @@ final class BookmarksService {
         }
         
         print("Now there are \(savedBookmarkIds.count) saved.")
-        UserDefaults.standard.set(Array(self.savedBookmarkIds), forKey: "bookmarks")
+        UserDefaults.standard.set(Array(self.savedBookmarkIds), forKey: "bookmarks-\(user?.uid ?? "defaut")")
         
         if prevSize == 0 && savedBookmarkIds.count - prevSize == 1 {
             updateUserLogs(usage: true)
         } else if prevSize == 1 && savedBookmarkIds.count - prevSize == -1 {
             updateUserLogs(usage: false)
         }
-        
     }
     
     func containsId(spotId: String) -> Bool {

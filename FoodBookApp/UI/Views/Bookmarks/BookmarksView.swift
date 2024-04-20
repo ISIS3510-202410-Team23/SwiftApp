@@ -10,12 +10,16 @@ import LocalAuthentication
 
 struct BookmarksView: View {
     
+
+    @Environment(BookmarksService.self) private var bookmarksManager
     @State private var model = BookmarksViewModel()
+
     @State private var isFetching = false // Track fetching status
+
     
     var body: some View {
         
-        if model.noBookmarks() {
+        if bookmarksManager.savedBookmarkIds.isEmpty {
             VStack {
                 Image(systemName: "book")
                     .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
@@ -51,7 +55,7 @@ struct BookmarksView: View {
             .padding(8)
             .task {
                 isFetching = true
-                await model.fetchSpots()
+                await model.fetchSpots(Array(bookmarksManager.savedBookmarkIds))
                 isFetching = false
             }
         }
