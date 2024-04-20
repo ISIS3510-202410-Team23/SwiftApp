@@ -21,7 +21,7 @@ class BookmarksUsageSAFirebase: BookmarksUsageSA {
     
     func updateBookmarksUsage(userId: String, usage: Bool) async throws {
         let docRef = collection.document(userId)
-        try await docRef.setData(["userId": userId, "usage": usage], mergeFields: ["usage"])
+        try await docRef.setData(["userId": userId, "usage": usage])
     }
     
     
