@@ -12,3 +12,9 @@ enum FirebaseError: Error {
     case couldNotBeCreated
     case databaseError
 }
+
+
+enum SignInError: Error {
+    case timeout
+    case noData
+}

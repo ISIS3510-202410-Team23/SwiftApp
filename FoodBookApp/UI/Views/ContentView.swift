@@ -28,6 +28,7 @@ struct ContentView: View {
     @State private var searchText = ""
     @State private var isPresented:Bool = false
    
+    @State private var bookmarksManager = BookmarksService()
     
     var body: some View {
         NavigationStack {
@@ -64,6 +65,7 @@ struct ContentView: View {
                     showSignInView = authUser == nil
                 }
             }
+            .environment(bookmarksManager)
         }
     }
 }
