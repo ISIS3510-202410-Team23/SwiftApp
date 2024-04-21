@@ -11,41 +11,35 @@ class CacheService: ObservableObject {
     static let shared = CacheService()
     
     private let spotsCache = NSCache<NSString, NSArray>()
-    private let didsCache = NSCache<NSString, NSString>()
-    private let uidCache = NSCache<NSString, NSString>()
+    private let forYouCache = NSCache<NSString, NSArray>()
     
     private init() {}
     
     // MARK: - Spots Cache
     
     func setSpots(_ spots: [Spot]) {
-        spotsCache.setObject(spots as NSArray, forKey: "spots")
+        let nsArray = spots as NSArray
+        spotsCache.setObject(nsArray, forKey: "spots")
     }
+
+    
     
     func getSpots() -> [Spot]? {
-        return spotsCache.object(forKey: "spots") as? [Spot]
-    }
-    
-    // MARK: - Dids Cache
-    
-    func setDids(_ dids: [String]) {
-        didsCache.setObject(dids[0] as NSString, forKey: "dids")
-    }
-    
-    func getDids() -> [String]? {
-        if let did = didsCache.object(forKey: "dids") {
-            return [did as String]
+        if let nsArray = spotsCache.object(forKey: "spots") {
+            return nsArray as? [Spot]
         }
         return nil
     }
+
     
-    // MARK: - UID Cache
+    // MARK: - ForYou Cache
     
-    func setUID(_ uid: String) {
-        uidCache.setObject(uid as NSString, forKey: "uid")
+    func setForYou(_ spots: [Spot]) {
+        forYouCache.setObject(spots as NSArray, forKey: "fyp")
     }
     
-    func getUID() -> String? {
-        return uidCache.object(forKey: "uid") as String?
+    func getForYou() -> [Spot]? {
+        return forYouCache.object(forKey: "fyp") as? [Spot]
     }
+
 }

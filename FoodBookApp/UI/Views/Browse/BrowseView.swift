@@ -8,63 +8,55 @@
 import SwiftUI
 
 struct BrowseView: View {
-    
     @Binding var searchText: String
-//    @State private var model = BrowseViewModel()
+    @Binding var spots: [Spot]
+    @Binding var isFetching: Bool
     
-    @State private var isFetching = true
     
-    @ObservedObject var model = ContentViewModel.shared
     @ObservedObject var networkService = NetworkService.shared
     
     var body: some View {
         ScrollView {
+            Text("\(spots.count)")
             VStack {
-                if networkService.isOnline {
-                    if !isFetching && searchResults.isEmpty {
-                        Text("Hmm, nothing here. Maybe try a different search?")
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
-                            .safeAreaPadding()
-                    } else {
-                        ForEach(searchResults, id: \.self) { spot in
-                            NavigationLink(destination: SpotDetailView(spotId: spot.id ?? "")){
-                                SpotCard(
-                                    title: spot.name,
-                                    minTime: spot.waitTime.min,
-                                    maxTime: spot.waitTime.max,
-                                    distance: spot.distance ?? "-",
-                                    categories: Array(Utils.shared.highestCategories(spot: spot).prefix(5)),
-                                    imageLinks: spot.imageLinks ?? [],
-                                    price: spot.price
-                                )
-                                .fixedSize(horizontal: false, vertical: true)
-                                .accentColor(.black)
-                            }
+//                if !isFetching && searchResults.isEmpty {
+//                    Text("Hmm, nothing here. Maybe try a different search?")
+//                        .foregroundColor(.secondary)
+//                        .multilineTextAlignment(.center)
+//                        .safeAreaPadding()
+//                } else {
+                    ForEach(searchResults, id: \.self) { spot in
+                        NavigationLink(destination: SpotDetailView(spotId: spot.id ?? "")){
+                            SpotCard(
+                                title: spot.name,
+                                minTime: spot.waitTime.min,
+                                maxTime: spot.waitTime.max,
+                                distance: spot.distance ?? "-",
+                                categories: Array(Utils.shared.highestCategories(spot: spot).prefix(5)),
+                                imageLinks: spot.imageLinks ?? [],
+                                price: spot.price
+                            )
+                            .fixedSize(horizontal: false, vertical: true)
+                            .accentColor(.black)
                         }
                     }
-                    
-                    if isFetching {
-                        ProgressView()
-                            .padding()
-                        }
-                } else {
-                    Text("Nothing here... yet!")
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                        .safeAreaPadding()
-                }
+//                }
+                
+                if isFetching {
+                    ProgressView()
+                        .padding()
+                    }
+                
             }
         }
         .padding(8)
-        .onAppear()
     }
     
     var searchResults: [Spot] {
         if searchText.isEmpty {
-            return model.spots
+            return self.spots
         } else {
-            return model.spots.filter { spot in
+            return self.spots.filter { spot in
                 spot.name.localizedCaseInsensitiveContains(searchText)
             }
         }
@@ -72,8 +64,8 @@ struct BrowseView: View {
 }
 
 
-struct BrowseView_Previews: PreviewProvider {
-    static var previews: some View {
-        BrowseView(searchText: .constant(""))
-    }
-}
+//struct BrowseView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        BrowseView(searchText: .constant(""), spots:[])
+//    }
+//}

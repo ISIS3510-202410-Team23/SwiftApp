@@ -9,12 +9,15 @@ import Foundation
 import CoreData
 import FirebaseFirestore
 
-class ContentViewModel: ObservableObject {
+@Observable
+class ContentViewModel {
     static let shared = ContentViewModel()
     
     private init() {}
     
     var spots: [Spot] = []
+    var forYouSpots: [Spot] = []
+    
     var uid: String = ""
     var dids: [String] = []
     
@@ -26,46 +29,59 @@ class ContentViewModel: ObservableObject {
     private let utils = Utils.shared
     
     
-    func networkFallbackToCache() async throws {
+    
+    func fetch() async throws {
         await withTaskGroup(of: Void.self) { group in
-            group.addTask {
+            group.addTask() {
                 do {
-                    if let cachedSpots = self.cacheService.getSpots() {
-                        self.spots = cachedSpots
-                    } else {
-                        self.spots = try await self.fetchSpots()
-                        self.cacheService.setSpots(self.spots)
-                    }
+                    self.spots = try await self.fetchSpots()
+                    await self.calculateDistance()
+                    self.cacheService.setSpots(self.spots)
+                    
                 } catch {
                     print("ERROR: fetching spots from firebase \(error)")
                 }
             }
             
-            group.addTask {
+            group.addTask() {
                 do {
-                    if let cachedUid = self.cacheService.getUID() {
-                        self.uid = cachedUid
-                    } else {
-                        self.uid = try await self.getUsername()
-                        self.cacheService.setUID(self.uid)
-                    }
-                    
-                    if let cachedDids = self.cacheService.getDids() {
-                        self.dids = cachedDids
-                    } else {
-                        self.dids = try await self.performAPICall(uid: self.uid)
-                        self.cacheService.setDids(self.dids)
-                    }
+                    self.uid = try await self.getUsername()
+                    self.dids = try await self.performAPICall(uid: self.uid)
+                    self.forYouSpots = try await self.fetchSpotsWithIDList(li: self.dids)
+                    await self.calculateDistanceForYou()
+                    self.cacheService.setForYou(self.forYouSpots)
                     
                 } catch {
                     print("ERROR: fetching backend \(error)")
                 }
             }
+            
+            await group.waitForAll()
         }
     }
     
+    func fallback() async throws {
+        
+        self.spots = cacheService.getSpots() ?? []
+        self.forYouSpots = cacheService.getForYou() ?? []
+        
+    }
+
+    
+
+    
+    // MARK: - Fetching functions
+    
     private func fetchSpots() async throws -> [Spot] {
         return try await repository.getSpots()
+    }
+    
+    private func fetchSpotsWithIDList(li: [String]) async throws -> [Spot] {
+        if li == ["404"] {
+            return []
+        } else {
+            return try await repository.getSpotsWithIDList(list: li)
+        }
     }
     
     private func performAPICall(uid: String) async throws -> [String] {
@@ -73,7 +89,7 @@ class ContentViewModel: ObservableObject {
             return try await backendService.performAPICall(uid: uid)
         } catch {
             print("ContentViewModel: Error performing API call: \(error)")
-            throw error // Throw the original error for better context
+            throw error
         }
     }
     
@@ -82,13 +98,25 @@ class ContentViewModel: ObservableObject {
             return try await utils.getUsername()
         } catch {
             print("ERROR: Could not fetch username")
-            throw error // Throw the original error for better context
+            throw error
         }
     }
+    
+    // I know this code is repeated, i just dont know the best way to separate it so i'll leave like this for now
     
     private func calculateDistance() async {
         for index in spots.indices {
             spots[index].distance = locationUtils.calculateDistance(
+                fromLatitude: spots[index].location.latitude,
+                fromLongitude: spots[index].location.longitude,
+                toLatitude: locationService.userLocation?.coordinate.latitude ?? 0,
+                toLongitude: locationService.userLocation?.coordinate.longitude ?? 0)
+        }
+    }
+    
+    private func calculateDistanceForYou() async {
+        for index in forYouSpots.indices {
+            forYouSpots[index].distance = locationUtils.calculateDistance(
                 fromLatitude: spots[index].location.latitude,
                 fromLongitude: spots[index].location.longitude,
                 toLatitude: locationService.userLocation?.coordinate.latitude ?? 0,

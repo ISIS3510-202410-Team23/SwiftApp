@@ -15,17 +15,20 @@ struct Answer: Codable {
 
 class BackendService {
     static let shared = BackendService()
-    private let backendUrl = ProcessInfo.processInfo.environment["BACKEND_URL"]
+//    private let backendUrl = ProcessInfo.processInfo.environment["BACKEND_URL"] TODO: Find a workaround
+    private let backendUrl = "https://foodbook-app-backend.vercel.app"
     private init () {}
 }
 
 extension BackendService {
     
     func performAPICall(uid: String) async throws -> [String] {
-        guard let validUrl = backendUrl else {
-            print("ERROR: Invalid URL")
-            throw NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
-        }
+//        guard let validUrl = backendUrl else {
+//            print("ERROR: Invalid URL")
+//            throw NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
+//        }
+        
+        let validUrl = backendUrl
         
         guard let url = URL(string: "\(validUrl)/recommendation/\(uid)") else {
             print("ERROR: Invalid URL")

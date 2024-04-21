@@ -25,21 +25,24 @@ enum Tabs:String {
 struct ContentView: View {
     @State var selectedTab: Tabs = .browse
     @Binding var showSignInView: Bool
+    
     @State private var searchText = ""
     @State private var isPresented:Bool = false
     @State private var showAlert:Bool = false
-    
+    @State private var isFetching: Bool = true
+        
     @ObservedObject var networkService = NetworkService.shared
-    @ObservedObject var model = ContentViewModel.shared
+    @State var model = ContentViewModel.shared
     
     
     var body: some View {
         NavigationStack {
             TabView(selection: $selectedTab){
-                BrowseView(searchText: $searchText)
+                BrowseView(searchText: $searchText, spots: $model.spots, isFetching: $isFetching)
                     .tabItem { Label("Browse", systemImage: "magnifyingglass.circle") }
                     .tag(Tabs.browse)
-                ForYouView()
+                
+                ForYouView(spots: $model.forYouSpots, isFetching: $isFetching)
                     .tabItem { Label("For you", systemImage: "star") }
                     .tag(Tabs.foryou)
                 
@@ -73,18 +76,34 @@ struct ContentView: View {
             }
             .onReceive(networkService.$isOnline) { isOnline in
                 if !isOnline {
-                    showAlert = true
+                    self.showAlert = true
+                    self.isFetching = true
                     
-                } else if isOnline {
                     Task {
                         do {
-                            try await model.networkFallbackToCache()
+                            try await model.fallback()
+                            self.isFetching = false
                         } catch {
-                            print("ERROR: Could not fetch from content: \(error)")
+                            print("ERROR: Fetching from cache failed \(error)")
                         }
+                    }
+                } else if isOnline {
+                    self.showAlert = false
+                    Task {
+                        self.isFetching = true
+                        
+                        do {
+                            try await model.fetch()
+                        }
+                        catch {
+                            print("ERROR: Fetching \(error)")
+                        }
+                        
+                        self.isFetching = false
                     }
                 }
             }
+
         }
     }
 }
@@ -104,12 +123,16 @@ struct SearchableModifier: ViewModifier {
     }
 }
 
+
+
 extension View {
     func eraseToAnyView() -> AnyView {
         return AnyView(self)
     }
+    
 }
 
-#Preview {
-    ContentView(showSignInView: .constant(false))
-}
+//
+//#Preview {
+//    ContentView(showSignInView: .constant(false))
+//}

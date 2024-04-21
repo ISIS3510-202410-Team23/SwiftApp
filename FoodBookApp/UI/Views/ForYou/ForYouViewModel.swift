@@ -14,7 +14,6 @@ import FirebaseFirestore
 class ForYouViewModel {
     var spots: [Spot] = []
     var uid: String = ""
-//    var notFoundError = false
     
     private let backendService = BackendService.shared
     private let repository: SpotRepository = SpotRepositoryImpl.shared

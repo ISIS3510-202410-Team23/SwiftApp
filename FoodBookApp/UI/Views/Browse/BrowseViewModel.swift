@@ -14,6 +14,7 @@ class BrowseViewModel {
     let locationService = LocationService.shared
     let locationUtils = LocationUtils()
     
+    private let cacheService: CacheService = CacheService.shared
     private let repository: SpotRepository = SpotRepositoryImpl.shared
     
     func fetchSpotsAndCalculateDistance() async throws {
@@ -36,5 +37,14 @@ class BrowseViewModel {
             }
         }
     }
+    
+    func fetchSpotsFromCache() throws {
+        guard let value = cacheService.getSpots() else {
+            self.spots = []
+            throw NSError()
+        }
+        self.spots = value
+    }
+
 }
 
