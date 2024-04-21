@@ -17,14 +17,13 @@ struct BrowseView: View {
     
     var body: some View {
         ScrollView {
-            Text("\(spots.count)")
             VStack {
-//                if !isFetching && searchResults.isEmpty {
-//                    Text("Hmm, nothing here. Maybe try a different search?")
-//                        .foregroundColor(.secondary)
-//                        .multilineTextAlignment(.center)
-//                        .safeAreaPadding()
-//                } else {
+                if !isFetching && searchResults.isEmpty {
+                    Text("Hmm, nothing here. Maybe try a different search?")
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .safeAreaPadding()
+                } else {
                     ForEach(searchResults, id: \.self) { spot in
                         NavigationLink(destination: SpotDetailView(spotId: spot.id ?? "")){
                             SpotCard(
@@ -40,7 +39,7 @@ struct BrowseView: View {
                             .accentColor(.black)
                         }
                     }
-//                }
+                }
                 
                 if isFetching {
                     ProgressView()

@@ -17,6 +17,7 @@ class ContentViewModel {
     
     var spots: [Spot] = []
     var forYouSpots: [Spot] = []
+    var noReviewsFlag: Bool = false
     
     var uid: String = ""
     var dids: [String] = []
@@ -27,7 +28,6 @@ class ContentViewModel {
     private let backendService: BackendService = BackendService.shared
     private let cacheService: CacheService = CacheService.shared
     private let utils = Utils.shared
-    
     
     
     func fetch() async throws {
@@ -64,7 +64,7 @@ class ContentViewModel {
         
         self.spots = cacheService.getSpots() ?? []
         self.forYouSpots = cacheService.getForYou() ?? []
-        
+
     }
 
     
@@ -78,8 +78,10 @@ class ContentViewModel {
     
     private func fetchSpotsWithIDList(li: [String]) async throws -> [Spot] {
         if li == ["404"] {
+            self.noReviewsFlag = true
             return []
         } else {
+            self.noReviewsFlag = false
             return try await repository.getSpotsWithIDList(list: li)
         }
     }

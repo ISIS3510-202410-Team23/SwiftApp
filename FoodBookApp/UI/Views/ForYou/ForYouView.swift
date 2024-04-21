@@ -12,17 +12,22 @@ struct ForYouView: View {
     
     @Binding var spots: [Spot]
     @Binding var isFetching: Bool
+    @Binding var noReviewsFlag: Bool
     
-    @State private var showNotFoundError = false
+    
     @ObservedObject var networkService = NetworkService.shared
     
     
     var body: some View {
         ScrollView {
             Group {
-                
-                if showNotFoundError {
+                if noReviewsFlag {
                     Text("Leave reviews to get personalized recommendations!")
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .safeAreaPadding()
+                } else if spots.isEmpty {
+                    Text("Crunching up the latest spots for you")
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                         .safeAreaPadding()

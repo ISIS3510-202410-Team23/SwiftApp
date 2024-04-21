@@ -30,19 +30,32 @@ struct ContentView: View {
     @State private var isPresented:Bool = false
     @State private var showAlert:Bool = false
     @State private var isFetching: Bool = true
-        
+    
     @ObservedObject var networkService = NetworkService.shared
     @State var model = ContentViewModel.shared
     
     
     var body: some View {
         NavigationStack {
+            if !networkService.isOnline {
+                HStack(spacing: 4) { 
+                    Image(systemName: "wifi.slash")
+                        .font(.system(size: 14))
+                        .foregroundColor(.secondary)
+                    Text("offline")
+                        .font(.system(size: 14))
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                }
+                .padding(4)
+            }
+
             TabView(selection: $selectedTab){
                 BrowseView(searchText: $searchText, spots: $model.spots, isFetching: $isFetching)
                     .tabItem { Label("Browse", systemImage: "magnifyingglass.circle") }
                     .tag(Tabs.browse)
                 
-                ForYouView(spots: $model.forYouSpots, isFetching: $isFetching)
+                ForYouView(spots: $model.forYouSpots, isFetching: $isFetching, noReviewsFlag: $model.noReviewsFlag)
                     .tabItem { Label("For you", systemImage: "star") }
                     .tag(Tabs.foryou)
                 
@@ -71,14 +84,19 @@ struct ContentView: View {
                         showSignInView = authUser == nil
                     }
             }
-            .alert("Please check your internet connection and try again", isPresented: $showAlert) {
-                Button("OK", role: .cancel) { }
-            }
-            .onReceive(networkService.$isOnline) { isOnline in
-                if !isOnline {
-                    self.showAlert = true
+            .onReceive(networkService.$isUnavailable) { isUnavailable in
+                if !isUnavailable {
+                    Task {
+                        self.isFetching = true
+                        do {
+                            try await model.fetch()
+                        } catch {
+                            print("ERROR: Fetching \(error)")
+                        }
+                        self.isFetching = false
+                    }
+                } else {
                     self.isFetching = true
-                    
                     Task {
                         do {
                             try await model.fallback()
@@ -87,23 +105,10 @@ struct ContentView: View {
                             print("ERROR: Fetching from cache failed \(error)")
                         }
                     }
-                } else if isOnline {
-                    self.showAlert = false
-                    Task {
-                        self.isFetching = true
-                        
-                        do {
-                            try await model.fetch()
-                        }
-                        catch {
-                            print("ERROR: Fetching \(error)")
-                        }
-                        
-                        self.isFetching = false
-                    }
+                    self.showAlert = true
                 }
+                
             }
-
         }
     }
 }

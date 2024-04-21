@@ -271,3 +271,22 @@ struct CreateReview2View: View {
 #Preview {
     CreateReview2View(categories: ["Homemade", "Colombian"], spotId: "ms1hTTxzVkiJElZiYHAT", draftMode: false, shouldCount: .constant(false), imageChange: .constant(false), selectedImage: .constant(nil), cleanliness: .constant(0), waitingTime: .constant(0), foodQuality: .constant(0), service: .constant(0), title: .constant(""), content: .constant(""), isNewReviewSheetPresented: .constant(true))
 }
+
+//
+//} else {
+//    VStack {
+//        Text("Please confirm it's you to proceed")
+//            .font(.title)
+//            .padding()
+//        Button("Authenticate") {
+//            AuthService.shared.authenticateUser { success in
+//                if success {
+//                    isAuthenticated = true
+//                    print("Authentication successful")
+//                } else {
+//                    print("Authentication failed")
+//                }
+//            }
+//        }.padding()
+//    }
+//}

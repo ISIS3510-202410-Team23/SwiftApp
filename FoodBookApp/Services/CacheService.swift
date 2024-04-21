@@ -7,7 +7,8 @@
 
 import Foundation
 
-class CacheService: ObservableObject {
+@Observable
+class CacheService {
     static let shared = CacheService()
     
     private let spotsCache = NSCache<NSString, NSArray>()
@@ -18,17 +19,19 @@ class CacheService: ObservableObject {
     // MARK: - Spots Cache
     
     func setSpots(_ spots: [Spot]) {
-        let nsArray = spots as NSArray
-        spotsCache.setObject(nsArray, forKey: "spots")
+        if !spots.isEmpty {
+            let nsArray = spots as NSArray
+            spotsCache.setObject(nsArray, forKey: "spots")
+            print("SPOTS have been set to: \(spots)")
+        } else {
+            print("NOT setting spots to empty list")
+        }
     }
 
     
     
     func getSpots() -> [Spot]? {
-        if let nsArray = spotsCache.object(forKey: "spots") {
-            return nsArray as? [Spot]
-        }
-        return nil
+        return spotsCache.object(forKey: "spots") as? [Spot]
     }
 
     
@@ -36,6 +39,7 @@ class CacheService: ObservableObject {
     
     func setForYou(_ spots: [Spot]) {
         forYouCache.setObject(spots as NSArray, forKey: "fyp")
+        print("ForYou have been set to: \(spots)")
     }
     
     func getForYou() -> [Spot]? {
