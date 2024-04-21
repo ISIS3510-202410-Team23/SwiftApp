@@ -36,7 +36,8 @@ struct ForYouView: View {
                                 distance: spot.distance ?? "-",
                                 categories: spot.categories,
                                 imageLinks: spot.imageLinks ?? [],
-                                price: spot.price
+                                price: spot.price,
+                                spot: spot
                             )
                             .fixedSize(horizontal: false, vertical: true)
                         }

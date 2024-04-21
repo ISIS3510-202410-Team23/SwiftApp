@@ -44,7 +44,8 @@ struct BookmarksView: View {
                                 distance: spot.distance ?? "-",
                                 categories: Array(Utils.shared.highestCategories(spot: spot).prefix(5)),
                                 imageLinks: spot.imageLinks ?? [],
-                                price: spot.price
+                                price: spot.price,
+                                spot: spot
                             )
                             .fixedSize(horizontal: false, vertical: true)
                             .accentColor(.black)
@@ -57,6 +58,15 @@ struct BookmarksView: View {
                 isFetching = true
                 await model.fetchSpots(Array(bookmarksManager.savedBookmarkIds))
                 isFetching = false
+            }
+            .onReceive(NetworkService.shared.$isOnline) { isOnline in
+                if model.spots.isEmpty && isOnline {
+                    print("Spots is empty but online, retrying...")
+                    Task {
+                        await model.fetchSpots(Array(bookmarksManager.savedBookmarkIds))
+                    }
+                }
+                
             }
         }
     }

@@ -18,6 +18,7 @@ struct SpotCard: View {
     let categories : [Category]
     let imageLinks : [String]
     let price : String
+    let spot: Spot?
     
     let rowLayout = Array(repeating: GridItem(), count: 2)
     
@@ -46,7 +47,7 @@ struct SpotCard: View {
                 Spacer()
                 Button(action: {
                     
-                    bookmarksManager.updateBookmarks(spotId: id)
+                    bookmarksManager.updateBookmarks(spot: spot!)
                 }, label: {
                     Image(systemName: bookmarksManager.containsId(spotId: id) ? "bookmark.fill" : "bookmark").imageScale(.large).bold()
                 })
@@ -85,7 +86,7 @@ struct SpotCard: View {
             "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             "https://images.unsplash.com/photo-1529042410759-befb1204b468?q=80&w=2486&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         ],
-        price: "$"
-        
+        price: "$",
+        spot: nil
     )
 }

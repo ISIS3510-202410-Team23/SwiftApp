@@ -10,19 +10,19 @@ import Foundation
 @Observable
 final class BookmarksService {
     
-
+    
     static let bookmarksCache = NSCache<NSString, NSArray>()
     private let cacheKey: NSString = "BookmarksInfo"
-
+    
     private let repository: BookmarksUsageRepository = BookmarksUsageRepositoryImpl.shared
     var savedBookmarkIds: Set<String> = []
     var user: AuthDataResultModel? {
-            do {
-                return try AuthService.shared.getAuthenticatedUser()
-            } catch {
-                return nil
-            }
+        do {
+            return try AuthService.shared.getAuthenticatedUser()
+        } catch {
+            return nil
         }
+    }
     
     init() {
         self.savedBookmarkIds = self.loadBookmarksIds()
@@ -35,26 +35,29 @@ final class BookmarksService {
         return []
     }
     
-    func updateBookmarks(spotId: String) {
+    func updateBookmarks(spot: Spot) {
         
+        let spotId = spot.id ?? ""
         let prevSize = savedBookmarkIds.count
+        var insert = true
+        
+        // MARK: update local storage
         
         if !self.containsId(spotId: spotId) {
             self.savedBookmarkIds.insert(spotId)
         } else {
             self.savedBookmarkIds.remove(spotId)
-            
-            // Remove from cache
-            if self.noBookmarks() { // None left, remove reference
-                BookmarksService.bookmarksCache.removeObject(forKey: cacheKey)
-            } else { // Remove specific instance
-                if let cachedSpots = BookmarksService.bookmarksCache.object(forKey: cacheKey) {
-                    var spots = cachedSpots as! [Spot]
-                    spots.removeAll(where: {$0.id == spotId})
-                    BookmarksService.bookmarksCache.setObject(spots as NSArray, forKey: cacheKey) // Updated List
-                }
-            }
+            insert = false
         }
+        
+        // MARK: update cache
+        if self.noBookmarks() { // None left, remove reference
+            BookmarksService.bookmarksCache.removeObject(forKey: cacheKey)
+        } else { // Remove specific instance
+            
+            updateCache(spot: spot, insert: insert)
+        }
+        
         
         print("Now there are \(savedBookmarkIds.count) saved.")
         UserDefaults.standard.set(Array(self.savedBookmarkIds), forKey: "bookmarks-\(user?.uid ?? "defaut")")
@@ -78,6 +81,19 @@ final class BookmarksService {
         Task(priority: .background) {
             try await self.repository.updateBookmarksUsage(usage: usesBookmarks)
         }
-        
+    }
+    
+    func updateCache(spot: Spot, insert: Bool) {
+        if let cachedSpots = BookmarksService.bookmarksCache.object(forKey: cacheKey) {
+            var spots = cachedSpots as! [Spot]
+            
+            if insert {
+                spots.append(spot)
+            } else {
+                spots.removeAll(where: {$0.id == spot.id ?? ""})
+            }
+            
+            BookmarksService.bookmarksCache.setObject(spots as NSArray, forKey: cacheKey) // Updated List
+        }
     }
 }

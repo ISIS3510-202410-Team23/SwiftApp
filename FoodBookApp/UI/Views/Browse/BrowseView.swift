@@ -31,7 +31,8 @@ struct BrowseView: View {
                                 distance: spot.distance ?? "-",
                                 categories: Array(Utils.shared.highestCategories(spot: spot).prefix(5)),
                                 imageLinks: spot.imageLinks ?? [],
-                                price: spot.price
+                                price: spot.price,
+                                spot: spot
                             )
                             .fixedSize(horizontal: false, vertical: true)
                             .accentColor(.black)
