@@ -20,5 +20,4 @@ struct ReviewDraft: Codable, Equatable, Hashable {
     let image: String //this is a path
     let title: String
     let content: String
-    let upload: Bool
 }

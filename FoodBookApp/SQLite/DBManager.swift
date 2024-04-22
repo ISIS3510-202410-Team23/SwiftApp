@@ -12,54 +12,55 @@ class DBManager {
     private var db: Connection!
     private var drafts: Table!
     
-    private var spot: Expression<String>!
-    private var cat1: Expression<String>!
-    private var cat2: Expression<String>!
-    private var cat3: Expression<String>!
-    private var cleanliness: Expression<Int>!
-    private var waitTime: Expression<Int>!
-    private var foodQuality: Expression<Int>!
-    private var service: Expression<Int>!
-    private var image: Expression<String>!
-    private var title: Expression<String>!
-    private var content: Expression<String>!
-    private var upload: Expression<Bool>!
+    //d is for drafts, u is for upload
+    
+    private var d_spot: Expression<String>!
+    private var d_cat1: Expression<String>!
+    private var d_cat2: Expression<String>!
+    private var d_cat3: Expression<String>!
+    private var d_cleanliness: Expression<Int>!
+    private var d_waitTime: Expression<Int>!
+    private var d_foodQuality: Expression<Int>!
+    private var d_service: Expression<Int>!
+    private var d_image: Expression<String>!
+    private var d_title: Expression<String>!
+    private var d_content: Expression<String>!
+    
+    
     
     init() {
         do {
             let path: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
             
-            db = try Connection("\(path)/my_drafts.sqlite3")
+            db = try Connection("\(path)/my_local_db.sqlite3")
             drafts = Table("drafts")
             
-            spot = Expression<String>("spot")
-            cat1 = Expression<String>("cat1")
-            cat2 = Expression<String>("cat2")
-            cat3 = Expression<String>("cat3")
-            cleanliness = Expression<Int>("cleanliness")
-            waitTime = Expression<Int>("waitTime")
-            foodQuality = Expression<Int>("foodQuality")
-            service = Expression<Int>("service")
-            image = Expression<String>("image")
-            title = Expression<String>("title")
-            content = Expression<String>("content")
-            upload = Expression<Bool>("upload")
+            d_spot = Expression<String>("spot")
+            d_cat1 = Expression<String>("cat1")
+            d_cat2 = Expression<String>("cat2")
+            d_cat3 = Expression<String>("cat3")
+            d_cleanliness = Expression<Int>("cleanliness")
+            d_waitTime = Expression<Int>("waitTime")
+            d_foodQuality = Expression<Int>("foodQuality")
+            d_service = Expression<Int>("service")
+            d_image = Expression<String>("image")
+            d_title = Expression<String>("title")
+            d_content = Expression<String>("content")
             
             if (!UserDefaults.standard.bool(forKey: "is_db_created")) {
                 //try db.run(drafts.drop(ifExists: true)) -> use when modifying table
                 try db.run(drafts.create { (t) in
-                    t.column(spot, primaryKey: true)
-                    t.column(cat1)
-                    t.column(cat2)
-                    t.column(cat3)
-                    t.column(cleanliness)
-                    t.column(waitTime)
-                    t.column(foodQuality)
-                    t.column(service)
-                    t.column(image)
-                    t.column(title)
-                    t.column(content)
-                    t.column(upload)
+                    t.column(d_spot, primaryKey: true)
+                    t.column(d_cat1)
+                    t.column(d_cat2)
+                    t.column(d_cat3)
+                    t.column(d_cleanliness)
+                    t.column(d_waitTime)
+                    t.column(d_foodQuality)
+                    t.column(d_service)
+                    t.column(d_image)
+                    t.column(d_title)
+                    t.column(d_content)
                 })
                 UserDefaults.standard.set(true, forKey: "is_db_created")
             }
@@ -72,11 +73,10 @@ class DBManager {
     //(C)RUD
     public func addDraft(spotValue: String, cat1Value: String, cat2Value: String, cat3Value: String,
                          cleanlinessValue: Int, waitTimeValue: Int, foodQualityValue: Int, serviceValue: Int,
-                         imageValue: String, titleValue: String, contentValue: String, uploadValue: Bool) {
+                         imageValue: String, titleValue: String, contentValue: String) {
         do {
-            try db.run(drafts.insert(spot <- spotValue, cat1 <- cat1Value, cat2 <- cat2Value, cat3 <- cat3Value,
-                                     cleanliness <- cleanlinessValue, waitTime <- waitTimeValue, foodQuality <- foodQualityValue,
-                                     service <- serviceValue, image <- imageValue, title <- titleValue, content <- contentValue, upload <- uploadValue))
+            try db.run(drafts.insert(d_spot <- spotValue, d_cat1 <- cat1Value, d_cat2 <- cat2Value, d_cat3 <- cat3Value,
+                                     d_cleanliness <- cleanlinessValue, d_waitTime <- waitTimeValue, d_foodQuality <- foodQualityValue, d_service <- serviceValue, d_image <- imageValue, d_title <- titleValue, d_content <- contentValue))
             print("Draft added for spot \(spotValue)")
         } catch {
             print(error.localizedDescription)
@@ -85,7 +85,7 @@ class DBManager {
     
     public func draftExists(spot: String) -> Bool {
         do {
-            if (try db.pluck(drafts.filter(self.spot == spot))) != nil {
+            if (try db.pluck(drafts.filter(self.d_spot == spot))) != nil {
                 return true
             }
             else {
@@ -100,21 +100,20 @@ class DBManager {
     //C(R)UD
     func getDraft(spot: String) -> ReviewDraft? {
         do {
-            if let row = try db.pluck(drafts.filter(self.spot == spot)) {
-                let cleanliness = try row.get(self.cleanliness)
-                let foodQuality = try row.get(self.foodQuality)
-                let service = try row.get(self.service)
-                let waitTime = try row.get(self.waitTime)
-                let selectedCategories = [try row.get(self.cat1), try row.get(self.cat2), try row.get(self.cat3)]
+            if let row = try db.pluck(drafts.filter(self.d_spot == spot)) {
+                let cleanliness = try row.get(self.d_cleanliness)
+                let foodQuality = try row.get(self.d_foodQuality)
+                let service = try row.get(self.d_service)
+                let waitTime = try row.get(self.d_waitTime)
+                let selectedCategories = [try row.get(self.d_cat1), try row.get(self.d_cat2), try row.get(self.d_cat3)]
                 let reviewStats = ReviewDraftStats(cleanliness: cleanliness, foodQuality: foodQuality, service: service, waitTime: waitTime)
-                let image = try row.get(self.image)
-                let title = try row.get(self.title)
-                let content = try row.get(self.content)
-                let upload = try row.get(self.upload)
+                let image = try row.get(self.d_image)
+                let title = try row.get(self.d_title)
+                let content = try row.get(self.d_content)
                 
                 print("Draft retrieved")
                 
-                return ReviewDraft(selectedCategories: selectedCategories, ratings: reviewStats, image: image, title: title, content: content, upload: upload)
+                return ReviewDraft(selectedCategories: selectedCategories, ratings: reviewStats, image: image, title: title, content: content)
             }
         } catch {
             print("Error retrieving draft: \(error.localizedDescription)")
@@ -125,7 +124,7 @@ class DBManager {
     
     //CRU(D)
     func deleteDraft(spot: String) {
-        let draftToDelete = drafts.filter(self.spot == spot)
+        let draftToDelete = drafts.filter(self.d_spot == spot)
         do {
             try db.run(draftToDelete.delete())
             print("Draft deleted for spot \(spot)")
@@ -136,8 +135,8 @@ class DBManager {
     
     func deleteImage(spot: String) {
         do {
-            if let row = try db.pluck(drafts.filter(self.spot == spot)) {
-                let image = try row.get(self.image)
+            if let row = try db.pluck(drafts.filter(self.d_spot == spot)) {
+                let image = try row.get(self.d_image)
                 if (image != "") {
                     let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(image)
                     try FileManager.default.removeItem(atPath: imagePath.path)
@@ -153,7 +152,7 @@ class DBManager {
         do {
             let rows = try db.prepare(drafts)
             for row in rows {
-                let image = try row.get(self.image)
+                let image = try row.get(self.d_image)
                 if (image != "") {
                     let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(image)
                     try FileManager.default.removeItem(atPath: imagePath.path)

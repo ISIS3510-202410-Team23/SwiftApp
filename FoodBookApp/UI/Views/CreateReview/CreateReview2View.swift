@@ -30,6 +30,8 @@ struct CreateReview2View: View {
     @Binding var isNewReviewSheetPresented: Bool
     @State private var showAlert = false
     
+    @ObservedObject var networkService = NetworkService.shared
+    
     let notify = NotificationHandler()
     @State private var model = CreateReview2ViewModel()
     
