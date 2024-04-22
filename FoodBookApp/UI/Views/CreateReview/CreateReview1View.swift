@@ -72,7 +72,7 @@ struct CreateReview1View: View {
                                         DBManager().deleteDraft(spot: spotId)
                                     }
                                     shouldCount = false
-                                    let imageName = "\(spotId).jpg"
+                                    let imageName = "\(UUID().uuidString).jpg"
                                     let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(imageName)
                                     
                                     DBManager().addDraft(spotValue: spotId, cat1Value: selectedCats.indices.contains(0) ? selectedCats[0] : "", cat2Value: selectedCats.indices.contains(1) ? selectedCats[1] : "", cat3Value: selectedCats.indices.contains(2) ? selectedCats[2] : "", cleanlinessValue: cleanliness, waitTimeValue: waitingTime, foodQualityValue: foodQuality, serviceValue: service, imageValue: selectedImage != nil ? imageName : "", titleValue: title, contentValue: content, uploadValue: false)
