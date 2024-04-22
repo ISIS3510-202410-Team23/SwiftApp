@@ -10,7 +10,6 @@ import SwiftUI
 struct UserView: View {
     @Environment(\.dismiss) private var dismiss
     @Binding var showSignInView: Bool
-    @State var isAuthenticated = false
     
     @State var notified = NotificationHandler().hasDayPassedSinceLastNotification()
     
@@ -24,9 +23,7 @@ struct UserView: View {
     
     @ObservedObject var networkService = NetworkService.shared
     var body: some View {
-        
         VStack {
-            
             HStack {
                 if user?.photoUrl != nil {
                     AsyncImage(url: URL(string: user?.photoUrl ?? ""))
