@@ -28,10 +28,13 @@ final class BookmarksViewModel {
             spots = cachedSpots as! [Spot]
         } else {
             do {
-                spots = try await self.repository.getSpotsWithIDList(list: spotIds)
-                 bookmarksCache.setObject(spots as NSArray, forKey: cacheKey)
+                if NetworkService.shared.isOnline {
+                    print("Fetching from firebase...")
+                    spots = try await self.repository.getSpotsWithIDList(list: spotIds)
+                    bookmarksCache.setObject(spots as NSArray, forKey: cacheKey)
+                }
             } catch {
-                print(error)
+                print("[Bookmarks] Fetching error: ", error)
             }
         }
         
