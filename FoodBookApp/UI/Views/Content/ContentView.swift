@@ -28,7 +28,6 @@ struct ContentView: View {
     
     @State private var searchText = ""
     @State private var isPresented:Bool = false
-    @State private var showAlert:Bool = false
     @State private var isFetching: Bool = true
     
     @ObservedObject var networkService = NetworkService.shared
@@ -97,15 +96,8 @@ struct ContentView: View {
                     }
                 } else {
                     self.isFetching = true
-                    Task {
-                        do {
-                            try await model.fallback()
-                            self.isFetching = false
-                        } catch {
-                            print("ERROR: Fetching from cache failed \(error)")
-                        }
-                    }
-                    self.showAlert = true
+                    self.model.fallback()
+                    self.isFetching = false
                 }
                 
             }

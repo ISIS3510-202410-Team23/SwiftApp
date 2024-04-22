@@ -60,7 +60,7 @@ class ContentViewModel {
         }
     }
     
-    func fallback() async throws {
+    func fallback() {
         
         self.spots = cacheService.getSpots() ?? []
         self.forYouSpots = cacheService.getForYou() ?? []
