@@ -24,11 +24,23 @@ struct UserView: View {
     @ObservedObject var networkService = NetworkService.shared
     var body: some View {
         VStack {
+            
             HStack {
                 if user?.photoUrl != nil {
-                    AsyncImage(url: URL(string: user?.photoUrl ?? ""))
+                    AsyncImage(url: URL(string: user?.photoUrl ?? "")) { image in
+                        image.resizable()
+                            .aspectRatio(contentMode: .fill)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    
+                    .frame(width: 110, height: 110)
+                    .cornerRadius(10)
+                    
                 } else {
                     Image(systemName: "person.crop.rectangle.fill")
+                        .font(.largeTitle)
+                        .imageScale(.large)
                 }
                 
                 
@@ -42,6 +54,7 @@ struct UserView: View {
             }
             
             
+            // TEMPORARY ITEMS
             Text(notified ? "Sent" : "Not Sent")
             
             Button(action: {
@@ -90,6 +103,8 @@ struct UserView: View {
             .buttonStyle(.borderedProminent)
             .padding()
         }
+        
+        
     }
 }
 

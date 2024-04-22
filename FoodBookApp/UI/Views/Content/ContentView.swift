@@ -33,6 +33,8 @@ struct ContentView: View {
     @ObservedObject var networkService = NetworkService.shared
     @State var model = ContentViewModel.shared
     
+   
+    @State private var bookmarksManager = BookmarksService()
     
     var body: some View {
         NavigationStack {
@@ -101,6 +103,7 @@ struct ContentView: View {
                 }
                 
             }
+            .environment(bookmarksManager)
         }
     }
 }

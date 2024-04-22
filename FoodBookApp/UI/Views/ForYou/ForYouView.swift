@@ -37,13 +37,15 @@ struct ForYouView: View {
                             destination: SpotDetailView(spotId: spot.id ?? ""))
                         {
                             SpotCard(
+                                id: spot.id ?? "",
                                 title: spot.name,
                                 minTime: spot.waitTime.min,
                                 maxTime: spot.waitTime.max,
                                 distance: spot.distance ?? "-",
                                 categories: spot.categories,
                                 imageLinks: spot.imageLinks ?? [],
-                                price: spot.price
+                                price: spot.price,
+                                spot: spot
                             )
                             .fixedSize(horizontal: false, vertical: true)
                         }

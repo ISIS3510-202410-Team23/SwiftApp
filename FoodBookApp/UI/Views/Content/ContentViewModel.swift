@@ -107,7 +107,7 @@ class ContentViewModel {
     // I know this code is repeated, i just dont know the best way to separate it so i'll leave like this for now
     
     private func calculateDistance() async {
-        for index in spots.indices {
+        for index in self.spots.indices {
             spots[index].distance = locationUtils.calculateDistance(
                 fromLatitude: spots[index].location.latitude,
                 fromLongitude: spots[index].location.longitude,
@@ -117,7 +117,7 @@ class ContentViewModel {
     }
     
     private func calculateDistanceForYou() async {
-        for index in forYouSpots.indices {
+        for index in self.forYouSpots.indices {
             forYouSpots[index].distance = locationUtils.calculateDistance(
                 fromLatitude: spots[index].location.latitude,
                 fromLongitude: spots[index].location.longitude,
