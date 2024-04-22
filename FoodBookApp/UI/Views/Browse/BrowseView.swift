@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct BrowseView: View {
-    @State private var model = BrowseViewModel()
     @Binding var searchText: String
-    @State private var isFetching = false // Track fetching status
+    @Binding var spots: [Spot]
+    @Binding var isFetching: Bool
+    
+    
+    @ObservedObject var networkService = NetworkService.shared
     
     var body: some View {
         ScrollView {
@@ -40,26 +43,21 @@ struct BrowseView: View {
                     }
                 }
                 
-                // Progress View
                 if isFetching {
                     ProgressView()
                         .padding()
-                }
+                    }
+                
             }
         }
         .padding(8)
-        .task {
-            isFetching = true
-            _ = try? await model.fetchSpotsAndCalculateDistance()
-            isFetching = false
-        }
     }
     
     var searchResults: [Spot] {
         if searchText.isEmpty {
-            return model.spots
+            return self.spots
         } else {
-            return model.spots.filter { spot in
+            return self.spots.filter { spot in
                 spot.name.localizedCaseInsensitiveContains(searchText)
             }
         }
@@ -67,8 +65,8 @@ struct BrowseView: View {
 }
 
 
-struct BrowseView_Previews: PreviewProvider {
-    static var previews: some View {
-        BrowseView(searchText: .constant(""))
-    }
-}
+//struct BrowseView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        BrowseView(searchText: .constant(""), spots:[])
+//    }
+//}

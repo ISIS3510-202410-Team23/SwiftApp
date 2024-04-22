@@ -105,59 +105,66 @@ struct CreateReview2View: View {
                     .navigationTitle("Review")
                     .toolbar{
                         Button(action: {
-                            
-                            if cleanliness == 0 || waitingTime == 0 || service == 0 || foodQuality == 0 {
-                                showAlert.toggle()
-                            }
-                            else {
-                                shouldCount = false
-                                // Step 1: Upload review
-                                let reviewDate = Date()
-                                let lowercasedCategories = categories.map { $0.lowercased() }
-                                
-                                Task {
-                                    do {
-                                        let trimmedContent = content.trimmingCharacters(in: .whitespacesAndNewlines)
-                                        let trimmedTitle = title.trimmingCharacters(in: .whitespacesAndNewlines)
-                                        let reviewImage = try await model.uploadPhoto(image: selectedImage)
-                                        let newReview = Review(content: trimmedContent == "" ? nil : trimmedContent,
-                                                               date: reviewDate,
-                                                               imageUrl: reviewImage,
-                                                               ratings: ReviewStats(
-                                                                cleanliness: cleanliness,
-                                                                foodQuality: foodQuality,
-                                                                service: service,
-                                                                waitTime: waitingTime),
-                                                               selectedCategories: lowercasedCategories,
-                                                               title: trimmedTitle == "" ? nil : trimmedTitle,
-                                                               user: UserInfo(id: model.username, name: model.user) )
-                                        do {
-                                            let reviewId = try await model.addReview(review: newReview)
-                                            try await model.addReviewToSpot(spotId: spotId, reviewId: reviewId)
-                                            if (DBManager().draftExists(spot: spotId) && draftMode) {
-                                                DBManager().deleteImage(spot: spotId)
-                                                DBManager().deleteDraft(spot: spotId)
+                            AuthService.shared.authenticateUser { success in
+                                if success {
+                                    // User is authenticated, proceed with review submission
+                                    if cleanliness == 0 || waitingTime == 0 || service == 0 || foodQuality == 0 {
+                                        showAlert.toggle()
+                                    }
+                                    else {
+                                        shouldCount = false
+                                        // Step 1: Upload review
+                                        let reviewDate = Date()
+                                        let lowercasedCategories = categories.map { $0.lowercased() }
+                                        
+                                        Task {
+                                            do {
+                                                let trimmedContent = content.trimmingCharacters(in: .whitespacesAndNewlines)
+                                                let trimmedTitle = title.trimmingCharacters(in: .whitespacesAndNewlines)
+                                                let reviewImage = try await model.uploadPhoto(image: selectedImage)
+                                                let newReview = Review(content: trimmedContent == "" ? nil : trimmedContent,
+                                                                       date: reviewDate,
+                                                                       imageUrl: reviewImage,
+                                                                       ratings: ReviewStats(
+                                                                        cleanliness: cleanliness,
+                                                                        foodQuality: foodQuality,
+                                                                        service: service,
+                                                                        waitTime: waitingTime),
+                                                                       selectedCategories: lowercasedCategories,
+                                                                       title: trimmedTitle == "" ? nil : trimmedTitle,
+                                                                       user: UserInfo(id: model.username, name: model.user) )
+                                                do {
+                                                    let reviewId = try await model.addReview(review: newReview)
+                                                    try await model.addReviewToSpot(spotId: spotId, reviewId: reviewId)
+                                                    if (DBManager().draftExists(spot: spotId) && draftMode) {
+                                                        DBManager().deleteImage(spot: spotId)
+                                                        DBManager().deleteDraft(spot: spotId)
+                                                    }
+                                                    print("The review uploaded has this ID:", reviewId)
+                                                    
+                                                } catch {
+                                                    print("Error adding review: \(error)")
+                                                }
                                             }
-                                            print("The review uploaded has this ID:", reviewId)
-                                            
-                                        } catch {
-                                            print("Error adding review: \(error)")
+                                            catch {
+                                                print(error)
+                                            }
                                         }
+                                        
+                                        // Very Nice To Have, but that the "Done" turns into the loading indicator while the review is uploaded, idk how complex it could be though.
+                                        
+                                        // Step 1.5: Trigger notification
+                                        notify.sendLastReviewNotification(date: reviewDate)
+                                        
+                                        // Step 2: Close sheet
+                                        isNewReviewSheetPresented.toggle()
                                     }
-                                    catch {
-                                        print(error)
-                                    }
+                                } else {
+                                    // Authentication failed, handle accordingly (e.g., show an alert)
+                                    print("Authentication failed")
+                                    // Show an alert or perform any other action to notify the user
                                 }
-                                
-                                // Very Nice To Have, but that the "Done" turns into the loading indicator while the review is uploaded, idk how complex it could be though.
-                                
-                                // Step 1.5: Trigger notification
-                                notify.sendLastReviewNotification(date: reviewDate)
-                                
-                                // Step 2: Close sheet
-                                isNewReviewSheetPresented.toggle()
                             }
-                            
                         }, label: {
                             Text("Done")
                                 .frame(maxWidth: .infinity)
@@ -271,3 +278,5 @@ struct CreateReview2View: View {
 #Preview {
     CreateReview2View(categories: ["Homemade", "Colombian"], spotId: "ms1hTTxzVkiJElZiYHAT", draftMode: false, shouldCount: .constant(false), imageChange: .constant(false), selectedImage: .constant(nil), cleanliness: .constant(0), waitingTime: .constant(0), foodQuality: .constant(0), service: .constant(0), title: .constant(""), content: .constant(""), isNewReviewSheetPresented: .constant(true))
 }
+
+
