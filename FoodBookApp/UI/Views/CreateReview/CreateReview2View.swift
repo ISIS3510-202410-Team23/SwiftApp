@@ -262,9 +262,9 @@ struct CreateReview2View: View {
         } message: {
             Text("We couldn't upload your review, but don't worry, we'll do it once you have connection")
         }
-        .onChange(of: showUploadLaterAlert) { value in
-            if !value {
-                isNewReviewSheetPresented.toggle() // Toggling isNewReviewSheetPresented to true when the alert is closed
+        .onChange(of: showUploadLaterAlert) {
+            if !showUploadLaterAlert {
+                isNewReviewSheetPresented.toggle()
             }
         }
         .task {
