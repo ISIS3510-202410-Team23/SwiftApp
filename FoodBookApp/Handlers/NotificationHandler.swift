@@ -117,5 +117,20 @@ class NotificationHandler {
         
         return false
     }
+    
+    func sendUploadedReviewsNotification() {
+        
+        let notificationIdentifier = "uploadedReviewsNotification"
+
+                
+        let content = UNMutableNotificationContent()
+        content.title = "Reviews uploaded!"
+        content.body = "The reviews you created w/o connection have been uploaded"
+        content.sound = UNNotificationSound.default
+        
+        let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: nil)
+        
+        UNUserNotificationCenter.current().add(request)
+    }
 
 }

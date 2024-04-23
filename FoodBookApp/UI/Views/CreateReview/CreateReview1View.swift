@@ -30,6 +30,7 @@ struct CreateReview1View: View {
     @State private var content = ""
     @State private var imageChange = false
     @State private var shouldCount = true
+    private let utils = Utils.shared
     
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     let customGray2 = Color(red: 242/255, green: 242/255, blue: 247/255)
@@ -72,23 +73,17 @@ struct CreateReview1View: View {
                                         DBManager().deleteDraft(spot: spotId)
                                     }
                                     shouldCount = false
-                                    let imageName = "\(spotId).jpg"
-                                    let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(imageName)
+                                    let imageName = "\(UUID().uuidString).jpg"
                                     
-                                    DBManager().addDraft(spotValue: spotId, cat1Value: selectedCats.indices.contains(0) ? selectedCats[0] : "", cat2Value: selectedCats.indices.contains(1) ? selectedCats[1] : "", cat3Value: selectedCats.indices.contains(2) ? selectedCats[2] : "", cleanlinessValue: cleanliness, waitTimeValue: waitingTime, foodQualityValue: foodQuality, serviceValue: service, imageValue: selectedImage != nil ? imageName : "", titleValue: title, contentValue: content, uploadValue: false)
+                                    DBManager().addDraft(spotValue: spotId, cat1Value: selectedCats.indices.contains(0) ? selectedCats[0] : "", cat2Value: selectedCats.indices.contains(1) ? selectedCats[1] : "", cat3Value: selectedCats.indices.contains(2) ? selectedCats[2] : "", cleanlinessValue: cleanliness, waitTimeValue: waitingTime, foodQualityValue: foodQuality, serviceValue: service, imageValue: selectedImage != nil ? imageName : "", titleValue: title, contentValue: content)
                                     
                                     isNewReviewSheetPresented.toggle()
                                     
                                     if selectedImage != nil {
-                                        do {
-                                            try self.selectedImage?.jpegData(compressionQuality: 1)?.write(to: path)
-                                        }
-                                        catch {
-                                            print("Error saving image: \(error.localizedDescription)")
-                                        }
+                                        utils.saveLocalImage(image: selectedImage, imageName: imageName)
                                     }
                                     else {
-                                        DBManager().deleteImage(spot: spotId)
+                                        DBManager().deleteDraftImage(spot: spotId)
                                     }
                                 }
                             )
