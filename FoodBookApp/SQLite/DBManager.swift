@@ -15,6 +15,8 @@ class DBManager {
     private var upload: SQLite.Table!
     private let utils = Utils.shared
     
+    let notify = NotificationHandler()
+    
     //d is for drafts, u is for upload
     
     private var d_spot: Expression<String>!
@@ -268,6 +270,7 @@ class DBManager {
     func uploadReviews() async throws {
         do {
             let rows = try db.prepare(upload)
+            let count = try db.scalar(upload.count)
             
             for row in rows {
                 let id = try row.get(self.u_id)
@@ -308,6 +311,9 @@ class DBManager {
                 let spot = try row.get(self.u_spot)
                 try await utils.addReviewToSpot(spotId: spot, reviewId: reviewId)
                 deleteUpload(id: id)
+            }
+            if count > 0{
+                notify.sendUploadedReviewsNotification()
             }
         } catch {
             print("Error uploading reviews: \(error.localizedDescription)")
