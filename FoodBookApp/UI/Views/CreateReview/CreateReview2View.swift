@@ -163,7 +163,7 @@ struct CreateReview2View: View {
                                         else {
                                             let imageName = "\(UUID().uuidString).jpg"
                                             let idValue = UUID().uuidString
-                                            DBManager().addUpload(idValue: idValue, spotValue: spotId, cat1Value: categories.indices.contains(0) ? categories[0] : "", cat2Value: categories.indices.contains(1) ? categories[1] : "", cat3Value: categories.indices.contains(2) ? categories[2] : "", cleanlinessValue: cleanliness, waitTimeValue: waitingTime, foodQualityValue: foodQuality, serviceValue: service, imageValue: selectedImage != nil ? imageName : "", titleValue: trimmedTitle, contentValue: trimmedContent, dateValue: reviewDate)
+                                            DBManager().addUpload(idValue: idValue, spotValue: spotId, cat1Value: lowercasedCategories.indices.contains(0) ? lowercasedCategories[0] : "", cat2Value: lowercasedCategories.indices.contains(1) ? lowercasedCategories[1] : "", cat3Value: lowercasedCategories.indices.contains(2) ? lowercasedCategories[2] : "", cleanlinessValue: cleanliness, waitTimeValue: waitingTime, foodQualityValue: foodQuality, serviceValue: service, imageValue: selectedImage != nil ? imageName : "", titleValue: trimmedTitle, contentValue: trimmedContent, dateValue: reviewDate)
                                             if selectedImage != nil {
                                                 utils.saveLocalImage(image: selectedImage, imageName: imageName)
                                             }

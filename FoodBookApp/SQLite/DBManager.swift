@@ -290,7 +290,6 @@ class DBManager {
                 let waitingTime = try row.get(self.u_waitTime)
                 var categories = [try row.get(self.u_cat1), try row.get(self.u_cat2), try row.get(self.u_cat3)]
                 categories = categories.filter { !$0.isEmpty }
-                let lowercasedCategories = categories.map { $0.lowercased() }
                 let title = try row.get(self.u_title)
                 let username = try await utils.getUsername()
                 let user = try await utils.getUser()
@@ -302,7 +301,7 @@ class DBManager {
                                         foodQuality: foodQuality,
                                         service: service,
                                         waitTime: waitingTime),
-                                       selectedCategories: lowercasedCategories,
+                                       selectedCategories: categories,
                                        title: title == "" ? nil : title,
                                        user: UserInfo(id: username, name: user))
                 let reviewId = try await utils.addReview(review: newReview)
