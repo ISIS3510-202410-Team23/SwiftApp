@@ -140,10 +140,7 @@ struct CreateReview2View: View {
                                                     do {
                                                         let reviewId = try await model.addReview(review: newReview)
                                                         try await model.addReviewToSpot(spotId: spotId, reviewId: reviewId)
-                                                        if (DBManager().draftExists(spot: spotId) && draftMode) {
-                                                            DBManager().deleteDraftImage(spot: spotId)
-                                                            DBManager().deleteDraft(spot: spotId)
-                                                        }
+                                                        
                                                         print("The review uploaded has this ID:", reviewId)
                                                         
                                                     } catch {
@@ -171,6 +168,10 @@ struct CreateReview2View: View {
                                                 utils.saveLocalImage(image: selectedImage, imageName: imageName)
                                             }
                                             showUploadLaterAlert.toggle()
+                                        }
+                                        if (DBManager().draftExists(spot: spotId) && draftMode) {
+                                            DBManager().deleteDraftImage(spot: spotId)
+                                            DBManager().deleteDraft(spot: spotId)
                                         }
                                     }
                                 } else {
