@@ -57,7 +57,7 @@ struct BrowseView: View {
                         try await DBManager().uploadReviews()
                     }
                 } catch {
-                    print("Error uploading review: ", error.localizedDescription)
+                    print("Error uploading reviews: ", error.localizedDescription)
                 }
             }
         }
