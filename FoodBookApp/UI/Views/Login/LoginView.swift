@@ -18,6 +18,7 @@ struct LoginView: View {
     @Binding var showSignInView: Bool
     @ObservedObject var locationService = LocationService.shared
     @ObservedObject var networkService = NetworkService.shared
+    @State var signINAAA = SignInGoogleHelper.shared
     
     let notify = NotificationHandler()
     
@@ -25,7 +26,7 @@ struct LoginView: View {
     var body: some View {
         VStack {
             
-            // Application Name
+            // MARK: Application Name
             HStack {
                 Text("foodbook")
                     .font(.custom("ArchivoBlack-Regular", size: 48))
@@ -34,13 +35,13 @@ struct LoginView: View {
                 Spacer()
             }
             
-            // Welcome page logo
+            // MARK: Welcome page logo
             Image("toasty")
                 .resizable()
                 .scaledToFit()
                 .padding()
             
-            // Application Tagline
+            // MARK: Application Tagline
             HStack{
                 Text("Where good people find good food.") // TODO: i18n string
                     .font(.system(size: 30, weight: .regular, design: .default))
@@ -50,7 +51,7 @@ struct LoginView: View {
             }
             .padding(.bottom, 30)
             
-            // Button to log in
+            // MARK: Button to log in
             GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .wide, state: .normal)) {
                 Task {
                     await viewModel.signInGoogle()
@@ -76,6 +77,13 @@ struct LoginView: View {
                 Button("OK", role: .cancel) { }
             } message: {
                 Text(viewModel.errorMsg)
+            }
+            .alert("Timeout occured.", isPresented: Binding<Bool>(get: { self.signINAAA.timeoutComplete && !self.signINAAA.flowComplete }, set: { _ in })) {
+                Button("OK", role: .cancel) {
+                    signINAAA.timeoutComplete = false
+                }
+            } message: {
+                Text("You took to long to sign-in and no answer was received, check your internet connection and try again.")
             }
             
             if(networkService.isUnavailable) {

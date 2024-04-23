@@ -9,7 +9,6 @@ import Foundation
 import FirebaseAuth
 import GoogleSignIn
 
-@MainActor
 @Observable 
 final class LoginViewModel {
     
@@ -17,8 +16,9 @@ final class LoginViewModel {
     var errorTitle: String = ""
     var errorMsg: String = ""
     
+    
     func signInGoogle() async {
-        let helper = SignInGoogleHelper()
+        let helper = SignInGoogleHelper.shared
         
         do {
             let tokens = try await helper.signIn()
@@ -27,8 +27,7 @@ final class LoginViewModel {
             errorTitle = "No answer recieved"
             errorMsg = "Seems like you took to long to sign-in, check your internet connection and try again."
             showAlert = true
-        }
-        catch GIDSignInError.canceled {
+        } catch GIDSignInError.canceled {
             errorTitle = "Canceled Sign-in"
             errorMsg = "You canceled the sign-in flow. If you wish to sign in, press the button again and complete the authentication."
             showAlert = true
