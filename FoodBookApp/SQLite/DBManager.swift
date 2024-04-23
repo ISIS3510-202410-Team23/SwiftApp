@@ -135,7 +135,7 @@ class DBManager {
                           cleanlinessValue: Int, waitTimeValue: Int, foodQualityValue: Int, serviceValue: Int,
                           imageValue: String, titleValue: String, contentValue: String, dateValue: Date) {
         do {
-            try db.run(upload.insert(u_id <- idValue, u_spot <- spotValue, u_cat1 <- cat1Value, u_cat2 <- cat2Value, 
+            try db.run(upload.insert(u_id <- idValue, u_spot <- spotValue, u_cat1 <- cat1Value, u_cat2 <- cat2Value,
                                      u_cat3 <- cat3Value, u_cleanliness <- cleanlinessValue, u_waitTime <- waitTimeValue, u_foodQuality <- foodQualityValue, u_service <- serviceValue, u_image <- imageValue, u_title <- titleValue, u_content <- contentValue, u_date <- dateValue))
             print("Upload added for spot \(spotValue)")
         } catch {
@@ -253,7 +253,7 @@ class DBManager {
             print("Error deleting images: \(error.localizedDescription)")
         }
     }
-
+    
     
     func deleteTables() {
         do {
@@ -272,47 +272,47 @@ class DBManager {
             let rows = try db.prepare(upload)
             let count = try db.scalar(upload.count)
             
-            for row in rows {
-                let id = try row.get(self.u_id)
-                let image = try row.get(self.u_image)
-                var selectedImage: UIImage?
-                if (image != "") {
-                    let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(image)
-                    selectedImage = UIImage(contentsOfFile: imagePath.path)
-                    deleteUploadImage(id: id)
+            if count > 0 {
+                for row in rows {
+                    let id = try row.get(self.u_id)
+                    let image = try row.get(self.u_image)
+                    var selectedImage: UIImage?
+                    if (image != "") {
+                        let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(image)
+                        selectedImage = UIImage(contentsOfFile: imagePath.path)
+                        deleteUploadImage(id: id)
+                    }
+                    else {
+                        selectedImage = nil
+                    }
+                    let reviewImage = try await utils.uploadPhoto(image: selectedImage)
+                    let content = try row.get(self.u_content)
+                    let date = try row.get(self.u_date)
+                    let cleanliness = try row.get(self.u_cleanliness)
+                    let foodQuality = try row.get(self.u_foodQuality)
+                    let service = try row.get(self.u_service)
+                    let waitingTime = try row.get(self.u_waitTime)
+                    var categories = [try row.get(self.u_cat1), try row.get(self.u_cat2), try row.get(self.u_cat3)]
+                    categories = categories.filter { !$0.isEmpty }
+                    let title = try row.get(self.u_title)
+                    let username = try await utils.getUsername()
+                    let user = try await utils.getUser()
+                    let newReview = Review(content: content == "" ? nil : content,
+                                           date: date,
+                                           imageUrl: reviewImage,
+                                           ratings: ReviewStats(
+                                            cleanliness: cleanliness,
+                                            foodQuality: foodQuality,
+                                            service: service,
+                                            waitTime: waitingTime),
+                                           selectedCategories: categories,
+                                           title: title == "" ? nil : title,
+                                           user: UserInfo(id: username, name: user))
+                    let reviewId = try await utils.addReview(review: newReview)
+                    let spot = try row.get(self.u_spot)
+                    try await utils.addReviewToSpot(spotId: spot, reviewId: reviewId)
+                    deleteUpload(id: id)
                 }
-                else {
-                    selectedImage = nil
-                }
-                let reviewImage = try await utils.uploadPhoto(image: selectedImage)
-                let content = try row.get(self.u_content)
-                let date = try row.get(self.u_date)
-                let cleanliness = try row.get(self.u_cleanliness)
-                let foodQuality = try row.get(self.u_foodQuality)
-                let service = try row.get(self.u_service)
-                let waitingTime = try row.get(self.u_waitTime)
-                var categories = [try row.get(self.u_cat1), try row.get(self.u_cat2), try row.get(self.u_cat3)]
-                categories = categories.filter { !$0.isEmpty }
-                let title = try row.get(self.u_title)
-                let username = try await utils.getUsername()
-                let user = try await utils.getUser()
-                let newReview = Review(content: content == "" ? nil : content,
-                                       date: date,
-                                       imageUrl: reviewImage,
-                                       ratings: ReviewStats(
-                                        cleanliness: cleanliness,
-                                        foodQuality: foodQuality,
-                                        service: service,
-                                        waitTime: waitingTime),
-                                       selectedCategories: categories,
-                                       title: title == "" ? nil : title,
-                                       user: UserInfo(id: username, name: user))
-                let reviewId = try await utils.addReview(review: newReview)
-                let spot = try row.get(self.u_spot)
-                try await utils.addReviewToSpot(spotId: spot, reviewId: reviewId)
-                deleteUpload(id: id)
-            }
-            if count > 0{
                 notify.sendUploadedReviewsNotification()
             }
         } catch {
