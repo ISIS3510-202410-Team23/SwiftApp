@@ -276,7 +276,7 @@ class DBManager {
                 if (image != "") {
                     let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(image)
                     selectedImage = UIImage(contentsOfFile: imagePath.path)
-                    deleteUpload(id: id)
+                    deleteUploadImage(id: id)
                 }
                 else {
                     selectedImage = nil
@@ -307,7 +307,6 @@ class DBManager {
                 let reviewId = try await utils.addReview(review: newReview)
                 let spot = try row.get(self.u_spot)
                 try await utils.addReviewToSpot(spotId: spot, reviewId: reviewId)
-               
                 deleteUpload(id: id)
             }
         } catch {
