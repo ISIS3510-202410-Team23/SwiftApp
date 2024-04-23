@@ -20,6 +20,8 @@ struct SpotDetailView: View {
     
     var spotId: String
     
+    @ObservedObject var networkService = NetworkService.shared
+    
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     
     var body: some View {
@@ -168,6 +170,13 @@ struct SpotDetailView: View {
                 _ = try? await model.fetchSpot(spotId: spotId)
                 _ = try? await model.fetchCategories()
                 isLoading = false
+                do {
+                    if networkService.isOnline {
+                        try await DBManager().uploadReviews()
+                    }
+                } catch {
+                    print("Error uploading review: ", error.localizedDescription)
+                }
             }
         }
         .navigationTitle(model.spot.name)
