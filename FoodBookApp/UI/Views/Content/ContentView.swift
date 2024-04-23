@@ -23,23 +23,29 @@ enum Tabs:String {
 }
 
 struct ContentView: View {
-    @State var selectedTab: Tabs = .browse
     @Binding var showSignInView: Bool
+    @Binding var inputHistory: [String]
     
+    @State var selectedTab: Tabs = .browse
     @State private var searchText = ""
     @State private var isPresented:Bool = false
     @State private var isFetching: Bool = true
+    @State var model = ContentViewModel.shared
+    @State private var bookmarksManager = BookmarksService()
     
     @ObservedObject var networkService = NetworkService.shared
-    @State var model = ContentViewModel.shared
     
-   
-    @State private var bookmarksManager = BookmarksService()
+    
+    private let fileURL: URL = {
+            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            return documentsDirectory.appendingPathComponent("inputHistory.json")
+        }()
+    
     
     var body: some View {
         NavigationStack {
             if !networkService.isOnline {
-                HStack(spacing: 4) { 
+                HStack(spacing: 4) {
                     Image(systemName: "wifi.slash")
                         .font(.system(size: 14))
                         .foregroundColor(.secondary)
@@ -50,7 +56,7 @@ struct ContentView: View {
                 }
                 .padding(4)
             }
-
+            
             TabView(selection: $selectedTab){
                 BrowseView(searchText: $searchText, spots: $model.spots, isFetching: $isFetching)
                     .tabItem { Label("Browse", systemImage: "magnifyingglass.circle") }
@@ -67,6 +73,38 @@ struct ContentView: View {
             .navigationTitle(selectedTab.formattedTitle)
             .navigationBarTitleDisplayMode(.inline)
             .modifier(SearchableModifier(isSearchable: selectedTab == .browse, text: $searchText))
+            .searchSuggestions({
+                if searchText.isEmpty {
+                    ForEach(inputHistory.indices, id: \.self) { index in
+                        let text = inputHistory[index]
+                        Text("\(Image(systemName: "clock"))\t\(text)")
+                            .foregroundColor(.secondary)
+                    }
+                    if !inputHistory.isEmpty {
+                        Button(action: {
+                            inputHistory.removeAll()
+                            if let data = try? JSONEncoder().encode(inputHistory) {
+                                try? data.write(to: fileURL)
+                            }
+                        }) {
+                            Text("Clear History")
+                        }
+                    }
+                }
+            })
+            .onSubmit(of: .search) {
+                if searchText != "" {
+                    print("Submitted: \(searchText)")
+                    if inputHistory.count >= 4 {
+                        inputHistory.removeLast()
+                    }
+                    inputHistory.insert(searchText, at: 0)
+                    if let data = try? JSONEncoder().encode(inputHistory) {
+                        try? data.write(to: fileURL)
+                    }
+                }
+            }
+
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
