@@ -15,62 +15,72 @@ struct GoogleSignInResultModel {
     let email: String?
 }
 
+@Observable
 final class SignInGoogleHelper {
     
-    @MainActor
+    static let shared = SignInGoogleHelper()
+    
+    var timeoutComplete = false
+    var flowComplete = false
+    
     func signIn() async throws -> GoogleSignInResultModel {
-        guard let topVC = Utils.shared.topViewController() else {
+        
+        guard let topVC = await Utils.shared.topViewController() else {
             throw URLError(.cannotFindHost)
         }
         
         do {
             let gidSignInResult = try await self.signInWithTimeout(withPresenting: topVC)
-            print("result \(gidSignInResult)")
-            guard let idToken = gidSignInResult.user.idToken?.tokenString else {
+            flowComplete = true
+            guard let idToken = gidSignInResult?.user.idToken?.tokenString else {
                 throw URLError(.badServerResponse)
             }
             
-            let accessToken = gidSignInResult.user.accessToken.tokenString
-            let name = gidSignInResult.user.profile?.name
-            let email = gidSignInResult.user.profile?.email
+            let accessToken = gidSignInResult?.user.accessToken.tokenString
+            let name = gidSignInResult?.user.profile?.name
+            let email = gidSignInResult?.user.profile?.email
             
-            let tokens = GoogleSignInResultModel(idToken: idToken, accessToken: accessToken, name: name, email: email)
+            let tokens = GoogleSignInResultModel(idToken: idToken, accessToken: accessToken ?? "", name: name, email: email)
             return tokens
         } catch {
+            flowComplete = true
             print("err: ", error)
             throw error
         }
         
     }
     
-    func signInWithTimeout(withPresenting topVC: UIViewController) async throws -> GIDSignInResult {
+    func signInWithTimeout(withPresenting topVC: UIViewController) async throws -> GIDSignInResult? {
+        
+        flowComplete = false
+        timeoutComplete = false
         
         let signInTask = Task { @MainActor  in
-            try await GIDSignIn.sharedInstance.signIn(withPresenting: topVC)
+            return try await GIDSignIn.sharedInstance.signIn(withPresenting: topVC)
         }
         
-        let timeoutTask = Task (priority: .background) {
-//            print("start timeout")
-            try await Task.sleep(for: .seconds(45)) // User has 30 seconds to complete login process
-//            print("end timeout")
-            await topVC.dismiss(animated: true)
-            try Task.checkCancellation()
-            print(signInTask.isCancelled)
-            signInTask.cancel()
-            print(signInTask.isCancelled)
-            signInTask.cancel()
-            //
-            throw CancellationError()
+        let timeoutTask = Task (priority: .userInitiated) {
+            try await Task.sleep(for: .seconds(45)) // User has 45 seconds to complete login process
+            print("tC", timeoutComplete)
+            print("sC", flowComplete)
+            if !flowComplete {
+                await topVC.dismiss(animated: true)
+                DispatchQueue.main.async {
+                    self.timeoutComplete = true
+                }
+            }
+
+            return
         }
         
         return try await withTaskCancellationHandler {
             print("operation start")
             let result = try await signInTask.value
-            //            timeoutTask.cancel()
+            timeoutTask.cancel()
             return result
             
         } onCancel: {
-            print("oncancele")
+            print("onCancel")
         }
     }
 }
