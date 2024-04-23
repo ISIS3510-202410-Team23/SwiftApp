@@ -95,7 +95,7 @@ struct ContentView: View {
             .onSubmit(of: .search) {
                 if searchText != "" {
                     print("Submitted: \(searchText)")
-                    if inputHistory.count >= 4 {
+                    if inputHistory.count >= 10 {
                         inputHistory.removeLast()
                     }
                     inputHistory.insert(searchText, at: 0)
