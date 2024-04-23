@@ -7,10 +7,13 @@
 
 import Foundation
 import SQLite
+import SwiftUI
 
 class DBManager {
     private var db: Connection!
-    private var drafts: Table!
+    private var drafts: SQLite.Table!
+    private var upload: SQLite.Table!
+    private let utils = Utils.shared
     
     //d is for drafts, u is for upload
     
@@ -26,7 +29,19 @@ class DBManager {
     private var d_title: Expression<String>!
     private var d_content: Expression<String>!
     
-    
+    private var u_id: Expression<String>!
+    private var u_spot: Expression<String>!
+    private var u_cat1: Expression<String>!
+    private var u_cat2: Expression<String>!
+    private var u_cat3: Expression<String>!
+    private var u_cleanliness: Expression<Int>!
+    private var u_waitTime: Expression<Int>!
+    private var u_foodQuality: Expression<Int>!
+    private var u_service: Expression<Int>!
+    private var u_image: Expression<String>!
+    private var u_title: Expression<String>!
+    private var u_content: Expression<String>!
+    private var u_date: Expression<Date>!
     
     init() {
         do {
@@ -34,6 +49,7 @@ class DBManager {
             
             db = try Connection("\(path)/my_local_db.sqlite3")
             drafts = Table("drafts")
+            upload = Table("upload")
             
             d_spot = Expression<String>("spot")
             d_cat1 = Expression<String>("cat1")
@@ -46,6 +62,20 @@ class DBManager {
             d_image = Expression<String>("image")
             d_title = Expression<String>("title")
             d_content = Expression<String>("content")
+            
+            u_id = Expression<String>("id")
+            u_spot = Expression<String>("spot")
+            u_cat1 = Expression<String>("cat1")
+            u_cat2 = Expression<String>("cat2")
+            u_cat3 = Expression<String>("cat3")
+            u_cleanliness = Expression<Int>("cleanliness")
+            u_waitTime = Expression<Int>("waitTime")
+            u_foodQuality = Expression<Int>("foodQuality")
+            u_service = Expression<Int>("service")
+            u_image = Expression<String>("image")
+            u_title = Expression<String>("title")
+            u_content = Expression<String>("content")
+            u_date = Expression<Date>("date")
             
             if (!UserDefaults.standard.bool(forKey: "is_db_created")) {
                 //try db.run(drafts.drop(ifExists: true)) -> use when modifying table
@@ -62,6 +92,22 @@ class DBManager {
                     t.column(d_title)
                     t.column(d_content)
                 })
+                try db.run(upload.create { (t) in
+                    t.column(u_id, primaryKey: true)
+                    t.column(u_spot)
+                    t.column(u_cat1)
+                    t.column(u_cat2)
+                    t.column(u_cat3)
+                    t.column(u_cleanliness)
+                    t.column(u_waitTime)
+                    t.column(u_foodQuality)
+                    t.column(u_service)
+                    t.column(u_image)
+                    t.column(u_title)
+                    t.column(u_content)
+                    t.column(u_date)
+                })
+                
                 UserDefaults.standard.set(true, forKey: "is_db_created")
             }
         }
@@ -70,7 +116,7 @@ class DBManager {
         }
     }
     
-    //(C)RUD
+    // Creates
     public func addDraft(spotValue: String, cat1Value: String, cat2Value: String, cat3Value: String,
                          cleanlinessValue: Int, waitTimeValue: Int, foodQualityValue: Int, serviceValue: Int,
                          imageValue: String, titleValue: String, contentValue: String) {
@@ -80,6 +126,18 @@ class DBManager {
             print("Draft added for spot \(spotValue)")
         } catch {
             print(error.localizedDescription)
+        }
+    }
+    
+    public func addUpload(idValue: String, spotValue: String, cat1Value: String, cat2Value: String, cat3Value: String,
+                          cleanlinessValue: Int, waitTimeValue: Int, foodQualityValue: Int, serviceValue: Int,
+                          imageValue: String, titleValue: String, contentValue: String, dateValue: Date) {
+        do {
+            try db.run(upload.insert(u_id <- idValue, u_spot <- spotValue, u_cat1 <- cat1Value, u_cat2 <- cat2Value, 
+                                     u_cat3 <- cat3Value, u_cleanliness <- cleanlinessValue, u_waitTime <- waitTimeValue, u_foodQuality <- foodQualityValue, u_service <- serviceValue, u_image <- imageValue, u_title <- titleValue, u_content <- contentValue, u_date <- dateValue))
+            print("Upload added for spot \(spotValue)")
+        } catch {
+            print(error)
         }
     }
     
@@ -97,7 +155,7 @@ class DBManager {
         return false
     }
     
-    //C(R)UD
+    // Reads
     func getDraft(spot: String) -> ReviewDraft? {
         do {
             if let row = try db.pluck(drafts.filter(self.d_spot == spot)) {
@@ -122,7 +180,7 @@ class DBManager {
         return nil
     }
     
-    //CRU(D)
+    // Deletes
     func deleteDraft(spot: String) {
         let draftToDelete = drafts.filter(self.d_spot == spot)
         do {
@@ -133,7 +191,17 @@ class DBManager {
         }
     }
     
-    func deleteImage(spot: String) {
+    func deleteUpload(id: String) {
+        let uploadToDelete = upload.filter(self.u_id == id)
+        do {
+            try db.run(uploadToDelete.delete())
+            print("Upload with \(id) id deleted")
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func deleteDraftImage(spot: String) {
         do {
             if let row = try db.pluck(drafts.filter(self.d_spot == spot)) {
                 let image = try row.get(self.d_image)
@@ -145,14 +213,35 @@ class DBManager {
         } catch {
             print("Error deleting image of spot: \(error.localizedDescription)")
         }
-        
+    }
+    
+    func deleteUploadImage(id: String) {
+        do {
+            if let row = try db.pluck(upload.filter(self.u_id == id)) {
+                let image = try row.get(self.d_image)
+                if (image != "") {
+                    let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(image)
+                    try FileManager.default.removeItem(atPath: imagePath.path)
+                }
+            }
+        } catch {
+            print("Error deleting image of upload: \(error.localizedDescription)")
+        }
     }
     
     func deleteAllImages() {
         do {
-            let rows = try db.prepare(drafts)
-            for row in rows {
+            let drafts_rows = try db.prepare(drafts)
+            for row in drafts_rows {
                 let image = try row.get(self.d_image)
+                if (image != "") {
+                    let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(image)
+                    try FileManager.default.removeItem(atPath: imagePath.path)
+                }
+            }
+            let upload_rows = try db.prepare(upload)
+            for row in upload_rows {
+                let image = try row.get(self.u_image)
                 if (image != "") {
                     let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(image)
                     try FileManager.default.removeItem(atPath: imagePath.path)
@@ -164,13 +253,66 @@ class DBManager {
     }
 
     
-    func deleteDraftsTable() {
+    func deleteTables() {
         do {
             try db.run(drafts.drop(ifExists: true))
+            try db.run(upload.drop(ifExists: true))
             UserDefaults.standard.set(false, forKey: "is_db_created")
         }
         catch {
             print("Error deleting drafts table: \(error.localizedDescription)")
+        }
+    }
+    
+    // Others
+    func uploadReviews() async throws {
+        do {
+            let rows = try db.prepare(upload)
+            
+            for row in rows {
+                let id = try row.get(self.u_id)
+                let image = try row.get(self.u_image)
+                var selectedImage: UIImage?
+                if (image != "") {
+                    let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(image)
+                    selectedImage = UIImage(contentsOfFile: imagePath.path)
+                    deleteUpload(id: id)
+                }
+                else {
+                    selectedImage = nil
+                }
+                let reviewImage = try await utils.uploadPhoto(image: selectedImage)
+                let content = try row.get(self.u_content)
+                let date = try row.get(self.u_date)
+                let cleanliness = try row.get(self.u_cleanliness)
+                let foodQuality = try row.get(self.u_foodQuality)
+                let service = try row.get(self.u_service)
+                let waitingTime = try row.get(self.u_waitTime)
+                var categories = [try row.get(self.u_cat1), try row.get(self.u_cat2), try row.get(self.u_cat3)]
+                categories = categories.filter { !$0.isEmpty }
+                let lowercasedCategories = categories.map { $0.lowercased() }
+                let title = try row.get(self.u_title)
+                let username = try await utils.getUsername()
+                let user = try await utils.getUser()
+                let newReview = Review(content: content == "" ? nil : content,
+                                       date: date,
+                                       imageUrl: reviewImage,
+                                       ratings: ReviewStats(
+                                        cleanliness: cleanliness,
+                                        foodQuality: foodQuality,
+                                        service: service,
+                                        waitTime: waitingTime),
+                                       selectedCategories: lowercasedCategories,
+                                       title: title == "" ? nil : title,
+                                       user: UserInfo(id: username, name: user))
+                let reviewId = try await utils.addReview(review: newReview)
+                let spot = try row.get(self.u_spot)
+                try await utils.addReviewToSpot(spotId: spot, reviewId: reviewId)
+               
+                deleteUpload(id: id)
+            }
+        } catch {
+            print("Error uploading reviews: \(error.localizedDescription)")
         }
     }
 }

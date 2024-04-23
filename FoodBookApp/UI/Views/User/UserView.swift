@@ -88,7 +88,7 @@ struct UserView: View {
                         print("signing out...")
                         try AuthService.shared.signOut()
                         DBManager().deleteAllImages()
-                        DBManager().deleteDraftsTable() //TODO: maybe show alert notifying user?
+                        DBManager().deleteTables() //TODO: maybe show alert notifying user?
                         NotificationHandler().cancelNotification(identifier: "lastReviewNotification")
                         dismiss()
                         //                            showSignInView = true
