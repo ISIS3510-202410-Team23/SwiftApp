@@ -15,7 +15,7 @@ class ContentViewModel {
     
     private init() {}
     
-    var browseSpots: [Spot] = []
+    var browseSpots: [Spot] = HardcodedSpots.shared.spots
     var forYouSpots: [Spot] = []
     
     var browseSpotsCached: [Spot] = HardcodedSpots.shared.spots
@@ -76,9 +76,9 @@ class ContentViewModel {
     
     func fallback() {
 //        print("SPOTS: Before fallback: \(self.browseSpots.count)")
-        self.browseSpotsCached = cacheService.getSpots() ?? []
+        self.browseSpotsCached = cacheService.getSpots() ?? HardcodedSpots.shared.spots
 //        print("SPOTS: After fallback: \(self.browseSpots.count)")
-        self.forYouSpotsCached = cacheService.getForYou() ?? []
+        self.forYouSpotsCached = cacheService.getForYou() ?? HardcodedSpots.shared.spots
 
     }
 
