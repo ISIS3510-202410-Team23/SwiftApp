@@ -52,11 +52,12 @@ struct ContentView: View {
             }
 
             TabView(selection: $selectedTab){
-                BrowseView(searchText: $searchText, spots: $model.spots, isFetching: $isFetching)
+                
+                BrowseView(searchText: $searchText, spots: networkService.isOnline ? $model.browseSpots : $model.browseSpotsCached, isFetching: $isFetching)
                     .tabItem { Label("Browse", systemImage: "magnifyingglass.circle") }
                     .tag(Tabs.browse)
                 
-                ForYouView(spots: $model.forYouSpots, isFetching: $isFetching, noReviewsFlag: $model.noReviewsFlag)
+                ForYouView(spots: networkService.isOnline ? $model.forYouSpots : $model.forYouSpotsCached, isFetching: $isFetching, noReviewsFlag: $model.noReviewsFlag)
                     .tabItem { Label("For you", systemImage: "star") }
                     .tag(Tabs.foryou)
                 
@@ -85,24 +86,27 @@ struct ContentView: View {
                         showSignInView = authUser == nil
                     }
             }
-            .onReceive(networkService.$isUnavailable) { isUnavailable in
-                if !isUnavailable {
-                    Task {
+            .onReceive(networkService.$isOnline) { _ in
+                if networkService.isOnline {
+                    print("Network is online, initiating fetch")
+                    Task { @MainActor in
                         self.isFetching = true
                         do {
                             try await model.fetch()
                         } catch {
-                            print("ERROR: Fetching \(error)")
+                            print("Fetch error: \(error)")
                         }
                         self.isFetching = false
                     }
                 } else {
+                    print("Network is offline, using fallback")
                     self.isFetching = true
                     self.model.fallback()
                     self.isFetching = false
                 }
-                
             }
+
+            
             .environment(bookmarksManager)
         }
     }

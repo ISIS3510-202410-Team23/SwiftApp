@@ -19,7 +19,7 @@ struct BrowseView: View {
         ScrollView {
             VStack {
                 if !isFetching && searchResults.isEmpty {
-                    Text("Hmm, nothing here. Maybe try a different search?")
+                    Text("Hmm, nothing here. \(!searchText.isEmpty ? "Your search for \"\(searchText)\" has no results" : "")")
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                         .safeAreaPadding()

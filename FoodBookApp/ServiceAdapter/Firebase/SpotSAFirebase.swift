@@ -39,7 +39,7 @@ class SpotSAFirebase: SpotSA {
 
     func getSpots() async throws -> [Spot] {
         let snapshot = try await collection.getDocuments()
-        var spots = [Spot]()
+        var spots: [Spot] = []
 
         for document in snapshot.documents {
             print("FIREBASE: Trying to fetch document \(document.documentID)")
