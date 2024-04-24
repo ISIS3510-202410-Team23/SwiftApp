@@ -24,15 +24,14 @@ enum Tabs:String {
 
 struct ContentView: View {
     @Binding var showSignInView: Bool
-    @Binding var inputHistory: [String]
     
-    @State var selectedTab: Tabs = .browse
+    @State private var selectedTab: Tabs = .browse
     @State private var searchText = ""
     @State private var isPresented:Bool = false
     @State private var isFetching: Bool = true
-    @State var model = ContentViewModel.shared
+    @State private var model = ContentViewModel.shared
     @State private var bookmarksManager = BookmarksService()
-    
+    @State private var inputHistory: [String] = []
     @ObservedObject var networkService = NetworkService.shared
     
     
@@ -70,6 +69,9 @@ struct ContentView: View {
                     .tabItem { Label("Bookmarks", systemImage: "book") }
                     .tag(Tabs.bookmarks)
             }
+            .onAppear {
+                loadInputHistory()
+            }
             .navigationTitle(selectedTab.formattedTitle)
             .navigationBarTitleDisplayMode(.inline)
             .modifier(SearchableModifier(isSearchable: selectedTab == .browse, text: $searchText))
@@ -77,8 +79,12 @@ struct ContentView: View {
                 if searchText.isEmpty {
                     ForEach(inputHistory.indices, id: \.self) { index in
                         let text = inputHistory[index]
-                        Text("\(Image(systemName: "clock"))\t\(text)")
-                            .foregroundColor(.secondary)
+                        Button {
+                            self.searchText = text
+                        } label: {
+                            Text("\(Image(systemName: "clock"))\t\(text)")
+                                .foregroundColor(.secondary)
+                        }
                     }
                     if !inputHistory.isEmpty {
                         Button(action: {
@@ -93,7 +99,7 @@ struct ContentView: View {
                 }
             })
             .onSubmit(of: .search) {
-                if searchText != "" {
+                if searchText != "" && !inputHistory.contains(searchText) {
                     print("Submitted: \(searchText)")
                     if inputHistory.count >= 10 {
                         inputHistory.removeLast()
@@ -104,7 +110,6 @@ struct ContentView: View {
                     }
                 }
             }
-
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
@@ -139,9 +144,15 @@ struct ContentView: View {
                     self.model.fallback()
                     self.isFetching = false
                 }
-                
             }
             .environment(bookmarksManager)
+        }
+    }
+    
+    private func loadInputHistory() {
+        if let data = try? Data(contentsOf: fileURL),
+           let history = try? JSONDecoder().decode([String].self, from: data) {
+            inputHistory = history
         }
     }
 }
@@ -160,8 +171,6 @@ struct SearchableModifier: ViewModifier {
         }
     }
 }
-
-
 
 extension View {
     func eraseToAnyView() -> AnyView {
