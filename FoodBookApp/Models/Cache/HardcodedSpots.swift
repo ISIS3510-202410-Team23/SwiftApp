@@ -41,12 +41,7 @@ class HardcodedSpots {
                                                      service: 3.6363636363636362,
                                                      waitTime: 3.0909090909090904),
              userReviews: []), // TODO: add reviews? at least show offline ReviewsView
-             imageLinks: ["https://static.thenounproject.com/png/944120-200.png",
-                          "https://static.thenounproject.com/png/944120-200.png",
-                          "https://static.thenounproject.com/png/944120-200.png",
-                          "https://static.thenounproject.com/png/944120-200.png",
-                          "https://static.thenounproject.com/png/944120-200.png",
-                          "https://static.thenounproject.com/png/944120-200.png"]),
+             imageLinks: ["", "", "", "", "", ""]),
         Spot(id: "NJRaBUfiBlNk9v5hsb7D",
              categories: [
                 Category(name: "sandwhich", count: 1),
@@ -67,12 +62,7 @@ class HardcodedSpots {
                                                      service: 4.111111111111112,
                                                      waitTime: 3.7777777777777777),
              userReviews: []), // TODO: add reviews? at least show offline ReviewsView
-             imageLinks: ["https://static.thenounproject.com/png/944120-200.png",
-                          "https://static.thenounproject.com/png/944120-200.png",
-                          "https://static.thenounproject.com/png/944120-200.png",
-                          "https://static.thenounproject.com/png/944120-200.png",
-                          "https://static.thenounproject.com/png/944120-200.png",
-                          "https://static.thenounproject.com/png/944120-200.png"])
+             imageLinks: ["", "", "", "", "", ""])
         // Add more spots as needed
     ]
 }
