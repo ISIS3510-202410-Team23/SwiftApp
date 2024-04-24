@@ -11,13 +11,11 @@ import BackgroundTasks
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     let taskId = "Team23.FoodBookApp.contextTask"
-    private let cacheService: CacheService = CacheService.shared
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
         UNUserNotificationCenter.current().delegate = self
-        //CacheService.shared.setSpots(HardcodedSpots.shared.spots)
         
         // Register Hanlder for task
         BGTaskScheduler.shared.register(forTaskWithIdentifier: taskId, using: nil) { task in
