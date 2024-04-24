@@ -401,7 +401,6 @@
 			isa = PBXGroup;
 			children = (
 				6CC929062B84FB0900EDDE78 /* Assets.xcassets */,
-				D3FD9DB02BD95168006689A8 /* Cache */,
 				6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */,
 				6CF8217A2B8D877B008E7057 /* GoogleService-Info.plist */,
 				D31966A12BA7A51100E1DD53 /* Handlers */,
@@ -447,6 +446,7 @@
 		6CC9292E2B85023500EDDE78 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D3FD9DB02BD95168006689A8 /* Cache */,
 				D321E4A32B8F929200F93974 /* Review.swift */,
 				D3D92B0E2BCCABE00077C30D /* ReviewDraft.swift */,
 				D321E4A52B8F929D00F93974 /* Spot.swift */,
