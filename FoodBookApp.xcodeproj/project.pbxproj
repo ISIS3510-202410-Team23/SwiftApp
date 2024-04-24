@@ -87,6 +87,7 @@
 		D3D92B0F2BCCABE00077C30D /* ReviewDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D92B0E2BCCABE00077C30D /* ReviewDraft.swift */; };
 		D3DA08072B96EB3B00475AC9 /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DA08062B96EB3A00475AC9 /* LargeButton.swift */; };
 		D3DC76242B96988100AC9CAB /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DC76232B96988100AC9CAB /* ImagePicker.swift */; };
+		D3FD9DB22BD9517A006689A8 /* HardcodedSpots.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD9DB12BD9517A006689A8 /* HardcodedSpots.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,6 +197,7 @@
 		D3D92B0E2BCCABE00077C30D /* ReviewDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDraft.swift; sourceTree = "<group>"; };
 		D3DA08062B96EB3A00475AC9 /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
 		D3DC76232B96988100AC9CAB /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		D3FD9DB12BD9517A006689A8 /* HardcodedSpots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardcodedSpots.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -399,6 +401,7 @@
 			isa = PBXGroup;
 			children = (
 				6CC929062B84FB0900EDDE78 /* Assets.xcassets */,
+				D3FD9DB02BD95168006689A8 /* Cache */,
 				6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */,
 				6CF8217A2B8D877B008E7057 /* GoogleService-Info.plist */,
 				D31966A12BA7A51100E1DD53 /* Handlers */,
@@ -579,6 +582,14 @@
 			path = SQLite;
 			sourceTree = "<group>";
 		};
+		D3FD9DB02BD95168006689A8 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				D3FD9DB12BD9517A006689A8 /* HardcodedSpots.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -742,6 +753,7 @@
 				D338BDAD2BCF435A005481EF /* UnfinishedReviewSAFirebase.swift in Sources */,
 				6C10219E2B96B4CB007DCEEF /* SpotRepository.swift in Sources */,
 				6CF821822B8D891D008E7057 /* LoginViewModel.swift in Sources */,
+				D3FD9DB22BD9517A006689A8 /* HardcodedSpots.swift in Sources */,
 				6CF821772B8D7E15008E7057 /* AuthService.swift in Sources */,
 				6C396DC22BC83EB0006F0855 /* NetworkService.swift in Sources */,
 				6C2504F32BA9D0310018D1DD /* CategorySAFirebase.swift in Sources */,
@@ -954,7 +966,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FoodBookApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = AX26HDBNSN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FoodBookApp/Info.plist;
@@ -974,7 +986,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Team23.FoodBookApp;
+				PRODUCT_BUNDLE_IDENTIFIER = Team23.FoodBookApp.laura;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -990,7 +1002,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FoodBookApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = AX26HDBNSN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FoodBookApp/Info.plist;
@@ -1010,7 +1022,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Team23.FoodBookApp;
+				PRODUCT_BUNDLE_IDENTIFIER = Team23.FoodBookApp.laura;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

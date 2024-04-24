@@ -17,7 +17,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
         UNUserNotificationCenter.current().delegate = self
-        CacheService.shared.setSpots(HardcodedSpots.shared.spots)
+        //CacheService.shared.setSpots(HardcodedSpots.shared.spots)
         
         // Register Hanlder for task
         BGTaskScheduler.shared.register(forTaskWithIdentifier: taskId, using: nil) { task in
