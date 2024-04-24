@@ -15,10 +15,10 @@ class ContentViewModel {
     
     private init() {}
     
-    var browseSpots: [Spot] = []
+    var browseSpots: [Spot] = HardcodedSpots.shared.spots
     var forYouSpots: [Spot] = []
     
-    var browseSpotsCached: [Spot] = []
+    var browseSpotsCached: [Spot] = HardcodedSpots.shared.spots
     var forYouSpotsCached: [Spot] = []
     
     var noReviewsFlag: Bool = false
@@ -60,7 +60,7 @@ class ContentViewModel {
                     if self.browseSpots != [] && !self.browseSpots.isEmpty && self.browseSpots.count != 0 {
 //                        print("SPOTS: Before setting cache: \(self.browseSpots.count)")
                         self.cacheService.setSpots(self.browseSpots)
-                        self.browseSpotsCached = self.browseSpots
+                        self.browseSpotsCached = self.browseSpots //this one (delete!)
 //                        print("SPOTS: After setting cache: \(self.browseSpots.count)")
                     }
                     
