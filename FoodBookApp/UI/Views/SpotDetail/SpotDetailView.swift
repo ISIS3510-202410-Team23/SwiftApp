@@ -166,7 +166,7 @@ struct SpotDetailView: View {
                                         .cornerRadius(12)
                                         .font(.system(size: 20))
                                 }).padding().alert(isPresented: $showNoConnectionAlert) {
-                                    Alert(title: Text("No connection"), message: Text("You can only leave reviews while being connected, sorry!"), dismissButton: .default(Text("OK")))
+                                    Alert(title: Text("No connection"), message: Text("You can only leave reviews while being connected, please try again later!"), dismissButton: .default(Text("OK")))
                                 }
                             }.actionSheet(isPresented: $showDraftMenu) {
                                 ActionSheet(
