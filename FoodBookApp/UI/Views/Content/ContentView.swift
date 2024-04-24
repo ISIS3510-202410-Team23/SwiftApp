@@ -23,23 +23,28 @@ enum Tabs:String {
 }
 
 struct ContentView: View {
-    @State var selectedTab: Tabs = .browse
     @Binding var showSignInView: Bool
     
+    @State private var selectedTab: Tabs = .browse
     @State private var searchText = ""
     @State private var isPresented:Bool = false
     @State private var isFetching: Bool = true
-    
-    @ObservedObject var networkService = NetworkService.shared
-    @State var model = ContentViewModel.shared
-    
-   
+    @State private var model = ContentViewModel.shared
     @State private var bookmarksManager = BookmarksService()
+    @State private var inputHistory: [String] = []
+    @ObservedObject var networkService = NetworkService.shared
+    
+    
+    private let fileURL: URL = {
+            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            return documentsDirectory.appendingPathComponent("inputHistory.json")
+        }()
+    
     
     var body: some View {
         NavigationStack {
             if !networkService.isOnline {
-                HStack(spacing: 4) { 
+                HStack(spacing: 4) {
                     Image(systemName: "wifi.slash")
                         .font(.system(size: 14))
                         .foregroundColor(.secondary)
@@ -50,7 +55,7 @@ struct ContentView: View {
                 }
                 .padding(4)
             }
-
+            
             TabView(selection: $selectedTab){
                 
                 BrowseView(searchText: $searchText, spots: networkService.isOnline ? $model.browseSpots : $model.browseSpotsCached, isFetching: $isFetching)
@@ -65,9 +70,47 @@ struct ContentView: View {
                     .tabItem { Label("Bookmarks", systemImage: "book") }
                     .tag(Tabs.bookmarks)
             }
+            .onAppear {
+                loadInputHistory()
+            }
             .navigationTitle(selectedTab.formattedTitle)
             .navigationBarTitleDisplayMode(.inline)
             .modifier(SearchableModifier(isSearchable: selectedTab == .browse, text: $searchText))
+            .searchSuggestions({
+                if searchText.isEmpty {
+                    ForEach(inputHistory.indices, id: \.self) { index in
+                        let text = inputHistory[index]
+                        Button {
+                            self.searchText = text
+                        } label: {
+                            Text("\(Image(systemName: "clock"))\t\(text)")
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    if !inputHistory.isEmpty {
+                        Button(action: {
+                            inputHistory.removeAll()
+                            if let data = try? JSONEncoder().encode(inputHistory) {
+                                try? data.write(to: fileURL)
+                            }
+                        }) {
+                            Text("Clear History")
+                        }
+                    }
+                }
+            })
+            .onSubmit(of: .search) {
+                if searchText != "" && !inputHistory.contains(searchText) {
+                    print("Submitted: \(searchText)")
+                    if inputHistory.count >= 10 {
+                        inputHistory.removeLast()
+                    }
+                    inputHistory.insert(searchText, at: 0)
+                    if let data = try? JSONEncoder().encode(inputHistory) {
+                        try? data.write(to: fileURL)
+                    }
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
@@ -110,6 +153,13 @@ struct ContentView: View {
             .environment(bookmarksManager)
         }
     }
+    
+    private func loadInputHistory() {
+        if let data = try? Data(contentsOf: fileURL),
+           let history = try? JSONDecoder().decode([String].self, from: data) {
+            inputHistory = history
+        }
+    }
 }
 
 struct SearchableModifier: ViewModifier {
@@ -126,8 +176,6 @@ struct SearchableModifier: ViewModifier {
         }
     }
 }
-
-
 
 extension View {
     func eraseToAnyView() -> AnyView {

@@ -10,7 +10,6 @@ import SwiftUI
 struct UserView: View {
     @Environment(\.dismiss) private var dismiss
     @Binding var showSignInView: Bool
-    
     @State var notified = NotificationHandler().hasDayPassedSinceLastNotification()
     
     var user: AuthDataResultModel? {
@@ -20,6 +19,11 @@ struct UserView: View {
             return nil
         }
     }
+    
+    private let fileURL: URL = {
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        return documentsDirectory.appendingPathComponent("inputHistory.json")
+    }()
     
     @ObservedObject var networkService = NetworkService.shared
     var body: some View {
@@ -95,6 +99,11 @@ struct UserView: View {
                     } catch {
                         print("Failed to sign out...")
                         // TODO: show user message
+                    }
+                    do {
+                        try FileManager.default.removeItem(at: fileURL)
+                    } catch {
+                        print("Could not delete search file: \(error)")
                     }
                 }
             }, label: {
