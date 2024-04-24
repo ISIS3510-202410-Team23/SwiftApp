@@ -22,9 +22,7 @@ class CacheService {
         if !spots.isEmpty {
             let nsArray = spots as NSArray
             spotsCache.setObject(nsArray, forKey: "spots")
-            print("SPOTS have been set to: \(spots)")
-        } else {
-            print("NOT setting spots to empty list")
+            print("SPOTS have been set to: \(spots.count)")
         }
     }
 
@@ -39,7 +37,6 @@ class CacheService {
     
     func setForYou(_ spots: [Spot]) {
         forYouCache.setObject(spots as NSArray, forKey: "fyp")
-        print("ForYou have been set to: \(spots)")
     }
     
     func getForYou() -> [Spot]? {
