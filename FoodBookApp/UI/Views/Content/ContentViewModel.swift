@@ -15,8 +15,12 @@ class ContentViewModel {
     
     private init() {}
     
-    var spots: [Spot] = []
+    var browseSpots: [Spot] = []
     var forYouSpots: [Spot] = []
+    
+    var browseSpotsCached: [Spot] = []
+    var forYouSpotsCached: [Spot] = []
+    
     var noReviewsFlag: Bool = false
     
     var uid: String = ""
@@ -32,16 +36,6 @@ class ContentViewModel {
     
     func fetch() async throws {
         await withTaskGroup(of: Void.self) { group in
-            group.addTask() {
-                do {
-                    self.spots = try await self.fetchSpots()
-                    await self.calculateDistance()
-                    self.cacheService.setSpots(self.spots)
-                    
-                } catch {
-                    print("ERROR: fetching spots from firebase \(error)")
-                }
-            }
             
             group.addTask() {
                 do {
@@ -50,20 +44,41 @@ class ContentViewModel {
                     self.forYouSpots = try await self.fetchSpotsWithIDList(li: self.dids)
                     await self.calculateDistanceForYou()
                     self.cacheService.setForYou(self.forYouSpots)
+                    self.forYouSpotsCached = self.forYouSpots
                     
                 } catch {
                     print("ERROR: fetching backend \(error)")
                 }
             }
             
+            group.addTask() {
+                do {
+//                    print("SPOTS: Before fetch: \(self.browseSpots.count)")
+                    self.browseSpots = try await self.fetchSpots()
+//                    print("SPOTS: After fetch: \(self.browseSpots.count)")
+                    await self.calculateDistance()
+                    if self.browseSpots != [] && !self.browseSpots.isEmpty && self.browseSpots.count != 0 {
+//                        print("SPOTS: Before setting cache: \(self.browseSpots.count)")
+                        self.cacheService.setSpots(self.browseSpots)
+                        self.browseSpotsCached = self.browseSpots
+//                        print("SPOTS: After setting cache: \(self.browseSpots.count)")
+                    }
+                    
+                } catch {
+                    print("ERROR: fetching spots from firebase \(error)")
+                }
+            }
+            
+            
             await group.waitForAll()
         }
     }
     
     func fallback() {
-        
-        self.spots = cacheService.getSpots() ?? []
-        self.forYouSpots = cacheService.getForYou() ?? []
+//        print("SPOTS: Before fallback: \(self.browseSpots.count)")
+        self.browseSpotsCached = cacheService.getSpots() ?? []
+//        print("SPOTS: After fallback: \(self.browseSpots.count)")
+        self.forYouSpotsCached = cacheService.getForYou() ?? []
 
     }
 
@@ -104,23 +119,24 @@ class ContentViewModel {
         }
     }
     
-    // I know this code is repeated, i just dont know the best way to separate it so i'll leave like this for now
     
     private func calculateDistance() async {
-        for index in self.spots.indices {
-            spots[index].distance = locationUtils.calculateDistance(
-                fromLatitude: spots[index].location.latitude,
-                fromLongitude: spots[index].location.longitude,
+//        print("SPOTS: Before calculating distance: \(self.browseSpots.count)")
+        for index in self.browseSpots.indices {
+            browseSpots[index].distance = locationUtils.calculateDistance(
+                fromLatitude: browseSpots[index].location.latitude,
+                fromLongitude: browseSpots[index].location.longitude,
                 toLatitude: locationService.userLocation?.coordinate.latitude ?? 0,
                 toLongitude: locationService.userLocation?.coordinate.longitude ?? 0)
         }
+//        print("SPOTS: After calculating distance: \(self.browseSpots.count)")
     }
     
     private func calculateDistanceForYou() async {
         for index in self.forYouSpots.indices {
             forYouSpots[index].distance = locationUtils.calculateDistance(
-                fromLatitude: spots[index].location.latitude,
-                fromLongitude: spots[index].location.longitude,
+                fromLatitude: forYouSpots[index].location.latitude,
+                fromLongitude: forYouSpots[index].location.longitude,
                 toLatitude: locationService.userLocation?.coordinate.latitude ?? 0,
                 toLongitude: locationService.userLocation?.coordinate.longitude ?? 0)
         }
