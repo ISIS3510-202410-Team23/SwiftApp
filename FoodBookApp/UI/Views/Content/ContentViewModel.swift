@@ -15,7 +15,7 @@ class ContentViewModel {
     
     private init() {}
     
-    var browseSpots: [Spot] = HardcodedSpots.shared.spots
+    var browseSpots: [Spot] = []
     var forYouSpots: [Spot] = []
     
     var browseSpotsCached: [Spot] = HardcodedSpots.shared.spots
