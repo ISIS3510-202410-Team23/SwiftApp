@@ -78,7 +78,7 @@ class ContentViewModel {
 //        print("SPOTS: Before fallback: \(self.browseSpots.count)")
         self.browseSpotsCached = cacheService.getSpots() ?? HardcodedSpots.shared.spots
 //        print("SPOTS: After fallback: \(self.browseSpots.count)")
-        self.forYouSpotsCached = cacheService.getForYou() ?? HardcodedSpots.shared.spots
+        self.forYouSpotsCached = cacheService.getForYou() ?? []
 
     }
 

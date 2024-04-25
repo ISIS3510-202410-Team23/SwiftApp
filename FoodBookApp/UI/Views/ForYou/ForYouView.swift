@@ -27,7 +27,7 @@ struct ForYouView: View {
                         .multilineTextAlignment(.center)
                         .safeAreaPadding()
                 } else if spots.isEmpty {
-                    Text("Crunching up the latest spots for you")
+                    Text("\(!networkService.isOnline ? "Hmm something went wrong. Please verify you are connected to the internet":"Crunching up the latest spots for you")")
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                         .safeAreaPadding()
