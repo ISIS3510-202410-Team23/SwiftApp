@@ -32,6 +32,11 @@ struct ContentView: View {
     @State private var model = ContentViewModel.shared
     @State private var bookmarksManager = BookmarksService()
     @State private var inputHistory: [String] = []
+    @State private var showOfflineAlert = false
+    @State private var hasShownOfflineAlert = false
+    @State private var lastAlertTime: Date? = nil
+
+
     @ObservedObject var networkService = NetworkService.shared
     
     
@@ -129,8 +134,8 @@ struct ContentView: View {
                         showSignInView = authUser == nil
                     }
             }
-            .onReceive(networkService.$isOnline) { _ in
-                if networkService.isOnline {
+            .onReceive(networkService.$isOnline) { isOnline in
+                if isOnline {
                     print("Network is online, initiating fetch")
                     Task { @MainActor in
                         self.isFetching = true
@@ -145,11 +150,26 @@ struct ContentView: View {
                     print("Network is offline, using fallback")
                     self.isFetching = true
                     self.model.fallback()
-                    self.isFetching = false
+                    let currentTime = Date()
+                    if let lastAlertTime = lastAlertTime, currentTime.timeIntervalSince(lastAlertTime) < 10 {
+                        self.isFetching = false
+                    } else {
+                        showOfflineAlert = true
+                        lastAlertTime = currentTime
+                        hasShownOfflineAlert = true
+                        self.isFetching = false
+                    }
                 }
             }
-
-            
+            .alert(isPresented: $showOfflineAlert, content: {
+                Alert(
+                    title: Text("No internet connection"),
+                    message: Text("Please check your internet connection and try again."),
+                    dismissButton: .default(Text("OK")) {
+                        self.showOfflineAlert = false
+                    }
+                )
+            })
             .environment(bookmarksManager)
         }
     }
