@@ -151,7 +151,7 @@ struct ContentView: View {
                     self.isFetching = true
                     self.model.fallback()
                     let currentTime = Date()
-                    if let lastAlertTime = lastAlertTime, currentTime.timeIntervalSince(lastAlertTime) < 10 {
+                    if let lastAlertTime = lastAlertTime, currentTime.timeIntervalSince(lastAlertTime) < 30 {
                         self.isFetching = false
                     } else {
                         showOfflineAlert = true
