@@ -194,7 +194,6 @@ struct SpotDetailView: View {
         }
         .background(loadingState == LoadingState.loading && networkService.isOnline ? nil : customGray)
         .onAppear {
-            print(loadingState)
             if networkService.isOnline {
                 loadingState = LoadingState.loading
                 fetchDataIfOnline()
