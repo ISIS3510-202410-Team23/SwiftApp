@@ -31,7 +31,9 @@ final class BookmarksViewModel {
                 if NetworkService.shared.isOnline {
                     print("Fetching from firebase...")
                     spots = try await self.repository.getSpotsWithIDList(list: spotIds)
-                    bookmarksCache.setObject(spots as NSArray, forKey: cacheKey)
+                    if !spots.isEmpty {
+                        bookmarksCache.setObject(spots as NSArray, forKey: cacheKey)
+                    }
                 }
             } catch {
                 print("[Bookmarks] Fetching error: ", error)
