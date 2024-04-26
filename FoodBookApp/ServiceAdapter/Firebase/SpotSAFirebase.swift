@@ -1,5 +1,5 @@
 //
-//  SpotsDAOFirebase.swift
+//  SpotsSAFirebase.swift
 //  FoodBookApp
 //
 //  Created by Maria Castro on 3/4/24.
@@ -8,8 +8,8 @@
 import Foundation
 import FirebaseFirestore
 
-class SpotDAOFirebase: SpotDAO {
-    static var shared: SpotDAO = SpotDAOFirebase()
+class SpotSAFirebase: SpotSA {
+    static var shared: SpotSA = SpotSAFirebase()
     private var client: FirebaseClient = FirebaseClient.shared
     private var collection: CollectionReference
     
@@ -39,7 +39,7 @@ class SpotDAOFirebase: SpotDAO {
 
     func getSpots() async throws -> [Spot] {
         let snapshot = try await collection.getDocuments()
-        var spots = [Spot]()
+        var spots: [Spot] = []
 
         for document in snapshot.documents {
             print("FIREBASE: Trying to fetch document \(document.documentID)")

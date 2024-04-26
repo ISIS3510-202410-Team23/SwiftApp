@@ -10,12 +10,13 @@ import Observation
 
 @Observable
 class CreateReview1ViewModel {
-    var categories: [String] = []
     
-    private let repository: CategoryRepository = CategoryRepositoryImpl.shared
+    private let unfinishedReviewRepository: UnfinishedReviewRepository = UnfinishedReviewRepositoryImpl.shared
+    private let utils = Utils.shared
     
     @MainActor
-    func fetchCategories() async throws {
-        self.categories = try await repository.getCategories()
+    
+    func increaseUnfinishedReviewCount(spot: String) async throws {
+        try await unfinishedReviewRepository.updateUnfinishedReviewCount(spot: spot)
     }
 }

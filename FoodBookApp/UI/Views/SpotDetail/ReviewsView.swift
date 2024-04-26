@@ -15,16 +15,35 @@ struct ReviewsView: View {
     let spotName : String
     let reviews: [Review]
     
+    @ObservedObject var networkService = NetworkService.shared
+    
     var body: some View {
         
         // Header
         VStack(spacing: 0){
+            // Sheet rectangle
             Rectangle()
                 .fill(Color.gray)
                 .frame(width: 40, height: 5)
                 .cornerRadius(3)
                 .padding(.top, 10)
                 .frame(maxWidth: .infinity, alignment: .center)
+            
+            if !networkService.isOnline {
+                VStack {
+                    HStack() {
+                        Image(systemName: "wifi.slash")
+                            .font(.system(size: 14))
+                            .foregroundColor(.secondary)
+                        Text("offline")
+                            .font(.system(size: 14))
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(4)
+                }
+            }
             
             if !reviews.isEmpty {
                 ScrollView(.vertical) {
@@ -48,7 +67,7 @@ struct ReviewsView: View {
                                     }.padding()
                                     HStack {
                                         Spacer()
-                                        Text(review.user)
+                                        Text(review.user.name ?? "-")
                                             .foregroundColor(.gray)
                                     }.padding(.horizontal, 10)
                                     
@@ -115,16 +134,24 @@ struct ReviewsView: View {
                                         }
                                         if review.imageUrl != nil {
                                             Spacer()
-                                            AsyncImage(url: URL(string: review.imageUrl)) { image in
-                                                image.resizable()
+                                            if networkService.isOnline {
+                                                AsyncImage(url: URL(string: review.imageUrl)) { image in
+                                                    image.resizable()
+                                                        .aspectRatio(contentMode: .fill)
+                                                } placeholder: {
+                                                    ProgressView()
+                                                }
+                                                .frame(width: 70, height: 70)
+                                                .cornerRadius(10)
+                                                
+                                            } else {
+                                                Image("no-image")
+                                                    .resizable()
                                                     .aspectRatio(contentMode: .fill)
-                                            } placeholder: {
-                                                ProgressView()
+                                                    .frame(width: 70, height: 70)
+                                                    .cornerRadius(10)
                                             }
-                                            .frame(width: 70, height: 70)
-                                            .cornerRadius(10)
-                                        }
-                                        
+                                        }                                        
                                     }.padding()
                                 }
                             }
@@ -151,7 +178,7 @@ struct ReviewsView: View {
                 ratings: ReviewStats(cleanliness: 5, foodQuality: 5, service: 5, waitTime: 4),
                 selectedCategories: ["Homemade", "Dessert"],
                 title: "Me fascina!!",
-                user: "Juan Pedro Gonzalez" // TODO: will be user uid, might need to add antoher field for email
+                user: UserInfo(id: "juan.pg", name: "Juan Pedro Gonzalez") // TODO: will be user uid, might need to add antoher field for email
             ),
             Review(
                 content: "La comida me gustó pero la atención fue pésima, se demoró muchísimo, lástima.",
@@ -164,7 +191,7 @@ struct ReviewsView: View {
                 
                     selectedCategories: ["Poultry", "Rice", "Soup"],
                     title: "No lo recomiendo.",
-                    user: "Mariana Martínez"
+                user: UserInfo(id: "mmz", name:"Mariana Martínez")
             )
             
         ])

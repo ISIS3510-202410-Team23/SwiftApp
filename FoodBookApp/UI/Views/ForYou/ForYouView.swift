@@ -9,37 +9,61 @@ import SwiftUI
 
 
 struct ForYouView: View {
-    @State private var model = ForYouViewModel()
+    
+    @Binding var spots: [Spot]
+    @Binding var isFetching: Bool
+    @Binding var noReviewsFlag: Bool
+    
+    
+    @ObservedObject var networkService = NetworkService.shared
+    
     
     var body: some View {
         ScrollView {
             Group {
-                ForEach(model.spots, id: \.self) { spot in
-                    NavigationLink(
-                        destination: SpotDetailView(spotId: spot.id ?? ""))
-                    {
-                        SpotCard(
-                            title: spot.name,
-                            minTime: spot.waitTime.min,
-                            maxTime: spot.waitTime.max,
-                            distance: spot.distance ?? "-",
-                            categories: spot.categories,
-                            imageLinks: spot.imageLinks ?? [],
-                            price: spot.price
-                        )
-                        .fixedSize(horizontal: false, vertical: true)
+                if noReviewsFlag {
+                    Text("Leave reviews to get personalized recommendations!")
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .safeAreaPadding()
+                } else if spots.isEmpty {
+                    Text("\(!networkService.isOnline ? "Hmm something went wrong. Please verify you are connected to the internet":"Crunching up the latest spots for you")")
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .safeAreaPadding()
+                } else {
+                    ForEach(self.spots, id: \.self) { spot in
+                        NavigationLink(
+                            destination: SpotDetailView(spotId: spot.id ?? ""))
+                        {
+                            SpotCard(
+                                id: spot.id ?? "",
+                                title: spot.name,
+                                minTime: spot.waitTime.min,
+                                maxTime: spot.waitTime.max,
+                                distance: spot.distance ?? "-",
+                                categories: spot.categories,
+                                imageLinks: spot.imageLinks ?? [],
+                                price: spot.price,
+                                spot: spot
+                            )
+                            .fixedSize(horizontal: false, vertical: true)
+                        }
+                        .accentColor(.black)
                     }
-                    .accentColor(.black)
+                }
+                if isFetching {
+                    ProgressView()
                 }
             }
         }
         .padding(8)
-        .task {
-            _ = try? await model.fetchRecommendedSpots()
-        }
+        
     }
 }
 
-#Preview {
-    ForYouView()
-}
+
+
+//#Preview {
+//    ForYouView(spots: [])
+//}

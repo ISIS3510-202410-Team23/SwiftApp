@@ -1,5 +1,5 @@
 //
-//  CategoryDAOFirebase.swift
+//  CategorySAFirebase.swift
 //  FoodBookApp
 //
 //  Created by Maria Castro on 3/19/24.
@@ -8,8 +8,8 @@
 import Foundation
 import FirebaseFirestore
 
-class CategoryDAOFirebase: CategoryDAO {
-    static var shared: CategoryDAO = CategoryDAOFirebase()
+class CategorySAFirebase: CategorySA {
+    static var shared: CategorySA = CategorySAFirebase()
     
     private var client = FirebaseClient.shared
     

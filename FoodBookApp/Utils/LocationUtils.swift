@@ -10,7 +10,6 @@ import CoreLocation
 
 final class LocationUtils {
     func calculateDistance(fromLatitude: Double, fromLongitude: Double, toLatitude: Double, toLongitude: Double) -> String {
-//        print("DEBUG: Calculating distance from \(fromLatitude), \(fromLongitude) to \(toLatitude), \(toLongitude)")
         
         let sourceCoordinate = CLLocationCoordinate2D(latitude: fromLatitude, longitude: fromLongitude)
         let destinationCoordinate = CLLocationCoordinate2D(latitude: toLatitude, longitude: toLongitude)
@@ -19,10 +18,8 @@ final class LocationUtils {
         let destinationLocation = CLLocation(latitude: destinationCoordinate.latitude, longitude: destinationCoordinate.longitude)
         
         let distanceInKilometers = sourceLocation.distance(from: destinationLocation)/1000
-//        print("DEBUG: Got this distance \(distanceInKilometers) ")
         
         if distanceInKilometers > 99 {
-//            print("DEBUG: Returned +99 since distance is too long")
             return "+99"
         } else {
             // Formatting the distance as a string with two decimal places and "km" appended

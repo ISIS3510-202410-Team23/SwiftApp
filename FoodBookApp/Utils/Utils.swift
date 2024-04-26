@@ -10,6 +10,8 @@ import UIKit
 
 final class Utils {
     static let shared = Utils()
+    private let reviewRepository: ReviewRepository = ReviewRepositoryImpl.shared
+    private let spotRepository: SpotRepository = SpotRepositoryImpl.shared
     
     private init() {}
     
@@ -42,6 +44,7 @@ final class Utils {
         return now >= startTime && now <= endTime
     }
     
+    //User ID
     func getUsername() async throws -> String {
         do {
             let email = try AuthService.shared.getAuthenticatedUser().email
@@ -55,6 +58,67 @@ final class Utils {
             } else {
                 throw NSError(domain: "Google", code: 0, userInfo: [NSLocalizedDescriptionKey: "Email not found"])
             }
+        } catch {
+            throw error
+        }
+    }
+    
+    //User name
+    func getUser() async throws -> String? {
+        do {
+            let name = try AuthService.shared.getAuthenticatedUser().name
+            if let name = name {
+                return String(name)
+            } else {
+                throw NSError(domain: "Google", code: 0, userInfo: [NSLocalizedDescriptionKey: "User not found"])
+            }
+        } catch {
+            throw error
+        }
+    }
+    
+    func highestCategories(spot: Spot) -> [Category] {
+        return spot.categories.sorted { cat1, cat2 in
+            cat2.count < cat1.count
+        }
+        
+    }
+    
+    func saveLocalImage(image: UIImage?, imageName: String) {
+        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(imageName)
+        do {
+            try image?.jpegData(compressionQuality: 1)?.write(to: path)
+            print("Image saved locally")
+        }
+        catch {
+            print("Error saving image: \(error.localizedDescription)")
+        }
+    }
+    
+    func uploadPhoto(image: UIImage?) async throws -> String? {
+        guard let image = image else {
+                return nil
+            }
+        do {
+            let url = try await reviewRepository.uploadPhoto(image: image)
+            return url
+        } catch {
+            throw error
+        }
+    }
+    
+    func addReview(review: Review) async throws -> String {
+        do {
+            let id = try await reviewRepository.createReview(review: review)
+            return id
+        } catch {
+            throw error
+        }
+    }
+    
+    func addReviewToSpot(spotId: String, reviewId: String) async throws {
+        do {
+            try await spotRepository.updateSpot(docId: spotId, revId: reviewId)
         } catch {
             throw error
         }

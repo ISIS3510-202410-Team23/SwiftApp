@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseAuth
 import SwiftUI
+import LocalAuthentication
 
 
 // Kept here to maintain auth models together
@@ -17,12 +18,14 @@ struct AuthDataResultModel {
     let email: String?
     let photoUrl: String?
     let isAnonymous: Bool
+    let name: String?
     
     init(user: User) {
         self.uid = user.uid
         self.email = user.email
         self.photoUrl = user.photoURL?.absoluteString
         self.isAnonymous = user.isAnonymous
+        self.name = user.displayName
     }
 }
 
@@ -58,5 +61,27 @@ extension AuthService {
         return AuthDataResultModel(user: authDataResult.user)
     }
     
+    // Local Authentication with biometrics
+    func authenticateUser(completion: @escaping (Bool) -> Void) {
+        let context = LAContext()
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Unlock to access content") { success, error in
+                DispatchQueue.main.async {
+                    if success {
+                        completion(true)
+                    } else {
+                        print("Authentication failed: \(error?.localizedDescription ?? "Unknown error")")
+                        completion(false)
+                    }
+                }
+            }
+        } else {
+            print("Biometric authentication unavailable")
+            completion(false)
+        }
+    }
+    
     
 }
+

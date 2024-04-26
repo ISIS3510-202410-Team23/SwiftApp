@@ -15,6 +15,10 @@ struct ReviewStats: Codable, Equatable, Hashable {
     let waitTime: Int
 }
 
+struct UserInfo: Codable, Equatable, Hashable {
+    let id: String
+    let name: String?
+}
 struct Review: Codable, Equatable, Hashable, Identifiable {
     @DocumentID var id: String?
     let content: String!
@@ -23,5 +27,5 @@ struct Review: Codable, Equatable, Hashable, Identifiable {
     let ratings: ReviewStats
     let selectedCategories: [String]
     let title: String!
-    let user: String // AuthoUserModel.uid from Authentication (getAuthenticatedUser)
+    let user: UserInfo
 }
