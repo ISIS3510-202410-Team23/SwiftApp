@@ -60,11 +60,9 @@ struct BookmarksView: View {
                 isFetching = false
             }
             .onReceive(NetworkService.shared.$isOnline) { isOnline in
-                if model.spots.isEmpty && isOnline {
-                    print("Spots is empty but online, retrying...")
-                    Task {
-                        await model.fetchSpots(Array(bookmarksManager.savedBookmarkIds))
-                    }
+                print("Spots is empty but online, retrying...")
+                Task {
+                    await model.fetchSpots(Array(bookmarksManager.savedBookmarkIds))
                 }
                 
             }
