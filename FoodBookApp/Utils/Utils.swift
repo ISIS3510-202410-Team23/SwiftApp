@@ -78,10 +78,6 @@ final class Utils {
     }
     
 
-    enum CategoryError: Error {
-        case unableToSortCategories
-    }
-
     func highestCategories(spot: Spot) -> [Category] {
         var sortedCategories = [Category]()
         let queue = DispatchQueue(label: "sortingQueue", attributes: .concurrent)
