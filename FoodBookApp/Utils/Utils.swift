@@ -77,13 +77,29 @@ final class Utils {
         }
     }
     
-    func highestCategories(spot: Spot) -> [Category] {
-        return spot.categories.sorted { cat1, cat2 in
-            cat2.count < cat1.count
-        }
-        
+
+    enum CategoryError: Error {
+        case unableToSortCategories
     }
-    
+
+    func highestCategories(spot: Spot) -> [Category] {
+        var sortedCategories = [Category]()
+        let queue = DispatchQueue(label: "sortingQueue", attributes: .concurrent)
+
+        DispatchQueue.concurrentPerform(iterations: spot.categories.count) { index in
+            let category = spot.categories[index]
+            queue.async(flags: .barrier) {
+                sortedCategories.append(category)
+            }
+        }
+
+        queue.sync(flags: .barrier) {}
+
+        sortedCategories.sort { $0.count > $1.count }
+
+        return sortedCategories
+    }
+
     func saveLocalImage(image: UIImage?, imageName: String) {
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(imageName)
         do {
