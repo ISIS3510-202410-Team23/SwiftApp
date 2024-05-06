@@ -95,7 +95,6 @@ struct UserView: View {
                         DBManager().deleteTables() //TODO: maybe show alert notifying user?
                         NotificationHandler().cancelNotification(identifier: "lastReviewNotification")
                         dismiss()
-                        //                            showSignInView = true
                     } catch {
                         print("Failed to sign out...")
                         // TODO: show user message

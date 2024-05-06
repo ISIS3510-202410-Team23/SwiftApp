@@ -23,7 +23,10 @@ enum Tabs:String {
 }
 
 struct ContentView: View {
-    @Binding var showSignInView: Bool
+    @State private var showSignInView: Bool = {
+        let authUser = try? AuthService.shared.getAuthenticatedUser()
+        return authUser == nil
+    }()
     
     @State private var selectedTab: Tabs = .browse
     @State private var searchText = ""
@@ -171,6 +174,9 @@ struct ContentView: View {
                 )
             })
             .environment(bookmarksManager)
+        }
+        .fullScreenCover(isPresented: $showSignInView) {
+            LoginView(showSignInView: $showSignInView)
         }
     }
     
