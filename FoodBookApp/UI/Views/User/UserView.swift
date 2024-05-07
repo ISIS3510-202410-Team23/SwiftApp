@@ -100,9 +100,11 @@ struct UserView: View {
                         // TODO: show user message
                     }
                     do {
-                        try FileManager.default.removeItem(at: fileURL)
+                        print("deleting contents \(fileURL)")
+                        let emptyString = ""
+                        try emptyString.write(to: fileURL, atomically: false, encoding: .utf8)
                     } catch {
-                        print("Could not delete search file: \(error)")
+                        print("Could not remove contents of the file: \(error)")
                     }
                 }
             }, label: {
@@ -115,6 +117,8 @@ struct UserView: View {
         
     }
 }
+
+
 
 #Preview {
     UserView(showSignInView: .constant(false))

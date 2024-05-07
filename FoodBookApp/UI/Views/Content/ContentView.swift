@@ -134,6 +134,9 @@ struct ContentView: View {
                     .presentationBackground(Material.ultraThinMaterial)
                     .onDisappear {
                         let authUser = try? AuthService.shared.getAuthenticatedUser()
+                        if (authUser == nil){
+                            inputHistory.removeAll()
+                        }
                         showSignInView = authUser == nil
                     }
             }
