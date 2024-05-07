@@ -19,7 +19,7 @@ struct BookmarksView: View {
     
     var body: some View {
         
-        if bookmarksManager.savedBookmarkIds.isEmpty {
+        if bookmarksManager.noBookmarks() {
             VStack {
                 Image(systemName: "book")
                     .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
@@ -32,7 +32,10 @@ struct BookmarksView: View {
                 if isFetching {
                     ProgressView()
                 } else if model.spots.isEmpty {
-                    Text("Hmm, nothing here.")
+                    Text("Hmm, you've saved bookmarks but there's nothing here. Please verify you are connected to the internet.")
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .safeAreaPadding()
                 } else {
                     ForEach(model.spots, id: \.self) {spot in
                         NavigationLink(destination: SpotDetailView(spotId: spot.id ?? "")){
@@ -64,7 +67,7 @@ struct BookmarksView: View {
                 Task {
                     await model.fetchSpots(Array(bookmarksManager.savedBookmarkIds))
                 }
-                
+
             }
         }
     }
