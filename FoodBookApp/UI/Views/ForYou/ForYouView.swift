@@ -56,6 +56,16 @@ struct ForYouView: View {
                     ProgressView()
                 }
             }
+        }.onAppear { // TODO: add this to other view maybe?
+            Task {
+                do {
+                    if networkService.isOnline {
+                        try await DBManager().uploadReviews()
+                    }
+                } catch {
+                    print("Error uploading reviews: ", error.localizedDescription)
+                }
+            }
         }
         .padding(8)
         
