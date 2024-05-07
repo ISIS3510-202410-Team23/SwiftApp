@@ -27,17 +27,25 @@ struct SpotCard: View {
     var body: some View {
         VStack(alignment: .leading) {
             LazyHGrid(rows: rowLayout, alignment: .top, spacing: 8, content: {
-                ForEach(imageLinks, id: \.self){
-                    image in
-                    AsyncImage(url: URL(string: image)) { image in
-                        image.resizable()
-                            .aspectRatio(contentMode: .fill)
-                    } placeholder: {
-                        ProgressView()
+                ForEach(imageLinks.indices, id: \.self){ index in
+                    let image = imageLinks[index]
+                    if image != "" {
+                        AsyncImage(url: URL(string: image)) { image in
+                            image.resizable()
+                                .aspectRatio(contentMode: .fill)
+                        } placeholder: {
+                            ProgressView()
+                        }
+                        .frame(width: 110, height: 80)
+                        .cornerRadius(10)
                     }
-                    .frame(width: 110, height: 80)
-                    .cornerRadius(10)
-                    
+                    else {
+                        Image("no-image")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 110, height: 80)
+                            .cornerRadius(10)
+                    }
                 }
             })
             HStack {
