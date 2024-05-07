@@ -77,7 +77,6 @@ final class Utils {
         }
     }
     
-
     func highestCategories(spot: Spot) -> [Category] {
         var sortedCategories = [Category]()
         let queue = DispatchQueue(label: "sortingQueue", attributes: .concurrent)
