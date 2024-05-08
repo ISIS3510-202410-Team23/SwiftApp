@@ -19,7 +19,7 @@ class ContentViewModel {
     var forYouSpots: [Spot] = []
     
     var browseSpotsCached: [Spot] = HardcodedSpots.shared.spots
-    var forYouSpotsCached: [Spot] = []
+//    var forYouSpotsCached: [Spot] = []
     
     var noReviewsFlag: Bool = false
     
@@ -50,7 +50,7 @@ class ContentViewModel {
                     self.forYouSpots = try await self.fetchSpotsWithIDList(li: self.dids)
                     await self.calculateDistanceForYou()
                     self.cacheService.setForYou(self.forYouSpots)
-                    self.forYouSpotsCached = self.forYouSpots
+                    
                     
                 } catch {
                     print("ERROR: fetching backend \(error)")
@@ -84,7 +84,7 @@ class ContentViewModel {
 //        print("SPOTS: Before fallback: \(self.browseSpots.count)")
         self.browseSpotsCached = cacheService.getSpots() ?? HardcodedSpots.shared.spots
 //        print("SPOTS: After fallback: \(self.browseSpots.count)")
-        self.forYouSpotsCached = cacheService.getForYou() ?? []
+        self.forYouSpots = cacheService.getForYou() ?? []
 
     }
 
