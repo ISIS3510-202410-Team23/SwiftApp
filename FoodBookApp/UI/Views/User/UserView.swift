@@ -11,6 +11,7 @@ struct UserView: View {
     @Environment(\.dismiss) private var dismiss
     @Binding var showSignInView: Bool
     @State var notified = NotificationHandler().hasDayPassedSinceLastNotification()
+    @State var model = UserViewModel.shared
     
     var user: AuthDataResultModel? {
         do {
@@ -20,12 +21,10 @@ struct UserView: View {
         }
     }
     
-    private let fileURL: URL = {
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        return documentsDirectory.appendingPathComponent("inputHistory.json")
-    }()
     
     @ObservedObject var networkService = NetworkService.shared
+    
+    
     var body: some View {
         VStack {
             
@@ -90,6 +89,7 @@ struct UserView: View {
                 Task {
                     do {
                         print("signing out...")
+                        await model.saveSearchItems()
                         try AuthService.shared.signOut()
                         DBManager().deleteAllImages()
                         DBManager().deleteTables() //TODO: maybe show alert notifying user?
@@ -99,11 +99,7 @@ struct UserView: View {
                         print("Failed to sign out...")
                         // TODO: show user message
                     }
-                    do {
-                        try FileManager.default.removeItem(at: fileURL)
-                    } catch {
-                        print("Could not delete search file: \(error)")
-                    }
+                    model.deleteFileContents()
                 }
             }, label: {
                 Text("Sign out")
@@ -115,6 +111,8 @@ struct UserView: View {
         
     }
 }
+
+
 
 #Preview {
     UserView(showSignInView: .constant(false))

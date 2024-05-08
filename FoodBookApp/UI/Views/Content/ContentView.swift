@@ -28,25 +28,19 @@ struct ContentView: View {
         return authUser == nil
     }()
     
+    @State private var model = ContentViewModel.shared
+    @State private var bookmarksManager = BookmarksService()
+    
     @State private var selectedTab: Tabs = .browse
     @State private var searchText = ""
     @State private var isPresented:Bool = false
     @State private var isFetching: Bool = true
-    @State private var model = ContentViewModel.shared
-    @State private var bookmarksManager = BookmarksService()
     @State private var inputHistory: [String] = []
     @State private var showOfflineAlert = false
     @State private var hasShownOfflineAlert = false
     @State private var lastAlertTime: Date? = nil
 
-
     @ObservedObject var networkService = NetworkService.shared
-    
-    
-    private let fileURL: URL = {
-            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-            return documentsDirectory.appendingPathComponent("inputHistory.json")
-        }()
     
     
     var body: some View {
@@ -79,7 +73,7 @@ struct ContentView: View {
                     .tag(Tabs.bookmarks)
             }
             .onAppear {
-                loadInputHistory()
+                self.inputHistory = model.loadInputHistory()
             }
             .navigationTitle(selectedTab.formattedTitle)
             .navigationBarTitleDisplayMode(.inline)
@@ -96,11 +90,18 @@ struct ContentView: View {
                         }
                     }
                     if !inputHistory.isEmpty {
+                        let saved = self.inputHistory
                         Button(action: {
-                            inputHistory.removeAll()
-                            if let data = try? JSONEncoder().encode(inputHistory) {
-                                try? data.write(to: fileURL)
+                            Task {
+                                try await model.saveSearchItems(items: saved)
                             }
+                            inputHistory.removeAll()
+                            do {
+                                try model.writeInputHistory(inputHistory: self.inputHistory)
+                            } catch {
+                                print(error)
+                            }
+//                            TODO
                         }) {
                             Text("Clear History")
                         }
@@ -114,8 +115,10 @@ struct ContentView: View {
                         inputHistory.removeLast()
                     }
                     inputHistory.insert(searchText, at: 0)
-                    if let data = try? JSONEncoder().encode(inputHistory) {
-                        try? data.write(to: fileURL)
+                    do {
+                        try model.writeInputHistory(inputHistory: self.inputHistory)
+                    } catch {
+                        print(error)
                     }
                 }
             }
@@ -134,6 +137,10 @@ struct ContentView: View {
                     .presentationBackground(Material.ultraThinMaterial)
                     .onDisappear {
                         let authUser = try? AuthService.shared.getAuthenticatedUser()
+                        if (authUser == nil){
+//                            Send inputHistory to firebase
+                            inputHistory.removeAll()
+                        }
                         showSignInView = authUser == nil
                     }
             }
@@ -180,12 +187,7 @@ struct ContentView: View {
         }
     }
     
-    private func loadInputHistory() {
-        if let data = try? Data(contentsOf: fileURL),
-           let history = try? JSONDecoder().decode([String].self, from: data) {
-            inputHistory = history
-        }
-    }
+
 }
 
 struct SearchableModifier: ViewModifier {
