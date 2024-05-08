@@ -23,16 +23,17 @@ class UnfinishedReviewSAFirebase: UnfinishedReviewSA {
         self.collection = client.db.collection("unfinishedReviews")
     }
     
-    func updateUnfinishedReviewCount(spot: String) async throws {
+    func updateUnfinishedReviewCount(spotId: String, spotName: String) async throws {
         do {
-            let querySnapshot = try await collection.whereField("spot", isEqualTo: spot).getDocuments()
-        
-            if querySnapshot.documents.isEmpty {
-                try await collection.addDocument(data: ["spot": spot, "count": 1])
+            let documentRef = collection.document(spotId)
+            
+            let documentSnapshot = try await documentRef.getDocument()
+            
+            if !documentSnapshot.exists {
+                try await documentRef.setData(["spot": spotName, "count": 1])
             } else {
-                let document = querySnapshot.documents[0]
-                let count = document.data()["count"] as? Int ?? 0
-                try await document.reference.updateData(["count": count + 1])
+                let count = documentSnapshot.data()?["count"] as? Int ?? 0
+                try await documentRef.updateData(["count": count + 1])
             }
         } catch {
             throw error
