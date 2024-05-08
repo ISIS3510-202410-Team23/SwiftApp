@@ -200,7 +200,7 @@ struct CreateReview1View: View {
             if (shouldCount && ((!draftMode && (!selectedCats.isEmpty || cleanliness > 0 || waitingTime > 0 || foodQuality > 0 || service > 0 || !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || selectedImage != nil)) || (draftMode && (filteredCats != selectedCats || draft?.ratings.cleanliness != cleanliness || draft?.ratings.foodQuality != foodQuality || draft?.ratings.waitTime != waitingTime || draft?.ratings.service != service || imageChange || draft?.title != title || draft?.content != content)))) {
                 Task {
                     do {
-                        try await model.increaseUnfinishedReviewCount(spot: spotName)
+                        try await model.increaseUnfinishedReviewCount(spotId: spotId, spotName: spotName)
                     } catch {
                         print("Error increasing unfinished review count: \(error.localizedDescription)")
                     }

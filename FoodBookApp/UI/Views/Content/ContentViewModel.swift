@@ -29,9 +29,15 @@ class ContentViewModel {
     private let locationService = LocationService.shared
     private let locationUtils = LocationUtils()
     private let repository: SpotRepository = SpotRepositoryImpl.shared
+    private let searchRepository: SearchUsageRepository = SearchUsageRepositoryImpl.shared
     private let backendService: BackendService = BackendService.shared
     private let cacheService: CacheService = CacheService.shared
     private let utils = Utils.shared
+    
+    private let fileURL: URL = {
+            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            return documentsDirectory.appendingPathComponent("inputHistory.json")
+        }()
     
     
     func fetch() async throws {
@@ -119,6 +125,7 @@ class ContentViewModel {
         }
     }
     
+//    MARK: - Calculation functions
     
     private func calculateDistance() async {
 //        print("SPOTS: Before calculating distance: \(self.browseSpots.count)")
@@ -141,4 +148,29 @@ class ContentViewModel {
                 toLongitude: locationService.userLocation?.coordinate.longitude ?? 0)
         }
     }
+    
+    // MARK: - Search history
+    
+    func loadInputHistory() -> [String] {
+        if let data = try? Data(contentsOf: fileURL),
+           let history = try? JSONDecoder().decode([String].self, from: data) {
+            return history
+        }
+        return []
+    }
+    
+    func writeInputHistory(inputHistory: [String]) throws {
+        if let data = try? JSONEncoder().encode(inputHistory) {
+            try? data.write(to: fileURL)
+        }
+    }
+    
+    func saveSearchItems(items: [String]) async throws{
+        do {
+            try await searchRepository.updateSharedItems(items: items)
+        } catch {
+            print("Error saving search items \(error)")
+        }
+    }
+    
 }

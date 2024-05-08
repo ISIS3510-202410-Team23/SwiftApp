@@ -16,7 +16,7 @@ class CreateReview1ViewModel {
     
     @MainActor
     
-    func increaseUnfinishedReviewCount(spot: String) async throws {
-        try await unfinishedReviewRepository.updateUnfinishedReviewCount(spot: spot)
+    func increaseUnfinishedReviewCount(spotId: String, spotName: String) async throws {
+        try await unfinishedReviewRepository.updateUnfinishedReviewCount(spotId: spotId, spotName: spotName)
     }
 }
