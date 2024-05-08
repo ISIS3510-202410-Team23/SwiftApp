@@ -12,7 +12,7 @@ class SpotDetailFetchingTimeImpl: SpotDetailFetchingTimeRepository {
     static var shared: SpotDetailFetchingTimeRepository = SpotDetailFetchingTimeImpl()
     static var spotDetailFetchingTimeSA: SpotDetailFetchingTimeSA = SpotDetailFetchingTimeSAFirebase.shared
     
-    func createFetchingTime(fetchingTime: FetchingTime) async throws {
-        return try await SpotDetailFetchingTimeImpl.spotDetailFetchingTimeSA.createFetchingTime(fetchingTime: fetchingTime)
+    func createFetchingTime(spotId: String, spotName: String, time: Double) async throws {
+        return try await SpotDetailFetchingTimeImpl.spotDetailFetchingTimeSA.createFetchingTime(spotId: spotId, spotName: spotName, time: time)
     }
 }

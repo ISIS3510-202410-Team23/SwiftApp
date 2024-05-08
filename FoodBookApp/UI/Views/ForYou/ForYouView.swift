@@ -56,7 +56,7 @@ struct ForYouView: View {
                     ProgressView()
                 }
             }
-        }.onAppear { // TODO: add this to other view maybe?
+        }.onAppear { 
             Task {
                 do {
                     if networkService.isOnline {

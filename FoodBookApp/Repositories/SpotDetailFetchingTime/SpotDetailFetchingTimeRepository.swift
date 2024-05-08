@@ -10,5 +10,5 @@ import SwiftUI
 
 protocol SpotDetailFetchingTimeRepository {
     static var spotDetailFetchingTimeSA: SpotDetailFetchingTimeSA { get }
-    func createFetchingTime(fetchingTime: FetchingTime) async throws
+    func createFetchingTime(spotId: String, spotName: String, time: Double) async throws
 }

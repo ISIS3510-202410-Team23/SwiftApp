@@ -27,7 +27,7 @@ struct BookmarksView: View {
                     .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
                     .font(.system(size: 100))
                 Text("You have no saved bookmarks.")
-            }.onAppear { // TODO: add this to other view maybe?
+            }.onAppear {
                 Task {
                     do {
                         if networkService.isOnline {
@@ -67,7 +67,7 @@ struct BookmarksView: View {
                         }
                     }
                 }
-            }.onAppear { // TODO: add this to other view maybe?
+            }.onAppear {
                 Task {
                     do {
                         if networkService.isOnline {

@@ -50,7 +50,7 @@ struct BrowseView: View {
                 
             }
         }
-        .onAppear { // TODO: add this to other view maybe?
+        .onAppear {
             Task {
                 do {
                     if networkService.isOnline {

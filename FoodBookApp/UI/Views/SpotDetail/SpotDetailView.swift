@@ -221,9 +221,13 @@ struct SpotDetailView: View {
         guard networkService.isOnline else { return }
         Task {
             do {
+                let startTime = Date()
                 try await model.fetchSpot(spotId: spotId)
                 try await model.fetchCategories()
                 loadingState = LoadingState.finished_loading
+                let finishTime = Date()
+                let time = (finishTime.timeIntervalSince(startTime) * 100).rounded() / 100
+                try await model.addFetchingTime(spotId: spotId, spotName: model.spot.name, time: time)
             } catch {
                 print("Error fetching data or uploading reviews: ", error.localizedDescription)
             }
@@ -238,6 +242,6 @@ enum LoadingState {
 }
 
 
-#Preview {
-    SpotDetailView(spotId: "7kzd8gmyG842rx2Ad98b")
-}
+//#Preview {
+//    SpotDetailView(spotId: "7kzd8gmyG842rx2Ad98b")
+//}

@@ -1,5 +1,5 @@
 //
-//  SpotDetailFetchingTime.swift
+//  SpotDetailFetchingTimeSAFirebase.swift
 //  FoodBookApp
 //
 //  Created by Laura Restrepo on 7/05/24.
@@ -23,9 +23,16 @@ class SpotDetailFetchingTimeSAFirebase: SpotDetailFetchingTimeSA {
         self.collection = client.db.collection("spotDetailFetchingTime")
     }
     
-    func createFetchingTime(fetchingTime: FetchingTime) async throws {
+    func createFetchingTime(spotId: String, spotName: String, time: Double) async throws {
         do {
-            let documentRef = try collection.addDocument(from: fetchingTime)
+            let docRef = collection.document(spotId)
+            let documentSnapshot = try await docRef.getDocument()
+
+            if !documentSnapshot.exists {
+                try await docRef.setData(["spot": spotName, "times": [time]])
+            } else {
+                try await docRef.updateData(["times": FieldValue.arrayUnion([time])])
+            }
         } catch {
             throw error
         }
