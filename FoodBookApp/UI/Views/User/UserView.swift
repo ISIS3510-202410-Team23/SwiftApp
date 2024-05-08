@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 struct UserView: View {
     @Environment(\.dismiss) private var dismiss
@@ -106,8 +107,8 @@ struct UserView: View {
             })
             .buttonStyle(.borderedProminent)
             .padding()
-        }
-        
+            
+                    }
         
     }
 }

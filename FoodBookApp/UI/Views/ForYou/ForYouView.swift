@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 
 struct ForYouView: View {
@@ -17,9 +18,27 @@ struct ForYouView: View {
     
     @ObservedObject var networkService = NetworkService.shared
     
+    struct ForYouExplanationTip: Tip {
+        var title: Text {
+            Text("Find more places with for you")
+        }
+
+
+        var message: Text? {
+            Text("Explore tailored suggestions based on your recent reviews. Haven't left any reviews yet? Don't worry, we'll need a few to get started!")
+        }
+
+
+        var image: Image? {
+            Image(systemName: "star")
+        }
+    }
+    
+    var forYouExplanationTip = ForYouExplanationTip()
     
     var body: some View {
         ScrollView {
+            TipView(forYouExplanationTip, arrowEdge: .top)
             Group {
                 if noReviewsFlag {
                     Text("Leave reviews to get personalized recommendations!")
@@ -68,6 +87,11 @@ struct ForYouView: View {
             }
         }
         .padding(8)
+        .task {
+            try? Tips.configure([
+                .displayFrequency(.immediate)
+            ])
+        }
         
     }
 }
