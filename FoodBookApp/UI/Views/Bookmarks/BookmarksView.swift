@@ -81,13 +81,13 @@ struct BookmarksView: View {
             .padding(8)
             .task {
                 isFetching = true
-                await model.fetchSpots(Array(bookmarksManager.savedBookmarkIds))
+                await model.fetchSpots(bookmarksManager.getBookmarks())
                 isFetching = false
             }
             .onReceive(NetworkService.shared.$isOnline) { isOnline in
                 print("Spots is empty but online, retrying...")
                 Task {
-                    await model.fetchSpots(Array(bookmarksManager.savedBookmarkIds))
+                    await model.fetchSpots(bookmarksManager.getBookmarks())
                 }
 
             }

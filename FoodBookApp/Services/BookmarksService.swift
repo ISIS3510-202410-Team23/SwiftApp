@@ -15,7 +15,7 @@ final class BookmarksService {
     private let cacheKey: NSString = "BookmarksInfo"
     
     private let repository: BookmarksUsageRepository = BookmarksUsageRepositoryImpl.shared
-    var savedBookmarkIds: Set<String> = []
+    private var savedBookmarkIds: Set<String> = []
     var user: AuthDataResultModel? {
         do {
             return try AuthService.shared.getAuthenticatedUser()
@@ -25,18 +25,20 @@ final class BookmarksService {
     }
     
     init() {
-        self.savedBookmarkIds = self.loadBookmarksIds()
+        self.loadBookmarksIds()
     }
     
-    private func loadBookmarksIds() -> Set<String> {
+    private func loadBookmarksIds() {
+        print("[INFO] Loading bookmarks for \(user?.uid ?? "default")")
         if let bookmarksArray = UserDefaults.standard.array(forKey: "bookmarks-\(user?.uid ?? "defaut")") as? [String] {
-            return Set(bookmarksArray)
+            self.savedBookmarkIds =  Set(bookmarksArray)
+        } else {
+            self.savedBookmarkIds = Set()
         }
-        return []
+        print("[INFO] Loaded \(self.savedBookmarkIds.count) ids for \(user?.uid ?? "default")")
     }
     
     func updateBookmarks(spot: Spot) {
-        
         let spotId = spot.id ?? ""
         let prevSize = savedBookmarkIds.count
         var insert = true
@@ -52,14 +54,13 @@ final class BookmarksService {
         
         // MARK: update cache
         if self.noBookmarks() { // None left, remove reference
-            BookmarksService.bookmarksCache.removeObject(forKey: cacheKey)
+            self.clearCache()
         } else { // Remove specific instance
-            
             updateCache(spot: spot, insert: insert)
         }
         
         
-        print("Now there are \(savedBookmarkIds.count) saved.")
+        print("[INFO] Now there are \(savedBookmarkIds.count) saved for \(user?.uid ?? "defaut").")
         UserDefaults.standard.set(Array(self.savedBookmarkIds), forKey: "bookmarks-\(user?.uid ?? "defaut")")
         
         if prevSize == 0 && savedBookmarkIds.count - prevSize == 1 {
@@ -67,6 +68,10 @@ final class BookmarksService {
         } else if prevSize == 1 && savedBookmarkIds.count - prevSize == -1 {
             updateUserLogs(usage: false)
         }
+    }
+    
+    func getBookmarks () -> [String] {
+        return Array(self.savedBookmarkIds)
     }
     
     func containsId(spotId: String) -> Bool {
@@ -95,5 +100,14 @@ final class BookmarksService {
             
             BookmarksService.bookmarksCache.setObject(spots as NSArray, forKey: cacheKey) // Updated List
         }
+    }
+    
+    func cleanup() {
+        self.clearCache()
+        self.savedBookmarkIds = Set()
+    }
+    
+    private func clearCache() {
+        BookmarksService.bookmarksCache.removeObject(forKey: cacheKey)
     }
 }
