@@ -22,10 +22,12 @@ class UserViewModel {
     
     func saveSearchItems() async {
         let items = loadInputHistory()
-        do {
-            try await searchRepository.updateSharedItems(items: items)
-        } catch {
-            print("Error saving search items \(error)")
+        if !items.isEmpty {
+            do {
+                try await searchRepository.updateSharedItems(items: items)
+            } catch {
+                print("Error saving search items \(error)")
+            }
         }
     }
     
