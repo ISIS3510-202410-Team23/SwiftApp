@@ -20,9 +20,6 @@ struct LoginView: View {
     @ObservedObject var networkService = NetworkService.shared
     @State var signINAAA = SignInGoogleHelper.shared
     
-    let notify = NotificationHandler()
-    
-    
     var body: some View {
         VStack {
             
@@ -59,8 +56,6 @@ struct LoginView: View {
                     if !viewModel.showAlert {
                         print("Successful sign in.")
                         showSignInView = false
-                        notify.askPermission() // This will only be done once, not every time a user signs in
-                        notify.sendLastReviewNotification(date: Date())
                         
                         if locationService.userLocation == nil{
                             locationService.requestLocationAuthorization()

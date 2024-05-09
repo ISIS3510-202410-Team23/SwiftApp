@@ -11,6 +11,7 @@ import BackgroundTasks
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     let taskId = "Team23.FoodBookApp.contextTask"
+    let notify = NotificationHandler()
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
@@ -23,8 +24,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             guard let task = task as? BGAppRefreshTask else { return }
             self.handleTask(task: task)
         }
-        
-        
+                
+        notify.askPermission()
         
         return true
     }
