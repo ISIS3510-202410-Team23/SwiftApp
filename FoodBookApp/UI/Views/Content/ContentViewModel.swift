@@ -59,15 +59,11 @@ class ContentViewModel {
             
             group.addTask() {
                 do {
-//                    print("SPOTS: Before fetch: \(self.browseSpots.count)")
                     self.browseSpots = try await self.fetchSpots()
-//                    print("SPOTS: After fetch: \(self.browseSpots.count)")
                     await self.calculateDistance()
                     if self.browseSpots != [] && !self.browseSpots.isEmpty && self.browseSpots.count != 0 {
-//                        print("SPOTS: Before setting cache: \(self.browseSpots.count)")
                         self.cacheService.setSpots(self.browseSpots)
                         self.browseSpotsCached = self.browseSpots //this one (delete!)
-//                        print("SPOTS: After setting cache: \(self.browseSpots.count)")
                     }
                     
                 } catch {
@@ -81,11 +77,8 @@ class ContentViewModel {
     }
     
     func fallback() {
-//        print("SPOTS: Before fallback: \(self.browseSpots.count)")
         self.browseSpotsCached = cacheService.getSpots() ?? HardcodedSpots.shared.spots
-//        print("SPOTS: After fallback: \(self.browseSpots.count)")
         self.forYouSpots = cacheService.getForYou() ?? []
-
     }
 
     
