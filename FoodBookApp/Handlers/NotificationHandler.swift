@@ -15,7 +15,6 @@ class NotificationHandler {
         { success, error in
             if success {
                 print("Access granted!")
-                self.sendLastReviewNotification(date: Date())
             } else if let error = error {
                 print(error.localizedDescription)
             }
