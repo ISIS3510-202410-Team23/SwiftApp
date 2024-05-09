@@ -25,7 +25,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             self.handleTask(task: task)
         }
                 
-        notify.askPermission() // Here to handle case when deleting and re-downloading app
+        notify.askPermission()
         
         return true
     }
