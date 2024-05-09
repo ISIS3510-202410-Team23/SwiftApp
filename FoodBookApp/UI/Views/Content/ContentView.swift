@@ -136,10 +136,11 @@ struct ContentView: View {
                     .presentationBackground(Material.ultraThinMaterial)
                     .onDisappear {
                         let authUser = try? AuthService.shared.getAuthenticatedUser()
-                        if (authUser == nil){
-                            inputHistory.removeAll()
-                        }
                         showSignInView = authUser == nil
+                        if (showSignInView) { // moved after so it's done in the background
+                            inputHistory.removeAll()
+                            self.bookmarksManager.cleanup()
+                        }
                     }
             }
             .onReceive(networkService.$isOnline) { isOnline in
@@ -175,7 +176,12 @@ struct ContentView: View {
             .environment(bookmarksManager)
         }
         .fullScreenCover(isPresented: $showSignInView) {
-            LoginView(showSignInView: $showSignInView).onDisappear() {
+            LoginView(showSignInView: $showSignInView)
+            .onAppear() {
+                self.selectedTab = .browse
+            }
+            .onDisappear() {
+                self.isFetching = true
                 fetchData()
             }
         }
@@ -184,6 +190,7 @@ struct ContentView: View {
     func fetchData() {
         Task { @MainActor in
             do {
+                self.bookmarksManager = BookmarksService()
                 try await model.fetch()
             } catch {
                 print("Fetch error: \(error)")
