@@ -15,6 +15,7 @@ class NotificationHandler {
         { success, error in
             if success {
                 print("Access granted!")
+                self.sendLastReviewNotification(date: Date())
             } else if let error = error {
                 print(error.localizedDescription)
             }
@@ -37,6 +38,7 @@ class NotificationHandler {
                 
         let content = UNMutableNotificationContent()
         content.title = "We miss you..."
+        // FIXME: You haven't left a review in X days, depending on settings
         content.body = "You haven't left a review in a while"
         content.sound = UNNotificationSound.default
         

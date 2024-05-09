@@ -11,6 +11,7 @@ import BackgroundTasks
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     let taskId = "Team23.FoodBookApp.contextTask"
+    let notify = NotificationHandler()
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
@@ -24,7 +25,12 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             self.handleTask(task: task)
         }
         
+        let signedIn: Bool = {
+            let authUser = try? AuthService.shared.getAuthenticatedUser()
+            return authUser != nil
+        }()
         
+        notify.askPermission() // Here to handle case when deleting and re-downloading app
         
         return true
     }
