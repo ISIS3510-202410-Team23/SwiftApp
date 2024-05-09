@@ -78,20 +78,15 @@ final class Utils {
     }
     
     func highestCategories(spot: Spot) -> [Category] {
-        var sortedCategories = [Category]()
-        let queue = DispatchQueue(label: "sortingQueue", attributes: .concurrent)
-
-        DispatchQueue.concurrentPerform(iterations: spot.categories.count) { index in
-            let category = spot.categories[index]
-            queue.async(flags: .barrier) {
-                sortedCategories.append(category)
-            }
+        var sortedCategories = spot.categories
+        let group = DispatchGroup()
+        
+        DispatchQueue.concurrentPerform(iterations: sortedCategories.count) { index in
+            group.enter()
+            sortedCategories.sort { $0.count > $1.count }
+            group.leave()
         }
-
-        queue.sync(flags: .barrier) {}
-
-        sortedCategories.sort { $0.count > $1.count }
-
+        group.wait()
         return sortedCategories
     }
 
