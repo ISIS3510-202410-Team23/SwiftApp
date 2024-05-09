@@ -170,7 +170,7 @@ struct SpotDetailView: View {
                                 }
                             }.actionSheet(isPresented: $showDraftMenu) {
                                 ActionSheet(
-                                    title: Text("Looks like you have a draft"),
+                                    title: Text("It looks like you have a draft"),
                                     buttons: [
                                         .default(Text("Create review from draft")) {
                                             draft = DBManager().getDraft(spot: spotId)
