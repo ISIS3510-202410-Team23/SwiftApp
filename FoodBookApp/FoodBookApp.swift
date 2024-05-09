@@ -24,12 +24,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             guard let task = task as? BGAppRefreshTask else { return }
             self.handleTask(task: task)
         }
-        
-        let signedIn: Bool = {
-            let authUser = try? AuthService.shared.getAuthenticatedUser()
-            return authUser != nil
-        }()
-        
+                
         notify.askPermission() // Here to handle case when deleting and re-downloading app
         
         return true
