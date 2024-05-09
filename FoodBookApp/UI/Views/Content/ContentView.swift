@@ -30,7 +30,6 @@ struct ContentView: View {
     
     @State private var model = ContentViewModel.shared
     @State private var bookmarksManager = BookmarksService()
-    
     @State private var selectedTab: Tabs = .browse
     @State private var searchText = ""
     @State private var isPresented:Bool = false
@@ -64,7 +63,7 @@ struct ContentView: View {
                     .tabItem { Label("Browse", systemImage: "magnifyingglass.circle") }
                     .tag(Tabs.browse)
                 
-                ForYouView(spots: networkService.isOnline ? $model.forYouSpots : $model.forYouSpotsCached, isFetching: $isFetching, noReviewsFlag: $model.noReviewsFlag)
+                ForYouView(spots: $model.forYouSpots, isFetching: $isFetching, noReviewsFlag: $model.noReviewsFlag)
                     .tabItem { Label("For you", systemImage: "star") }
                     .tag(Tabs.foryou)
                 
@@ -138,7 +137,6 @@ struct ContentView: View {
                     .onDisappear {
                         let authUser = try? AuthService.shared.getAuthenticatedUser()
                         if (authUser == nil){
-//                            Send inputHistory to firebase
                             inputHistory.removeAll()
                         }
                         showSignInView = authUser == nil
@@ -147,15 +145,9 @@ struct ContentView: View {
             .onReceive(networkService.$isOnline) { isOnline in
                 if isOnline {
                     print("Network is online, initiating fetch")
-                    Task { @MainActor in
-                        self.isFetching = true
-                        do {
-                            try await model.fetch()
-                        } catch {
-                            print("Fetch error: \(error)")
-                        }
-                        self.isFetching = false
-                    }
+                    self.isFetching = true
+                    fetchData()
+                    self.isFetching = false
                 } else {
                     print("Network is offline, using fallback")
                     self.isFetching = true
@@ -183,7 +175,20 @@ struct ContentView: View {
             .environment(bookmarksManager)
         }
         .fullScreenCover(isPresented: $showSignInView) {
-            LoginView(showSignInView: $showSignInView)
+            LoginView(showSignInView: $showSignInView).onDisappear() {
+                fetchData()
+            }
+        }
+    }
+    
+    func fetchData() {
+        Task { @MainActor in
+            do {
+                try await model.fetch()
+            } catch {
+                print("Fetch error: \(error)")
+            }
+            self.isFetching = false
         }
     }
     
