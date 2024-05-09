@@ -27,11 +27,16 @@ class SpotDetailFetchingTimeSAFirebase: SpotDetailFetchingTimeSA {
         do {
             let docRef = collection.document(spotId)
             let documentSnapshot = try await docRef.getDocument()
+            let fetchingTime: [String: Any] = [
+                "time": time,
+                "date": Date(),
+                "platform": "iOS"
+            ]
 
             if !documentSnapshot.exists {
-                try await docRef.setData(["spot": spotName, "times": [time]])
+                try await docRef.setData(["spot": spotName, "times": [fetchingTime]])
             } else {
-                try await docRef.updateData(["times": FieldValue.arrayUnion([time])])
+                try await docRef.updateData(["times": FieldValue.arrayUnion([fetchingTime])])
             }
         } catch {
             throw error
