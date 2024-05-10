@@ -27,16 +27,6 @@ struct BookmarksView: View {
                     .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
                     .font(.system(size: 100))
                 Text("You have no saved bookmarks.")
-            }.onAppear { // TODO: add this to other view maybe?
-                Task {
-                    do {
-                        if networkService.isOnline {
-                            try await DBManager().uploadReviews()
-                        }
-                    } catch {
-                        print("Error uploading reviews: ", error.localizedDescription)
-                    }
-                }
             }
         }
         else {
@@ -65,16 +55,6 @@ struct BookmarksView: View {
                             .fixedSize(horizontal: false, vertical: true)
                             .accentColor(.black)
                         }
-                    }
-                }
-            }.onAppear { // TODO: add this to other view maybe?
-                Task {
-                    do {
-                        if networkService.isOnline {
-                            try await DBManager().uploadReviews()
-                        }
-                    } catch {
-                        print("Error uploading reviews: ", error.localizedDescription)
                     }
                 }
             }
