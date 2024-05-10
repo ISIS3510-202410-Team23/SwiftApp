@@ -253,7 +253,7 @@ struct CreateReview2View: View {
                             }) {
                                 Image(systemName: "chevron.up")
                                     .foregroundColor(titleIsFocused ? .secondary : .blue)
-                            }
+                            }.disabled(titleIsFocused)
                             Button(action: {
                                 if !contentIsFocused {
                                     contentIsFocused = true
@@ -261,14 +261,14 @@ struct CreateReview2View: View {
                             }) {
                                 Image(systemName: "chevron.down")
                                     .foregroundColor(contentIsFocused ? .secondary : .blue)
-                            }
+                            }.disabled(contentIsFocused)
                             Spacer()
                             Button("OK") {
                                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                             }
                         }
                     }
-                    }
+                }
                 Spacer()
             }
         }.sheet(isPresented: $showImagePicker) {
