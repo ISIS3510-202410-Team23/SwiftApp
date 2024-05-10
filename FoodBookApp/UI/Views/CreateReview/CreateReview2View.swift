@@ -242,33 +242,32 @@ struct CreateReview2View: View {
                             }
                         }
                     }.padding(.horizontal)
-                        
                 }.padding(.horizontal, 15)
-                    .toolbar {
-                        ToolbarItem(placement: .keyboard) {
-                            HStack {
-                                Button(action: {
-                                    if !titleIsFocused {
-                                        titleIsFocused = true
-                                    }
-                                }) {
-                                    Image(systemName: "chevron.up")
-                                        .foregroundColor(titleIsFocused ? .secondary : .blue)
+                .toolbar {
+                    ToolbarItem(placement: .keyboard) {
+                        HStack {
+                            Button(action: {
+                                if !titleIsFocused {
+                                    titleIsFocused = true
                                 }
-                                Button(action: {
-                                    if !contentIsFocused {
-                                        contentIsFocused = true
-                                    }
-                                }) {
-                                    Image(systemName: "chevron.down")
-                                        .foregroundColor(contentIsFocused ? .secondary : .blue)
+                            }) {
+                                Image(systemName: "chevron.up")
+                                    .foregroundColor(titleIsFocused ? .secondary : .blue)
+                            }
+                            Button(action: {
+                                if !contentIsFocused {
+                                    contentIsFocused = true
                                 }
-                                Spacer()
-                                Button("OK") {
-                                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                                }
+                            }) {
+                                Image(systemName: "chevron.down")
+                                    .foregroundColor(contentIsFocused ? .secondary : .blue)
+                            }
+                            Spacer()
+                            Button("OK") {
+                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                             }
                         }
+                    }
                     }
                 Spacer()
             }
