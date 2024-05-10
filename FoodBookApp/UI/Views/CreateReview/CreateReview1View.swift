@@ -132,8 +132,16 @@ struct CreateReview1View: View {
                                 if searchTextIsFocused {
                                     ClearButton(){
                                         searchText = ""
-                                        searchTextIsFocused = false
                                     }.padding(.top, 20).padding(.trailing, 10)
+                                }
+                            }.toolbar {
+                                ToolbarItem(placement: .keyboard) {
+                                    HStack {
+                                        Spacer()
+                                        Button("OK") {
+                                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                                        }
+                                    }
                                 }
                             }
                         }
