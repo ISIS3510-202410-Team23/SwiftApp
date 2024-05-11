@@ -223,7 +223,7 @@ struct CreateReview2View: View {
                         if titleIsFocused {
                             ClearButton(){
                                 title = ""
-                                titleIsFocused = false}
+                            }
                         }
                     }.padding(.horizontal)
                     
@@ -239,11 +239,36 @@ struct CreateReview2View: View {
                         if contentIsFocused {
                             ClearButton(){
                                 content = ""
-                                contentIsFocused = false}
+                            }
                         }
                     }.padding(.horizontal)
                 }.padding(.horizontal, 15)
-                
+                .toolbar {
+                    ToolbarItem(placement: .keyboard) {
+                        HStack {
+                            Button(action: {
+                                if !titleIsFocused {
+                                    titleIsFocused = true
+                                }
+                            }) {
+                                Image(systemName: "chevron.up")
+                                    .foregroundColor(titleIsFocused ? .secondary : .blue)
+                            }.disabled(titleIsFocused)
+                            Button(action: {
+                                if !contentIsFocused {
+                                    contentIsFocused = true
+                                }
+                            }) {
+                                Image(systemName: "chevron.down")
+                                    .foregroundColor(contentIsFocused ? .secondary : .blue)
+                            }.disabled(contentIsFocused)
+                            Spacer()
+                            Button("OK") {
+                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                            }
+                        }
+                    }
+                }
                 Spacer()
             }
         }.sheet(isPresented: $showImagePicker) {
@@ -302,5 +327,3 @@ struct CreateReview2View: View {
 #Preview {
     CreateReview2View(categories: ["Homemade", "Colombian"], spotId: "ms1hTTxzVkiJElZiYHAT", draftMode: false, shouldCount: .constant(false), imageChange: .constant(false), selectedImage: .constant(nil), cleanliness: .constant(0), waitingTime: .constant(0), foodQuality: .constant(0), service: .constant(0), title: .constant(""), content: .constant(""), isNewReviewSheetPresented: .constant(true))
 }
-
-
