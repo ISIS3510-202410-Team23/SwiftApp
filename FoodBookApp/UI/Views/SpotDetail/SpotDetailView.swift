@@ -210,6 +210,8 @@ struct SpotDetailView: View {
             isPresented: $isReviewsSheetPresented,
             content: {
                 ReviewsView(spotName: "MiCaserito", reviews: model.spot.reviewData.userReviews)
+                    .presentationDragIndicator(.visible)
+                    .padding(.top)
             })
         .sheet(
             isPresented: $isNewReviewSheetPresented,
