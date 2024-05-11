@@ -109,18 +109,17 @@ struct CreateReview2View: View {
                     .navigationTitle("Review")
                     .toolbar{
                         Button(action: {
-                            AuthService.shared.authenticateUser { success in
-                                if success {
-                                    // User is authenticated, proceed with review submission
-                                    if cleanliness == 0 || waitingTime == 0 || service == 0 || foodQuality == 0 {
-                                        showFillStarsAlert.toggle()
-                                    }
-                                    else {
-                                        let reviewDate = Date()
-                                        let lowercasedCategories = categories.map { $0.lowercased() }
-                                        let trimmedContent = content.trimmingCharacters(in: .whitespacesAndNewlines)
-                                        let trimmedTitle = title.trimmingCharacters(in: .whitespacesAndNewlines)
-                                        shouldCount = false
+                            if cleanliness == 0 || waitingTime == 0 || service == 0 || foodQuality == 0 {
+                                showFillStarsAlert.toggle()
+                            }
+                            else {
+                                let reviewDate = Date()
+                                let lowercasedCategories = categories.map { $0.lowercased() }
+                                let trimmedContent = content.trimmingCharacters(in: .whitespacesAndNewlines)
+                                let trimmedTitle = title.trimmingCharacters(in: .whitespacesAndNewlines)
+                                shouldCount = false
+                                AuthService.shared.authenticateUser{ success in
+                                    if success {
                                         if networkService.isOnline {
                                             // Step 1: Upload review
                                             Task {
@@ -159,8 +158,7 @@ struct CreateReview2View: View {
                                             
                                             // Step 2: Close sheet
                                             isNewReviewSheetPresented.toggle()
-                                        }
-                                        else {
+                                        }else {
                                             let imageName = "\(UUID().uuidString).jpg"
                                             let idValue = UUID().uuidString
                                             DBManager().addUpload(idValue: idValue, spotValue: spotId, cat1Value: lowercasedCategories.indices.contains(0) ? lowercasedCategories[0] : "", cat2Value: lowercasedCategories.indices.contains(1) ? lowercasedCategories[1] : "", cat3Value: lowercasedCategories.indices.contains(2) ? lowercasedCategories[2] : "", cleanlinessValue: cleanliness, waitTimeValue: waitingTime, foodQualityValue: foodQuality, serviceValue: service, imageValue: selectedImage != nil ? imageName : "", titleValue: trimmedTitle, contentValue: trimmedContent, dateValue: reviewDate)
@@ -169,17 +167,15 @@ struct CreateReview2View: View {
                                             }
                                             showUploadLaterAlert.toggle()
                                         }
-                                        if (DBManager().draftExists(spot: spotId) && draftMode) {
-                                            DBManager().deleteDraftImage(spot: spotId)
-                                            DBManager().deleteDraft(spot: spotId)
-                                        }
                                     }
-                                } else {
-                                    // Authentication failed, handle accordingly (e.g., show an alert)
-                                    print("Authentication failed")
-                                    // Show an alert or perform any other action to notify the user
+                                }
+                                
+                                if (DBManager().draftExists(spot: spotId) && draftMode) {
+                                    DBManager().deleteDraftImage(spot: spotId)
+                                    DBManager().deleteDraft(spot: spotId)
                                 }
                             }
+                            
                         }, label: {
                             Text("Done")
                                 .frame(maxWidth: .infinity)
@@ -243,32 +239,32 @@ struct CreateReview2View: View {
                         }
                     }.padding(.horizontal)
                 }.padding(.horizontal, 15)
-                .toolbar {
-                    ToolbarItem(placement: .keyboard) {
-                        HStack {
-                            Button(action: {
-                                if !titleIsFocused {
-                                    titleIsFocused = true
+                    .toolbar {
+                        ToolbarItem(placement: .keyboard) {
+                            HStack {
+                                Button(action: {
+                                    if !titleIsFocused {
+                                        titleIsFocused = true
+                                    }
+                                }) {
+                                    Image(systemName: "chevron.up")
+                                        .foregroundColor(titleIsFocused ? .secondary : .blue)
+                                }.disabled(titleIsFocused)
+                                Button(action: {
+                                    if !contentIsFocused {
+                                        contentIsFocused = true
+                                    }
+                                }) {
+                                    Image(systemName: "chevron.down")
+                                        .foregroundColor(contentIsFocused ? .secondary : .blue)
+                                }.disabled(contentIsFocused)
+                                Spacer()
+                                Button("OK") {
+                                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                                 }
-                            }) {
-                                Image(systemName: "chevron.up")
-                                    .foregroundColor(titleIsFocused ? .secondary : .blue)
-                            }.disabled(titleIsFocused)
-                            Button(action: {
-                                if !contentIsFocused {
-                                    contentIsFocused = true
-                                }
-                            }) {
-                                Image(systemName: "chevron.down")
-                                    .foregroundColor(contentIsFocused ? .secondary : .blue)
-                            }.disabled(contentIsFocused)
-                            Spacer()
-                            Button("OK") {
-                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                             }
                         }
                     }
-                }
                 Spacer()
             }
         }.sheet(isPresented: $showImagePicker) {
