@@ -40,7 +40,7 @@ struct ContentView: View {
     @State private var lastAlertTime: Date? = nil
 
     @ObservedObject var networkService = NetworkService.shared
-    
+    @ObservedObject var dbManager = DBManager.shared
     
     var body: some View {
         NavigationStack {
@@ -79,6 +79,26 @@ struct ContentView: View {
             }
             .onAppear {
                 self.inputHistory = model.loadInputHistory()
+                Task {
+                    if networkService.isOnline && !dbManager.uploading {
+                        do {
+                            try await DBManager.shared.uploadReviews()
+                        } catch {
+                            print("Error uploading reviews: ", error.localizedDescription)
+                        }
+                    }
+                }
+            }
+            .onChange(of: networkService.isOnline) {
+                Task {
+                    if networkService.isOnline && !dbManager.uploading {
+                        do {
+                            try await DBManager.shared.uploadReviews() 
+                        } catch {
+                            print("Error uploading reviews: ", error.localizedDescription)
+                        }
+                    }
+                }
             }
             .navigationTitle(selectedTab.formattedTitle)
             .navigationBarTitleDisplayMode(.inline)

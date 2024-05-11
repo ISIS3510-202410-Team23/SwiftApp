@@ -50,17 +50,6 @@ struct BrowseView: View {
                 
             }
         }
-        .onAppear {
-            Task {
-                do {
-                    if networkService.isOnline {
-                        try await DBManager().uploadReviews()
-                    }
-                } catch {
-                    print("Error uploading reviews: ", error.localizedDescription)
-                }
-            }
-        }
         .padding(8)
     }
     
