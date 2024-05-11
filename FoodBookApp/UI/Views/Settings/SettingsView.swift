@@ -17,19 +17,14 @@ struct SettingsView: View {
     let customGray2 = Color(red: 242/255, green: 242/255, blue: 247/255)
     
     var body: some View {
-        VStack(alignment: .leading) {
-            // Sheet rectangle
-            Rectangle()
-                .fill(Color.gray)
-                .frame(width: 40, height: 5)
-                .cornerRadius(3)
-                .padding(.top, 10)
-                .frame(maxWidth: .infinity, alignment: .center)
-            
-            // Title
+        VStack() {
+            // Header
             Text("Settings")
                 .fontWeight(.bold)
                 .frame(maxWidth: .infinity, alignment: .center)
+                .padding(.top)
+            
+            Separator()
             
             Form {
                 Section(header: Text("NOTIFICATIONS")) {
