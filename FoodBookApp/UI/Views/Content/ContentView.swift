@@ -40,7 +40,7 @@ struct ContentView: View {
     @State private var lastAlertTime: Date? = nil
 
     @ObservedObject var networkService = NetworkService.shared
-    
+    @ObservedObject var dbManager = DBManager.shared
     
     var body: some View {
         NavigationStack {
@@ -56,6 +56,12 @@ struct ContentView: View {
                 }
                 .padding(4)
             }
+            
+//            DEBUG:
+//            Text("Browse spots: Cached \(model.browseSpotsCached.count), List \(model.browseSpots.count) ")
+//            Text("For You spots: List \(model.forYouSpots.count)")
+//            Text("No reviews flag: \(model.noReviewsFlag ? "true" : "false")")
+//            Text("Is fetching flag: \(isFetching ? "true" : "false")")
             
             TabView(selection: $selectedTab){
                 
@@ -73,6 +79,26 @@ struct ContentView: View {
             }
             .onAppear {
                 self.inputHistory = model.loadInputHistory()
+                Task {
+                    if networkService.isOnline && !dbManager.uploading {
+                        do {
+                            try await DBManager.shared.uploadReviews()
+                        } catch {
+                            print("Error uploading reviews: ", error.localizedDescription)
+                        }
+                    }
+                }
+            }
+            .onChange(of: networkService.isOnline) {
+                Task {
+                    if networkService.isOnline && !dbManager.uploading {
+                        do {
+                            try await DBManager.shared.uploadReviews() 
+                        } catch {
+                            print("Error uploading reviews: ", error.localizedDescription)
+                        }
+                    }
+                }
             }
             .navigationTitle(selectedTab.formattedTitle)
             .navigationBarTitleDisplayMode(.inline)
@@ -100,7 +126,6 @@ struct ContentView: View {
                             } catch {
                                 print(error)
                             }
-//                            TODO
                         }) {
                             Text("Clear History")
                         }
@@ -136,21 +161,20 @@ struct ContentView: View {
                     .presentationBackground(Material.ultraThinMaterial)
                     .onDisappear {
                         let authUser = try? AuthService.shared.getAuthenticatedUser()
-                        if (authUser == nil){
-                            inputHistory.removeAll()
-                        }
                         showSignInView = authUser == nil
+                        if (showSignInView) { // moved after so it's done in the background
+                            inputHistory.removeAll()
+                            self.bookmarksManager.cleanup()
+                        }
                     }
             }
             .onReceive(networkService.$isOnline) { isOnline in
+                self.isFetching = true
                 if isOnline {
                     print("Network is online, initiating fetch")
-                    self.isFetching = true
                     fetchData()
-                    self.isFetching = false
                 } else {
                     print("Network is offline, using fallback")
-                    self.isFetching = true
                     self.model.fallback()
                     let currentTime = Date()
                     if let lastAlertTime = lastAlertTime, currentTime.timeIntervalSince(lastAlertTime) < 30 {
@@ -175,7 +199,12 @@ struct ContentView: View {
             .environment(bookmarksManager)
         }
         .fullScreenCover(isPresented: $showSignInView) {
-            LoginView(showSignInView: $showSignInView).onDisappear() {
+            LoginView(showSignInView: $showSignInView)
+            .onAppear() {
+                self.selectedTab = .browse
+            }
+            .onDisappear() {
+                self.isFetching = true
                 fetchData()
             }
         }
@@ -184,6 +213,7 @@ struct ContentView: View {
     func fetchData() {
         Task { @MainActor in
             do {
+                self.bookmarksManager = BookmarksService()
                 try await model.fetch()
             } catch {
                 print("Fetch error: \(error)")

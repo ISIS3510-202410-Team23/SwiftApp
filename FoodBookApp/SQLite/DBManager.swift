@@ -9,16 +9,19 @@ import Foundation
 import SQLite
 import SwiftUI
 
-class DBManager {
+class DBManager: ObservableObject {
+    
+    static let shared = DBManager()
+    
     private var db: Connection!
     private var drafts: SQLite.Table!
     private var upload: SQLite.Table!
     private let utils = Utils.shared
-    
+    @Published var uploading = false
+   
     let notify = NotificationHandler()
     
-    //d is for drafts, u is for upload
-    
+    // Drafts table columns
     private var d_spot: Expression<String>!
     private var d_cat1: Expression<String>!
     private var d_cat2: Expression<String>!
@@ -31,6 +34,7 @@ class DBManager {
     private var d_title: Expression<String>!
     private var d_content: Expression<String>!
     
+    // Upload table columns
     private var u_id: Expression<String>!
     private var u_spot: Expression<String>!
     private var u_cat1: Expression<String>!
@@ -118,7 +122,7 @@ class DBManager {
         }
     }
     
-    // Creates
+    // MARK: - Add functions
     public func addDraft(spotValue: String, cat1Value: String, cat2Value: String, cat3Value: String,
                          cleanlinessValue: Int, waitTimeValue: Int, foodQualityValue: Int, serviceValue: Int,
                          imageValue: String, titleValue: String, contentValue: String) {
@@ -143,21 +147,7 @@ class DBManager {
         }
     }
     
-    public func draftExists(spot: String) -> Bool {
-        do {
-            if (try db.pluck(drafts.filter(self.d_spot == spot))) != nil {
-                return true
-            }
-            else {
-                return false
-            }
-        } catch {
-            print(error.localizedDescription)
-        }
-        return false
-    }
-    
-    // Reads
+    // MARK: - Get functions
     func getDraft(spot: String) -> ReviewDraft? {
         do {
             if let row = try db.pluck(drafts.filter(self.d_spot == spot)) {
@@ -182,7 +172,7 @@ class DBManager {
         return nil
     }
     
-    // Deletes
+    // MARK: - Delete functions
     func deleteDraft(spot: String) {
         let draftToDelete = drafts.filter(self.d_spot == spot)
         do {
@@ -266,8 +256,24 @@ class DBManager {
         }
     }
     
-    // Others
+    // MARK: - Other functions
+    public func draftExists(spot: String) -> Bool {
+        do {
+            if (try db.pluck(drafts.filter(self.d_spot == spot))) != nil {
+                return true
+            }
+            else {
+                return false
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+        return false
+    }
+    
+    @MainActor
     func uploadReviews() async throws {
+        self.uploading = true
         do {
             let rows = try db.prepare(upload)
             let count = try db.scalar(upload.count)
@@ -280,7 +286,6 @@ class DBManager {
                     if (image != "") {
                         let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(image)
                         selectedImage = UIImage(contentsOfFile: imagePath.path)
-                        deleteUploadImage(id: id)
                     }
                     else {
                         selectedImage = nil
@@ -311,6 +316,7 @@ class DBManager {
                     let reviewId = try await utils.addReview(review: newReview)
                     let spot = try row.get(self.u_spot)
                     try await utils.addReviewToSpot(spotId: spot, reviewId: reviewId)
+                    deleteUploadImage(id: id)
                     deleteUpload(id: id)
                 }
                 notify.sendUploadedReviewsNotification()
@@ -318,5 +324,6 @@ class DBManager {
         } catch {
             print("Error uploading reviews: \(error.localizedDescription)")
         }
+        self.uploading = false
     }
 }

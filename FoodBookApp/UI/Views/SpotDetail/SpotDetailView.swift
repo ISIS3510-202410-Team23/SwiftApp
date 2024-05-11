@@ -194,7 +194,7 @@ struct SpotDetailView: View {
                                 }
                             }.actionSheet(isPresented: $showDraftMenu) {
                                 ActionSheet(
-                                    title: Text("Looks like you have a draft"),
+                                    title: Text("It looks like you have a draft"),
                                     buttons: [
                                         .default(Text("Create review from draft")) {
                                             draft = DBManager().getDraft(spot: spotId)
@@ -245,9 +245,13 @@ struct SpotDetailView: View {
         guard networkService.isOnline else { return }
         Task {
             do {
+                let startTime = Date()
                 try await model.fetchSpot(spotId: spotId)
                 try await model.fetchCategories()
                 loadingState = LoadingState.finished_loading
+                let finishTime = Date()
+                let time = (finishTime.timeIntervalSince(startTime) * 100).rounded() / 100
+                model.addFetchingTime(spotId: spotId, spotName: model.spot.name, time: time)
             } catch {
                 print("Error fetching data or uploading reviews: ", error.localizedDescription)
             }
@@ -262,6 +266,6 @@ enum LoadingState {
 }
 
 
-#Preview {
-    SpotDetailView(spotId: "7kzd8gmyG842rx2Ad98b")
-}
+//#Preview {
+//    SpotDetailView(spotId: "7kzd8gmyG842rx2Ad98b")
+//}
