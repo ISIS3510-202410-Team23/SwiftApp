@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import MapKit
+import TipKit
 
 struct SpotDetailView: View {
     @State private var model = SpotDetailViewModel()
@@ -24,6 +25,22 @@ struct SpotDetailView: View {
     @ObservedObject var networkService = NetworkService.shared
     
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
+    
+    struct ScrollTip: Tip {
+        var title: Text {
+            Text("Check out all categories")
+        }
+        
+        var message: Text? {
+            Text("Swipe to see what people have eaten at this place!")
+        }
+        
+        var image: Image? {
+            Image(systemName: "hand.draw")
+        }
+    }
+    
+    var scrollTip = ScrollTip()
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -65,6 +82,8 @@ struct SpotDetailView: View {
                             .padding(.vertical)
                             
                             // Categories
+                            
+                            TipView(scrollTip, arrowEdge: .leading)
                             ScrollView(.horizontal) {
                                 HStack {
                                     ForEach(Utils.shared.highestCategories(spot: model.spot), id: \.self) { cat in
@@ -78,6 +97,11 @@ struct SpotDetailView: View {
                                     }
                                 }
                                 .padding(.horizontal)
+                                .task {
+                                    try? Tips.configure([
+                                        .displayFrequency(.immediate)
+                                    ])
+                                }
                             }
                             
                             // Reviews - See more
