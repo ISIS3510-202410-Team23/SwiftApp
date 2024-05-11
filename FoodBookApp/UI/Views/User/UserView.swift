@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 struct UserView: View {
     @Environment(\.dismiss) private var dismiss
@@ -84,6 +85,13 @@ struct UserView: View {
                 Text("Status Report")
             })
             
+            Button {
+                Tips.showAllTipsForTesting()
+            } label: {
+                Text("Show tips again")
+            }
+
+            
             // Sign out button
             Button(action: {
                 Task {
@@ -106,8 +114,8 @@ struct UserView: View {
             })
             .buttonStyle(.borderedProminent)
             .padding()
-        }
-        
+            
+                    }
         
     }
 }

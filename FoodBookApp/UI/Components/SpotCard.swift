@@ -30,11 +30,21 @@ struct SpotCard: View {
                 ForEach(imageLinks.indices, id: \.self){ index in
                     let image = imageLinks[index]
                     if image != "" {
-                        AsyncImage(url: URL(string: image)) { image in
-                            image.resizable()
-                                .aspectRatio(contentMode: .fill)
-                        } placeholder: {
-                            ProgressView()
+                        AsyncImage(url: URL(string: image)) { phase in
+                            if let image = phase.image {
+                                image.resizable()
+                                    .aspectRatio(contentMode: .fill)
+                            }
+                            else if phase.error != nil {
+                                Image("no-image")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 110, height: 80)
+                                    .cornerRadius(10)
+                            }
+                            else {
+                                ProgressView()
+                            }
                         }
                         .frame(width: 110, height: 80)
                         .cornerRadius(10)
