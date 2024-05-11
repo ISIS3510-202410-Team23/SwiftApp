@@ -227,7 +227,7 @@ struct SpotDetailView: View {
                 loadingState = LoadingState.finished_loading
                 let finishTime = Date()
                 let time = (finishTime.timeIntervalSince(startTime) * 100).rounded() / 100
-                try await model.addFetchingTime(spotId: spotId, spotName: model.spot.name, time: time)
+                model.addFetchingTime(spotId: spotId, spotName: model.spot.name, time: time)
             } catch {
                 print("Error fetching data or uploading reviews: ", error.localizedDescription)
             }

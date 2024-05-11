@@ -34,7 +34,9 @@ class SpotDetailViewModel {
         self.categories = try await categoryRepository.getCategories()
     }
     
-    func addFetchingTime(spotId: String, spotName: String, time: Double) async throws {
-        try await spotDetailFetchingTimeRepository.createFetchingTime(spotId: spotId, spotName: spotName, time: time)
+    func addFetchingTime(spotId: String, spotName: String, time: Double) {
+        Task(priority: .background) {
+            try await spotDetailFetchingTimeRepository.createFetchingTime(spotId: spotId, spotName: spotName, time: time)
+        }
     }
 }
