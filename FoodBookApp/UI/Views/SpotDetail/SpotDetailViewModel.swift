@@ -20,6 +20,7 @@ class SpotDetailViewModel {
     
     private let spotRepository: SpotRepository = SpotRepositoryImpl.shared
     private let categoryRepository: CategoryRepository = CategoryRepositoryImpl.shared
+    private let spotDetailFetchingTimeRepository: SpotDetailFetchingTimeRepository = SpotDetailFetchingTimeImpl.shared
     
     init() {}
     
@@ -31,5 +32,11 @@ class SpotDetailViewModel {
     
     func fetchCategories() async throws {
         self.categories = try await categoryRepository.getCategories()
+    }
+    
+    func addFetchingTime(spotId: String, spotName: String, time: Double) {
+        Task(priority: .background) {
+            try await spotDetailFetchingTimeRepository.createFetchingTime(spotId: spotId, spotName: spotName, time: time)
+        }
     }
 }

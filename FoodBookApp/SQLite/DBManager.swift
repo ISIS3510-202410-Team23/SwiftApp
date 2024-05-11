@@ -286,7 +286,6 @@ class DBManager: ObservableObject {
                     if (image != "") {
                         let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(image)
                         selectedImage = UIImage(contentsOfFile: imagePath.path)
-                        deleteUploadImage(id: id)
                     }
                     else {
                         selectedImage = nil
@@ -317,6 +316,7 @@ class DBManager: ObservableObject {
                     let reviewId = try await utils.addReview(review: newReview)
                     let spot = try row.get(self.u_spot)
                     try await utils.addReviewToSpot(spotId: spot, reviewId: reviewId)
+                    deleteUploadImage(id: id)
                     deleteUpload(id: id)
                 }
                 notify.sendUploadedReviewsNotification()
