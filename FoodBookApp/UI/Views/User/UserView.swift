@@ -85,6 +85,13 @@ struct UserView: View {
                 Text("Status Report")
             })
             
+            Button {
+                Tips.showAllTipsForTesting()
+            } label: {
+                Text("Show tips again")
+            }
+
+            
             // Sign out button
             Button(action: {
                 Task {
