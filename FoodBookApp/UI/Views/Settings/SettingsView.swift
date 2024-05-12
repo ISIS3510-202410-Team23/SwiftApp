@@ -31,6 +31,10 @@ struct SettingsView: View {
                     Toggle("Days since last review", isOn: $daysSinceLastReview)
                         .onChange(of: daysSinceLastReview) {
                             UserDefaults.standard.set(daysSinceLastReview ? true : false, forKey: "sendDaysSinceLastReviewNotification")
+                            if (daysSinceLastReview && UserDefaults.standard.object(forKey: "daysSinceLastReview") == nil) {
+                                days = 3
+                                UserDefaults.standard.set(4, forKey: "daysSinceLastReview")
+                            }
                         }
                     if daysSinceLastReview {
                         Picker("Number of days", selection: $days) {
