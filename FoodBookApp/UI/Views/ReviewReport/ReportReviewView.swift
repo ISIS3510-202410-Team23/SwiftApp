@@ -81,7 +81,6 @@ struct ReportReviewView: View {
         } message: {
             Text("Your report has been sent! We will review and take further action if needed.")
         }
-        .background()
         
         
     }
