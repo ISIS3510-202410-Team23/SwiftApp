@@ -13,6 +13,7 @@ struct ReportReviewView: View {
     @Environment(\.dismiss) var dismiss
     @State private var selection: ReportReason?
     @State private var explanation: String = ""
+    @FocusState private var focus: Bool
     @State private var sent: Bool = false
     @State private var model: ReviewReportViewModel = ReviewReportViewModel.shared
     @ObservedObject private var networkService = NetworkService.shared
@@ -54,6 +55,15 @@ struct ReportReviewView: View {
             if selection == .other  {
                 TextFieldWithLimit(textContent: $explanation, title: "Please explain why you selected 'Other'", charLimit: 180)
                     .padding()
+                    .focused($focus)
+                    .toolbar { // adding the toolbar
+                                        ToolbarItemGroup(placement: .keyboard) {
+                                                Spacer()
+                                                Button("Done") {
+                                                    focus = false
+                                                }
+                                        }
+                                    }
             }
             
             // MARK: - EC Message
