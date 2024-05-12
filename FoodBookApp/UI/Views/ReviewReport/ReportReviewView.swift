@@ -80,7 +80,7 @@ struct ReportReviewView: View {
                 Text("Leave a report")
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(selection == nil ? .gray : .blue)
+                    .background(selection == nil || networkService.isUnavailable ? .gray : .blue)
                     .foregroundColor(.white)
                     .cornerRadius(12)
                     .font(.system(size: 20))
