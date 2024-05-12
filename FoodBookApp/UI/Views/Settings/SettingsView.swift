@@ -30,7 +30,7 @@ struct SettingsView: View {
             
             Form {
                 // MARK: - Notification Settings
-                Section(header: Text("NOTIFICATIONS")) {
+                Section(header: Text("NOTIFICATIONS"), footer: Text("Changes in the number of days will be reflected once you make a new review or the last scheduled notification is sent")) {
                     Toggle("Days since last review", isOn: $daysSinceLastReview)
                         .onChange(of: daysSinceLastReview) {
                             UserDefaults.standard.set(daysSinceLastReview, forKey: "sendDaysSinceLastReviewNotification")
