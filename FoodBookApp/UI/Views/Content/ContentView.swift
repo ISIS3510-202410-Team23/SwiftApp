@@ -76,7 +76,6 @@ struct ContentView: View {
                 BookmarksView()
                     .tabItem { Label("Bookmarks", systemImage: "book") }
                     .tag(Tabs.bookmarks)
-
                 
             }
             .onAppear {

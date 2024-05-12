@@ -8,18 +8,23 @@
 import SwiftUI
 
 struct BugReportView: View {
-    @State private var title = ""
+    @Environment(\.dismiss) var dismiss
     @State private var descriptionText = ""
     @State private var placeholderDescription = "Describe the issue..."
     @State private var bugType = "Unexpected Behavior"
     @State private var severityLevel = "Minor"
     @State private var stepsToReproduce = ""
-    @State private var placeholderStepsToReproduce = "Enter steps to reproduce the bug..."
-
+    @State private var placeholderStepsToReproduce = "For example: Open the app > navigate to the ForYou page > tap on the logout button"
+    @State private var sent: Bool = false
+    @ObservedObject private var networkService = NetworkService.shared
+    
+    @State private var model = BugReportViewModel.shared
+    
     var body: some View {
+        VStack {
             Form {
                 Section(header: Text("Bug Details")) {
-//                    TextEditorWithPlaceholder(text: $descriptionText, placeholder: $placeholderDescription)
+                    TextFieldWithLimit(textContent: $descriptionText, title: placeholderDescription, charLimit: 100)
                 }
                 Section(header: Text("Bug Type and Severity")) {
                     Picker("Bug Type", selection: $bugType) {
@@ -35,19 +40,35 @@ struct BugReportView: View {
                     
                 }
                 Section(header: Text("Steps to Reproduce")) {
-//                    TextEditorWithPlaceholder(text: $stepsToReproduce, placeholder: $placeholderStepsToReproduce)
+                    TextFieldWithLimit(textContent: $stepsToReproduce, title: placeholderStepsToReproduce, charLimit: 100)
                 }
                 
             }
             
             LargeButton(text: "Send bug report", bgColor: Color.blue, txtColor: Color.white, txtSize: 20)
             {
-                print("Hello world!") // TODO: Should send
+                model.send(description: self.descriptionText, bugType: self.bugType, severityLevel: self.severityLevel, stepsToReproduce: self.stepsToReproduce)
+                sent = true
             }
+            .padding()
+            .disabled(networkService.isUnavailable)
+            
+            
+        }
+        .navigationTitle("Report a bug")
+        .alert("Thank you for making foodbook better!", isPresented: $sent) {
+            Button("OK", role: .cancel) {
+                dismiss()
+            }
+        } message: {
+            Text("Your report has been sent! We will review and take further action.")
+        }
     }
+    
+    
 }
 
-    
+
 #Preview {
     BugReportView()
 }
