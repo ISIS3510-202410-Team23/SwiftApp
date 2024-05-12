@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ReportReviewView: View {
     
+    @Environment(\.dismiss) var dismiss
     @State private var selection: ReportReason?
+    @State private var explanation: String = ""
+    @State private var sent: Bool = false
     @State private var model: ReviewReportViewModel = ReviewReportViewModel.shared
     @ObservedObject private var networkService = NetworkService.shared
     
@@ -17,29 +21,47 @@ struct ReportReviewView: View {
     
     var body: some View {
         
-        List(ReportReason.allCases, id: \.self, selection: $selection) { reason in
+        VStack (spacing: 0) {
             HStack {
-                Text(reason.rawValue)
+                Text("Review Report")
+                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    .padding(0)
                 Spacer()
-                if reason.rawValue == selection?.rawValue {
-                    Image(systemName: "checkmark")
-                        .resizable()
-                        .frame(width: 10, height: 10)
-                        .foregroundColor(Color.accentColor)
-                        .bold()
+            }.padding()
+            List(ReportReason.allCases, id: \.self, selection: $selection) { reason in
+                HStack {
+                    Text(reason.rawValue)
+                    Spacer()
+                    if reason == selection {
+                        Image(systemName: "checkmark")
+                            .resizable()
+                            .frame(width: 10, height: 10)
+                            .foregroundColor(Color.accentColor)
+                            .bold()
+                    }
+                }
+                .onChange(of: selection) {
+                    if selection != .other {
+                        explanation = ""
+                    }
                 }
             }
-        }
-        .disabled(networkService.isUnavailable)
-    
-        VStack{
+            
+            if selection == .other  {
+                TextFieldWithLimit(textContent: $explanation, title: "Please explain why you selected 'Other'", charLimit: 180)
+                    .padding()
+            }
+            
+            
             if (networkService.isUnavailable) {
                 Text("You seem to have lost connection, please make sure you are online to be able to send the report.")
                     .padding()
             }
             
             Button(action: {
-                model.sendReport(reviewId: reviewId, reason: selection!)
+                model.sendReport(reviewId: reviewId, reason: selection == .other ? explanation : selection!.rawValue)
+                sent = true
             }, label: {
                 Text("Leave a report")
                     .frame(maxWidth: .infinity)
@@ -52,6 +74,16 @@ struct ReportReviewView: View {
             .padding()
             .disabled(selection == nil || networkService.isUnavailable)
         }
+        .alert("Thank you for making foodbook better!", isPresented: $sent) {
+            Button("OK", role: .cancel) {
+                dismiss()
+            }
+        } message: {
+            Text("Your report has been sent! We will review and take further action if needed.")
+        }
+        .background()
+        
+        
     }
 }
 

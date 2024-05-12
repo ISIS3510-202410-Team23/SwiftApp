@@ -54,7 +54,7 @@ class ReviewSAFirebase: ReviewSA {
     func uploadReviewReport(reviewId: String, reason: String) async throws {
         let reportsCollection = client.db.collection("reviewReports")
         let reviewRef = collection.document(reviewId)
-        try await reportsCollection.addDocument(data: ["reviewId": reviewRef, "reason": reason])
+        try await reportsCollection.addDocument(data: ["reviewId": reviewRef, "reason": reason, "date": Date()])
     }
 
  }
