@@ -29,6 +29,8 @@ struct ReportReviewView: View {
                     .padding(0)
                 Spacer()
             }.padding()
+            
+            // MARK: - List of reasons
             List(ReportReason.allCases, id: \.self, selection: $selection) { reason in
                 HStack {
                     Text(reason.rawValue)
@@ -48,17 +50,19 @@ struct ReportReviewView: View {
                 }
             }
             
+            // MARK: - Optional text section
             if selection == .other  {
                 TextFieldWithLimit(textContent: $explanation, title: "Please explain why you selected 'Other'", charLimit: 180)
                     .padding()
             }
             
-            
+            // MARK: - EC Message
             if (networkService.isUnavailable) {
                 Text("You seem to have lost connection, please make sure you are online to be able to send the report.")
                     .padding()
             }
             
+            // MARK: - Button to send
             Button(action: {
                 model.sendReport(reviewId: reviewId, reason: selection == .other ? explanation : selection!.rawValue)
                 sent = true
