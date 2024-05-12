@@ -14,6 +14,8 @@ struct SettingsView: View {
     @State private var reviewsUploaded = UserDefaults.standard.bool(forKey: "sendReviewsUploadedNotification")
     @State private var lunchTime = UserDefaults.standard.bool(forKey: "sendLunchTimeNotification")
     
+    @State private var authenticateReviews = UserDefaults.standard.bool(forKey: "authenticateBeforeUploading")
+    
     let customGray2 = Color(red: 242/255, green: 242/255, blue: 247/255)
     
     var body: some View {
@@ -27,6 +29,7 @@ struct SettingsView: View {
             Separator()
             
             Form {
+                // MARK: - Notification Settings
                 Section(header: Text("NOTIFICATIONS")) {
                     Toggle("Days since last review", isOn: $daysSinceLastReview)
                         .onChange(of: daysSinceLastReview) {
@@ -54,12 +57,17 @@ struct SettingsView: View {
                             UserDefaults.standard.set(lunchTime ? true : false, forKey: "sendLunchTimeNotification")
                         }
                 }
-                // TODO: @maria
+                
+                // MARK: - Authentication Settings
                 Section(header: Text("AUTHENTICATION")) {
+                    Toggle("Authenticate before uploading reviews", isOn: $authenticateReviews)
+                        .onChange(of: authenticateReviews) {
+                            UserDefaults.standard.set(authenticateReviews, forKey: "authenticateBeforeUploading")
+                        }
                 }
             }
-            
             Spacer()
+            Text("auth \(authenticateReviews ? "yes" : "no")")
         }.background(customGray2)
     }
 }
