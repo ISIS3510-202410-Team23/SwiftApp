@@ -39,7 +39,7 @@ struct SettingsView: View {
                     if daysSinceLastReview {
                         Picker("Number of days", selection: $days) {
                             ForEach(1..<8) { day in
-                                Text("\(day) days")
+                                Text("\(day) \(day == 1 ? "day" : "days")")
                             }
                         }.onChange(of: days) {
                             UserDefaults.standard.set(days + 1, forKey: "daysSinceLastReview")
