@@ -39,6 +39,7 @@
 		6C2504F82BA9D26C0018D1DD /* CategoryRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2504F72BA9D26C0018D1DD /* CategoryRepositoryImpl.swift */; };
 		6C28ACCA2BD4038500D5A4AD /* BookmarksUsageSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C28ACC92BD4038500D5A4AD /* BookmarksUsageSA.swift */; };
 		6C28ACCC2BD4039500D5A4AD /* BookmarksUsageSAFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C28ACCB2BD4039500D5A4AD /* BookmarksUsageSAFirebase.swift */; };
+		6C2F6ECD2BF03A9000112D5D /* TextFieldWithLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2F6ECC2BF03A9000112D5D /* TextFieldWithLimit.swift */; };
 		6C396DC22BC83EB0006F0855 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C396DC12BC83EB0006F0855 /* NetworkService.swift */; };
 		6C46E4CF2BD1DECD006DCB64 /* BookmarksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C46E4CE2BD1DECD006DCB64 /* BookmarksViewModel.swift */; };
 		6C5ED6D12B8ADB1000AF115C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6C5ED6D02B8ADB1000AF115C /* FirebaseAnalytics */; };
@@ -163,6 +164,7 @@
 		6C2504F72BA9D26C0018D1DD /* CategoryRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepositoryImpl.swift; sourceTree = "<group>"; };
 		6C28ACC92BD4038500D5A4AD /* BookmarksUsageSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksUsageSA.swift; sourceTree = "<group>"; };
 		6C28ACCB2BD4039500D5A4AD /* BookmarksUsageSAFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksUsageSAFirebase.swift; sourceTree = "<group>"; };
+		6C2F6ECC2BF03A9000112D5D /* TextFieldWithLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithLimit.swift; sourceTree = "<group>"; };
 		6C396DC12BC83EB0006F0855 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		6C46E4CE2BD1DECD006DCB64 /* BookmarksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewModel.swift; sourceTree = "<group>"; };
 		6CBFB8362BD03D1F00D69E85 /* BookmarksService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksService.swift; sourceTree = "<group>"; };
@@ -568,6 +570,7 @@
 				D32FC9A22B9624A8008D66BA /* ClearButton.swift */,
 				D3DC76232B96988100AC9CAB /* ImagePicker.swift */,
 				D3DA08062B96EB3A00475AC9 /* LargeButton.swift */,
+				6C2F6ECC2BF03A9000112D5D /* TextFieldWithLimit.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -799,6 +802,7 @@
 				D31D67162BA9119700B22A79 /* CreateReview2ViewModel.swift in Sources */,
 				D321E4A02B8F883A00F93974 /* SpotDetailViewModel.swift in Sources */,
 				D37B0E0F2BCC9ADC00EEFA08 /* DBManager.swift in Sources */,
+				6C2F6ECD2BF03A9000112D5D /* TextFieldWithLimit.swift in Sources */,
 				6C1811D52B8AC15C0066F3D0 /* LoginView.swift in Sources */,
 				0DD5D5482BEAD47800CDB9E8 /* SearchUsageRepository.swift in Sources */,
 				6CC929052B84FB0700EDDE78 /* ContentView.swift in Sources */,
