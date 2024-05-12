@@ -50,5 +50,11 @@ class ReviewSAFirebase: ReviewSA {
         let url = "https://firebasestorage.googleapis.com/v0/b/foodbook-back.appspot.com/o/\(uuid).jpg?alt=media"
         return url
     }
+    
+    func uploadReviewReport(reviewId: String, reason: String) async throws {
+        let reportsCollection = client.db.collection("reviewReports")
+        let reviewRef = collection.document(reviewId)
+        try await reportsCollection.addDocument(data: ["reviewId": reviewRef, "reason": reason])
+    }
 
  }
