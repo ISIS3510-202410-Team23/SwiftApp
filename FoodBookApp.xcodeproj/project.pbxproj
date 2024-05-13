@@ -103,6 +103,7 @@
 		D3D92B0F2BCCABE00077C30D /* ReviewDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D92B0E2BCCABE00077C30D /* ReviewDraft.swift */; };
 		D3DA08072B96EB3B00475AC9 /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DA08062B96EB3A00475AC9 /* LargeButton.swift */; };
 		D3DC76242B96988100AC9CAB /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DC76232B96988100AC9CAB /* ImagePicker.swift */; };
+		D3FB34AE2BF2A49800924A39 /* BugReportDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FB34AD2BF2A49800924A39 /* BugReportDraft.swift */; };
 		D3FD9DB22BD9517A006689A8 /* HardcodedSpots.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD9DB12BD9517A006689A8 /* HardcodedSpots.swift */; };
 /* End PBXBuildFile section */
 
@@ -229,6 +230,7 @@
 		D3D92B0E2BCCABE00077C30D /* ReviewDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDraft.swift; sourceTree = "<group>"; };
 		D3DA08062B96EB3A00475AC9 /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
 		D3DC76232B96988100AC9CAB /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		D3FB34AD2BF2A49800924A39 /* BugReportDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugReportDraft.swift; sourceTree = "<group>"; };
 		D3FD9DB12BD9517A006689A8 /* HardcodedSpots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardcodedSpots.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -517,6 +519,7 @@
 				D3D92B0E2BCCABE00077C30D /* ReviewDraft.swift */,
 				D321E4A52B8F929D00F93974 /* Spot.swift */,
 				0D7F6ECE2BF11A6100AF45DF /* BugReport.swift */,
+				D3FB34AD2BF2A49800924A39 /* BugReportDraft.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -862,6 +865,7 @@
 				D35B913F2BEB0095007C0868 /* SpotDetailFetchingTimeSAFirebase.swift in Sources */,
 				6CBFB8372BD03D1F00D69E85 /* BookmarksService.swift in Sources */,
 				0D7F6ECD2BF1177A00AF45DF /* BugReportViewModel.swift in Sources */,
+				D3FB34AE2BF2A49800924A39 /* BugReportDraft.swift in Sources */,
 				6C1226C82BCDDFA400A18E77 /* UserView.swift in Sources */,
 				D342009D2B91404A00B8817C /* TextButton.swift in Sources */,
 				0DCB7BD82B86F0290088C333 /* BrowseView.swift in Sources */,
