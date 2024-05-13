@@ -22,7 +22,7 @@ class DBManager: ObservableObject {
    
     let notify = NotificationHandler()
     
-    // Drafts (reviews) table columns
+    // Drafts table columns (reviews)
     private var d_spot: Expression<String>!
     private var d_cat1: Expression<String>!
     private var d_cat2: Expression<String>!
