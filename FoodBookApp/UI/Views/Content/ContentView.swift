@@ -65,7 +65,7 @@ struct ContentView: View {
             
             TabView(selection: $selectedTab){
                 
-                BrowseView(searchText: $searchText, spots: networkService.isOnline ? $model.browseSpots : $model.browseSpotsCached, isFetching: $isFetching)
+                BrowseView(searchText: $searchText, spots: networkService.isOnline ? $model.browseSpots : $model.browseSpotsCached, isFetching: $isFetching, hotCategories: $model.hotCategories)
                     .tabItem { Label("Browse", systemImage: "magnifyingglass.circle") }
                     .tag(Tabs.browse)
                 
