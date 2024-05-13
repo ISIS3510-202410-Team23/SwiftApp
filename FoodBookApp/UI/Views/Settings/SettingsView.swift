@@ -67,7 +67,6 @@ struct SettingsView: View {
                 }
             }
             Spacer()
-            Text("auth \(authenticateReviews ? "yes" : "no")")
         }.background(customGray2)
     }
 }
