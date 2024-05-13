@@ -45,17 +45,19 @@ struct BugReportView: View {
                 
             }
             
-            LargeButton(text: "Send bug report", bgColor: Color.blue, txtColor: Color.white, txtSize: 20)
+            LargeButton(text: "Send bug report", bgColor: networkService.isUnavailable ? Color.gray : Color.blue, txtColor: Color.white, txtSize: 20)
             {
                 model.send(description: self.descriptionText, bugType: self.bugType, severityLevel: self.severityLevel, stepsToReproduce: self.stepsToReproduce)
                 sent = true
             }
             .padding()
+//            .padding(.vertical, 1)
+//            .padding(.horizontal)
             .disabled(networkService.isUnavailable)
-            
             
         }
         .navigationTitle("Report a bug")
+        //.navigationBarBackButtonHidden(true)
         .alert("Thank you for making foodbook better!", isPresented: $sent) {
             Button("OK", role: .cancel) {
                 dismiss()
@@ -63,9 +65,21 @@ struct BugReportView: View {
         } message: {
             Text("Your report has been sent! We will review and take further action.")
         }
+//        .toolbar {
+//            ToolbarItem(placement: .navigationBarLeading) {
+//                Button {
+//                    print("Custom Action")
+//                    dismiss()
+//                    
+//                } label: {
+//                    HStack(spacing: 0) {
+//                        Image(systemName: "chevron.backward")
+//                        Text("Back").padding(.leading, 2)
+//                    }
+//                }
+//            }
+//        }
     }
-    
-    
 }
 
 
