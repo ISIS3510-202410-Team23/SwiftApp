@@ -39,6 +39,7 @@
 		6C2504F82BA9D26C0018D1DD /* CategoryRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2504F72BA9D26C0018D1DD /* CategoryRepositoryImpl.swift */; };
 		6C28ACCA2BD4038500D5A4AD /* BookmarksUsageSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C28ACC92BD4038500D5A4AD /* BookmarksUsageSA.swift */; };
 		6C28ACCC2BD4039500D5A4AD /* BookmarksUsageSAFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C28ACCB2BD4039500D5A4AD /* BookmarksUsageSAFirebase.swift */; };
+		6C2F6ECD2BF03A9000112D5D /* TextFieldWithLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2F6ECC2BF03A9000112D5D /* TextFieldWithLimit.swift */; };
 		6C396DC22BC83EB0006F0855 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C396DC12BC83EB0006F0855 /* NetworkService.swift */; };
 		6C46E4CF2BD1DECD006DCB64 /* BookmarksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C46E4CE2BD1DECD006DCB64 /* BookmarksViewModel.swift */; };
 		6C5ED6D12B8ADB1000AF115C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6C5ED6D02B8ADB1000AF115C /* FirebaseAnalytics */; };
@@ -52,6 +53,8 @@
 		6CC9291E2B84FB0900EDDE78 /* FoodBookAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9291D2B84FB0900EDDE78 /* FoodBookAppUITests.swift */; };
 		6CC929202B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9291F2B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift */; };
 		6CC9292D2B84FFEE00EDDE78 /* FoodBookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */; };
+		6CE637392BEFF8820073E856 /* ReportReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE637382BEFF8820073E856 /* ReportReviewView.swift */; };
+		6CE6373C2BEFFACB0073E856 /* ReviewReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE6373B2BEFFACB0073E856 /* ReviewReportViewModel.swift */; };
 		6CF57A802BD408C000A8D2BF /* BookmarksUsageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF57A7F2BD408C000A8D2BF /* BookmarksUsageRepository.swift */; };
 		6CF57A822BD408D200A8D2BF /* BookmarksUsageRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF57A812BD408D200A8D2BF /* BookmarksUsageRepositoryImpl.swift */; };
 		6CF6CCCF2BCF5B5B006F3DE9 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 6CF6CCCE2BCF5B5B006F3DE9 /* SQLite */; };
@@ -162,6 +165,7 @@
 		6C2504F72BA9D26C0018D1DD /* CategoryRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepositoryImpl.swift; sourceTree = "<group>"; };
 		6C28ACC92BD4038500D5A4AD /* BookmarksUsageSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksUsageSA.swift; sourceTree = "<group>"; };
 		6C28ACCB2BD4039500D5A4AD /* BookmarksUsageSAFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksUsageSAFirebase.swift; sourceTree = "<group>"; };
+		6C2F6ECC2BF03A9000112D5D /* TextFieldWithLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithLimit.swift; sourceTree = "<group>"; };
 		6C396DC12BC83EB0006F0855 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		6C46E4CE2BD1DECD006DCB64 /* BookmarksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewModel.swift; sourceTree = "<group>"; };
 		6CBFB8362BD03D1F00D69E85 /* BookmarksService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksService.swift; sourceTree = "<group>"; };
@@ -175,6 +179,8 @@
 		6CC9291D2B84FB0900EDDE78 /* FoodBookAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBookAppUITests.swift; sourceTree = "<group>"; };
 		6CC9291F2B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBookAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodBookApp.swift; sourceTree = "<group>"; };
+		6CE637382BEFF8820073E856 /* ReportReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReviewView.swift; sourceTree = "<group>"; };
+		6CE6373B2BEFFACB0073E856 /* ReviewReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewReportViewModel.swift; sourceTree = "<group>"; };
 		6CF57A7F2BD408C000A8D2BF /* BookmarksUsageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksUsageRepository.swift; sourceTree = "<group>"; };
 		6CF57A812BD408D200A8D2BF /* BookmarksUsageRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksUsageRepositoryImpl.swift; sourceTree = "<group>"; };
 		6CF821762B8D7E15008E7057 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -520,6 +526,7 @@
 		6CC929342B8502D800EDDE78 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6CE6373A2BEFFAB50073E856 /* ReviewReport */,
 				0DC6449A2BCEE7020004684E /* Content */,
 				6C1226C32BCDDF7500A18E77 /* User */,
 				0D8BBB622B91402C00739448 /* ForYou */,
@@ -531,6 +538,15 @@
 				D3A713E72BEFD9BC0010C0F1 /* Settings */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		6CE6373A2BEFFAB50073E856 /* ReviewReport */ = {
+			isa = PBXGroup;
+			children = (
+				6CE637382BEFF8820073E856 /* ReportReviewView.swift */,
+				6CE6373B2BEFFACB0073E856 /* ReviewReportViewModel.swift */,
+			);
+			path = ReviewReport;
 			sourceTree = "<group>";
 		};
 		6CF821832B8D89FA008E7057 /* Utils */ = {
@@ -557,6 +573,7 @@
 				D32FC9A22B9624A8008D66BA /* ClearButton.swift */,
 				D3DC76232B96988100AC9CAB /* ImagePicker.swift */,
 				D3DA08062B96EB3A00475AC9 /* LargeButton.swift */,
+				6C2F6ECC2BF03A9000112D5D /* TextFieldWithLimit.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -796,6 +813,7 @@
 				D31D67162BA9119700B22A79 /* CreateReview2ViewModel.swift in Sources */,
 				D321E4A02B8F883A00F93974 /* SpotDetailViewModel.swift in Sources */,
 				D37B0E0F2BCC9ADC00EEFA08 /* DBManager.swift in Sources */,
+				6C2F6ECD2BF03A9000112D5D /* TextFieldWithLimit.swift in Sources */,
 				6C1811D52B8AC15C0066F3D0 /* LoginView.swift in Sources */,
 				0DD5D5482BEAD47800CDB9E8 /* SearchUsageRepository.swift in Sources */,
 				6CC929052B84FB0700EDDE78 /* ContentView.swift in Sources */,
@@ -839,8 +857,10 @@
 				D3DA08072B96EB3B00475AC9 /* LargeButton.swift in Sources */,
 				D338BDAF2BCF4391005481EF /* UnfinishedReviewSA.swift in Sources */,
 				D321E4A42B8F929200F93974 /* Review.swift in Sources */,
+				6CE6373C2BEFFACB0073E856 /* ReviewReportViewModel.swift in Sources */,
 				D338BDB22BCF461C005481EF /* UnfinishedReviewRepository.swift in Sources */,
 				6C2504F12BA9D00A0018D1DD /* CategorySA.swift in Sources */,
+				6CE637392BEFF8820073E856 /* ReportReviewView.swift in Sources */,
 				D321E4A62B8F929D00F93974 /* Spot.swift in Sources */,
 				6C2504F82BA9D26C0018D1DD /* CategoryRepositoryImpl.swift in Sources */,
 				D31966A32BA7A54300E1DD53 /* NotificationHandler.swift in Sources */,
