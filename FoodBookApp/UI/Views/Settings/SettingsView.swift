@@ -21,13 +21,6 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             VStack() {
-//                // Header
-//                Text("Settings")
-//                    .fontWeight(.bold)
-//                    .frame(maxWidth: .infinity, alignment: .center)
-//                    .padding(.top)
-//                
-//                Separator()
                 
                 Form {
                     // MARK: - Notification Settings
