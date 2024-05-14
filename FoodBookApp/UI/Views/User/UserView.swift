@@ -27,96 +27,100 @@ struct UserView: View {
     
     
     var body: some View {
-        VStack {
-            
-            HStack {
-                if user?.photoUrl != nil {
-                    AsyncImage(url: URL(string: user?.photoUrl ?? "")) { image in
-                        image.resizable()
-                            .aspectRatio(contentMode: .fill)
-                    } placeholder: {
-                        ProgressView()
+        NavigationView {
+            VStack {
+                
+                HStack {
+                    if user?.photoUrl != nil {
+                        AsyncImage(url: URL(string: user?.photoUrl ?? "")) { image in
+                            image.resizable()
+                                .aspectRatio(contentMode: .fill)
+                        } placeholder: {
+                            ProgressView()
+                        }
+                        
+                        .frame(width: 110, height: 110)
+                        .cornerRadius(10)
+                        
+                    } else {
+                        Image(systemName: "person.crop.rectangle.fill")
+                            .font(.largeTitle)
+                            .imageScale(.large)
                     }
                     
-                    .frame(width: 110, height: 110)
-                    .cornerRadius(10)
                     
-                } else {
-                    Image(systemName: "person.crop.rectangle.fill")
-                        .font(.largeTitle)
-                        .imageScale(.large)
+                    VStack {
+                        Text(user?.name ?? "")
+                            .font(.title2)
+                        Text(user?.email ?? "")
+                        
+                    }
+                    .padding()
                 }
                 
-                
-                VStack {
-                    Text(user?.name ?? "")
-                        .font(.title2)
-                    Text(user?.email ?? "")
-                    
+                NavigationLink(destination: UserReviewsView()){
+                    Text("Your reviews")
                 }
+                
+                // TEMPORARY ITEMS
+                //            Text(notified ? "Sent" : "Not Sent")
+                //
+                //            Button(action: {
+                //                UserDefaults.standard.removeObject(forKey: "lastNotificationTime")
+                //                notified = NotificationHandler().hasDayPassedSinceLastNotification()
+                //            }, label: {
+                //                /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
+                //            })
+                //
+                //            // FIXME: Remove, only fro testing Network Service
+                //            if networkService.isOnline {
+                //                Text("Online")
+                //            }
+                //            if networkService.isLowConnection {
+                //                Text("Low Connection")
+                //            }
+                //            if networkService.isUnavailable {
+                //                Text("Unavailble")
+                //            }
+                //
+                //            Button(action: {
+                //                networkService.checkStatus()
+                //            }, label: {
+                //                Text("Status Report")
+                //            })
+                
+                //            Button {
+                //                Tips.showAllTipsForTesting()
+                //            } label: {
+                //                Text("Show tips again")
+                //            }
+                
+                
+                // Sign out button
+                Button(action: {
+                    Task {
+                        do {
+                            print("signing out...")
+                            await model.saveSearchItems()
+                            try AuthService.shared.signOut()
+                            DBManager().deleteAllImages()
+                            DBManager().deleteTables() //TODO: maybe show alert notifying user?
+                            NotificationHandler().cancelNotification(identifier: "lastReviewNotification")
+                            dismiss()
+                        } catch {
+                            print("Failed to sign out...")
+                            // TODO: show user message
+                        }
+                        model.deleteFileContents()
+                    }
+                }, label: {
+                    Text("Sign out")
+                })
+                .buttonStyle(.borderedProminent)
                 .padding()
+                
             }
-            
-            
-            // TEMPORARY ITEMS
-//            Text(notified ? "Sent" : "Not Sent")
-//            
-//            Button(action: {
-//                UserDefaults.standard.removeObject(forKey: "lastNotificationTime")
-//                notified = NotificationHandler().hasDayPassedSinceLastNotification()
-//            }, label: {
-//                /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
-//            })
-//            
-//            // FIXME: Remove, only fro testing Network Service
-//            if networkService.isOnline {
-//                Text("Online")
-//            }
-//            if networkService.isLowConnection {
-//                Text("Low Connection")
-//            }
-//            if networkService.isUnavailable {
-//                Text("Unavailble")
-//            }
-//            
-//            Button(action: {
-//                networkService.checkStatus()
-//            }, label: {
-//                Text("Status Report")
-//            })
-            
-//            Button {
-//                Tips.showAllTipsForTesting()
-//            } label: {
-//                Text("Show tips again")
-//            }
-
-            
-            // Sign out button
-            Button(action: {
-                Task {
-                    do {
-                        print("signing out...")
-                        await model.saveSearchItems()
-                        try AuthService.shared.signOut()
-                        DBManager().deleteAllImages()
-                        DBManager().deleteTables() //TODO: maybe show alert notifying user?
-                        NotificationHandler().cancelNotification(identifier: "lastReviewNotification")
-                        dismiss()
-                    } catch {
-                        print("Failed to sign out...")
-                        // TODO: show user message
-                    }
-                    model.deleteFileContents()
-                }
-            }, label: {
-                Text("Sign out")
-            })
-            .buttonStyle(.borderedProminent)
-            .padding()
-            
-                    }
-        
+        }
     }
 }
 
