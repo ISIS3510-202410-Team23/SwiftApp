@@ -59,37 +59,37 @@ struct UserView: View {
             
             
             // TEMPORARY ITEMS
-            Text(notified ? "Sent" : "Not Sent")
+//            Text(notified ? "Sent" : "Not Sent")
+//            
+//            Button(action: {
+//                UserDefaults.standard.removeObject(forKey: "lastNotificationTime")
+//                notified = NotificationHandler().hasDayPassedSinceLastNotification()
+//            }, label: {
+//                /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
+//            })
+//            
+//            // FIXME: Remove, only fro testing Network Service
+//            if networkService.isOnline {
+//                Text("Online")
+//            }
+//            if networkService.isLowConnection {
+//                Text("Low Connection")
+//            }
+//            if networkService.isUnavailable {
+//                Text("Unavailble")
+//            }
+//            
+//            Button(action: {
+//                networkService.checkStatus()
+//            }, label: {
+//                Text("Status Report")
+//            })
             
-            Button(action: {
-                UserDefaults.standard.removeObject(forKey: "lastNotificationTime")
-                notified = NotificationHandler().hasDayPassedSinceLastNotification()
-            }, label: {
-                /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
-            })
-            
-            // FIXME: Remove, only fro testing Network Service
-            if networkService.isOnline {
-                Text("Online")
-            }
-            if networkService.isLowConnection {
-                Text("Low Connection")
-            }
-            if networkService.isUnavailable {
-                Text("Unavailble")
-            }
-            
-            Button(action: {
-                networkService.checkStatus()
-            }, label: {
-                Text("Status Report")
-            })
-            
-            Button {
-                Tips.showAllTipsForTesting()
-            } label: {
-                Text("Show tips again")
-            }
+//            Button {
+//                Tips.showAllTipsForTesting()
+//            } label: {
+//                Text("Show tips again")
+//            }
 
             
             // Sign out button
