@@ -133,57 +133,7 @@ struct CreateReview2View: View {
                                     }
                                 }
                                 
-//                                AuthService.shared.authenticateUser{ success in
-//                                    if success {
-//                                        if networkService.isOnline {
-//                                            // Step 1: Upload review
-//                                            Task {
-//                                                do {
-//                                                    let reviewImage = try await model.uploadPhoto(image: selectedImage)
-//                                                    let newReview = Review(content: trimmedContent == "" ? nil : trimmedContent,
-//                                                                           date: reviewDate,
-//                                                                           imageUrl: reviewImage,
-//                                                                           ratings: ReviewStats(
-//                                                                            cleanliness: cleanliness,
-//                                                                            foodQuality: foodQuality,
-//                                                                            service: service,
-//                                                                            waitTime: waitingTime),
-//                                                                           selectedCategories: lowercasedCategories,
-//                                                                           title: trimmedTitle == "" ? nil : trimmedTitle,
-//                                                                           user: UserInfo(id: model.username, name: model.user) )
-//                                                    do {
-//                                                        let reviewId = try await model.addReview(review: newReview)
-//                                                        try await model.addReviewToSpot(spotId: spotId, reviewId: reviewId)
-//                                                        
-//                                                        print("The review uploaded has this ID:", reviewId)
-//                                                        
-//                                                    } catch {
-//                                                        print("Error adding review: \(error)")
-//                                                    }
-//                                                }
-//                                                catch {
-//                                                    print(error)
-//                                                }
-//                                            }
-//                                            
-//                                            // Very Nice To Have, but that the "Done" turns into the loading indicator while the review is uploaded, idk how complex it could be though.
-//                                            
-//                                            // Step 1.5: Trigger notification
-//                                            notify.sendLastReviewNotification(date: reviewDate)
-//                                            
-//                                            // Step 2: Close sheet
-//                                            isNewReviewSheetPresented.toggle()
-//                                        } else {
-//                                            let imageName = "\(UUID().uuidString).jpg"
-//                                            let idValue = UUID().uuidString
-//                                            DBManager().addUpload(idValue: idValue, spotValue: spotId, cat1Value: lowercasedCategories.indices.contains(0) ? lowercasedCategories[0] : "", cat2Value: lowercasedCategories.indices.contains(1) ? lowercasedCategories[1] : "", cat3Value: lowercasedCategories.indices.contains(2) ? lowercasedCategories[2] : "", cleanlinessValue: cleanliness, waitTimeValue: waitingTime, foodQualityValue: foodQuality, serviceValue: service, imageValue: selectedImage != nil ? imageName : "", titleValue: trimmedTitle, contentValue: trimmedContent, dateValue: reviewDate)
-//                                            if selectedImage != nil {
-//                                                utils.saveLocalImage(image: selectedImage, imageName: imageName)
-//                                            }
-//                                            showUploadLaterAlert.toggle()
-//                                        }
-//                                    }
-//                                }
+                                notify.sendLastReviewNotification(date: reviewDate)
                                 
                                 if (DBManager().draftExists(spot: spotId) && draftMode) {
                                     DBManager().deleteDraftImage(spot: spotId)
@@ -365,12 +315,7 @@ struct CreateReview2View: View {
                     print(error)
                 }
             }
-            
-            // Very Nice To Have, but that the "Done" turns into the loading indicator while the review is uploaded, idk how complex it could be though.
-            
-            // Step 1.5: Trigger notification
-            notify.sendLastReviewNotification(date: reviewDate)
-            
+                        
             // Step 2: Close sheet
             isNewReviewSheetPresented.toggle()
         } else {
