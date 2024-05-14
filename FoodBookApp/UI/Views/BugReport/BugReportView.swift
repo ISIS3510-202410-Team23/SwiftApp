@@ -43,18 +43,23 @@ struct BugReportView: View {
                     TextFieldWithLimit(textContent: $stepsToReproduce, title: placeholderStepsToReproduce, charLimit: 100)
                 }
                 
+                
+                Section {
+                    LargeButton(text: "Send bug report", bgColor: networkService.isUnavailable ? Color.gray : Color.blue, txtColor: Color.white, txtSize: 20)
+                    {
+                        model.send(date: Date(), description: self.descriptionText, bugType: self.bugType, severityLevel: self.severityLevel, stepsToReproduce: self.stepsToReproduce)
+                        sent = true
+                    }
+                    .disabled(networkService.isUnavailable)
+                    .listRowBackground(Color.clear)
+                    .listRowInsets(EdgeInsets())
+                }
+                
+                .disabled(networkService.isUnavailable)
+                
+                
             }
-            
-            LargeButton(text: "Send bug report", bgColor: networkService.isUnavailable ? Color.gray : Color.blue, txtColor: Color.white, txtSize: 20)
-            {
-                model.send(description: self.descriptionText, bugType: self.bugType, severityLevel: self.severityLevel, stepsToReproduce: self.stepsToReproduce)
-                sent = true
-            }
-            .padding()
-//            .padding(.vertical, 1)
-//            .padding(.horizontal)
-            .disabled(networkService.isUnavailable)
-            
+
         }
         .navigationTitle("Report a bug")
         //.navigationBarBackButtonHidden(true)
@@ -65,20 +70,16 @@ struct BugReportView: View {
         } message: {
             Text("Your report has been sent! We will review and take further action.")
         }
-//        .toolbar {
-//            ToolbarItem(placement: .navigationBarLeading) {
-//                Button {
-//                    print("Custom Action")
-//                    dismiss()
-//                    
-//                } label: {
-//                    HStack(spacing: 0) {
-//                        Image(systemName: "chevron.backward")
-//                        Text("Back").padding(.leading, 2)
-//                    }
-//                }
-//            }
-//        }
+        .toolbar {
+            ToolbarItem(placement: .keyboard) {
+                HStack {
+                    Spacer()
+                    Button("OK") {
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -10,6 +10,7 @@ import FirebaseFirestore
 
 
 struct BugReport: Codable, Equatable, Hashable  {
+    let date: Date
     let description: String
     let bugType: String
     let severityLevel: String

@@ -12,10 +12,10 @@ class BugReportViewModel {
     static let shared = BugReportViewModel()
     private let repository : BugReportRepository = BugReportRepositoryImpl.shared
     
-    func send(description: String, bugType: String, severityLevel: String, stepsToReproduce: String){
+    func send(date: Date, description: String, bugType: String, severityLevel: String, stepsToReproduce: String){
         Task {
             do {
-                let bugReport = BugReport(description: description, bugType: bugType, severityLevel: severityLevel, stepsToReproduce: stepsToReproduce)
+                let bugReport = BugReport(date: date, description: description, bugType: bugType, severityLevel: severityLevel, stepsToReproduce: stepsToReproduce)
                 try await repository.uploadBugReport(bugReport: bugReport)
             } catch {
                 print("Error sending bug report: \(error)")

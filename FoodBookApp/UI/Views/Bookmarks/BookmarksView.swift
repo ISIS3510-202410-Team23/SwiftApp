@@ -22,10 +22,10 @@ struct BookmarksView: View {
         
         if bookmarksManager.noBookmarks() {
             VStack {
-                Image(systemName: "book")
-                    .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
-                    .font(.system(size: 100))
                 Text("You have no saved bookmarks.")
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                    .safeAreaPadding()
             }
         }
         else {
