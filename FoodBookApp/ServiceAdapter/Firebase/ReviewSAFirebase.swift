@@ -17,6 +17,8 @@ class ReviewSAFirebase: ReviewSA {
     
     private var collection: CollectionReference
     
+    private let utils = Utils.shared
+    
     lazy var storage = Storage.storage()
         
     private init () {
@@ -56,6 +58,35 @@ class ReviewSAFirebase: ReviewSA {
         let reviewRef = collection.document(reviewId)
         let user = try? AuthService.shared.getAuthenticatedUser()
         try await reportsCollection.addDocument(data: ["reviewId": reviewRef, "reason": reason, "date": Date(), "reportedBy": user?.email ?? ""])
+    }
+    
+    func getUserReviews() async throws -> [Review] {
+        // TODO: actual function
+        //let userId = try await utils.getUsername()
+        return [
+            Review(
+                content: "Lo digo y lo insisto, mi caserito es el restaurante más completo de los andes.",
+                date: Date(),
+                imageUrl: "https://i.ytimg.com/vi/1n6bq4wfoSU/hq720.jpg?sqp=-oaymwEXCK4FEIIDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLCCW-rqYpxNt3xW3Ag43ns--EwGLw",
+                ratings: ReviewStats(cleanliness: 5, foodQuality: 5, service: 5, waitTime: 4),
+                selectedCategories: ["Homemade", "Dessert"],
+                title: "Me fascina!!",
+                user: UserInfo(id: try await utils.getUsername(), name: "Juan Pedro Gonzalez")
+            ),
+            Review(
+                content: "La comida me gustó pero la atención fue pésima, se demoró muchísimo, lástima.",
+                date: Date(),
+                imageUrl: nil,
+                ratings: ReviewStats(cleanliness: 2,
+                                     foodQuality: 3,
+                                     service: 1,
+                                     waitTime: 1),
+                
+                selectedCategories: ["Poultry", "Rice", "Soup"],
+                title: "No lo recomiendo.",
+                user: UserInfo(id: try await utils.getUsername(), name:"Mariana Martínez")
+            )
+        ]
     }
 
  }
