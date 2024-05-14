@@ -53,6 +53,15 @@ struct BugReportView: View {
                     .disabled(networkService.isUnavailable)
                     .listRowBackground(Color.clear)
                     .listRowInsets(EdgeInsets())
+                    
+                    if(networkService.isUnavailable) {
+                        Text("No connection, please make sure you have internet access before attempting send")
+                            .foregroundStyle(.red)
+                            .disabled(networkService.isUnavailable)
+                            .listRowBackground(Color.clear)
+                            .listRowInsets(EdgeInsets())
+                            
+                    }
                 }
                 
                 .disabled(networkService.isUnavailable)
@@ -62,6 +71,7 @@ struct BugReportView: View {
 
         }
         .navigationTitle("Report a bug")
+        .navigationBarTitleDisplayMode(.inline)
         //.navigationBarBackButtonHidden(true)
         .alert("Thank you for making foodbook better!", isPresented: $sent) {
             Button("OK", role: .cancel) {
@@ -71,6 +81,11 @@ struct BugReportView: View {
             Text("Your report has been sent! We will review and take further action.")
         }
         .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Save as draft") {
+                    print("Hello world!") // TODO: add actual functionality
+                }
+            }
             ToolbarItem(placement: .keyboard) {
                 HStack {
                     Spacer()

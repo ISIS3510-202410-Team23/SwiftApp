@@ -22,10 +22,12 @@ struct BookmarksView: View {
         
         if bookmarksManager.noBookmarks() {
             VStack {
-                Text("You have no saved bookmarks.")
+                Text("You have no saved bookmarks")
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
                     .safeAreaPadding()
+                
+                Spacer()
             }
         }
         else {
