@@ -14,17 +14,10 @@ struct UserView: View {
     @State var notified = NotificationHandler().hasDayPassedSinceLastNotification()
     @State var model = UserViewModel.shared
     
-    var user: AuthDataResultModel? {
-        do {
-            return try AuthService.shared.getAuthenticatedUser()
-        } catch {
-            return nil
-        }
-    }
-    
+    @State private var user: AuthDataResultModel? = nil
+    @State private var username: String? = nil
     
     @ObservedObject var networkService = NetworkService.shared
-    
     
     var body: some View {
         NavigationView {
@@ -58,11 +51,11 @@ struct UserView: View {
                     .padding()
                 }
                 
-                NavigationLink(destination: UserReviewsView()){
+                NavigationLink(destination: UserReviewsView(user: $user, username: .constant(username ?? ""))) {
                     Text("Your reviews")
                 }
                 
-                // TEMPORARY ITEMS
+                // MARK: - TEMPORARY ITEMS
                 //            Text(notified ? "Sent" : "Not Sent")
                 //
                 //            Button(action: {
@@ -96,7 +89,7 @@ struct UserView: View {
                 //            }
                 
                 
-                // Sign out button
+                //                 MARK: - Sign out button
                 Button(action: {
                     Task {
                         do {
@@ -104,12 +97,12 @@ struct UserView: View {
                             await model.saveSearchItems()
                             try AuthService.shared.signOut()
                             DBManager().deleteAllImages()
-                            DBManager().deleteTables() //TODO: maybe show alert notifying user?
+                            DBManager().deleteTables() //TODO: maybe show alert notifying user??
                             NotificationHandler().cancelNotification(identifier: "lastReviewNotification")
                             dismiss()
                         } catch {
                             print("Failed to sign out...")
-                            // TODO: show user message
+                            // TODO: show user? message
                         }
                         model.deleteFileContents()
                     }
@@ -121,11 +114,19 @@ struct UserView: View {
                 
             }
         }
+        .task {
+            do {
+                user = await model.fetchUser()
+                username = try await  Utils.shared.getUsername()
+            } catch {
+                print("[UserView] Error fetching user? info... \(error)")
+            }
+        }
     }
 }
 
 
 
-#Preview {
-    UserView(showSignInView: .constant(false))
-}
+//#Preview {
+//    UserView(showSignInView: .constant(false))
+//}

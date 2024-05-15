@@ -13,5 +13,5 @@ protocol ReviewRepository {
     func createReview(review: Review) async throws -> String
     func uploadPhoto(image: UIImage) async throws -> String
     func uploadReviewReport(reviewId: String, reason: String) async throws 
-    func getUserReviews() async throws -> [Review]
+    func getUserReviews(name: String, username: String) async throws -> [Review]
 }

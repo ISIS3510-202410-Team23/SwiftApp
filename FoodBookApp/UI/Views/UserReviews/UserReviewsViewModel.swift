@@ -11,20 +11,29 @@ import Observation
 @Observable
 class UserReviewsViewModel {
     
-    private let utils = Utils.shared
+    private let cacheService = CacheService.shared
     var userReviews: [Review] = []
-    var username: String = ""
-    var user: String?
     
     private let reviewRepository: ReviewRepository = ReviewRepositoryImpl.shared
     
-    @MainActor
-    func fetchUserReviews() async throws {
-        self.userReviews = try await reviewRepository.getUserReviews()
-    }
-    
-    func getUserInfo() async throws {
-        self.username = try await utils.getUsername()
-        self.user = try await utils.getUser()
+    func fetchUserReviews(username: String, userId: String, name: String) async throws {
+        if let cachedReviews = cacheService.getReviewsCache(userId: userId) {
+            print("Reviews loaded from cache for \(userId)")
+            userReviews = cachedReviews
+        } else {
+            do {
+                if NetworkService.shared.isOnline {
+                    print("Fetching reviews from firebase for \(name)-\(username)...")
+                    userReviews = try await self.reviewRepository.getUserReviews(name: name, username: username)
+                    if !userReviews.isEmpty {
+                        cacheService.setReviewsCache(userReviews, userId: userId)
+                    }
+                } else {
+                    print("No cache nor network...")
+                }
+            } catch {
+                print("[User Reviews] Fetching error: \(error)")
+            }
+        }
     }
 }
