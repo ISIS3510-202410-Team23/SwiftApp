@@ -20,6 +20,10 @@ struct BugReportView: View {
     
     @State private var model = BugReportViewModel.shared
     
+    @State private var showAlert = false
+    @State private var activeAlert: ActiveAlert? = nil
+    @State private var draftMode = false
+    
     var body: some View {
         VStack {
             Form {
@@ -45,7 +49,7 @@ struct BugReportView: View {
                 Section {
                     LargeButton(text: "Send bug report", bgColor: networkService.isUnavailable || descriptionText.isEmpty ? Color.gray : Color.blue, txtColor: Color.white, txtSize: 20) {
                         model.send(date: Date(), description: self.descriptionText, bugType: self.bugType, severityLevel: self.severityLevel, stepsToReproduce: self.stepsToReproduce)
-                            sent = true
+                        sent = true
                     }
                     .disabled(networkService.isUnavailable || descriptionText.trimmingCharacters(in: .whitespaces).isEmpty)
                     .listRowBackground(Color.clear)
@@ -57,7 +61,6 @@ struct BugReportView: View {
                             Text("No connection, please make sure you have internet access before attempting to send")
                                 .foregroundStyle(.red)
                                 .disabled(networkService.isUnavailable)
-                                
                             Spacer()
                         }
                         .listRowBackground(Color.clear)
@@ -71,6 +74,9 @@ struct BugReportView: View {
         .navigationBarTitleDisplayMode(.inline)
         .alert("Thank you for making FoodBook better!", isPresented: $sent) {
             Button("OK", role: .cancel) {
+                if DBManager().bugReportDraftExists() && draftMode {
+                    DBManager().deleteBugReportDraft()
+                }
                 dismiss()
             }
         } message: {
@@ -79,7 +85,8 @@ struct BugReportView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Save as draft") {
-                    print("Hello world!") // TODO: add actual functionality
+                    activeAlert = .saveDraft
+                    showAlert = true
                 }
             }
             ToolbarItem(placement: .keyboard) {
@@ -91,7 +98,52 @@ struct BugReportView: View {
                 }
             }
         }
+        .onAppear {
+            if DBManager().bugReportDraftExists() {
+                activeAlert = .loadDraft
+                showAlert = true
+            }
+        }.alert(isPresented: $showAlert) {
+            if activeAlert == .loadDraft {
+                return Alert(
+                    title: Text("It looks like you have a draft"),
+                    message: Text("Would you like to load it?"),
+                    primaryButton: .default(Text("No")) {
+                        showAlert = false
+                    },
+                    secondaryButton: .default(Text("Yes")) {
+                        let draft = DBManager().getBugreportDraft()
+                        if let draft = draft {
+                            descriptionText = draft.details
+                            bugType = draft.type
+                            severityLevel = draft.severity
+                            stepsToReproduce = draft.steps
+                        }
+                        draftMode = true
+                    }
+                )
+            }
+            else  { // saveDraft
+                return Alert(
+                    title: Text("Would you like to save this bug report as a draft?"),
+                    message: Text("This will delete your latest draft"),
+                    primaryButton: .default(Text("No")) {
+                        showAlert = false
+                    },
+                    secondaryButton: .default(Text("Yes")) {
+                        if (DBManager().bugReportDraftExists()) {
+                            DBManager().deleteBugReportDraft()
+                        }
+                        DBManager().addBugReportDraft(detailsValue: descriptionText, typeValue: bugType, severityValue: severityLevel, stepsValue: stepsToReproduce)
+                    }
+                )
+            }
+        }
     }
+}
+
+enum ActiveAlert {
+    case saveDraft, loadDraft
 }
 
 
