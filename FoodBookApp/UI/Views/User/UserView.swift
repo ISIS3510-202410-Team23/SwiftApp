@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TipKit
+import CachedAsyncImage
 
 struct UserView: View {
     @Environment(\.dismiss) private var dismiss
@@ -31,13 +32,22 @@ struct UserView: View {
             
             HStack {
                 if user?.photoUrl != nil {
-                    AsyncImage(url: URL(string: user?.photoUrl ?? "")) { image in
-                        image.resizable()
+//                    AsyncImage(url: URL(string: user?.photoUrl ?? "")) { image in
+//                        image.resizable()
+//                            .aspectRatio(contentMode: .fill)
+//                    } placeholder: {
+//                        ProgressView()
+//                    }
+//                    
+//                    .frame(width: 110, height: 110)
+//                    .cornerRadius(10)
+                    
+                    CachedAsyncImage(url: URL(string: user?.photoUrl ?? "")) { img in
+                        img.resizable()
                             .aspectRatio(contentMode: .fill)
                     } placeholder: {
                         ProgressView()
                     }
-                    
                     .frame(width: 110, height: 110)
                     .cornerRadius(10)
                     

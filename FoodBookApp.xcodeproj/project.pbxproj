@@ -12,6 +12,7 @@
 		0D347C362BAB2589003990A0 /* LocationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D347C352BAB2589003990A0 /* LocationUtils.swift */; };
 		0D347C382BAB4FA4003990A0 /* BackendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D347C372BAB4FA4003990A0 /* BackendService.swift */; };
 		0D8BBB662B91462800739448 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8BBB652B91462800739448 /* LocationService.swift */; };
+		0DC50DC82BF51D180043D9F8 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 0DC50DC72BF51D180043D9F8 /* CachedAsyncImage */; };
 		0DC6449C2BCEE7180004684E /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC6449B2BCEE7180004684E /* ContentViewModel.swift */; };
 		0DCB7BD82B86F0290088C333 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB7BD52B86F0290088C333 /* BrowseView.swift */; };
 		0DCB7BD92B86F0290088C333 /* ForYouView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB7BD62B86F0290088C333 /* ForYouView.swift */; };
@@ -239,6 +240,7 @@
 				6CF6CCCF2BCF5B5B006F3DE9 /* SQLite in Frameworks */,
 				6C5ED6D12B8ADB1000AF115C /* FirebaseAnalytics in Frameworks */,
 				6CF8217E2B8D8837008E7057 /* GoogleSignIn in Frameworks */,
+				0DC50DC82BF51D180043D9F8 /* CachedAsyncImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -685,6 +687,7 @@
 				6CF8217F2B8D8837008E7057 /* GoogleSignInSwift */,
 				D31D67172BAA763B00B22A79 /* FirebaseStorage */,
 				D338BDAA2BCF408C005481EF /* SQLite */,
+				0DC50DC72BF51D180043D9F8 /* CachedAsyncImage */,
 			);
 			productName = FoodBookApp;
 			productReference = 6CC928FF2B84FB0700EDDE78 /* FoodBookApp.app */;
@@ -762,6 +765,7 @@
 				6C5ED6CF2B8ADB1000AF115C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				6CF8217C2B8D8837008E7057 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				D338BDA92BCF408C005481EF /* XCRemoteSwiftPackageReference "SQLite" */,
+				0DC50DC62BF51D180043D9F8 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 			);
 			productRefGroup = 6CC929002B84FB0700EDDE78 /* Products */;
 			projectDirPath = "";
@@ -1046,7 +1050,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FoodBookApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = D8Q2K8XZD3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FoodBookApp/Info.plist;
@@ -1066,7 +1070,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Team23.FoodBookApp;
+				PRODUCT_BUNDLE_IDENTIFIER = Team23.FoodBookApp.juan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1082,7 +1086,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FoodBookApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = D8Q2K8XZD3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FoodBookApp/Info.plist;
@@ -1102,7 +1106,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Team23.FoodBookApp;
+				PRODUCT_BUNDLE_IDENTIFIER = Team23.FoodBookApp.juan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1224,6 +1228,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0DC50DC62BF51D180043D9F8 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
 		6C5ED6CF2B8ADB1000AF115C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -1259,6 +1271,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0DC50DC72BF51D180043D9F8 /* CachedAsyncImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0DC50DC62BF51D180043D9F8 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
+			productName = CachedAsyncImage;
+		};
 		6C0C82DC2B8D2E49004EAE3F /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6C5ED6CF2B8ADB1000AF115C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
