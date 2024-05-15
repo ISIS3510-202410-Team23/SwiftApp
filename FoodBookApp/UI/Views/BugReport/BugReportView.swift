@@ -3,14 +3,14 @@
 //  FoodBookApp
 //
 //  Created by Juan Diego Yepes Parra on 11/05/24.
-//
+//s
 
 import SwiftUI
 
 struct BugReportView: View {
     @Environment(\.dismiss) var dismiss
     @State private var descriptionText = ""
-    @State private var placeholderDescription = "Describe the issue..."
+    @State private var placeholderDescription = "[REQUIRED]: Describe the issue..."
     @State private var bugType = "Unexpected Behavior"
     @State private var severityLevel = "Minor"
     @State private var stepsToReproduce = ""
@@ -37,43 +37,39 @@ struct BugReportView: View {
                             Text($0)
                         }
                     }
-                    
                 }
                 Section(header: Text("Steps to Reproduce")) {
                     TextFieldWithLimit(textContent: $stepsToReproduce, title: placeholderStepsToReproduce, charLimit: 100)
                 }
                 
-                
                 Section {
-                    LargeButton(text: "Send bug report", bgColor: networkService.isUnavailable ? Color.gray : Color.blue, txtColor: Color.white, txtSize: 20)
-                    {
+                    LargeButton(text: "Send bug report", bgColor: networkService.isUnavailable || descriptionText.isEmpty ? Color.gray : Color.blue, txtColor: Color.white, txtSize: 20) {
                         model.send(date: Date(), description: self.descriptionText, bugType: self.bugType, severityLevel: self.severityLevel, stepsToReproduce: self.stepsToReproduce)
-                        sent = true
+                            sent = true
                     }
-                    .disabled(networkService.isUnavailable)
+                    .disabled(networkService.isUnavailable || descriptionText.trimmingCharacters(in: .whitespaces).isEmpty)
                     .listRowBackground(Color.clear)
                     .listRowInsets(EdgeInsets())
                     
                     if(networkService.isUnavailable) {
-                        Text("No connection, please make sure you have internet access before attempting send")
-                            .foregroundStyle(.red)
-                            .disabled(networkService.isUnavailable)
-                            .listRowBackground(Color.clear)
-                            .listRowInsets(EdgeInsets())
-                            
+                        HStack {
+                            Spacer()
+                            Text("No connection, please make sure you have internet access before attempting to send")
+                                .foregroundStyle(.red)
+                                .disabled(networkService.isUnavailable)
+                                
+                            Spacer()
+                        }
+                        .listRowBackground(Color.clear)
+                        .listRowInsets(EdgeInsets())
                     }
                 }
-                
                 .disabled(networkService.isUnavailable)
-                
-                
             }
-
         }
         .navigationTitle("Report a bug")
         .navigationBarTitleDisplayMode(.inline)
-        //.navigationBarBackButtonHidden(true)
-        .alert("Thank you for making foodbook better!", isPresented: $sent) {
+        .alert("Thank you for making FoodBook better!", isPresented: $sent) {
             Button("OK", role: .cancel) {
                 dismiss()
             }
