@@ -23,14 +23,6 @@ struct ReportReviewView: View {
     var body: some View {
         
         VStack (spacing: 0) {
-            HStack {
-                Text("Review Report")
-                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                    .padding(0)
-                Spacer()
-            }.padding()
-            
             // MARK: - List of reasons
             List(ReportReason.allCases, id: \.self, selection: $selection) { reason in
                 HStack {
@@ -88,6 +80,7 @@ struct ReportReviewView: View {
             .padding()
             .disabled(selection == nil || networkService.isUnavailable)
         }
+        .navigationTitle("Review Report")
         .alert("Thank you for making foodbook better!", isPresented: $sent) {
             Button("OK", role: .cancel) {
                 dismiss()

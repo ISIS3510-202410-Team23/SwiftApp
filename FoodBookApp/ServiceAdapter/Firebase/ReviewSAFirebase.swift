@@ -17,6 +17,8 @@ class ReviewSAFirebase: ReviewSA {
     
     private var collection: CollectionReference
     
+    private let utils = Utils.shared
+    
     lazy var storage = Storage.storage()
         
     private init () {
@@ -56,6 +58,20 @@ class ReviewSAFirebase: ReviewSA {
         let reviewRef = collection.document(reviewId)
         let user = try? AuthService.shared.getAuthenticatedUser()
         try await reportsCollection.addDocument(data: ["reviewId": reviewRef, "reason": reason, "date": Date(), "reportedBy": user?.email ?? ""])
+    }
+    
+    func getUserReviews(name: String, username: String) async throws -> [Review] {
+        let snapshot = try await collection.whereField("user", isEqualTo: ["id": username, "name": name]).getDocuments()
+        
+        var userReviews: [Review] = []
+
+        for document in snapshot.documents {
+            print("FIREBASE: Trying to fetch document \(document.documentID)")
+            let review = try document.data(as: Review.self)
+            userReviews.append(review)
+        }
+        
+        return userReviews
     }
 
  }
