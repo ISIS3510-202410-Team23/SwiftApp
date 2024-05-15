@@ -16,9 +16,17 @@ class UserViewModel {
     private let searchRepository: SearchUsageRepository = SearchUsageRepositoryImpl.shared
     
     private let fileURL: URL = {
-            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-            return documentsDirectory.appendingPathComponent("inputHistory.json")
-        }()
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        return documentsDirectory.appendingPathComponent("inputHistory.json")
+    }()
+    
+    func fetchUser() async -> AuthDataResultModel? {
+        do {
+            return try AuthService.shared.getAuthenticatedUser()
+        } catch {
+            return nil
+        }
+    }
     
     func saveSearchItems() async {
         let items = loadInputHistory()

@@ -18,6 +18,7 @@
 		0D7F6ED82BF11EAB00AF45DF /* BugReportSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7F6ED72BF11EAB00AF45DF /* BugReportSA.swift */; };
 		0D7F6EDA2BF11EC100AF45DF /* BugReportSAFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7F6ED92BF11EC100AF45DF /* BugReportSAFirebase.swift */; };
 		0D8BBB662B91462800739448 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8BBB652B91462800739448 /* LocationService.swift */; };
+		0DC50DC82BF51D180043D9F8 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 0DC50DC72BF51D180043D9F8 /* CachedAsyncImage */; };
 		0DC6449C2BCEE7180004684E /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC6449B2BCEE7180004684E /* ContentViewModel.swift */; };
 		0DCB7BD82B86F0290088C333 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB7BD52B86F0290088C333 /* BrowseView.swift */; };
 		0DCB7BD92B86F0290088C333 /* ForYouView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB7BD62B86F0290088C333 /* ForYouView.swift */; };
@@ -107,6 +108,10 @@
 		D3DA08072B96EB3B00475AC9 /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DA08062B96EB3A00475AC9 /* LargeButton.swift */; };
 		D3DC76242B96988100AC9CAB /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DC76232B96988100AC9CAB /* ImagePicker.swift */; };
 		D3FB34AE2BF2A49800924A39 /* BugReportDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FB34AD2BF2A49800924A39 /* BugReportDraft.swift */; };
+		D3FB34B02BF2E46C00924A39 /* ReviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FB34AF2BF2E46C00924A39 /* ReviewCard.swift */; };
+		D3FB34B22BF2F99800924A39 /* ReviewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FB34B12BF2F99800924A39 /* ReviewsViewModel.swift */; };
+		D3FB34B62BF3042F00924A39 /* UserReviewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FB34B52BF3042F00924A39 /* UserReviewsView.swift */; };
+		D3FB34B82BF3044000924A39 /* UserReviewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FB34B72BF3044000924A39 /* UserReviewsViewModel.swift */; };
 		D3FD9DB22BD9517A006689A8 /* HardcodedSpots.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD9DB12BD9517A006689A8 /* HardcodedSpots.swift */; };
 /* End PBXBuildFile section */
 
@@ -237,6 +242,10 @@
 		D3DA08062B96EB3A00475AC9 /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
 		D3DC76232B96988100AC9CAB /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		D3FB34AD2BF2A49800924A39 /* BugReportDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugReportDraft.swift; sourceTree = "<group>"; };
+		D3FB34AF2BF2E46C00924A39 /* ReviewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCard.swift; sourceTree = "<group>"; };
+		D3FB34B12BF2F99800924A39 /* ReviewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewModel.swift; sourceTree = "<group>"; };
+		D3FB34B52BF3042F00924A39 /* UserReviewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewsView.swift; sourceTree = "<group>"; };
+		D3FB34B72BF3044000924A39 /* UserReviewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewsViewModel.swift; sourceTree = "<group>"; };
 		D3FD9DB12BD9517A006689A8 /* HardcodedSpots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardcodedSpots.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -255,6 +264,7 @@
 				6CF6CCCF2BCF5B5B006F3DE9 /* SQLite in Frameworks */,
 				6C5ED6D12B8ADB1000AF115C /* FirebaseAnalytics in Frameworks */,
 				6CF8217E2B8D8837008E7057 /* GoogleSignIn in Frameworks */,
+				0DC50DC82BF51D180043D9F8 /* CachedAsyncImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -576,6 +586,8 @@
 				0D347C3D2BAB8784003990A0 /* Login */,
 				0D347C3E2BAB8797003990A0 /* Bookmarks */,
 				D3A713E72BEFD9BC0010C0F1 /* Settings */,
+				D3FB34B32BF3020E00924A39 /* Reviews */,
+				D3FB34B42BF303D800924A39 /* UserReviews */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -614,6 +626,7 @@
 				D3DC76232B96988100AC9CAB /* ImagePicker.swift */,
 				D3DA08062B96EB3A00475AC9 /* LargeButton.swift */,
 				6C2F6ECC2BF03A9000112D5D /* TextFieldWithLimit.swift */,
+				D3FB34AF2BF2E46C00924A39 /* ReviewCard.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -638,7 +651,6 @@
 		D321E49A2B8F83F800F93974 /* SpotDetail */ = {
 			isa = PBXGroup;
 			children = (
-				D321E4952B8E971500F93974 /* ReviewsView.swift */,
 				D319C47A2B8D5FB90030ED34 /* SpotDetailView.swift */,
 				D321E49F2B8F883A00F93974 /* SpotDetailViewModel.swift */,
 			);
@@ -680,6 +692,24 @@
 				D37B0E0E2BCC9ADB00EEFA08 /* DBManager.swift */,
 			);
 			path = SQLite;
+			sourceTree = "<group>";
+		};
+		D3FB34B32BF3020E00924A39 /* Reviews */ = {
+			isa = PBXGroup;
+			children = (
+				D321E4952B8E971500F93974 /* ReviewsView.swift */,
+				D3FB34B12BF2F99800924A39 /* ReviewsViewModel.swift */,
+			);
+			path = Reviews;
+			sourceTree = "<group>";
+		};
+		D3FB34B42BF303D800924A39 /* UserReviews */ = {
+			isa = PBXGroup;
+			children = (
+				D3FB34B52BF3042F00924A39 /* UserReviewsView.swift */,
+				D3FB34B72BF3044000924A39 /* UserReviewsViewModel.swift */,
+			);
+			path = UserReviews;
 			sourceTree = "<group>";
 		};
 		D3A713E72BEFD9BC0010C0F1 /* Settings */ = {
@@ -725,6 +755,7 @@
 				6CF8217F2B8D8837008E7057 /* GoogleSignInSwift */,
 				D31D67172BAA763B00B22A79 /* FirebaseStorage */,
 				D338BDAA2BCF408C005481EF /* SQLite */,
+				0DC50DC72BF51D180043D9F8 /* CachedAsyncImage */,
 			);
 			productName = FoodBookApp;
 			productReference = 6CC928FF2B84FB0700EDDE78 /* FoodBookApp.app */;
@@ -802,6 +833,7 @@
 				6C5ED6CF2B8ADB1000AF115C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				6CF8217C2B8D8837008E7057 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				D338BDA92BCF408C005481EF /* XCRemoteSwiftPackageReference "SQLite" */,
+				0DC50DC62BF51D180043D9F8 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 			);
 			productRefGroup = 6CC929002B84FB0700EDDE78 /* Products */;
 			projectDirPath = "";
@@ -884,6 +916,8 @@
 				0DD5D5432BEAD1A600CDB9E8 /* SearchUsageSAFirebase.swift in Sources */,
 				6C2504F62BA9D25B0018D1DD /* CategoryRepository.swift in Sources */,
 				D34B697A2B8FA2BA0043937B /* CreateReview1View.swift in Sources */,
+				D3FB34B22BF2F99800924A39 /* ReviewsViewModel.swift in Sources */,
+				D3FB34B82BF3044000924A39 /* UserReviewsViewModel.swift in Sources */,
 				D30C88132B8FB5B50052C01E /* CreateReview2View.swift in Sources */,
 				0D347C362BAB2589003990A0 /* LocationUtils.swift in Sources */,
 				D31D670B2BA904FE00B22A79 /* ReviewSAFirebase.swift in Sources */,
@@ -895,6 +929,7 @@
 				D342009D2B91404A00B8817C /* TextButton.swift in Sources */,
 				0DCB7BD82B86F0290088C333 /* BrowseView.swift in Sources */,
 				0D7F6ED82BF11EAB00AF45DF /* BugReportSA.swift in Sources */,
+				D3FB34B02BF2E46C00924A39 /* ReviewCard.swift in Sources */,
 				D35B91462BEB0548007C0868 /* SpotDetailFetchingTimeRepository.swift in Sources */,
 				D32FC9A32B9624A8008D66BA /* ClearButton.swift in Sources */,
 				0DD5D54A2BEAD4B100CDB9E8 /* SearchUsageRepositoryImpl.swift in Sources */,
@@ -922,6 +957,7 @@
 				6C10219C2B96AB87007DCEEF /* Error.swift in Sources */,
 				D31D670E2BA906D500B22A79 /* ReviewRepository.swift in Sources */,
 				D319C47B2B8D5FB90030ED34 /* SpotDetailView.swift in Sources */,
+				D3FB34B62BF3042F00924A39 /* UserReviewsView.swift in Sources */,
 				D30C88212B9108C20052C01E /* Separator.swift in Sources */,
 				0D8BBB662B91462800739448 /* LocationService.swift in Sources */,
 				6CC9292D2B84FFEE00EDDE78 /* FoodBookApp.swift in Sources */,
@@ -1094,7 +1130,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FoodBookApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = D8Q2K8XZD3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FoodBookApp/Info.plist;
@@ -1114,7 +1150,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Team23.FoodBookApp;
+				PRODUCT_BUNDLE_IDENTIFIER = Team23.FoodBookApp.juan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1130,7 +1166,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FoodBookApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = D8Q2K8XZD3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FoodBookApp/Info.plist;
@@ -1150,7 +1186,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Team23.FoodBookApp;
+				PRODUCT_BUNDLE_IDENTIFIER = Team23.FoodBookApp.juan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1272,6 +1308,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0DC50DC62BF51D180043D9F8 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
 		6C5ED6CF2B8ADB1000AF115C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -1307,6 +1351,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0DC50DC72BF51D180043D9F8 /* CachedAsyncImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0DC50DC62BF51D180043D9F8 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
+			productName = CachedAsyncImage;
+		};
 		6C0C82DC2B8D2E49004EAE3F /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6C5ED6CF2B8ADB1000AF115C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

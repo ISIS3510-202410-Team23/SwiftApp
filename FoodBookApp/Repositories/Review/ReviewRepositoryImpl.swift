@@ -23,4 +23,8 @@ class ReviewRepositoryImpl: ReviewRepository {
     func uploadReviewReport(reviewId: String, reason: String) async throws {
         return try await ReviewRepositoryImpl.reviewSA.uploadReviewReport(reviewId: reviewId, reason: reason)
     }
+    
+    func getUserReviews(name: String, username: String) async throws -> [Review] {
+        return try await ReviewRepositoryImpl.reviewSA.getUserReviews(name: name, username: username)
+    }
 }
