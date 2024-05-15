@@ -9,8 +9,6 @@ import SwiftUI
 import CachedAsyncImage
 
 struct SpotCard: View {
-    // TODO: Missing bookmarking feature
-    
     let id: String
     let title : String
     let minTime : Int
