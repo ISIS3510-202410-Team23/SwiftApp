@@ -26,6 +26,21 @@ struct BugReportView: View {
     
     var body: some View {
         VStack {
+            if !networkService.isOnline {
+                VStack {
+                    HStack() {
+                        Image(systemName: "wifi.slash")
+                            .font(.system(size: 14))
+                            .foregroundColor(.secondary)
+                        Text("offline")
+                            .font(.system(size: 14))
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(4)
+                }
+            }
             Form {
                 Section(header: Text("Bug Details")) {
                     TextFieldWithLimit(textContent: $descriptionText, title: placeholderDescription, charLimit: 100)
