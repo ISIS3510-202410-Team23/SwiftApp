@@ -22,6 +22,7 @@ struct HCategoryList: View {
                         .cornerRadius(8)
                         .lineLimit(1)
                         .truncationMode(.tail)
+                        .foregroundColor(.primary)
                 }
             }
         }

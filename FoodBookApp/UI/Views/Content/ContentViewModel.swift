@@ -21,6 +21,8 @@ class ContentViewModel {
     var browseSpotsCached: [Spot] = HardcodedSpots.shared.spots
 //    var forYouSpotsCached: [Spot] = []
     
+    var hotCategories: [Category] = []
+    
     var noReviewsFlag: Bool = false
     
     var uid: String = ""
@@ -71,6 +73,17 @@ class ContentViewModel {
                 }
             }
             
+            group.addTask {
+                do {
+                    self.hotCategories = try await self.fetchHotCategories()
+                    if !self.hotCategories.isEmpty {
+                        self.cacheService.setCategories(self.hotCategories)
+                    }
+                } catch {
+                    print("ERROR: fetching hot categories from backend \(error)")
+                }
+            }
+            
             
             await group.waitForAll()
         }
@@ -79,6 +92,7 @@ class ContentViewModel {
     func fallback() {
         self.browseSpotsCached = cacheService.getSpots() ?? HardcodedSpots.shared.spots
         self.forYouSpots = cacheService.getForYou() ?? []
+        self.hotCategories = cacheService.getCategories() ?? []
     }
 
     
@@ -114,6 +128,15 @@ class ContentViewModel {
             return try await utils.getUsername()
         } catch {
             print("ERROR: Could not fetch username")
+            throw error
+        }
+    }
+    
+    private func fetchHotCategories() async throws -> [Category] {
+        do {
+            return try await backendService.fetchHottestCategories()
+        } catch {
+            print("ContentViewModel: Error performing API call for hot categories: \(error)")
             throw error
         }
     }

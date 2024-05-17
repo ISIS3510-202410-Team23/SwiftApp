@@ -54,6 +54,11 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 
     }
     
+    func applicationWillTerminate(_ application: UIApplication) {
+        // Clear the state in UserDefaults when the app is about to terminate
+        UserDefaults.standard.removeObject(forKey: "hideHotCategories")
+    }
+    
     
 }
 
