@@ -58,11 +58,6 @@ struct ReportReviewView: View {
                                     }
             }
             
-            // MARK: - EC Message
-            if (networkService.isUnavailable) {
-                Text("You seem to have lost connection, please make sure you are online to be able to send the report.")
-                    .padding()
-            }
             
             // MARK: - Button to send
             Button(action: {
@@ -79,6 +74,20 @@ struct ReportReviewView: View {
             })
             .padding()
             .disabled(selection == nil || networkService.isUnavailable)
+            
+            // MARK: - EC Message
+            
+            if(networkService.isUnavailable) {
+                HStack {
+                    Spacer()
+                    Text("No connection, please make sure you have internet access before attempting to send")
+                        .foregroundStyle(.red)
+                        .disabled(networkService.isUnavailable)
+                    Spacer()
+                }
+                .listRowBackground(Color.clear)
+                .listRowInsets(EdgeInsets())
+            }
         }
         .navigationTitle("Review Report")
         .alert("Thank you for making foodbook better!", isPresented: $sent) {

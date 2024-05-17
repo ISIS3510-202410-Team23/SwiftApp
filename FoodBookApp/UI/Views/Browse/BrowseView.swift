@@ -19,7 +19,7 @@ struct BrowseView: View {
     var body: some View {
         VStack {
             ScrollView {
-                if showHotCategories && !hotCategories.isEmpty {
+                if showHotCategories && !hotCategories.isEmpty && searchText.isEmpty {
                     VStack {
                         HStack {
                             Text("\(Image(systemName: "flame")) Popular categories this week")

@@ -25,28 +25,51 @@ struct UserReviewsView: View {
                     .padding()
             } else {
                 if !model.userReviews.isEmpty {
-                    ScrollView(.vertical) {
-                        VStack {
-                            ForEach(model.userReviews.reversed(), id: \.self) { review in
-                                ReviewCard(review: review, userId: username)
-                            }.padding(.vertical, 5)
+                    VStack {
+                        HStack {
+                            Text("Latest Reviews")
+                                .font(.headline)
+                                .foregroundColor(.secondary)
+                                .padding([.leading, .top])
+                            Spacer()
+                            if !networkService.isOnline {
+                                HStack {
+                                    Image(systemName: "wifi.slash")
+                                        .font(.system(size: 14))
+                                        .foregroundColor(.secondary)
+                                    Text("offline")
+                                        .font(.system(size: 14))
+                                        .foregroundColor(.secondary)
+                                        .multilineTextAlignment(.center)
+                                }
+                                .padding()
+                            }
                         }
-                        .padding()
+                        ScrollView(.vertical) {
+                            VStack {
+                                ForEach(model.userReviews, id: \.self) { review in
+                                    ReviewCard(review: review, userId: username)
+                                }
+                                .padding(.vertical, 5)
+                            }
+                            .padding()
+                        }
                     }
                 } else {
-                    // TODO: Style this like others...
-                    Text("Hmm nothing here, make sure you've left reviews or check your internet connection. ")
+                    Text("Hmm nothing here, make sure you've left reviews or check your internet connection.")
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
-                        .safeAreaPadding()
+                        .padding()
                     Spacer()
                 }
             }
-        }.task {
+        }
+        .task {
             isFetching = true
             _ = try? await model.fetchUserReviews(username: username, userId: user?.uid ?? "", name: user?.name ?? "")
             isFetching = false
-        }.navigationTitle("Your reviews")
+        }
+        .navigationTitle("Your reviews")
     }
 }
 
