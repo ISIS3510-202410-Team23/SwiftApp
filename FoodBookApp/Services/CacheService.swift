@@ -58,6 +58,8 @@ class CacheService {
     
     func getCategories() -> [Category]? {
         return hotCategoriesCache.object(forKey: "hot-categories") as? [Category]
+    }
+    
     func setReviewsCache(_ reviews: [Review], userId: String) {
         if !reviews.isEmpty {
             let nsArr = reviews as NSArray
