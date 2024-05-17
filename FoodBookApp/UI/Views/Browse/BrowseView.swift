@@ -12,18 +12,41 @@ struct BrowseView: View {
     @Binding var spots: [Spot]
     @Binding var isFetching: Bool
     @Binding var hotCategories: [Category]
+    @State private var showHotCategories: Bool = !UserDefaults.standard.bool(forKey: "hideHotCategories")
     
     @ObservedObject var networkService = NetworkService.shared
     
     var body: some View {
         VStack {
-            if !hotCategories.isEmpty {
-                Text("Hot categories this week!") // TODO: Change title
-                HCategoryList(categories: hotCategories, color: Color.orange) // Color is temp but maybe we should consider a "special" color so they stand out
-            } else {
-                
-            }
             ScrollView {
+                if showHotCategories && !hotCategories.isEmpty {
+                    VStack {
+                        HStack {
+                            Text("\(Image(systemName: "flame")) Popular categories this week")
+                                .font(.headline)
+                                .padding(.leading)
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                withAnimation {
+                                    showHotCategories = false
+                                    UserDefaults.standard.set(true, forKey: "hideHotCategories")
+                                }
+                            }) {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundColor(.secondary)
+                            }
+                            .padding(.trailing)
+                        }
+                        
+                        HCategoryList(categories: hotCategories, color: .gray)
+                            .padding(.horizontal)
+                    }
+                    .padding(.vertical, 10)
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(10)
+                }
                 VStack {
                     if searchResults.isEmpty {
                         Text("\(!searchText.isEmpty ? "Hmm, nothing here. Your search for \"\(searchText)\" has no results" : "")")
@@ -53,11 +76,11 @@ struct BrowseView: View {
                     if isFetching {
                         ProgressView()
                             .padding()
-                        }
+                    }
                     
                 }
             }
-            .padding(8)
+            .safeAreaPadding()
         }
     }
     
@@ -71,7 +94,6 @@ struct BrowseView: View {
         }
     }
 }
-
 
 //struct BrowseView_Previews: PreviewProvider {
 //    static var previews: some View {

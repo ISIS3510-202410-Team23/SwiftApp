@@ -75,7 +75,7 @@ struct SpotCard: View {
                 Text("\(Image(systemName: "clock")) \(minTime)-\(maxTime) min.   \(Image(systemName: "location")) \(distance) km")
                 
             }
-            HCategoryList(categories: categories, color: Color.gray)
+            HCategoryList(categories: categories, color: Color.brown)
         }
         .padding(.all)
         .cornerRadius(12)
