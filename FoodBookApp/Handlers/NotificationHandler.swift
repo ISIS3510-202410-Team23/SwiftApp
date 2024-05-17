@@ -15,6 +15,18 @@ class NotificationHandler {
         { success, error in
             if success {
                 print("Access granted!")
+                if UserDefaults.standard.object(forKey: "sendDaysSinceLastReviewNotification") == nil {
+                    UserDefaults.standard.set(true, forKey: "sendDaysSinceLastReviewNotification")
+                }
+                if UserDefaults.standard.object(forKey: "daysSinceLastReview") == nil {
+                    UserDefaults.standard.set(4, forKey: "daysSinceLastReview")
+                }
+                if UserDefaults.standard.object(forKey: "sendReviewsUploadedNotification") == nil {
+                    UserDefaults.standard.set(true, forKey: "sendReviewsUploadedNotification")
+                }
+                if UserDefaults.standard.object(forKey: "sendLunchTimeNotification") == nil {
+                    UserDefaults.standard.set(true, forKey: "sendLunchTimeNotification")
+                }
             } else if let error = error {
                 print(error.localizedDescription)
             }
@@ -27,50 +39,57 @@ class NotificationHandler {
     
     func sendLastReviewNotification(date: Date) {
         
-        let notificationIdentifier = "lastReviewNotification"
-
-        cancelNotification(identifier: notificationIdentifier)
+        let canSend = UserDefaults.standard.bool(forKey: "sendDaysSinceLastReviewNotification")
+        
+        if canSend {
+            let notificationIdentifier = "lastReviewNotification"
+            cancelNotification(identifier: notificationIdentifier)
+            
+            let days = UserDefaults.standard.integer(forKey: "daysSinceLastReview")
+                        
+            // TODO change minute to day (we could leave like this tho, to show Camilo)
+            let triggerDate = Calendar.current.date(byAdding: .minute, value: days, to: date)!
+            let trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: triggerDate), repeats: false)
                     
-        let triggerDate = Calendar.current.date(byAdding: .day, value: 4, to: date)!
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: triggerDate), repeats: false)
-                
-        let content = UNMutableNotificationContent()
-        content.title = "We miss you..."
-        // FIXME: You haven't left a review in X days, depending on settings
-        content.body = "You haven't left a review in a while"
-        content.sound = UNNotificationSound.default
-        
-        let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(request)
+            let content = UNMutableNotificationContent()
+            content.title = "We miss you..."
+            content.body = "You haven't left a review in \(days) \(days == 1 ? "day" : "days")"
+            content.sound = UNNotificationSound.default
+            
+            let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger)
+            
+            UNUserNotificationCenter.current().add(request)
+        }
     }
     
     func sendLunchTimeReminder(identifier: String) {
         
-        if hasDayPassedSinceLastNotification() {
-            print("Sending daily notification...")
-            let notificationIdentifier = "lunchTimeNotification"
-            
-            // i18n
-            let title = "Hungry? It's lunchtime!"
-            let body = "Looks like you're on campus, find a spot or rate the one you've been at!"
-            
-            let content = UNMutableNotificationContent()
-            content.title = title
-            content.body = body
-            content.sound = UNNotificationSound.default
-            
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(5), repeats: false) // Send notif almost immedtiately
-            
-            let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger)
-            
-            saveLastNotificationTime(Date())
-            UNUserNotificationCenter.current().add(request)
-        } else {
-            print("Notif already sent")
-        }
+        let canSend = UserDefaults.standard.bool(forKey: "sendLunchTimeNotification")
         
+        if canSend {
+            if hasDayPassedSinceLastNotification() {
+                print("Sending daily notification...")
+                let notificationIdentifier = "lunchTimeNotification"
+                
+                // i18n
+                let title = "Hungry? It's lunchtime!"
+                let body = "Looks like you're on campus, find a spot or rate the one you've been at!"
+                
+                let content = UNMutableNotificationContent()
+                content.title = title
+                content.body = body
+                content.sound = UNNotificationSound.default
+                
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(5), repeats: false) // Send notif almost immedtiately
+                
+                let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger)
+                
+                saveLastNotificationTime(Date())
+                UNUserNotificationCenter.current().add(request)
+            } else {
+                print("Notif already sent")
+            }
+        }
     }
     
     private func saveLastNotificationTime(_ time: Date) {
@@ -121,17 +140,19 @@ class NotificationHandler {
     
     func sendUploadedReviewsNotification() {
         
-        let notificationIdentifier = "uploadedReviewsNotification"
+        let canSend = UserDefaults.standard.bool(forKey: "sendReviewsUploadedNotification")
+        
+        if canSend {
+            let notificationIdentifier = "uploadedReviewsNotification"
 
-                
-        let content = UNMutableNotificationContent()
-        content.title = "Reviews uploaded!"
-        content.body = "The reviews you created w/o connection have been uploaded"
-        content.sound = UNNotificationSound.default
-        
-        let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: nil)
-        
-        UNUserNotificationCenter.current().add(request)
+            let content = UNMutableNotificationContent()
+            content.title = "Reviews uploaded!"
+            content.body = "The reviews you created w/o connection have been uploaded"
+            content.sound = UNNotificationSound.default
+            
+            let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: nil)
+            
+            UNUserNotificationCenter.current().add(request)
+        }
     }
-
 }

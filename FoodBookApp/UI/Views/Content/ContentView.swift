@@ -32,7 +32,8 @@ struct ContentView: View {
     @State private var bookmarksManager = BookmarksService()
     @State private var selectedTab: Tabs = .browse
     @State private var searchText = ""
-    @State private var isPresented:Bool = false
+    @State private var isUserSheetPresented:Bool = false
+    @State private var isSettingsSheetPresented: Bool = false
     @State private var isFetching: Bool = true
     @State private var inputHistory: [String] = []
     @State private var showOfflineAlert = false
@@ -76,6 +77,7 @@ struct ContentView: View {
                 BookmarksView()
                     .tabItem { Label("Bookmarks", systemImage: "book") }
                     .tag(Tabs.bookmarks)
+                
             }
             .onAppear {
                 self.inputHistory = model.loadInputHistory()
@@ -147,15 +149,22 @@ struct ContentView: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        isPresented.toggle()
-                    }, label: {
-                        Image(systemName: "person.crop.circle")
-                    })
-                }
+                ToolbarItem(placement: .topBarLeading) {
+                        Button(action: {
+                            isSettingsSheetPresented.toggle()
+                        }) {
+                            Image(systemName: "gear")
+                        }
+                    }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button(action: {
+                            isUserSheetPresented.toggle()
+                        }) {
+                            Image(systemName: "person.crop.circle")
+                        }
+                    }
             }
-            .sheet(isPresented: $isPresented) {
+            .sheet(isPresented: $isUserSheetPresented) {
                 UserView(showSignInView: $showSignInView)
                     .presentationDragIndicator(.visible)
                     .presentationBackground(Material.ultraThinMaterial)
@@ -167,6 +176,9 @@ struct ContentView: View {
                             self.bookmarksManager.cleanup()
                         }
                     }
+            }
+            .sheet(isPresented: $isSettingsSheetPresented) {
+                SettingsView()
             }
             .onReceive(networkService.$isOnline) { isOnline in
                 self.isFetching = true

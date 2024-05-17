@@ -19,4 +19,12 @@ class ReviewRepositoryImpl: ReviewRepository {
     func uploadPhoto(image: UIImage) async throws -> String {
         return try await ReviewRepositoryImpl.reviewSA.uploadPhoto(image: image)
     }
+    
+    func uploadReviewReport(reviewId: String, reason: String) async throws {
+        return try await ReviewRepositoryImpl.reviewSA.uploadReviewReport(reviewId: reviewId, reason: reason)
+    }
+    
+    func getUserReviews(name: String, username: String) async throws -> [Review] {
+        return try await ReviewRepositoryImpl.reviewSA.getUserReviews(name: name, username: username)
+    }
 }

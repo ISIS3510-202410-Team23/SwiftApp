@@ -15,6 +15,7 @@ class CacheService {
     private let forYouCache = NSCache<NSString, NSArray>()
     
     private let hotCategoriesCache = NSCache<NSString, NSArray>()
+    private let reviewsCache = NSCache<NSString, NSArray>()
     
     private init() {}
     
@@ -57,6 +58,16 @@ class CacheService {
     
     func getCategories() -> [Category]? {
         return hotCategoriesCache.object(forKey: "hot-categories") as? [Category]
+    func setReviewsCache(_ reviews: [Review], userId: String) {
+        if !reviews.isEmpty {
+            let nsArr = reviews as NSArray
+            reviewsCache.setObject(nsArr, forKey: "\(userId)-reviews" as NSString)
+            print("REVIEWS for \(userId) have been set to: \(reviews.count)")
+        }
+    }
+    
+    func getReviewsCache(userId: String) -> [Review]? {
+        return reviewsCache.object(forKey: "\(userId)-reviews" as NSString) as? [Review]
     }
 
 }

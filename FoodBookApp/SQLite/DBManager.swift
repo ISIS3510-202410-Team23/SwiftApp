@@ -16,12 +16,13 @@ class DBManager: ObservableObject {
     private var db: Connection!
     private var drafts: SQLite.Table!
     private var upload: SQLite.Table!
+    private var bug_reports: SQLite.Table!
     private let utils = Utils.shared
     @Published var uploading = false
    
     let notify = NotificationHandler()
     
-    // Drafts table columns
+    // Drafts table columns (reviews)
     private var d_spot: Expression<String>!
     private var d_cat1: Expression<String>!
     private var d_cat2: Expression<String>!
@@ -49,6 +50,13 @@ class DBManager: ObservableObject {
     private var u_content: Expression<String>!
     private var u_date: Expression<Date>!
     
+    // Bug report drafts table
+    private var br_id: Expression<String>!
+    private var br_details: Expression<String>!
+    private var br_type: Expression<String>!
+    private var br_severity: Expression<String>!
+    private var br_steps: Expression<String>!
+    
     init() {
         do {
             let path: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
@@ -56,6 +64,7 @@ class DBManager: ObservableObject {
             db = try Connection("\(path)/my_local_db.sqlite3")
             drafts = Table("drafts")
             upload = Table("upload")
+            bug_reports = Table("bug_reports")
             
             d_spot = Expression<String>("spot")
             d_cat1 = Expression<String>("cat1")
@@ -82,6 +91,12 @@ class DBManager: ObservableObject {
             u_title = Expression<String>("title")
             u_content = Expression<String>("content")
             u_date = Expression<Date>("date")
+            
+            br_id = Expression<String>("id")
+            br_details = Expression<String>("details")
+            br_type = Expression<String>("type")
+            br_severity = Expression<String>("severity")
+            br_steps = Expression<String>("steps")
             
             if (!UserDefaults.standard.bool(forKey: "is_db_created")) {
                 //try db.run(drafts.drop(ifExists: true)) -> use when modifying table
@@ -114,11 +129,18 @@ class DBManager: ObservableObject {
                     t.column(u_date)
                 })
                 
+                try db.run(bug_reports.create { (t) in
+                    t.column(br_id, primaryKey: true)
+                    t.column(br_details)
+                    t.column(br_type)
+                    t.column(br_severity)
+                    t.column(br_steps)
+                })
+                
                 UserDefaults.standard.set(true, forKey: "is_db_created")
             }
-        }
-        catch {
-            print(error.localizedDescription)
+        } catch {
+            print("Error connecting to or creating data base: \(error)")
         }
     }
     
@@ -131,7 +153,7 @@ class DBManager: ObservableObject {
                                      d_cleanliness <- cleanlinessValue, d_waitTime <- waitTimeValue, d_foodQuality <- foodQualityValue, d_service <- serviceValue, d_image <- imageValue, d_title <- titleValue, d_content <- contentValue))
             print("Draft added for spot \(spotValue)")
         } catch {
-            print(error.localizedDescription)
+            print("Error adding draft: \(error)")
         }
     }
     
@@ -143,7 +165,18 @@ class DBManager: ObservableObject {
                                      u_cat3 <- cat3Value, u_cleanliness <- cleanlinessValue, u_waitTime <- waitTimeValue, u_foodQuality <- foodQualityValue, u_service <- serviceValue, u_image <- imageValue, u_title <- titleValue, u_content <- contentValue, u_date <- dateValue))
             print("Upload added for spot \(spotValue)")
         } catch {
-            print(error)
+            print("Error adding upload: \(error)")
+        }
+    }
+    
+    public func addBugReportDraft(detailsValue: String, typeValue: String, severityValue: String, stepsValue: String) {
+        do {
+            // Hard coded id bc we only allow one bug report draft
+            try db.run(bug_reports.insert(br_id <- "bug_report", br_details <- detailsValue, br_type <- typeValue,
+                                          br_severity <- severityValue, br_steps <- stepsValue))
+            print("Bug report draft added")
+        } catch {
+            print("Error adding bug report draft: \(error)")
         }
     }
     
@@ -166,10 +199,56 @@ class DBManager: ObservableObject {
                 return ReviewDraft(selectedCategories: selectedCategories, ratings: reviewStats, image: image, title: title, content: content)
             }
         } catch {
-            print("Error retrieving draft: \(error.localizedDescription)")
+            print("Error retrieving draft: \(error)")
         }
-        
         return nil
+    }
+    
+    func getBugreportDraft() -> BugReportDraft? {
+        do {
+            if let row = try db.pluck(bug_reports.filter(self.br_id == "bug_report")) {
+                let details = try row.get(self.br_details)
+                let type = try row.get(self.br_type)
+                let severity = try row.get(self.br_severity)
+                let steps = try row.get(self.br_steps)
+                
+                print("Bug report draft retrieved")
+                
+                return BugReportDraft(details: details, type: type, severity: severity, steps: steps)
+            }
+        } catch {
+            print("Error retrieving bug report draft: \(error)")
+        }
+        return nil
+    }
+    
+    // MARK: - Exist functions
+    public func draftExists(spot: String) -> Bool {
+        do {
+            if (try db.pluck(drafts.filter(self.d_spot == spot))) != nil {
+                return true
+            }
+            else {
+                return false
+            }
+        } catch {
+            print("Error finding if draft exists: \(error)")
+        }
+        return false
+    }
+    
+    public func bugReportDraftExists() -> Bool {
+        do {
+            if (try db.pluck(bug_reports.filter(self.br_id == "bug_report"))) != nil {
+                return true
+            }
+            else {
+                return false
+            }
+        } catch {
+            print("Error finding if bug report draft exists: \(error)")
+        }
+        return false
     }
     
     // MARK: - Delete functions
@@ -179,7 +258,7 @@ class DBManager: ObservableObject {
             try db.run(draftToDelete.delete())
             print("Draft deleted for spot \(spot)")
         } catch {
-            print(error.localizedDescription)
+            print("Error deleting draft: \(error)")
         }
     }
     
@@ -189,7 +268,17 @@ class DBManager: ObservableObject {
             try db.run(uploadToDelete.delete())
             print("Upload with \(id) id deleted")
         } catch {
-            print(error.localizedDescription)
+            print("Error deleting upload: \(error)")
+        }
+    }
+    
+    func deleteBugReportDraft() {
+        let bugReportToDelete = bug_reports.filter(self.br_id == "bug_report")
+        do {
+            try db.run(bugReportToDelete.delete())
+            print("Bug report draft deleted")
+        } catch {
+            print("Error deleting bug report draft: \(error)")
         }
     }
     
@@ -203,7 +292,7 @@ class DBManager: ObservableObject {
                 }
             }
         } catch {
-            print("Error deleting image of spot: \(error.localizedDescription)")
+            print("Error deleting image of spot: \(error)")
         }
     }
     
@@ -217,7 +306,7 @@ class DBManager: ObservableObject {
                 }
             }
         } catch {
-            print("Error deleting image of upload: \(error.localizedDescription)")
+            print("Error deleting image of upload: \(error)")
         }
     }
     
@@ -240,7 +329,7 @@ class DBManager: ObservableObject {
                 }
             }
         } catch {
-            print("Error deleting images: \(error.localizedDescription)")
+            print("Error deleting images: \(error)")
         }
     }
     
@@ -249,28 +338,15 @@ class DBManager: ObservableObject {
         do {
             try db.run(drafts.drop(ifExists: true))
             try db.run(upload.drop(ifExists: true))
+            try db.run(bug_reports.drop(ifExists: true))
             UserDefaults.standard.set(false, forKey: "is_db_created")
         }
         catch {
-            print("Error deleting drafts table: \(error.localizedDescription)")
+            print("Error deleting drafts table: \(error)")
         }
     }
     
     // MARK: - Other functions
-    public func draftExists(spot: String) -> Bool {
-        do {
-            if (try db.pluck(drafts.filter(self.d_spot == spot))) != nil {
-                return true
-            }
-            else {
-                return false
-            }
-        } catch {
-            print(error.localizedDescription)
-        }
-        return false
-    }
-    
     @MainActor
     func uploadReviews() async throws {
         self.uploading = true
@@ -322,7 +398,7 @@ class DBManager: ObservableObject {
                 notify.sendUploadedReviewsNotification()
             }
         } catch {
-            print("Error uploading reviews: \(error.localizedDescription)")
+            print("Error uploading reviews: \(error)")
         }
         self.uploading = false
     }

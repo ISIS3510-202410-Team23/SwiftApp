@@ -11,7 +11,14 @@
 		0D16DDD52B8C1799001D7BAB /* HCategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16DDD42B8C1799001D7BAB /* HCategoryList.swift */; };
 		0D347C362BAB2589003990A0 /* LocationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D347C352BAB2589003990A0 /* LocationUtils.swift */; };
 		0D347C382BAB4FA4003990A0 /* BackendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D347C372BAB4FA4003990A0 /* BackendService.swift */; };
+		0D7F6ECD2BF1177A00AF45DF /* BugReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7F6ECC2BF1177A00AF45DF /* BugReportViewModel.swift */; };
+		0D7F6ECF2BF11A6100AF45DF /* BugReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7F6ECE2BF11A6100AF45DF /* BugReport.swift */; };
+		0D7F6ED22BF11D6800AF45DF /* BugReportRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7F6ED12BF11D6800AF45DF /* BugReportRepository.swift */; };
+		0D7F6ED62BF11D9800AF45DF /* BugReportRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7F6ED52BF11D9800AF45DF /* BugReportRepositoryImpl.swift */; };
+		0D7F6ED82BF11EAB00AF45DF /* BugReportSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7F6ED72BF11EAB00AF45DF /* BugReportSA.swift */; };
+		0D7F6EDA2BF11EC100AF45DF /* BugReportSAFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7F6ED92BF11EC100AF45DF /* BugReportSAFirebase.swift */; };
 		0D8BBB662B91462800739448 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8BBB652B91462800739448 /* LocationService.swift */; };
+		0DC50DC82BF51D180043D9F8 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 0DC50DC72BF51D180043D9F8 /* CachedAsyncImage */; };
 		0DC6449C2BCEE7180004684E /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC6449B2BCEE7180004684E /* ContentViewModel.swift */; };
 		0DCB7BD82B86F0290088C333 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB7BD52B86F0290088C333 /* BrowseView.swift */; };
 		0DCB7BD92B86F0290088C333 /* ForYouView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB7BD62B86F0290088C333 /* ForYouView.swift */; };
@@ -22,6 +29,7 @@
 		0DD5D5482BEAD47800CDB9E8 /* SearchUsageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD5D5472BEAD47800CDB9E8 /* SearchUsageRepository.swift */; };
 		0DD5D54A2BEAD4B100CDB9E8 /* SearchUsageRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD5D5492BEAD4B100CDB9E8 /* SearchUsageRepositoryImpl.swift */; };
 		0DD5D54C2BEAE84E00CDB9E8 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD5D54B2BEAE84E00CDB9E8 /* UserViewModel.swift */; };
+		0DFB26862BF0239600253947 /* BugReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFB26852BF0239600253947 /* BugReportView.swift */; };
 		6C0C82DA2B8D2D99004EAE3F /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C82D92B8D2D99004EAE3F /* Firebase.swift */; };
 		6C0C82DD2B8D2E49004EAE3F /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 6C0C82DC2B8D2E49004EAE3F /* FirebaseFirestore */; };
 		6C1021982B96710D007DCEEF /* SpotSAFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1021972B96710D007DCEEF /* SpotSAFirebase.swift */; };
@@ -39,6 +47,7 @@
 		6C2504F82BA9D26C0018D1DD /* CategoryRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2504F72BA9D26C0018D1DD /* CategoryRepositoryImpl.swift */; };
 		6C28ACCA2BD4038500D5A4AD /* BookmarksUsageSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C28ACC92BD4038500D5A4AD /* BookmarksUsageSA.swift */; };
 		6C28ACCC2BD4039500D5A4AD /* BookmarksUsageSAFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C28ACCB2BD4039500D5A4AD /* BookmarksUsageSAFirebase.swift */; };
+		6C2F6ECD2BF03A9000112D5D /* TextFieldWithLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2F6ECC2BF03A9000112D5D /* TextFieldWithLimit.swift */; };
 		6C396DC22BC83EB0006F0855 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C396DC12BC83EB0006F0855 /* NetworkService.swift */; };
 		6C46E4CF2BD1DECD006DCB64 /* BookmarksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C46E4CE2BD1DECD006DCB64 /* BookmarksViewModel.swift */; };
 		6C5ED6D12B8ADB1000AF115C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6C5ED6D02B8ADB1000AF115C /* FirebaseAnalytics */; };
@@ -52,6 +61,8 @@
 		6CC9291E2B84FB0900EDDE78 /* FoodBookAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9291D2B84FB0900EDDE78 /* FoodBookAppUITests.swift */; };
 		6CC929202B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9291F2B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift */; };
 		6CC9292D2B84FFEE00EDDE78 /* FoodBookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */; };
+		6CE637392BEFF8820073E856 /* ReportReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE637382BEFF8820073E856 /* ReportReviewView.swift */; };
+		6CE6373C2BEFFACB0073E856 /* ReviewReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE6373B2BEFFACB0073E856 /* ReviewReportViewModel.swift */; };
 		6CF57A802BD408C000A8D2BF /* BookmarksUsageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF57A7F2BD408C000A8D2BF /* BookmarksUsageRepository.swift */; };
 		6CF57A822BD408D200A8D2BF /* BookmarksUsageRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF57A812BD408D200A8D2BF /* BookmarksUsageRepositoryImpl.swift */; };
 		6CF6CCCF2BCF5B5B006F3DE9 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 6CF6CCCE2BCF5B5B006F3DE9 /* SQLite */; };
@@ -92,9 +103,15 @@
 		D35B91462BEB0548007C0868 /* SpotDetailFetchingTimeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35B91452BEB0548007C0868 /* SpotDetailFetchingTimeRepository.swift */; };
 		D35B91482BEB055A007C0868 /* SpotDetailFetchingTimeImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35B91472BEB055A007C0868 /* SpotDetailFetchingTimeImpl.swift */; };
 		D37B0E0F2BCC9ADC00EEFA08 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37B0E0E2BCC9ADB00EEFA08 /* DBManager.swift */; };
+		D3A713E92BEFD9DA0010C0F1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A713E82BEFD9DA0010C0F1 /* SettingsView.swift */; };
 		D3D92B0F2BCCABE00077C30D /* ReviewDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D92B0E2BCCABE00077C30D /* ReviewDraft.swift */; };
 		D3DA08072B96EB3B00475AC9 /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DA08062B96EB3A00475AC9 /* LargeButton.swift */; };
 		D3DC76242B96988100AC9CAB /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DC76232B96988100AC9CAB /* ImagePicker.swift */; };
+		D3FB34AE2BF2A49800924A39 /* BugReportDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FB34AD2BF2A49800924A39 /* BugReportDraft.swift */; };
+		D3FB34B02BF2E46C00924A39 /* ReviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FB34AF2BF2E46C00924A39 /* ReviewCard.swift */; };
+		D3FB34B22BF2F99800924A39 /* ReviewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FB34B12BF2F99800924A39 /* ReviewsViewModel.swift */; };
+		D3FB34B62BF3042F00924A39 /* UserReviewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FB34B52BF3042F00924A39 /* UserReviewsView.swift */; };
+		D3FB34B82BF3044000924A39 /* UserReviewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FB34B72BF3044000924A39 /* UserReviewsViewModel.swift */; };
 		D3FD9DB22BD9517A006689A8 /* HardcodedSpots.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD9DB12BD9517A006689A8 /* HardcodedSpots.swift */; };
 /* End PBXBuildFile section */
 
@@ -133,6 +150,12 @@
 		0D16DDD42B8C1799001D7BAB /* HCategoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCategoryList.swift; sourceTree = "<group>"; };
 		0D347C352BAB2589003990A0 /* LocationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUtils.swift; sourceTree = "<group>"; };
 		0D347C372BAB4FA4003990A0 /* BackendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendService.swift; sourceTree = "<group>"; };
+		0D7F6ECC2BF1177A00AF45DF /* BugReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugReportViewModel.swift; sourceTree = "<group>"; };
+		0D7F6ECE2BF11A6100AF45DF /* BugReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugReport.swift; sourceTree = "<group>"; };
+		0D7F6ED12BF11D6800AF45DF /* BugReportRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugReportRepository.swift; sourceTree = "<group>"; };
+		0D7F6ED52BF11D9800AF45DF /* BugReportRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugReportRepositoryImpl.swift; sourceTree = "<group>"; };
+		0D7F6ED72BF11EAB00AF45DF /* BugReportSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugReportSA.swift; sourceTree = "<group>"; };
+		0D7F6ED92BF11EC100AF45DF /* BugReportSAFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugReportSAFirebase.swift; sourceTree = "<group>"; };
 		0D8BBB652B91462800739448 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		0DA610BC2B8D2A5500DFDFF4 /* Spot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
 		0DC6449B2BCEE7180004684E /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
@@ -145,6 +168,7 @@
 		0DD5D5472BEAD47800CDB9E8 /* SearchUsageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUsageRepository.swift; sourceTree = "<group>"; };
 		0DD5D5492BEAD4B100CDB9E8 /* SearchUsageRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUsageRepositoryImpl.swift; sourceTree = "<group>"; };
 		0DD5D54B2BEAE84E00CDB9E8 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		0DFB26852BF0239600253947 /* BugReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugReportView.swift; sourceTree = "<group>"; };
 		6C0C82D92B8D2D99004EAE3F /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		6C1021972B96710D007DCEEF /* SpotSAFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotSAFirebase.swift; sourceTree = "<group>"; };
 		6C1021992B96712D007DCEEF /* SpotSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotSA.swift; sourceTree = "<group>"; };
@@ -161,6 +185,7 @@
 		6C2504F72BA9D26C0018D1DD /* CategoryRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepositoryImpl.swift; sourceTree = "<group>"; };
 		6C28ACC92BD4038500D5A4AD /* BookmarksUsageSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksUsageSA.swift; sourceTree = "<group>"; };
 		6C28ACCB2BD4039500D5A4AD /* BookmarksUsageSAFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksUsageSAFirebase.swift; sourceTree = "<group>"; };
+		6C2F6ECC2BF03A9000112D5D /* TextFieldWithLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithLimit.swift; sourceTree = "<group>"; };
 		6C396DC12BC83EB0006F0855 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		6C46E4CE2BD1DECD006DCB64 /* BookmarksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewModel.swift; sourceTree = "<group>"; };
 		6CBFB8362BD03D1F00D69E85 /* BookmarksService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksService.swift; sourceTree = "<group>"; };
@@ -174,6 +199,8 @@
 		6CC9291D2B84FB0900EDDE78 /* FoodBookAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBookAppUITests.swift; sourceTree = "<group>"; };
 		6CC9291F2B84FB0900EDDE78 /* FoodBookAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBookAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		6CC9292C2B84FFEE00EDDE78 /* FoodBookApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodBookApp.swift; sourceTree = "<group>"; };
+		6CE637382BEFF8820073E856 /* ReportReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReviewView.swift; sourceTree = "<group>"; };
+		6CE6373B2BEFFACB0073E856 /* ReviewReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewReportViewModel.swift; sourceTree = "<group>"; };
 		6CF57A7F2BD408C000A8D2BF /* BookmarksUsageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksUsageRepository.swift; sourceTree = "<group>"; };
 		6CF57A812BD408D200A8D2BF /* BookmarksUsageRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksUsageRepositoryImpl.swift; sourceTree = "<group>"; };
 		6CF821762B8D7E15008E7057 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -210,9 +237,15 @@
 		D35B91452BEB0548007C0868 /* SpotDetailFetchingTimeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotDetailFetchingTimeRepository.swift; sourceTree = "<group>"; };
 		D35B91472BEB055A007C0868 /* SpotDetailFetchingTimeImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotDetailFetchingTimeImpl.swift; sourceTree = "<group>"; };
 		D37B0E0E2BCC9ADB00EEFA08 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
+		D3A713E82BEFD9DA0010C0F1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D3D92B0E2BCCABE00077C30D /* ReviewDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDraft.swift; sourceTree = "<group>"; };
 		D3DA08062B96EB3A00475AC9 /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
 		D3DC76232B96988100AC9CAB /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		D3FB34AD2BF2A49800924A39 /* BugReportDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugReportDraft.swift; sourceTree = "<group>"; };
+		D3FB34AF2BF2E46C00924A39 /* ReviewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCard.swift; sourceTree = "<group>"; };
+		D3FB34B12BF2F99800924A39 /* ReviewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewModel.swift; sourceTree = "<group>"; };
+		D3FB34B52BF3042F00924A39 /* UserReviewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewsView.swift; sourceTree = "<group>"; };
+		D3FB34B72BF3044000924A39 /* UserReviewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewsViewModel.swift; sourceTree = "<group>"; };
 		D3FD9DB12BD9517A006689A8 /* HardcodedSpots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardcodedSpots.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -231,6 +264,7 @@
 				6CF6CCCF2BCF5B5B006F3DE9 /* SQLite in Frameworks */,
 				6C5ED6D12B8ADB1000AF115C /* FirebaseAnalytics in Frameworks */,
 				6CF8217E2B8D8837008E7057 /* GoogleSignIn in Frameworks */,
+				0DC50DC82BF51D180043D9F8 /* CachedAsyncImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +303,15 @@
 			path = Bookmarks;
 			sourceTree = "<group>";
 		};
+		0D7F6ED02BF11D4500AF45DF /* BugReport */ = {
+			isa = PBXGroup;
+			children = (
+				0D7F6ED12BF11D6800AF45DF /* BugReportRepository.swift */,
+				0D7F6ED52BF11D9800AF45DF /* BugReportRepositoryImpl.swift */,
+			);
+			path = BugReport;
+			sourceTree = "<group>";
+		};
 		0D8BBB622B91402C00739448 /* ForYou */ = {
 			isa = PBXGroup;
 			children = (
@@ -303,6 +346,15 @@
 			path = SearchUsage;
 			sourceTree = "<group>";
 		};
+		0DFB26842BF0238500253947 /* BugReport */ = {
+			isa = PBXGroup;
+			children = (
+				0DFB26852BF0239600253947 /* BugReportView.swift */,
+				0D7F6ECC2BF1177A00AF45DF /* BugReportViewModel.swift */,
+			);
+			path = BugReport;
+			sourceTree = "<group>";
+		};
 		6C0C82DB2B8D2E49004EAE3F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -321,6 +373,7 @@
 				6C28ACC92BD4038500D5A4AD /* BookmarksUsageSA.swift */,
 				0DD5D5442BEAD1BE00CDB9E8 /* SearchUsageSA.swift */,
 				D35B91422BEB0399007C0868 /* SpotDetailFetchingTimeSA.swift */,
+				0D7F6ED72BF11EAB00AF45DF /* BugReportSA.swift */,
 			);
 			path = ServiceAdapter;
 			sourceTree = "<group>";
@@ -335,6 +388,7 @@
 				6C28ACCB2BD4039500D5A4AD /* BookmarksUsageSAFirebase.swift */,
 				0DD5D5422BEAD1A600CDB9E8 /* SearchUsageSAFirebase.swift */,
 				D35B913E2BEB0094007C0868 /* SpotDetailFetchingTimeSAFirebase.swift */,
+				0D7F6ED92BF11EC100AF45DF /* BugReportSAFirebase.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -480,6 +534,8 @@
 				D321E4A32B8F929200F93974 /* Review.swift */,
 				D3D92B0E2BCCABE00077C30D /* ReviewDraft.swift */,
 				D321E4A52B8F929D00F93974 /* Spot.swift */,
+				0D7F6ECE2BF11A6100AF45DF /* BugReport.swift */,
+				D3FB34AD2BF2A49800924A39 /* BugReportDraft.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -495,6 +551,7 @@
 		6CC929312B85029E00EDDE78 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				0D7F6ED02BF11D4500AF45DF /* BugReport */,
 				0DD5D5462BEAD45900CDB9E8 /* SearchUsage */,
 				6C28ACCD2BD4063200D5A4AD /* BookmarksUsage */,
 				D31D670C2BA9069B00B22A79 /* Review */,
@@ -518,6 +575,8 @@
 		6CC929342B8502D800EDDE78 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0DFB26842BF0238500253947 /* BugReport */,
+				6CE6373A2BEFFAB50073E856 /* ReviewReport */,
 				0DC6449A2BCEE7020004684E /* Content */,
 				6C1226C32BCDDF7500A18E77 /* User */,
 				0D8BBB622B91402C00739448 /* ForYou */,
@@ -526,8 +585,20 @@
 				0DA610B92B8D26B300DFDFF4 /* Browse */,
 				0D347C3D2BAB8784003990A0 /* Login */,
 				0D347C3E2BAB8797003990A0 /* Bookmarks */,
+				D3A713E72BEFD9BC0010C0F1 /* Settings */,
+				D3FB34B32BF3020E00924A39 /* Reviews */,
+				D3FB34B42BF303D800924A39 /* UserReviews */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		6CE6373A2BEFFAB50073E856 /* ReviewReport */ = {
+			isa = PBXGroup;
+			children = (
+				6CE637382BEFF8820073E856 /* ReportReviewView.swift */,
+				6CE6373B2BEFFACB0073E856 /* ReviewReportViewModel.swift */,
+			);
+			path = ReviewReport;
 			sourceTree = "<group>";
 		};
 		6CF821832B8D89FA008E7057 /* Utils */ = {
@@ -554,6 +625,8 @@
 				D32FC9A22B9624A8008D66BA /* ClearButton.swift */,
 				D3DC76232B96988100AC9CAB /* ImagePicker.swift */,
 				D3DA08062B96EB3A00475AC9 /* LargeButton.swift */,
+				6C2F6ECC2BF03A9000112D5D /* TextFieldWithLimit.swift */,
+				D3FB34AF2BF2E46C00924A39 /* ReviewCard.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -578,7 +651,6 @@
 		D321E49A2B8F83F800F93974 /* SpotDetail */ = {
 			isa = PBXGroup;
 			children = (
-				D321E4952B8E971500F93974 /* ReviewsView.swift */,
 				D319C47A2B8D5FB90030ED34 /* SpotDetailView.swift */,
 				D321E49F2B8F883A00F93974 /* SpotDetailViewModel.swift */,
 			);
@@ -622,6 +694,32 @@
 			path = SQLite;
 			sourceTree = "<group>";
 		};
+		D3A713E72BEFD9BC0010C0F1 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				D3A713E82BEFD9DA0010C0F1 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		D3FB34B32BF3020E00924A39 /* Reviews */ = {
+			isa = PBXGroup;
+			children = (
+				D321E4952B8E971500F93974 /* ReviewsView.swift */,
+				D3FB34B12BF2F99800924A39 /* ReviewsViewModel.swift */,
+			);
+			path = Reviews;
+			sourceTree = "<group>";
+		};
+		D3FB34B42BF303D800924A39 /* UserReviews */ = {
+			isa = PBXGroup;
+			children = (
+				D3FB34B52BF3042F00924A39 /* UserReviewsView.swift */,
+				D3FB34B72BF3044000924A39 /* UserReviewsViewModel.swift */,
+			);
+			path = UserReviews;
+			sourceTree = "<group>";
+		};
 		D3FD9DB02BD95168006689A8 /* Cache */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,6 +755,7 @@
 				6CF8217F2B8D8837008E7057 /* GoogleSignInSwift */,
 				D31D67172BAA763B00B22A79 /* FirebaseStorage */,
 				D338BDAA2BCF408C005481EF /* SQLite */,
+				0DC50DC72BF51D180043D9F8 /* CachedAsyncImage */,
 			);
 			productName = FoodBookApp;
 			productReference = 6CC928FF2B84FB0700EDDE78 /* FoodBookApp.app */;
@@ -734,6 +833,7 @@
 				6C5ED6CF2B8ADB1000AF115C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				6CF8217C2B8D8837008E7057 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				D338BDA92BCF408C005481EF /* XCRemoteSwiftPackageReference "SQLite" */,
+				0DC50DC62BF51D180043D9F8 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 			);
 			productRefGroup = 6CC929002B84FB0700EDDE78 /* Products */;
 			projectDirPath = "";
@@ -785,7 +885,9 @@
 				D31D67162BA9119700B22A79 /* CreateReview2ViewModel.swift in Sources */,
 				D321E4A02B8F883A00F93974 /* SpotDetailViewModel.swift in Sources */,
 				D37B0E0F2BCC9ADC00EEFA08 /* DBManager.swift in Sources */,
+				6C2F6ECD2BF03A9000112D5D /* TextFieldWithLimit.swift in Sources */,
 				6C1811D52B8AC15C0066F3D0 /* LoginView.swift in Sources */,
+				0D7F6EDA2BF11EC100AF45DF /* BugReportSAFirebase.swift in Sources */,
 				0DD5D5482BEAD47800CDB9E8 /* SearchUsageRepository.swift in Sources */,
 				6CC929052B84FB0700EDDE78 /* ContentView.swift in Sources */,
 				D3D92B0F2BCCABE00077C30D /* ReviewDraft.swift in Sources */,
@@ -793,6 +895,7 @@
 				6CF821852B8D8A0D008E7057 /* Utils.swift in Sources */,
 				D338BDAD2BCF435A005481EF /* UnfinishedReviewSAFirebase.swift in Sources */,
 				6C10219E2B96B4CB007DCEEF /* SpotRepository.swift in Sources */,
+				0D7F6ED62BF11D9800AF45DF /* BugReportRepositoryImpl.swift in Sources */,
 				6CF821822B8D891D008E7057 /* LoginViewModel.swift in Sources */,
 				D3FD9DB22BD9517A006689A8 /* HardcodedSpots.swift in Sources */,
 				0DD5D5452BEAD1BE00CDB9E8 /* SearchUsageSA.swift in Sources */,
@@ -813,35 +916,48 @@
 				0DD5D5432BEAD1A600CDB9E8 /* SearchUsageSAFirebase.swift in Sources */,
 				6C2504F62BA9D25B0018D1DD /* CategoryRepository.swift in Sources */,
 				D34B697A2B8FA2BA0043937B /* CreateReview1View.swift in Sources */,
+				D3FB34B22BF2F99800924A39 /* ReviewsViewModel.swift in Sources */,
+				D3FB34B82BF3044000924A39 /* UserReviewsViewModel.swift in Sources */,
 				D30C88132B8FB5B50052C01E /* CreateReview2View.swift in Sources */,
 				0D347C362BAB2589003990A0 /* LocationUtils.swift in Sources */,
 				D31D670B2BA904FE00B22A79 /* ReviewSAFirebase.swift in Sources */,
 				D35B913F2BEB0095007C0868 /* SpotDetailFetchingTimeSAFirebase.swift in Sources */,
 				6CBFB8372BD03D1F00D69E85 /* BookmarksService.swift in Sources */,
+				0D7F6ECD2BF1177A00AF45DF /* BugReportViewModel.swift in Sources */,
+				D3FB34AE2BF2A49800924A39 /* BugReportDraft.swift in Sources */,
 				6C1226C82BCDDFA400A18E77 /* UserView.swift in Sources */,
 				D342009D2B91404A00B8817C /* TextButton.swift in Sources */,
 				0DCB7BD82B86F0290088C333 /* BrowseView.swift in Sources */,
+				0D7F6ED82BF11EAB00AF45DF /* BugReportSA.swift in Sources */,
+				D3FB34B02BF2E46C00924A39 /* ReviewCard.swift in Sources */,
 				D35B91462BEB0548007C0868 /* SpotDetailFetchingTimeRepository.swift in Sources */,
 				D32FC9A32B9624A8008D66BA /* ClearButton.swift in Sources */,
 				0DD5D54A2BEAD4B100CDB9E8 /* SearchUsageRepositoryImpl.swift in Sources */,
 				D34B697C2B8FAD7F0043937B /* CreateReview1ViewModel.swift in Sources */,
 				D3DA08072B96EB3B00475AC9 /* LargeButton.swift in Sources */,
+				0D7F6ECF2BF11A6100AF45DF /* BugReport.swift in Sources */,
 				D338BDAF2BCF4391005481EF /* UnfinishedReviewSA.swift in Sources */,
 				D321E4A42B8F929200F93974 /* Review.swift in Sources */,
+				6CE6373C2BEFFACB0073E856 /* ReviewReportViewModel.swift in Sources */,
 				D338BDB22BCF461C005481EF /* UnfinishedReviewRepository.swift in Sources */,
 				6C2504F12BA9D00A0018D1DD /* CategorySA.swift in Sources */,
+				6CE637392BEFF8820073E856 /* ReportReviewView.swift in Sources */,
 				D321E4A62B8F929D00F93974 /* Spot.swift in Sources */,
+				0D7F6ED22BF11D6800AF45DF /* BugReportRepository.swift in Sources */,
+				0DFB26862BF0239600253947 /* BugReportView.swift in Sources */,
 				6C2504F82BA9D26C0018D1DD /* CategoryRepositoryImpl.swift in Sources */,
 				D31966A32BA7A54300E1DD53 /* NotificationHandler.swift in Sources */,
 				D321E4962B8E971500F93974 /* ReviewsView.swift in Sources */,
 				0DCDE9C02BD1FCD8006F43BD /* CacheService.swift in Sources */,
 				6C10219A2B96712D007DCEEF /* SpotSA.swift in Sources */,
 				6C1021A12B96B4E1007DCEEF /* SpotRepositoryImpl.swift in Sources */,
+				D3A713E92BEFD9DA0010C0F1 /* SettingsView.swift in Sources */,
 				D338BDB42BCF46A9005481EF /* UnfinishedReviewImpl.swift in Sources */,
 				6C46E4CF2BD1DECD006DCB64 /* BookmarksViewModel.swift in Sources */,
 				6C10219C2B96AB87007DCEEF /* Error.swift in Sources */,
 				D31D670E2BA906D500B22A79 /* ReviewRepository.swift in Sources */,
 				D319C47B2B8D5FB90030ED34 /* SpotDetailView.swift in Sources */,
+				D3FB34B62BF3042F00924A39 /* UserReviewsView.swift in Sources */,
 				D30C88212B9108C20052C01E /* Separator.swift in Sources */,
 				0D8BBB662B91462800739448 /* LocationService.swift in Sources */,
 				6CC9292D2B84FFEE00EDDE78 /* FoodBookApp.swift in Sources */,
@@ -1192,6 +1308,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0DC50DC62BF51D180043D9F8 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
 		6C5ED6CF2B8ADB1000AF115C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -1227,6 +1351,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0DC50DC72BF51D180043D9F8 /* CachedAsyncImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0DC50DC62BF51D180043D9F8 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
+			productName = CachedAsyncImage;
+		};
 		6C0C82DC2B8D2E49004EAE3F /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6C5ED6CF2B8ADB1000AF115C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
