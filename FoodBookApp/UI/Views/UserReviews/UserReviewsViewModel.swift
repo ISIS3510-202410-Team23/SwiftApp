@@ -19,7 +19,7 @@ class UserReviewsViewModel {
     func fetchUserReviews(username: String, userId: String, name: String) async throws {
         if let cachedReviews = cacheService.getReviewsCache(userId: userId) {
             print("Reviews loaded from cache for \(userId)")
-            userReviews = cachedReviews
+            userReviews = cachedReviews.sorted { $0.date > $1.date } // Sort by date
         } else {
             do {
                 if NetworkService.shared.isOnline {
@@ -28,6 +28,7 @@ class UserReviewsViewModel {
                     if !userReviews.isEmpty {
                         cacheService.setReviewsCache(userReviews, userId: userId)
                     }
+                    userReviews = userReviews.sorted { $0.date > $1.date } // Sort by date
                 } else {
                     print("No cache nor network...")
                 }
