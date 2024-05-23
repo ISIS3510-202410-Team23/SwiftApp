@@ -61,17 +61,24 @@ class ReviewSAFirebase: ReviewSA {
     }
     
     func getUserReviews(name: String, username: String) async throws -> [Review] {
-        let snapshot = try await collection.whereField("user", isEqualTo: ["id": username, "name": name]).getDocuments()
+        let query = collection.whereField("user", isEqualTo: ["id": username, "name": name])
         
-        var userReviews: [Review] = []
+        do {
+            let snapshot = try await query.getDocuments()
+            var userReviews: [Review] = []
 
-        for document in snapshot.documents {
-            print("FIREBASE: Trying to fetch document \(document.documentID)")
-            let review = try document.data(as: Review.self)
-            userReviews.append(review)
-        }
-        
-        return userReviews
+            for document in snapshot.documents {
+                print("FIREBASE: Trying to fetch document \(document.documentID)")
+                let review = try document.data(as: Review.self)
+                userReviews.append(review)
+            }
+            
+            return userReviews
+        } catch {
+            // Handle error
+            throw error
+        } 
     }
+
 
  }
