@@ -40,7 +40,8 @@ struct BookmarksView: View {
                         .multilineTextAlignment(.center)
                         .safeAreaPadding()
                 } else {
-                    ForEach(model.spots, id: \.self) {spot in
+                    ForEach(model.spots.indices, id: \.self) {index in
+                        let spot = model.spots[index]
                         NavigationLink(destination: SpotDetailView(spotId: spot.id ?? "")){
                             SpotCard(
                                 id: spot.id ?? "",

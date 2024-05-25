@@ -86,7 +86,9 @@ struct SpotDetailView: View {
                             TipView(scrollTip, arrowEdge: .leading)
                             ScrollView(.horizontal) {
                                 HStack {
-                                    ForEach(Utils.shared.highestCategories(spot: model.spot), id: \.self) { cat in
+                                    let highestCategories = Utils.shared.highestCategories(spot: model.spot)
+                                    ForEach(highestCategories.indices, id: \.self) { index in
+                                        let cat = highestCategories[index]
                                         Text("\(cat.name.capitalized) (\(cat.count))")
                                             .font(.system(size: 14))
                                             .bold()

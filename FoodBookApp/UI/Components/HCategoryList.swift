@@ -14,8 +14,8 @@ struct HCategoryList: View {
     var body: some View {
         ScrollView(.horizontal) {
             HStack {
-                ForEach(categories, id: \.self){
-                    cat in
+                ForEach(categories.indices, id: \.self){ index in
+                    let cat = categories[index]
                     Text(cat.name.capitalized)
                         .padding(8)
                         .background(color.opacity(0.2))
@@ -30,10 +30,10 @@ struct HCategoryList: View {
 }
 
 
-#Preview {
-    HCategoryList(
-        categories: [ Category(name: "sandwich", count: 1),  Category(name: "healthy", count: 1),  Category(name: "organic", count: 1),  Category(name: "fast", count: 2),  Category(name: "burger", count: 2),  Category(name: "low-fat", count: 1),  Category(name: "fries", count: 1)]
-,
-        color: Color.gray
-    )
-}
+//#Preview {
+//    HCategoryList(
+//        categories: [ Category(name: "sandwich", count: 1),  Category(name: "healthy", count: 1),  Category(name: "organic", count: 1),  Category(name: "fast", count: 2),  Category(name: "burger", count: 2),  Category(name: "low-fat", count: 1),  Category(name: "fries", count: 1)]
+//,
+//        color: Color.gray
+//    )
+//}
