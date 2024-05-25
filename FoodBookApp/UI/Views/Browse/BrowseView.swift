@@ -54,7 +54,8 @@ struct BrowseView: View {
                             .multilineTextAlignment(.center)
                             .safeAreaPadding()
                     } else {
-                        ForEach(searchResults, id: \.self) { spot in
+                        ForEach(searchResults.indices, id: \.self) { index in
+                            let spot = searchResults[index]
                             NavigationLink(destination: SpotDetailView(spotId: spot.id ?? "")){
                                 SpotCard(
                                     id: spot.id ?? "",

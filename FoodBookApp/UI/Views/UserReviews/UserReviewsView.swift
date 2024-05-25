@@ -47,7 +47,8 @@ struct UserReviewsView: View {
                         }
                         ScrollView(.vertical) {
                             VStack {
-                                ForEach(model.userReviews, id: \.self) { review in
+                                ForEach(model.userReviews.indices, id: \.self) { index in
+                                    let review = model.userReviews[index]
                                     ReviewCard(review: review, userId: username)
                                 }
                                 .padding(.vertical, 5)
