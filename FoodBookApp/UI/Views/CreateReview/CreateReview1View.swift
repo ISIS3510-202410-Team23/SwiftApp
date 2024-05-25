@@ -151,7 +151,8 @@ struct CreateReview1View: View {
                     ScrollView() {
                         VStack(alignment: .leading, spacing: 0) {
                             LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], alignment: .leading) {
-                                ForEach(searchResults, id: \.self) { cat in
+                                ForEach(searchResults.indices, id: \.self) { index in
+                                    let cat = searchResults[index]
                                     Button(action: {
                                         if selectedCats.contains(cat) {
                                             selectedCats.removeAll { $0 == cat }

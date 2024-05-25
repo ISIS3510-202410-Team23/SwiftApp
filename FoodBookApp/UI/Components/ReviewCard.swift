@@ -78,7 +78,8 @@ struct ReviewCard: View {
                 // Categories
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach(review.selectedCategories, id: \.self) { tag in
+                        ForEach(review.selectedCategories.indices, id: \.self) { index in
+                            let tag = review.selectedCategories[index]
                             Text(tag.capitalized)
                                 .font(.system(size: 14))
                                 .bold()

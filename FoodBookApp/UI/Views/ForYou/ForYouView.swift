@@ -51,7 +51,8 @@ struct ForYouView: View {
                         .multilineTextAlignment(.center)
                         .safeAreaPadding()
                 } else {
-                    ForEach(self.spots, id: \.self) { spot in
+                    ForEach(self.spots.indices, id: \.self) { index in
+                        let spot = spots[index]
                         NavigationLink(
                             destination: SpotDetailView(spotId: spot.id ?? ""))
                         {

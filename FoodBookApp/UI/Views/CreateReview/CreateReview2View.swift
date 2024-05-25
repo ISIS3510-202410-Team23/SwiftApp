@@ -37,6 +37,8 @@ struct CreateReview2View: View {
     let notify = NotificationHandler()
     @State private var model = CreateReview2ViewModel()
     
+    @State private var doneTapped = false;
+    
     let customGray = Color(red: 242/255, green: 242/255, blue: 242/255)
     let customGray2 = Color(red: 242/255, green: 242/255, blue: 247/255)
     
@@ -115,6 +117,7 @@ struct CreateReview2View: View {
                                 showFillStarsAlert.toggle()
                             }
                             else {
+                                doneTapped = true;
                                 let reviewDate = Date()
                                 let lowercasedCategories = categories.map { $0.lowercased() }
                                 let trimmedContent = content.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -144,7 +147,7 @@ struct CreateReview2View: View {
                         }, label: {
                             Text("Done")
                                 .frame(maxWidth: .infinity)
-                        })
+                        }).disabled(doneTapped)
                     }
                 
                 // Photo
@@ -330,6 +333,6 @@ struct CreateReview2View: View {
     }
 }
 
-#Preview {
-    CreateReview2View(categories: ["Homemade", "Colombian"], spotId: "ms1hTTxzVkiJElZiYHAT", draftMode: false, shouldCount: .constant(false), imageChange: .constant(false), selectedImage: .constant(nil), cleanliness: .constant(0), waitingTime: .constant(0), foodQuality: .constant(0), service: .constant(0), title: .constant(""), content: .constant(""), isNewReviewSheetPresented: .constant(true))
-}
+//#Preview {
+//    CreateReview2View(categories: ["Homemade", "Colombian"], spotId: "ms1hTTxzVkiJElZiYHAT", draftMode: false, shouldCount: .constant(false), imageChange: .constant(false), selectedImage: .constant(nil), cleanliness: .constant(0), waitingTime: .constant(0), foodQuality: .constant(0), service: .constant(0), title: .constant(""), content: .constant(""), isNewReviewSheetPresented: .constant(true))
+//}

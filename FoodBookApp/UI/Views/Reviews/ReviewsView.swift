@@ -45,7 +45,9 @@ struct ReviewsView: View {
                 NavigationStack {
                     ScrollView(.vertical) {
                         VStack {
-                            ForEach(reviews.reversed(), id: \.self) { review in
+                            ForEach(reviews.indices, id: \.self) { index in
+                                let reversedIndex = reviews.count - 1 - index
+                                let review = reviews[reversedIndex]
                                 ReviewCard(review: review, userId: model.username)
                             }.padding(.vertical, 5)
                         }
