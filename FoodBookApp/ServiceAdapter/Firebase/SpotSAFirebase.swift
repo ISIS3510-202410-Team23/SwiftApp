@@ -21,12 +21,28 @@ class SpotSAFirebase: SpotSA {
         let snapshot = try await collection.document(documentId).getDocument()
         let spot = try snapshot.data(as: SpotDTO.self)
         var reviews = [Review]()
-
-        for reviewRef in spot.reviewData.userReviews {
-            let review = try await self.getReview(ref: reviewRef)
-            reviews.append(review)
+        
+        //        for reviewRef in spot.reviewData.userReviews {
+        //            let review = try await self.getReview(ref: reviewRef)
+        //            reviews.append(review)
+        //        }
+        
+        // Use a task group to fetch reviews concurrently
+        try await withThrowingTaskGroup(of: Review.self) { group in
+            for reviewRef in spot.reviewData.userReviews {
+                group.addTask {
+                    return try await self.getReview(ref: reviewRef)
+                }
+            }
+            
+            // Collect all reviews
+            for try await review in group {
+                reviews.append(review)
+            }
         }
-           
+        
+        print("FIREBASE: Completed spot fetch \(documentId)")
+        
         print("FIREBASE: Completed spot fetch \(documentId)")
         return Spot(categories: spot.categories, location: spot.location, name: spot.name, price: spot.price, waitTime: spot.waitTime, reviewData: ReviewData(stats: spot.reviewData.stats, userReviews: reviews), imageLinks: spot.imageLinks)
     }
@@ -36,15 +52,15 @@ class SpotSAFirebase: SpotSA {
         return try snapshot.data(as: Review.self)
     }
     
-
+    
     func getSpots() async throws -> [Spot] {
         let snapshot = try await collection.getDocuments()
         var spots: [Spot] = []
-
+        
         for document in snapshot.documents {
             print("FIREBASE: Trying to fetch document \(document.documentID)")
             let spotDTO = try document.data(as: SpotDTO.self)
-
+            
             let spot = Spot(
                 id: spotDTO.id,
                 categories: spotDTO.categories,
@@ -62,7 +78,7 @@ class SpotSAFirebase: SpotSA {
         }
         return spots
     }
-  
+    
     func updateSpot(documentId: String, reviewId: String) async throws {
         let spotRef = collection.document(documentId)
         let reviewRef = client.db.collection("reviews").document(reviewId)
