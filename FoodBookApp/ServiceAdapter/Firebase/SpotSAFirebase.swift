@@ -37,8 +37,6 @@ class SpotSAFirebase: SpotSA {
         }
         
         print("FIREBASE: Completed spot fetch \(documentId)")
-        
-        print("FIREBASE: Completed spot fetch \(documentId)")
         return Spot(categories: spot.categories, location: spot.location, name: spot.name, price: spot.price, waitTime: spot.waitTime, reviewData: ReviewData(stats: spot.reviewData.stats, userReviews: reviews), imageLinks: spot.imageLinks)
     }
     
