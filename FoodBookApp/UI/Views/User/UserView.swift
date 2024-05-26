@@ -46,7 +46,7 @@ struct UserView: View {
                         }
                             
                             NavigationLink(destination: UserReviewsView(user: $user, username: .constant(username ?? ""))) {
-                                Text("Your reviews")
+                                Text("My reviews")
                             }
                             
                             // MARK: - TEMPORARY ITEMS
