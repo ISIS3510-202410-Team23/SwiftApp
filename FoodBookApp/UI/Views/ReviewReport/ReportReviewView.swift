@@ -67,13 +67,13 @@ struct ReportReviewView: View {
                 Text("Leave a report")
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(selection == nil || networkService.isUnavailable || explanation.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? .gray : .blue)
+                    .background(selection == nil || networkService.isUnavailable || (selection == .other && explanation.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) ? .gray : .blue)
                     .foregroundColor(.white)
                     .cornerRadius(12)
                     .font(.system(size: 20))
             })
             .padding()
-            .disabled(selection == nil || networkService.isUnavailable || explanation.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            .disabled(selection == nil || networkService.isUnavailable || (selection == .other && explanation.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty))
             
             // MARK: - EC Message
             
