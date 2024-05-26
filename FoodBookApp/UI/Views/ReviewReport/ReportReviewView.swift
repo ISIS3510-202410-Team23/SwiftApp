@@ -61,19 +61,19 @@ struct ReportReviewView: View {
             
             // MARK: - Button to send
             Button(action: {
-                model.sendReport(reviewId: reviewId, reason: selection == .other ? explanation : selection!.rawValue)
+                model.sendReport(reviewId: reviewId, reason: selection == .other ? explanation.trimmingCharacters(in: .whitespacesAndNewlines) : selection!.rawValue)
                 sent = true
             }, label: {
                 Text("Leave a report")
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(selection == nil || networkService.isUnavailable ? .gray : .blue)
+                    .background(selection == nil || networkService.isUnavailable || explanation.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? .gray : .blue)
                     .foregroundColor(.white)
                     .cornerRadius(12)
                     .font(.system(size: 20))
             })
             .padding()
-            .disabled(selection == nil || networkService.isUnavailable)
+            .disabled(selection == nil || networkService.isUnavailable || explanation.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             
             // MARK: - EC Message
             

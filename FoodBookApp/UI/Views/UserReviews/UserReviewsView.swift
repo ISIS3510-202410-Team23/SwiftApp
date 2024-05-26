@@ -70,7 +70,7 @@ struct UserReviewsView: View {
             _ = try? await model.fetchUserReviews(username: username, userId: user?.uid ?? "", name: user?.name ?? "")
             isFetching = false
         }
-        .navigationTitle("Your reviews")
+        .navigationTitle("My reviews")
     }
 }
 
