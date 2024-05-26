@@ -22,11 +22,6 @@ class SpotSAFirebase: SpotSA {
         let spot = try snapshot.data(as: SpotDTO.self)
         var reviews = [Review]()
         
-        //        for reviewRef in spot.reviewData.userReviews {
-        //            let review = try await self.getReview(ref: reviewRef)
-        //            reviews.append(review)
-        //        }
-        
         // Use a task group to fetch reviews concurrently
         try await withThrowingTaskGroup(of: Review.self) { group in
             for reviewRef in spot.reviewData.userReviews {
