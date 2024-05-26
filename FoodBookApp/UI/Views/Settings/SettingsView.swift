@@ -16,6 +16,8 @@ struct SettingsView: View {
     
     @State private var authenticateReviews = UserDefaults.standard.bool(forKey: "authenticateBeforeUploading")
     
+    let notify = NotificationHandler()
+    
     let customGray2 = Color(red: 242/255, green: 242/255, blue: 247/255)
     
     var body: some View {
@@ -32,6 +34,9 @@ struct SettingsView: View {
                                 if (daysSinceLastReview && UserDefaults.standard.object(forKey: "daysSinceLastReview") == nil) {
                                     days = 3
                                     UserDefaults.standard.set(4, forKey: "daysSinceLastReview")
+                                }
+                                if (!daysSinceLastReview) {
+                                    notify.cancelNotification(identifier: "lastReviewNotification")
                                 }
                             }
                         if daysSinceLastReview {

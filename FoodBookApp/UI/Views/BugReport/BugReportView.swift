@@ -24,9 +24,6 @@ struct BugReportView: View {
     @State private var activeAlert: ActiveAlert? = nil
     @State private var draftMode = false
     
-    @State private var bugTypeList = ["Unexpected Behavior", "Crash", "Other"];
-    @State private var severityLevelList = ["Major", "Minor"];
-    
     var body: some View {
         VStack {
             if !networkService.isOnline {
@@ -50,15 +47,13 @@ struct BugReportView: View {
                 }
                 Section(header: Text("Bug Type and Severity")) {
                     Picker("Bug Type", selection: $bugType) {
-                        ForEach(bugTypeList.indices, id: \.self) { index in
-                            let bugTypeElement = bugTypeList[index];
-                            Text(bugTypeElement);
+                        ForEach(["Unexpected Behavior", "Crash", "Other"], id: \.self) {
+                            Text($0);
                         }
                     }
                     Picker("Severity Level", selection: $severityLevel) {
-                        ForEach(severityLevelList.indices, id: \.self) { index in
-                            let severityLevelElement = severityLevelList[index];
-                            Text(severityLevelElement)
+                        ForEach(["Minor", "Major"], id: \.self) {
+                            Text($0)
                         }
                     }
                 }
