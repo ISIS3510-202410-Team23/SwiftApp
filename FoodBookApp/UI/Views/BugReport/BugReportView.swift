@@ -67,11 +67,11 @@ struct BugReportView: View {
                 }
                 
                 Section {
-                    LargeButton(text: "Send bug report", bgColor: networkService.isUnavailable || descriptionText.isEmpty ? Color.gray : Color.blue, txtColor: Color.white, txtSize: 20) {
-                        model.send(date: Date(), description: self.descriptionText, bugType: self.bugType, severityLevel: self.severityLevel, stepsToReproduce: self.stepsToReproduce)
+                    LargeButton(text: "Send bug report", bgColor: networkService.isUnavailable ||  descriptionText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? Color.gray : Color.blue, txtColor: Color.white, txtSize: 20) {
+                        model.send(date: Date(), description: self.descriptionText.trimmingCharacters(in: .whitespacesAndNewlines), bugType: self.bugType, severityLevel: self.severityLevel, stepsToReproduce: self.stepsToReproduce)
                         sent = true
                     }
-                    .disabled(networkService.isUnavailable || descriptionText.trimmingCharacters(in: .whitespaces).isEmpty)
+                    .disabled(networkService.isUnavailable || descriptionText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                     .listRowBackground(Color.clear)
                     .listRowInsets(EdgeInsets())
                     
