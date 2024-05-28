@@ -76,6 +76,7 @@ class ContentViewModel {
             group.addTask {
                 do {
                     self.hotCategories = try await self.fetchHotCategories()
+                    self.hotCategories = self.hotCategories.sorted { $0.name < $1.name}
                     if !self.hotCategories.isEmpty {
                         self.cacheService.setCategories(self.hotCategories)
                     }
