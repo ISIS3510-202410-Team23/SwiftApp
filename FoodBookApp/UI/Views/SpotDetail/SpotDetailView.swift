@@ -105,6 +105,7 @@ struct SpotDetailView: View {
                                     ])
                                 }
                             }
+                            .scrollIndicators(.hidden)
                             
                             // Reviews - See more
                             HStack {

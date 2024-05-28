@@ -26,6 +26,7 @@ struct HCategoryList: View {
                 }
             }
         }
+        .scrollIndicators(.hidden)
     }
 }
 
